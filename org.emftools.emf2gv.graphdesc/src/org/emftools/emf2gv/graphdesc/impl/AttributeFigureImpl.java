@@ -247,7 +247,7 @@ public class AttributeFigureImpl extends AbstractFigureImpl implements Attribute
 				// Check unique
 				valid = !constraintsHelper.addErrorIfNotUnique(classFigure.getAttributeFigures(),
 						GraphdescPackage.eINSTANCE.getAttributeFigure_EAttribute(), diagnostic, this,
-						0, "The EAttribute {0} is referenced twice or more", eAttribute.getName());
+						0, "The EAttribute '{0}' is referenced twice or more", eAttribute.getName());
 
 				// Check eAttribute eClass
 				if (valid) {

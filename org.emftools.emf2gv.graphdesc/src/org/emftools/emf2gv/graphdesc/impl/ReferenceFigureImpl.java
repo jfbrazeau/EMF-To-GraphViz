@@ -315,7 +315,7 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 				valid = !constraintsHelper.addErrorIfNotUnique(classFigure
 						.getReferenceFigures(), GraphdescPackage.eINSTANCE
 						.getReferenceFigure_EReference(), diagnostic, this, 0,
-						"The EReference {0} is referenced twice or more",
+						"The EReference '{0}' is referenced twice or more",
 						eReference.getName());
 
 				// Check eReference eClass

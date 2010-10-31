@@ -463,7 +463,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				// Check unique
 				valid = !constraintsHelper.addErrorIfNotUnique(gvFigureDescription.getClassFigures(),
 						GraphdescPackage.eINSTANCE.getClassFigure_EClass(), diagnostic, this,
-						0, "The EClass {0} is referenced twice or more", eClass.getName());
+						0, "The EClass '{0}' is referenced twice or more", eClass.getName());
 
 				if (valid) {
 					// Check eClass package
@@ -472,7 +472,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 						classifiers.addAll(ePackage.getEClassifiers());
 					}
 					if (!classifiers.contains(eClass)) {
-						constraintsHelper.addError(diagnostic, this, 0, "The class figure EClass {0} is not contained in the EPackage authorized list", eClass.getName());
+						constraintsHelper.addError(diagnostic, this, 0, "The class figure EClass '{0}' is not contained in the EPackage authorized list", eClass.getName());
 						valid = false;
 					}
 				}
