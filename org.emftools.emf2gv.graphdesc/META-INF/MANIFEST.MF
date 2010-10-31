@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.emftools.emf2gv.graphdesc;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
+ org.emftools.validation.utils,
+ org.emftools.emf2gv.util
+Bundle-ActivationPolicy: lazy
+Export-Package: org.emftools.emf2gv.graphdesc,
+ org.emftools.emf2gv.graphdesc.impl,
+ org.emftools.emf2gv.graphdesc.util

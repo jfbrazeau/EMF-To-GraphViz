@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="org.emftools.emf2gv.graphdesc.presentation.GraphdescEditorID"
+            name="%_UI_GraphdescEditor_label"
+            icon="icons/full/obj16/GraphdescModelFile.gif"
+            extensions="graphdesc"
+            class="org.emftools.emf2gv.graphdesc.presentation.GraphdescEditor"
+            contributorClass="org.emftools.emf2gv.graphdesc.presentation.GraphdescActionBarContributor">
+      </editor>
+   </extension>
+   <extension
+         point="org.emftools.validation.builder.fileExtensions">
+      <fileExtensionsFromEditor
+            editorId="org.emftools.emf2gv.graphdesc.presentation.GraphdescEditorID">
+      </fileExtensionsFromEditor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emftools.Wizard.category.ID"
+            name="%_UI_Wizard_category">
+      </category>
+      <wizard
+            canFinishEarly="false"
+            category="org.eclipse.emftools.Wizard.category.ID"
+            class="org.emftools.emf2gv.graphdesc.presentation.wizard.GraphdescModelWizard"
+            hasPages="true"
+            icon="icons/full/obj16/GraphdescModelFile.gif"
+            id="org.emftools.emf2gv.graphdesc.presentation.GraphdescModelWizard"
+            name="%_UI_GraphdescModelWizard_label">
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+   </extension>
+
+</plugin>

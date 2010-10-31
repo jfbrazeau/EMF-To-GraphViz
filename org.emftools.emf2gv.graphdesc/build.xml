@@ -1,0 +1,10 @@
+<project>
+	<target name="default">
+		<replaceregexp flags="m" match=".*package" replace="// TOTO&#10;">
+			<fileset dir="src1">
+				<include name="*.java"/>
+			</fileset>
+		</replaceregexp>
+	</target>
+
+</project>
