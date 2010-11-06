@@ -38,8 +38,16 @@ import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.provider.GraphdescEditPlugin;
 import org.osgi.framework.Bundle;
 
+/**
+ * ArrowType item label provider.
+ * 
+ * Manages the arrow types icons.
+ */
 public class ArrowTypeItemLabelProvider implements IItemLabelProvider {
 
+	/**
+	 * Arrow types categories enumeration.
+	 */
 	public static enum Category {
 		Source, Target
 	}

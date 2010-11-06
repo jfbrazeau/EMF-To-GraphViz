@@ -44,8 +44,16 @@ import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.util.ColorsHelper;
 
+/**
+ * Utility class allowing to generate a default graphical description from an
+ * EPackage list.
+ * 
+ * The default generation algorithm does not process the non containment
+ * references features.
+ */
 public class GraphdescGenerator {
 
+	/** Predefined colors tu use in the class figures */
 	private static List<Integer> predefinedColors = Arrays
 			.asList(new Integer[] { // Predefined colors
 			0xD0BCFE, // Blue violet
@@ -59,6 +67,13 @@ public class GraphdescGenerator {
 
 			});
 
+	/**
+	 * Generates a graphical description from an EPackage list.
+	 * 
+	 * @param ePackages
+	 *            the EPackage list to process.
+	 * @return the generated graphical description.
+	 */
 	public static GVFigureDescription createGVFigureDescription(
 			List<EPackage> ePackages) {
 		GVFigureDescription gvFigDesc = GraphdescFactory.eINSTANCE
@@ -104,6 +119,13 @@ public class GraphdescGenerator {
 		return gvFigDesc;
 	}
 
+	/**
+	 * Add to a graphical description the attribute figures and several
+	 * appearance information (colors, ...).
+	 * 
+	 * @param gvFigDesc
+	 *            the graphical description.
+	 */
 	public static void addEAttributesAndAppearanceStyleData(
 			GVFigureDescription gvFigDesc) {
 		int predefinedColorIdx = 0;

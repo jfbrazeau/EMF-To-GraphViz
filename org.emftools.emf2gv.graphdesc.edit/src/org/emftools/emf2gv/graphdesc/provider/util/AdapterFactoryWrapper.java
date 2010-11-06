@@ -31,30 +31,81 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notifier;
 
+/**
+ * AdapterFactory wrapper used to intercept the adaption calls.
+ * 
+ * It is used to override the label provider returned by default by EMF for the
+ * EPackages property in order to show the package uri instead of the package
+ * name.
+ * 
+ * Unload EPackages have a null name which is not convenient in the properties
+ * view.
+ */
 public abstract class AdapterFactoryWrapper implements AdapterFactory {
-	
+
+	/** The wrapped adapter factory */
 	private AdapterFactory wrappedFactory;
-	
+
+	/**
+	 * Default constructor.
+	 * 
+	 * @param wrappedFactory
+	 *            the wrapped adapter factory.
+	 */
 	public AdapterFactoryWrapper(AdapterFactory wrappedFactory) {
 		this.wrappedFactory = wrappedFactory;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.emf.common.notify.AdapterFactory#isFactoryForType(java.lang
+	 * .Object)
+	 */
 	public boolean isFactoryForType(Object type) {
 		return wrappedFactory.isFactoryForType(type);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.emf.common.notify.AdapterFactory#adaptNew(org.eclipse.emf
+	 * .common.notify.Notifier, java.lang.Object)
+	 */
 	public Adapter adaptNew(Notifier target, Object type) {
 		return wrappedFactory.adaptNew(target, type);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.emf.common.notify.AdapterFactory#adaptAllNew(org.eclipse.
+	 * emf.common.notify.Notifier)
+	 */
 	public void adaptAllNew(Notifier notifier) {
 		wrappedFactory.adaptAllNew(notifier);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.emf.common.notify.AdapterFactory#adapt(org.eclipse.emf.common
+	 * .notify.Notifier, java.lang.Object)
+	 */
 	public Adapter adapt(Notifier target, Object type) {
 		return wrappedFactory.adapt(target, type);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.emf.common.notify.AdapterFactory#adapt(java.lang.Object,
+	 * java.lang.Object)
+	 */
 	public Object adapt(Object object, Object type) {
 		Object defaultAdapter = wrappedFactory.adapt(object, type);
 		Object result = doAdapt(object, type, defaultAdapter);
@@ -64,5 +115,17 @@ public abstract class AdapterFactoryWrapper implements AdapterFactory {
 		return result;
 	}
 
-	public abstract Object doAdapt(Object object, Object type, Object defaultAdapter);	
+	/**
+	 * Adaption method delegate.
+	 * 
+	 * @param object
+	 *            the object to adapt.
+	 * @param type
+	 *            the required type.
+	 * @param defaultAdapter
+	 *            the default adapter.
+	 * @return the adapter to use.
+	 */
+	public abstract Object doAdapt(Object object, Object type,
+			Object defaultAdapter);
 }
