@@ -77,7 +77,6 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.provider.AdapterFactoryItemDelegator;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
@@ -139,15 +138,13 @@ import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
-import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
-import org.emftools.emf2gv.graphdesc.presentation.util.GraphdescPropertySource;
+import org.emftools.emf2gv.graphdesc.presentation.util.GraphdescPropertySourceProvider;
 import org.emftools.emf2gv.graphdesc.provider.GraphdescItemProviderAdapterFactory;
 
 
@@ -1394,18 +1391,10 @@ public class GraphdescEditor
 						}
 					};
 				};
-			propertySheetPage.setPropertySourceProvider(new AdapterFactoryContentProvider(adapterFactory) {
-				@Override
-				protected IPropertySource createPropertySource(Object object,
-						IItemPropertySource itemPropertySource) {
-					return new GraphdescPropertySource(object, itemPropertySource, colorIcons);
-				}
-			});
-		}
+			propertySheetPage.setPropertySourceProvider(new GraphdescPropertySourceProvider(adapterFactory, colorIcons));		}
 
 		return propertySheetPage;
 	}
-    final Image icon = AbstractUIPlugin.imageDescriptorFromPlugin("org.emftools.emf2gv.graphdesc.editor", "icons/full/obj16/GraphdescModelFile.gif").createImage();
 
 	/**
 	 * This deals with how we want selection in the outliner to affect the other views.
