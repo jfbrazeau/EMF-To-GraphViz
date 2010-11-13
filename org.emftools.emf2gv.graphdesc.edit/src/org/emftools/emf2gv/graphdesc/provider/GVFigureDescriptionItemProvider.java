@@ -127,7 +127,7 @@ public class GVFigureDescriptionItemProvider
 				(factory,
 				 getResourceLocator(),
 				 getString("_UI_GVFigureDescription_ePackages_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GVFigureDescription_ePackages_feature", "_UI_GVFigureDescription_type"),
+				 getString("_UI_GVFigureDescription_ePackages_description", "_UI_GVFigureDescription_ePackages_feature", "_UI_GVFigureDescription_type"),
 				 GraphdescPackage.Literals.GV_FIGURE_DESCRIPTION__EPACKAGES,
 				 true,
 				 false,

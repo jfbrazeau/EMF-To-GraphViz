@@ -111,7 +111,7 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 						((ComposeableAdapterFactory) adapterFactory)
 								.getRootAdapterFactory(), getResourceLocator(),
 						getString("_UI_ReferenceFigure_eReference_feature"),
-						getString("_UI_PropertyDescriptor_description",
+						getString("_UI_ReferenceFigure_eReference_description",
 								"_UI_ReferenceFigure_eReference_feature",
 								"_UI_ReferenceFigure_type"),
 						GraphdescPackage.Literals.REFERENCE_FIGURE__EREFERENCE,
@@ -175,7 +175,7 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 				((ComposeableAdapterFactory) adapterFactory)
 						.getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ReferenceFigure_targetArrowType_feature"),
-				getString("_UI_PropertyDescriptor_description",
+				getString("_UI_ReferenceFigure_targetArrowType_description",
 						"_UI_ReferenceFigure_targetArrowType_feature",
 						"_UI_ReferenceFigure_type"),
 				GraphdescPackage.Literals.REFERENCE_FIGURE__TARGET_ARROW_TYPE,
@@ -199,7 +199,7 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 				((ComposeableAdapterFactory) adapterFactory)
 						.getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ReferenceFigure_sourceArrowType_feature"),
-				getString("_UI_PropertyDescriptor_description",
+				getString("_UI_ReferenceFigure_sourceArrowType_description",
 						"_UI_ReferenceFigure_sourceArrowType_feature",
 						"_UI_ReferenceFigure_type"),
 				GraphdescPackage.Literals.REFERENCE_FIGURE__SOURCE_ARROW_TYPE,

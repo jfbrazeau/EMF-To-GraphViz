@@ -41,17 +41,19 @@
     </genClasses>
     <genClasses ecoreClass="graphdesc.ecore#//ClassFigure">
       <genFeatures property="Readonly" notify="false" createChild="false" propertyCategory="Model"
-          ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/ePackage"/>
-      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertySortChoices="true"
-          ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/eClass"/>
+          propertyDescription="The EPackage to which the EClass belongs." ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/ePackage"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The EClass that  that this figure will represent on the graph"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/eClass"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Appearance"
-          propertyDescription="The EClass attribute to use for the node label" propertySortChoices="true"
-          ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/labelEAttribute"/>
+          propertyDescription="The EClass attribute to use for the figure's label (the label that appears in the figure's header)"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/labelEAttribute"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/attributeFigures"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/referenceFigures"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/gvFigureDescription"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/headerBackgroundColor"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/bodyBackgroundColor"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Figure's header background color"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/headerBackgroundColor"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Figure's body background color"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/bodyBackgroundColor"/>
       <genOperations ecoreOperation="graphdesc.ecore#//ClassFigure/getAttributeFigure">
         <genParameters ecoreParameter="graphdesc.ecore#//ClassFigure/getAttributeFigure/eAttribute"/>
       </genOperations>
@@ -64,10 +66,11 @@
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="graphdesc.ecore#//AttributeFigure">
-      <genFeatures createChild="false" propertyCategory="Appearance" ecoreFeature="ecore:EAttribute graphdesc.ecore#//AttributeFigure/label"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The label to use (to be used when one wants to override the default EAttribute name)"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//AttributeFigure/label"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//AttributeFigure/classFigure"/>
-      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertySortChoices="true"
-          ecoreFeature="ecore:EReference graphdesc.ecore#//AttributeFigure/eAttribute"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The EAttribute that this figure will represent on the graph"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//AttributeFigure/eAttribute"/>
       <genOperations ecoreOperation="graphdesc.ecore#//AttributeFigure/validate">
         <genParameters ecoreParameter="graphdesc.ecore#//AttributeFigure/validate/diagnostic"/>
         <genParameters ecoreParameter="graphdesc.ecore#//AttributeFigure/validate/context"/>
@@ -75,10 +78,12 @@
     </genClasses>
     <genClasses ecoreClass="graphdesc.ecore#//ReferenceFigure">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//ReferenceFigure/classFigure"/>
-      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertySortChoices="true"
-          ecoreFeature="ecore:EReference graphdesc.ecore#//ReferenceFigure/eReference"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/targetArrowType"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/sourceArrowType"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The EReference that this figure will represent on the graph"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ReferenceFigure/eReference"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The target arrow type"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/targetArrowType"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The source arrow type"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/sourceArrowType"/>
       <genFeatures property="Readonly" createChild="false" propertyCategory="Model"
           propertyDescription="Shows if the EReference is a containment reference"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/containment"/>
