@@ -3,7 +3,12 @@
       id="org.emftools.emf2gv"
       label="EMF To GraphViz Feature"
       version="1.0.0.qualifier"
-      provider-name="Jean-Francois Brazeau">
+      provider-name="Jean-Francois Brazeau"
+      plugin="org.emftools.emf2gv.processor">
+
+   <description url="https://sourceforge.net/projects/emf2gv/">
+      A set of lightweight plugins allowing to easily generate a graphical representation of an EMF model (using GraphViz utility http://www.graphviz.org/)
+   </description>
 
    <copyright>
       Copyright (c) 2010, Jean-Francois Brazeau. All rights reserved.
@@ -62,6 +67,15 @@ IN
 ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
    </license>
+
+   <url>
+      <discovery label="Sourceforge site" url="https://sourceforge.net/projects/emf2gv/"/>
+      <discovery label="Project documentation" url="http://gmfsamples.tuxfamily.org/wiki/doku.php?id=emf_tools:emf2graphviz:start"/>
+   </url>
+
+   <requires>
+      <import feature="org.emftools.validation" version="1.0.0.qualifier"/>
+   </requires>
 
    <plugin
          id="org.emftools.emf2gv.graphdesc"
