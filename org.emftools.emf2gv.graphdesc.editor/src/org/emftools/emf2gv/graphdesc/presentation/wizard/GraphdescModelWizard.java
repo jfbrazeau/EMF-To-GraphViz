@@ -57,6 +57,7 @@ import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.presentation.GraphdescEditorPlugin;
 import org.emftools.emf2gv.graphdesc.util.GraphdescGenerator;
+import org.emftools.validation.builder.util.EMFValidationNatureHelper;
 
 public class GraphdescModelWizard extends Wizard implements INewWizard {
 
@@ -176,6 +177,11 @@ public class GraphdescModelWizard extends Wizard implements INewWizard {
 								.getString("_UI_OpenEditorError_label"),
 						exception.getMessage());
 				return false;
+			}
+
+			// Activates the validation nature if required
+			if (!EMFValidationNatureHelper.hasNature(modelFile.getProject())) {
+				EMFValidationNatureHelper.toggleNature(modelFile.getProject());
 			}
 
 			return true;
