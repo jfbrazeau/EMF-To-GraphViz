@@ -61,34 +61,94 @@ import org.emftools.emf2gv.util.ColorsHelper;
 import org.emftools.emf2gv.util.EMFHelper;
 import org.emftools.emf2gv.util.IOHelper;
 
+/**
+ * Graphviz source builder.
+ * 
+ * An instance of this builder can only be used once. The processing method is
+ * synchronized so that two threads cannot interfere.
+ * 
+ * A boolean is used to ensure that when the builder has finished the generation
+ * job, it cannot be reused.
+ * 
+ */
 public class GVSourceAndDependenciesBuilder {
 
+	/**
+	 * A boolean indicating if the builder is closed.
+	 */
 	private volatile boolean isClosed = false;
 
+	/**
+	 * The buffer receiving the graphvis source.
+	 */
 	private StringWriter buffer = new StringWriter();
 
+	/**
+	 * A print writer on top of the graphviz source buffer giving some helpful utility methods.
+	 */
 	private PrintWriter out = new PrintWriter(buffer);
 
+	/**
+	 * A cache containing the eObjects's identifiers.
+	 */
 	private Map<EObject, String> eObjectIdsCache = new HashMap<EObject, String>();
 
+	/**
+	 * A list containing the node descriptions list sorted by EClass. That list is used when the nodes of a same EClass must be aligned.
+	 */
 	private Map<EClass, List<NodeDesc>> nodesListByEclass = new HashMap<EClass, List<NodeDesc>>();
 
+	/**
+	 * The edges list.
+	 */
 	private List<EdgeDesc> edges = new ArrayList<EdgeDesc>();
 
+	/**
+	 * The graphical description.
+	 */
 	private GVFigureDescription figureDesc;
 
+	/**
+	 * The adapter factory.
+	 */
 	private AdapterFactory adapterFactory;
 
-	private Map<URL, String> iconsUrlsToPathsMap = new HashMap<URL, String>();
+	/**
+	 * A map containing the associations between icons URL and generated PNG files.
+	 */
+	private Map<URL, String> iconUrlsToPngImagePathsAssociationMap = new HashMap<URL, String>();
 
+	/**
+	 * the folder receiving the PNG icons.
+	 */
 	private IFolder iconsFolder;
 
+	/**
+	 * The nodes count.
+	 */
 	private int nodesCount = 0;
 
+	/**
+	 * The edges count.
+	 */
 	private int edgesCount = 0;
 
+	/**
+	 * The diagnostician used to validate the EObjects.
+	 */
 	private Diagnostician diagnostician;
 
+	/**
+	 * Default constructor.
+	 * 
+	 * @param figureDesc
+	 *            the figure description.
+	 * @param iconsFolder
+	 *            the folder receiving the PNG icons.
+	 * @param addValidationDecorators
+	 *            a boolean indicating if validation decorators have to be
+	 *            included in the diagram.
+	 */
 	public GVSourceAndDependenciesBuilder(GVFigureDescription figureDesc,
 			IFolder iconsFolder, boolean addValidationDecorators) {
 		this.figureDesc = figureDesc;
@@ -114,11 +174,31 @@ public class GVSourceAndDependenciesBuilder {
 		};
 	}
 
+	/**
+	 * Generates a graphviz source for a given root.
+	 * 
+	 * @param eContentRoot
+	 *            the root to process.
+	 * @param monitor
+	 *            a progress monitor.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	public void process(EObject eContentRoot, IProgressMonitor monitor)
 			throws CoreException {
 		process(Arrays.asList(new EObject[] { eContentRoot }), monitor);
 	}
 
+	/**
+	 * Generates a graphviz source for a given list of roots.
+	 * 
+	 * @param eContentRoots
+	 *            the roots to process.
+	 * @param monitor
+	 *            a progress monitor.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	public synchronized void process(List<EObject> eContentRoots,
 			IProgressMonitor monitor) throws CoreException {
 		try {
@@ -153,18 +233,38 @@ public class GVSourceAndDependenciesBuilder {
 		}
 	}
 
+	/**
+	 * @return the graphiz source buffer.
+	 */
 	public String getGvSource() {
 		return buffer.toString();
 	}
 
+	/**
+	 * @return the nodes count.
+	 */
 	public int getNodesCount() {
 		return nodesCount;
 	}
 
+	/**
+	 * @return the adgees count.
+	 */
 	public int getEdgesCount() {
 		return edgesCount;
 	}
 
+	/**
+	 * Processes an EObject and its childs recursively.
+	 * 
+	 * @param eContentRoot
+	 *            the root EObjet.
+	 * @param monitor
+	 *            a progress monitor.
+	 * @return the eObject's identifier.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	private String processEObject(EObject eContentRoot, IProgressMonitor monitor)
 			throws CoreException {
 		String eContentRootId = eObjectIdsCache.get(eContentRoot);
@@ -183,15 +283,18 @@ public class GVSourceAndDependenciesBuilder {
 
 				// EObject validation and status icons retrieval
 				boolean addValidationDecorators = (diagnostician != null);
-				String statusIconPath = null;
+				String validationDecoratorIconPath = null;
 				if (addValidationDecorators) {
-					Diagnostic diagnostic = diagnostician.validate(eContentRoot);
+					Diagnostic diagnostic = diagnostician
+							.validate(eContentRoot);
 					switch (diagnostic.getSeverity()) {
 					case Diagnostic.ERROR:
-						statusIconPath = findAndSavePluginIcon("error", monitor);
+						validationDecoratorIconPath = findAndSavePluginIcon(
+								"error", monitor);
 						break;
 					case Diagnostic.WARNING:
-						statusIconPath = findAndSavePluginIcon("warning", monitor);
+						validationDecoratorIconPath = findAndSavePluginIcon(
+								"warning", monitor);
 						break;
 					}
 				}
@@ -202,7 +305,7 @@ public class GVSourceAndDependenciesBuilder {
 				nodeDesc.eObject = eContentRoot;
 				nodeDesc.eObjectId = eContentRootId;
 				nodeDesc.iconPath = iconPath;
-				nodeDesc.statusIconPath = statusIconPath != null ? statusIconPath
+				nodeDesc.validationDecoratorIconPath = validationDecoratorIconPath != null ? validationDecoratorIconPath
 						: null;
 				List<NodeDesc> nodeList = nodesListByEclass.get(classFigure
 						.getEClass());
@@ -236,6 +339,16 @@ public class GVSourceAndDependenciesBuilder {
 		return eContentRootId;
 	}
 
+	/**
+	 * Finds an icon retrieved from a plugin (and saves it as a PNG file the
+	 * first time).
+	 * 
+	 * @param name
+	 *            the icon name.
+	 * @param monitor
+	 *            a progress monitor.
+	 * @return the icon path.
+	 */
 	private String findAndSavePluginIcon(String name, IProgressMonitor monitor) {
 		IPath iconPath = null;
 		URL url = null;
@@ -243,7 +356,7 @@ public class GVSourceAndDependenciesBuilder {
 		try {
 			url = Activator.getDefault().getBundle()
 					.getEntry("/icons/" + name + ".gif");
-			iconFullPath = iconsUrlsToPathsMap.get(url);
+			iconFullPath = iconUrlsToPngImagePathsAssociationMap.get(url);
 			if (iconFullPath == null) {
 				// Icon path building
 				iconPath = iconsFolder.getFullPath().append("/")
@@ -267,6 +380,16 @@ public class GVSourceAndDependenciesBuilder {
 		return iconFullPath;
 	}
 
+	/**
+	 * Finds the icon associated to the given EObject (and saves it as a PNG
+	 * file the first time).
+	 * 
+	 * @param eObject
+	 *            the EObject.
+	 * @param monitor
+	 *            a progress monitor.
+	 * @return the icon path.
+	 */
 	private String findAndSaveEObjectIcon(EObject eObject,
 			IProgressMonitor monitor) {
 		String iconFullPath = null;
@@ -277,7 +400,7 @@ public class GVSourceAndDependenciesBuilder {
 			Object image = labelProvider.getImage(eObject);
 			if (image instanceof URL) {
 				URL url = (URL) image;
-				iconFullPath = iconsUrlsToPathsMap.get(url);
+				iconFullPath = iconUrlsToPngImagePathsAssociationMap.get(url);
 				if (iconFullPath == null) {
 					try {
 						// Filename retreival
@@ -329,21 +452,50 @@ public class GVSourceAndDependenciesBuilder {
 		return iconFullPath;
 	}
 
-	private String copyImageToPng(URL url, IPath iconPath,
+	/**
+	 * Copies a image to a new file under a PNG format.
+	 * 
+	 * @param sourceImageUrl
+	 *            the source image url.
+	 * @param targetPngImagePath
+	 *            the target png image path.
+	 * @param monitor
+	 *            a progress monitor.
+	 * @return the PNG file path.
+	 * @throws IOException
+	 *             thrown if an I/O error occurs.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
+	private String copyImageToPng(URL sourceImageUrl, IPath targetPngImagePath,
 			IProgressMonitor monitor) throws IOException, CoreException {
 		// Image file loading and conversion into PNG
-		byte[] pngImage = IOHelper.loadAndConvertImageToPng(url.openStream());
+		byte[] pngImage = IOHelper.loadAndConvertImageToPng(sourceImageUrl
+				.openStream());
 
 		// Saves the PNG image
-		IFile iconFile = IOHelper.save(iconPath, pngImage, monitor);
+		IFile iconFile = IOHelper.save(targetPngImagePath, pngImage, monitor);
 
 		// Get the file absolute path
 		String iconFullPath = iconFile.getRawLocation().toString()
 				.replace('\\', '/');
-		iconsUrlsToPathsMap.put(url, iconFullPath);
+
+		// Registers the icon path in the map
+		iconUrlsToPngImagePathsAssociationMap.put(sourceImageUrl, iconFullPath);
+
+		// Returns the result
 		return iconFullPath;
 	}
 
+	/**
+	 * Retrieves the EObjects targeted by an EReference for a given EObject.
+	 * 
+	 * @param eObject
+	 *            the EObject.
+	 * @param eReference
+	 *            the EReference.
+	 * @return the target EObject list.
+	 */
 	private static List<EObject> getTargetRefEObjects(EObject eObject,
 			EReference eReference) {
 		List<EObject> targetEObjects = new ArrayList<EObject>();
@@ -360,6 +512,12 @@ public class GVSourceAndDependenciesBuilder {
 		return targetEObjects;
 	}
 
+	/**
+	 * Flushes an edge in the graphviz source buffer.
+	 * 
+	 * @param edgeDesc
+	 *            the edge description to flush.
+	 */
 	private void flushEdge(EdgeDesc edgeDesc) {
 		ReferenceFigure referenceFigure = edgeDesc.referenceFigure;
 		out.print('\t');
@@ -377,6 +535,14 @@ public class GVSourceAndDependenciesBuilder {
 		edgesCount++;
 	}
 
+	/**
+	 * Flushes a node in the graphviz source buffer.
+	 * 
+	 * @param nodeDesc
+	 *            the node description to flush.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	private void flushNode(NodeDesc nodeDesc) throws CoreException {
 		ClassFigure classFigure = nodeDesc.classFigure;
 		/*
@@ -396,7 +562,7 @@ public class GVSourceAndDependenciesBuilder {
 		 * EObject icon processing
 		 */
 		boolean iconAvailable = nodeDesc.iconPath != null;
-		boolean statusIconAvailable = nodeDesc.statusIconPath != null;
+		boolean statusIconAvailable = nodeDesc.validationDecoratorIconPath != null;
 		if (iconAvailable) {
 			out.print("\t\t\t\t\t\t<TD ALIGN=\"RIGHT\"><IMG SCALE=\"FALSE\" SRC=\"");
 			out.print(nodeDesc.iconPath);
@@ -441,7 +607,7 @@ public class GVSourceAndDependenciesBuilder {
 		// Status icon
 		if (statusIconAvailable) {
 			out.print("\t\t\t\t\t\t<TD ALIGN=\"LEFT\"><IMG SCALE=\"FALSE\" SRC=\"");
-			out.print(nodeDesc.statusIconPath);
+			out.print(nodeDesc.validationDecoratorIconPath);
 			out.println("\"/></TD>");
 		}
 		out.println("\t\t\t\t\t</TR>");
@@ -479,6 +645,13 @@ public class GVSourceAndDependenciesBuilder {
 		nodesCount++;
 	}
 
+	/**
+	 * Fix HTML characters.
+	 * 
+	 * @param str
+	 *            the string to fix.
+	 * @return the resulting HTML string.
+	 */
 	private String toHtmlString(String str) {
 		str = str.replaceAll("&", "&amp;");
 		str = str.replaceAll("<", "&lt;");
@@ -486,6 +659,15 @@ public class GVSourceAndDependenciesBuilder {
 		return str;
 	}
 
+	/**
+	 * Builds a unique identifier for a given eObject.
+	 * 
+	 * @param classFigure
+	 *            the class figure associated to the EObject.
+	 * @param eObject
+	 *            the EObject.
+	 * @return the generated identifier.
+	 */
 	private String buildEObjectIdentifier(ClassFigure classFigure,
 			EObject eObject) {
 		StringWriter buf = new StringWriter();
@@ -495,6 +677,9 @@ public class GVSourceAndDependenciesBuilder {
 		return buf.toString();
 	}
 
+	/**
+	 * Flushes the graphviz source header in the buffer.
+	 */
 	private void flushHeader() {
 		out.println("digraph {");
 		out.print("\trankdir = ");
@@ -509,22 +694,49 @@ public class GVSourceAndDependenciesBuilder {
 		out.println(";");
 	}
 
+	/**
+	 * Flushes the graphviz source footer in the buffer.
+	 */
 	private void flushFooter() {
 		out.println("}");
 	}
 
 }
 
+/**
+ * Node description.
+ */
 class NodeDesc {
+
+	/** Class figure associated to the node */
 	ClassFigure classFigure;
+
+	/** EObject represented by the node */
 	EObject eObject;
+
+	/** EObject identifier */
 	String eObjectId;
+
+	/** Icon path */
 	String iconPath;
-	String statusIconPath;
+
+	/** Validation decorator icon path */
+	String validationDecoratorIconPath;
+
 }
 
+/**
+ * Edge description.
+ */
 class EdgeDesc {
+
+	/** Reference figure associated to the edge */
 	ReferenceFigure referenceFigure;
+
+	/** Source EObject identifier */
 	String srcEObjectId;
+
+	/** Target EObject identifier */
 	String targetEObjectId;
+
 }

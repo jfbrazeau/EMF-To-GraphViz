@@ -31,106 +31,276 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 
-public class EMF2GvLaunchConfigTypeProperties {
+/**
+ * Helper class offering services to manage the launch configuration type
+ * parameters.
+ */
+public class EMF2GvLaunchConfigHelper {
 
+	/** The graphical description path */
 	private static final String GRAPHDESC_PATH = "graphDescPath";
+
+	/** The model path */
 	private static final String MODEL_PATH = "modelPath";
+
+	/** The target image path */
 	private static final String TARGET_PATH = "targetPath";
+
+	/** A boolean indicating if all the emf resource contents must be processed */
 	private static final String PROCESS_ALL_RESOURCE_CONTENTS = "processAllResourceContents";
+
+	/** The root element to process */
 	private static final String SELECTED_ELEMENT_URI_FRAGMENT = "selectedElementUriFragment";
+
+	/** A boolean indicating if the generated graphviz source must be kept */
 	private static final String KEEP_GENERATED_GV_FILE = "keepGeneratedGvFile";
+
+	/**
+	 * A boolean indicating if the diagram must be automatically opened at the
+	 * end of the generation.
+	 */
 	private static final String AUTO_OPEN_IMAGE_EDITOR = "autoOpenImageEditor";
+
+	/** A boolean indicating if the graphical description must be generated. */
 	private static final String GENERATE_GRAPHDESC = "generateGraphDesc";
+
+	/**
+	 * A boolean indicating if the validation decorators must be added to the
+	 * diagram.
+	 */
 	private static final String ADD_VALIDATION_DECORATORS = "addValidationDecorators";
 
+	/**
+	 * @param cfg
+	 *            the launch configuration.
+	 * @return the graphical description path.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	public static String getGraphDescPath(ILaunchConfiguration cfg)
 			throws CoreException {
 		return cfg.getAttribute(GRAPHDESC_PATH, "");
 	}
 
+	/**
+	 * Sets the graphical description path.
+	 * 
+	 * @param cfg
+	 *            the launch configuration.
+	 * @param value
+	 *            the new value.
+	 */
 	public static void setGraphDescPath(ILaunchConfigurationWorkingCopy cfg,
 			String value) {
 		cfg.setAttribute(GRAPHDESC_PATH, value);
 	}
 
+	/**
+	 * @param cfg
+	 *            the launch configuration.
+	 * @return the model path.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	public static String getModelPath(ILaunchConfiguration cfg)
 			throws CoreException {
 		return cfg.getAttribute(MODEL_PATH, "");
 	}
 
+	/**
+	 * Sets the model path.
+	 * 
+	 * @param cfg
+	 *            the launch configuration.
+	 * @param value
+	 *            the new value.
+	 */
 	public static void setModelPath(ILaunchConfigurationWorkingCopy cfg,
 			String value) {
 		cfg.setAttribute(MODEL_PATH, value);
 	}
 
+	/**
+	 * @param cfg
+	 *            the launch configuration.
+	 * @return the target image path.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	public static String getTargetPath(ILaunchConfiguration cfg)
 			throws CoreException {
 		return cfg.getAttribute(TARGET_PATH, "");
 	}
 
+	/**
+	 * Sets the target image path.
+	 * 
+	 * @param cfg
+	 *            the launch configuration.
+	 * @param value
+	 *            the new value.
+	 */
 	public static void setTargetPath(ILaunchConfigurationWorkingCopy cfg,
 			String value) {
 		cfg.setAttribute(TARGET_PATH, value);
 	}
 
+	/**
+	 * @param cfg
+	 *            the launch configuration.
+	 * @return a boolean indicating if all the emf resource contents must be
+	 *         processed.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	public static boolean getProcessAllResourceContents(ILaunchConfiguration cfg)
 			throws CoreException {
 		return cfg.getAttribute(PROCESS_ALL_RESOURCE_CONTENTS, true);
 	}
 
+	/**
+	 * Sets a boolean indicating if all the emf resource contents must be
+	 * processed.
+	 * 
+	 * @param cfg
+	 *            the launch configuration.
+	 * @param value
+	 *            the new value.
+	 */
 	public static void setProcessAllResourceContents(
 			ILaunchConfigurationWorkingCopy cfg, boolean value) {
 		cfg.setAttribute(PROCESS_ALL_RESOURCE_CONTENTS, value);
 	}
 
+	/**
+	 * @param cfg
+	 *            the launch configuration.
+	 * @return the root element to process.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	public static String getSelectedElementUriFragment(ILaunchConfiguration cfg)
 			throws CoreException {
 		return cfg.getAttribute(SELECTED_ELEMENT_URI_FRAGMENT, "");
 	}
 
+	/**
+	 * Sets the root element to process.
+	 * 
+	 * @param cfg
+	 *            the launch configuration.
+	 * @param value
+	 *            the new value.
+	 */
 	public static void setSelectedElementUriFragment(
 			ILaunchConfigurationWorkingCopy cfg, String value) {
 		cfg.setAttribute(SELECTED_ELEMENT_URI_FRAGMENT, value);
 	}
 
+	/**
+	 * @param cfg
+	 *            the launch configuration.
+	 * @return a boolean indicating if the generated graphviz source must be
+	 *         kept.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	public static boolean getKeepGeneratedGvFile(ILaunchConfiguration cfg)
 			throws CoreException {
 		return cfg.getAttribute(KEEP_GENERATED_GV_FILE, false);
 	}
 
+	/**
+	 * Sets a boolean indicating if the generated graphviz source must be kept.
+	 * 
+	 * @param cfg
+	 *            the launch configuration.
+	 * @param value
+	 *            the new value.
+	 */
 	public static void setKeepGeneratedGvFile(
 			ILaunchConfigurationWorkingCopy cfg, boolean value) {
 		cfg.setAttribute(KEEP_GENERATED_GV_FILE, value);
 	}
 
+	/**
+	 * @param cfg
+	 *            the launch configuration.
+	 * @return a boolean indicating if the diagram must be automatically opened
+	 *         at the end of the generation.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	public static boolean getAutoOpenImageEditor(ILaunchConfiguration cfg)
 			throws CoreException {
 		return cfg.getAttribute(AUTO_OPEN_IMAGE_EDITOR, true);
 	}
 
+	/**
+	 * Sets a boolean indicating if the diagram must be automatically opened at
+	 * the end of the generation.
+	 * 
+	 * @param cfg
+	 *            the launch configuration.
+	 * @param value
+	 *            the new value.
+	 */
 	public static void setAutoOpenImageEditor(
 			ILaunchConfigurationWorkingCopy cfg, boolean value) {
 		cfg.setAttribute(AUTO_OPEN_IMAGE_EDITOR, value);
 	}
 
+	/**
+	 * @param cfg
+	 *            the launch configuration.
+	 * @return a boolean indicating if the graphical description must be
+	 *         generated.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	public static boolean getGenerateGraphDesc(ILaunchConfiguration cfg)
 			throws CoreException {
 		return cfg.getAttribute(GENERATE_GRAPHDESC, true);
 	}
 
+	/**
+	 * Sets a boolean indicating if the graphical description must be generated.
+	 * 
+	 * @param cfg
+	 *            the launch configuration.
+	 * @param value
+	 *            the new value.
+	 */
 	public static void setGenerateGraphDesc(
 			ILaunchConfigurationWorkingCopy cfg, boolean value) {
 		cfg.setAttribute(GENERATE_GRAPHDESC, value);
 	}
 
+	/**
+	 * @param cfg
+	 *            the launch configuration.
+	 * @return a boolean indicating if the validation decorators must be added
+	 *         to the diagram.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
+	public static boolean getAddValidationDecorators(ILaunchConfiguration cfg)
+			throws CoreException {
+		return cfg.getAttribute(ADD_VALIDATION_DECORATORS, true);
+	}
+
+	/**
+	 * Sets a boolean indicating if the validation decorators must be added to
+	 * the diagram.
+	 * 
+	 * @param cfg
+	 *            the launch configuration.
+	 * @param value
+	 *            the new value.
+	 */
 	public static void setAddValidationDecorators(
 			ILaunchConfigurationWorkingCopy cfg, boolean value) {
 		cfg.setAttribute(ADD_VALIDATION_DECORATORS, value);
-	}
-
-	public static boolean getAddValidationDecorators(
-			ILaunchConfiguration cfg) throws CoreException {
-		return cfg.getAttribute(ADD_VALIDATION_DECORATORS, true);
 	}
 
 }

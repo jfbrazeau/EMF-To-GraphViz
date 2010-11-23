@@ -41,12 +41,15 @@ import org.osgi.framework.BundleContext;
  */
 public class Activator extends AbstractUIPlugin {
 
-	// The plug-in ID
+	/** The plug-in ID */
 	public static final String PLUGIN_ID = "org.emftools.emf2gv.processor"; //$NON-NLS-1$
 
-	// The shared instance
+	/** The shared instance */
 	private static Activator plugin;
-	
+
+	/** An images cache */
+	private HashMap<String, Image> imageMap = new HashMap<String, Image>();
+
 	/**
 	 * The constructor
 	 */
@@ -55,7 +58,10 @@ public class Activator extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -64,7 +70,10 @@ public class Activator extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
@@ -73,7 +82,7 @@ public class Activator extends AbstractUIPlugin {
 
 	/**
 	 * Returns the shared instance
-	 *
+	 * 
 	 * @return the shared instance
 	 */
 	public static Activator getDefault() {
@@ -81,17 +90,23 @@ public class Activator extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path
-	 *
-	 * @param path the path
+	 * Returns an image descriptor for the image file at the given plug-in
+	 * relative path
+	 * 
+	 * @param path
+	 *            the path
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
 
-	private HashMap<String, Image> imageMap = new HashMap<String, Image>();
+	/**
+	 * Loads an image for the given path.
+	 * 
+	 * @param path the image path.
+	 * @return the image.
+	 */
 	public Image getImage(String path) {
 		Image result = imageMap.get(path);
 		if (result == null) {
@@ -106,36 +121,41 @@ public class Activator extends AbstractUIPlugin {
 
 	/**
 	 * Logs an error.
-	 * @param error the error message.
-	 * @param throwable the throwable to log.
+	 * 
+	 * @param error
+	 *            the error message.
+	 * @param throwable
+	 *            the throwable to log.
 	 */
 	public void logError(String error, Throwable throwable) {
 		if (error == null && throwable != null) {
 			error = throwable.getMessage();
 		}
 		getLog().log(
-				new Status(IStatus.ERROR,
-						PLUGIN_ID, IStatus.OK,
-						error, throwable));
+				new Status(IStatus.ERROR, PLUGIN_ID, IStatus.OK, error,
+						throwable));
 		debug(error, throwable);
 	}
 
 	/**
 	 * Logs an info.
-	 * @param info the information message.
+	 * 
+	 * @param info
+	 *            the information message.
 	 */
 	public void logInfo(String info) {
 		getLog().log(
-				new Status(IStatus.INFO,
-						PLUGIN_ID, IStatus.OK,
-						info, null));
+				new Status(IStatus.INFO, PLUGIN_ID, IStatus.OK, info, null));
 		debug(info, null);
 	}
 
 	/**
 	 * Logs an error.
-	 * @param message the message.
-	 * @param throwable the throwable to log.
+	 * 
+	 * @param message
+	 *            the message.
+	 * @param throwable
+	 *            the throwable to log.
 	 */
 	private void debug(String message, Throwable throwable) {
 		if (!isDebugging()) {

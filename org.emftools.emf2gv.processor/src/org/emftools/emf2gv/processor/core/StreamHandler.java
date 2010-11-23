@@ -33,15 +33,28 @@ import java.io.InputStream;
 
 import org.emftools.emf2gv.processor.Activator;
 
+/**
+ * A utility class used to catch a process stream (std / err).
+ */
 public class StreamHandler extends Thread {
 
+	/** The input stream to read */
 	private InputStream in;
+
+	/** The temporary buffer */
 	private ByteArrayOutputStream out = new ByteArrayOutputStream();
 
+	/**
+	 * Default constructor.
+	 * @param in the input stream to read.
+	 */
 	public StreamHandler(InputStream in) {
 		this.in = in;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
 	public void run() {
 		try {
 			byte[] buf = new byte[1024];
@@ -55,6 +68,9 @@ public class StreamHandler extends Thread {
 		}
 	}
 
+	/**
+	 * @return the stream final content.
+	 */
 	public byte[] getResult() {
 		return out.toByteArray();
 	}

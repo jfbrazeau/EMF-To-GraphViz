@@ -32,7 +32,10 @@ package org.emftools.emf2gv.processor.ui.preferences;
  */
 public class EMF2GvPreferenceConstants {
 
+	/** Dot utility path constant */
 	public static final String P_DOT_UTILITY_PATH = "dotUtilityPath";
+
+	/** Graphviz source encoding constant */
 	public static final String P_GV_SOURCE_ENCODING = "gvSourceEncoding";
 	
 }

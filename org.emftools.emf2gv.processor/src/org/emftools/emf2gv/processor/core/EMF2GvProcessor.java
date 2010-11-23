@@ -57,13 +57,46 @@ import org.emftools.emf2gv.graphdesc.util.GraphdescGenerator;
 import org.emftools.emf2gv.processor.Activator;
 import org.emftools.emf2gv.util.IOHelper;
 
+/**
+ * EMF To Graphviz processor.
+ */
 public class EMF2GvProcessor {
 
-	public static IFile process(String dotCommand, String gvSourceEnconding,
-			IPath graphDescPath, IPath modelPath,
-			boolean addValidationDecorators, String uriFragment,
-			IPath targetPath, boolean keepGeneratedGvFile,
-			EMF2GvProcessorCallback eMF2GvProcessorCallback,
+	/**
+	 * Converts a given model into a diagram file.
+	 * @param modelPath
+	 *            the model path.
+	 * @param modelUriFragment
+	 *            the uri giving the model element to use as as root for the
+	 *            diagram generation.
+	 * @param graphDescPath
+	 *            the graphical description path.
+	 * @param targetImagePath
+	 *            the target image path.
+	 * @param eMF2GvProcessorCallback
+	 *            the processor call back allowing to interrupt the process if
+	 *            required.
+	 * @param dotCommand
+	 *            the graphviz dot utility command path.
+	 * @param addValidationDecorators
+	 *            a boolean indicating if validation decorators must be added.
+	 * @param keepGeneratedGvFile
+	 *            a boolean indicating if the generated Graphviz source file has
+	 *            to be kept.
+	 * @param gvSourceEnconding
+	 *            the encoding to use for the generated graphviz source file.
+	 * @param monitor
+	 *            a progress monitor.
+	 * 
+	 * @return the generated image file.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
+	public static IFile process(IPath modelPath, String modelUriFragment,
+			IPath graphDescPath, IPath targetImagePath,
+			EMF2GvProcessorCallback eMF2GvProcessorCallback, String dotCommand,
+			boolean addValidationDecorators, boolean keepGeneratedGvFile,
+			String gvSourceEnconding,
 			IProgressMonitor monitor) throws CoreException {
 
 		/**
@@ -71,8 +104,7 @@ public class EMF2GvProcessor {
 		 */
 		ResourceSet rs = new ResourceSetImpl();
 		rs.setPackageRegistry(EPackage.Registry.INSTANCE);
-		Resource modelRes = loadEMFResource(rs, modelPath,
-				false, monitor);
+		Resource modelRes = loadEMFResource(rs, modelPath, false, monitor);
 
 		/**
 		 * Graphdesc file loading or generation
@@ -108,7 +140,7 @@ public class EMF2GvProcessor {
 		/**
 		 * Generation folder creation
 		 */
-		IPath outputFolderPath = targetPath.addFileExtension("emf2gv");
+		IPath outputFolderPath = targetImagePath.addFileExtension("emf2gv");
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IFolder outputFolder = root.getFolder(outputFolderPath);
 		outputFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
@@ -121,14 +153,14 @@ public class EMF2GvProcessor {
 		 */
 		GVSourceAndDependenciesBuilder gvSourceBuilder = new GVSourceAndDependenciesBuilder(
 				figureDesc, outputFolder, addValidationDecorators);
-		if (uriFragment == null || "".equals(uriFragment.trim())) {
+		if (modelUriFragment == null || "".equals(modelUriFragment.trim())) {
 			gvSourceBuilder.process(modelRes.getContents(), monitor);
 		} else {
-			EObject eObject = modelRes.getEObject(uriFragment.trim());
+			EObject eObject = modelRes.getEObject(modelUriFragment.trim());
 			if (eObject == null) {
 				throw new CoreException(new Status(IStatus.ERROR,
 						Activator.PLUGIN_ID, "Invalid URI fragment '"
-								+ uriFragment + "' for resource '"
+								+ modelUriFragment + "' for resource '"
 								+ modelRes.getURI().toString() + "'"));
 			}
 			gvSourceBuilder.process(eObject, monitor);
@@ -136,9 +168,13 @@ public class EMF2GvProcessor {
 
 		// Is there at least one node ?
 		if (gvSourceBuilder.getNodesCount() == 0) {
-			throw new CoreException(new Status(IStatus.ERROR,
-					Activator.PLUGIN_ID, -1,
-					"The generated graph is empty. Please check the transformation inputs.", null));
+			throw new CoreException(
+					new Status(
+							IStatus.ERROR,
+							Activator.PLUGIN_ID,
+							-1,
+							"The generated graph is empty. Please check the transformation inputs.",
+							null));
 		}
 
 		/*
@@ -170,8 +206,8 @@ public class EMF2GvProcessor {
 		/**
 		 * Image production
 		 */
-		IFile imageFile = runGraphVizImage(dotCommand,
-				targetGv.getRawLocation(), targetPath, monitor);
+		IFile imageFile = runGraphViz(dotCommand,
+				targetGv.getRawLocation(), targetImagePath, monitor);
 
 		// Gv source file deletion
 		if (!keepGeneratedGvFile) {
@@ -182,11 +218,24 @@ public class EMF2GvProcessor {
 		return imageFile;
 	}
 
-	private static IFile runGraphVizImage(String dotCommand,
-			IPath gvRawLocation, IPath targetPath, IProgressMonitor monitor)
+	/**
+	 * Launches Graphivz and retrieves the generated image file.
+	 * @param dotCommand the graphviz dot utility command path.
+	 * @param gvRawLocation the graphvis source file location.
+	 * @param targetImagePath
+	 *            the target image path.
+	 * @param monitor
+	 *            a progress monitor.
+	 * 
+	 * @return the generated image file.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
+	private static IFile runGraphViz(String dotCommand,
+			IPath gvRawLocation, IPath targetImagePath, IProgressMonitor monitor)
 			throws CoreException {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		IFile target = root.getFile(targetPath);
+		IFile target = root.getFile(targetImagePath);
 		try {
 			// TODO fix file type and other GraphViz options
 			monitor.beginTask("Running GraphViz dot utility", 1);
@@ -242,8 +291,7 @@ public class EMF2GvProcessor {
 					rawErrorStream, "UTF-8") : null;
 			if (error != null) {
 				Activator.getDefault().logError(
-						"Grafviz error output :\n"
-								+ error, null);
+						"Grafviz error output :\n" + error, null);
 			}
 
 			// Process has normally exited ?
@@ -255,7 +303,7 @@ public class EMF2GvProcessor {
 								+ exitValue
 								+ ";\nSee error log fore more details."));
 			}
-			
+
 			// Resource refresh
 			target.refreshLocal(IResource.DEPTH_ONE, null);
 			return target;
@@ -266,6 +314,21 @@ public class EMF2GvProcessor {
 		}
 	}
 
+	/**
+	 * Loads a given EMF resource.
+	 * 
+	 * @param rs
+	 *            the resource set.
+	 * @param path
+	 *            the resource path.
+	 * @param validate
+	 *            a boolean indicating if the resource must be validated.
+	 * @param monitor
+	 *            the progress monitor.
+	 * @return the EMF resource.
+	 * @throws CoreException
+	 *             thrown if an unexpected eroor occurs.
+	 */
 	private static Resource loadEMFResource(ResourceSet rs, IPath path,
 			boolean validate, IProgressMonitor monitor) throws CoreException {
 		monitor.beginTask("Loading " + path, 2);
@@ -282,6 +345,13 @@ public class EMF2GvProcessor {
 		return emfResource;
 	}
 
+	/**
+	 * Validates an EMF resource.
+	 * 
+	 * @param emfResource
+	 *            the resource to validate.
+	 * @return the validation status.
+	 */
 	private static IStatus validate(Resource emfResource) {
 		Diagnostician diagnostician = new Diagnostician();
 		TreeIterator<EObject> iterator = emfResource.getAllContents();

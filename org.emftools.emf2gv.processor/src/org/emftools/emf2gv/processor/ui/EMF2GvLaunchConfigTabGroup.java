@@ -31,12 +31,21 @@ import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 
+/**
+ * Emf2gv launch configuration tab group.
+ */
 public class EMF2GvLaunchConfigTabGroup extends
 		AbstractLaunchConfigurationTabGroup {
 
+	/**
+	 * Default constructor.
+	 */
 	public EMF2GvLaunchConfigTabGroup() {
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.debug.ui.ILaunchConfigurationTabGroup#createTabs(org.eclipse.debug.ui.ILaunchConfigurationDialog, java.lang.String)
+	 */
 	@Override
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
 		setTabs(new ILaunchConfigurationTab[] { new EMF2GvLaunchConfigMainTab() });

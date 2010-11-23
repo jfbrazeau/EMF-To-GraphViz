@@ -119,8 +119,10 @@ public class XMIPropertyTester extends PropertyTester {
 							String attrValue = attributes.getValue(i);
 							if ("http://www.omg.org/XMI".equals(attrValue)
 									&& attrLocalName.startsWith("xmlns:")) {
-								// If we find the right attribute, we throw a StopSAXException
-								// to stop the parsing process with a true value indicating
+								// If we find the right attribute, we throw a
+								// StopSAXException
+								// to stop the parsing process with a true value
+								// indicating
 								// that this file seems to be an XMI file
 								throw new StopSAXParserException(true);
 							}
@@ -134,8 +136,8 @@ public class XMIPropertyTester extends PropertyTester {
 				});
 			}
 			/*
-			 * This exception does not correspond to a real error
-			 * but is used to interrupt the SAX Parse process.
+			 * This exception does not correspond to a real error but is used to
+			 * interrupt the SAX Parse process.
 			 */
 			catch (StopSAXParserException e) {
 				result = e.getXmiFileRecognized();

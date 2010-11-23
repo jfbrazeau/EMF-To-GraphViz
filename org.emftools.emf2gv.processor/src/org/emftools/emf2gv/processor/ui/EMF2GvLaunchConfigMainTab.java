@@ -68,8 +68,14 @@ import org.eclipse.swt.widgets.Text;
 import org.emftools.emf2gv.processor.Activator;
 import org.emftools.emf2gv.processor.ui.util.EMFModelElementSectionDialog;
 
+/**
+ * Emf2gv launch configuration main tab.
+ */
 public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 
+	/**
+	 * Viewer filter used to filter the .classpath & .project resources.
+	 */
 	private static ViewerFilter DEFAULT_VIEWER_FILTER = new ViewerFilter() {
 		@Override
 		public boolean select(Viewer viewer, Object parentElement,
@@ -84,9 +90,15 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		}
 	};
 
+	/**
+	 * Viewer filter list containing the default viewer filter.
+	 */
 	private static List<ViewerFilter> DEFAULT_VIEWER_FILTERS = Arrays
 			.asList(new ViewerFilter[] { DEFAULT_VIEWER_FILTER });
 
+	/**
+	 * Viewer filter used to see only the graphical descriptions.
+	 */
 	private static ViewerFilter GRAPHDESC_VIEWER_FILTER = new ViewerFilter() {
 		@Override
 		public boolean select(Viewer viewer, Object parentElement,
@@ -96,10 +108,16 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		}
 	};
 
+	/**
+	 * Viewer filter list containing the graphical description viewer filter.
+	 */
 	private static List<ViewerFilter> GRAPHDESC_VIEWER_FILTERS = Arrays
 			.asList(new ViewerFilter[] { DEFAULT_VIEWER_FILTER,
 					GRAPHDESC_VIEWER_FILTER });
 
+	/**
+	 * Viewer filter used to see only the JPG files.
+	 */
 	private static ViewerFilter JPG_VIEWER_FILTER = new ViewerFilter() {
 		@Override
 		public boolean select(Viewer viewer, Object parentElement,
@@ -113,105 +131,167 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		}
 	};
 
+	/**
+	 * Viewer filter list containing the JPG viewer filter.
+	 */
 	private static List<ViewerFilter> JPG_VIEWER_FILTERS = Arrays
 			.asList(new ViewerFilter[] { DEFAULT_VIEWER_FILTER,
 					JPG_VIEWER_FILTER });
 
-	private Text graphDescText;
-
-	private Text modelText;
-
-	private Text targetText;
-
-	private Button processAllResourceContentsRadio;
-
-	private Text selectedElementUriFragmentText;
-
-	private Button selectElementToProcessBrowseButton;
-
-	private Button selectElementToProcessRadio;
-
-	private Button keepGeneratedGvCheckBox;
-
-	private Button autoOpenImageEditorCheckBox;
-
+	/**
+	 * Checkbox allowig to generate the graphical description (instead of
+	 * specifying a valid file path).
+	 */
 	private Button generateGraphDescCheckbox;
 
+	/**
+	 * Text containing the graphical description path.
+	 */
+	private Text graphDescText;
+
+	/**
+	 * Browse button allowing to select a graphical description file.
+	 */
 	private Button graphDescBrowseButton;
 
+	/**
+	 * Text containing the model path.
+	 */
+	private Text modelText;
+
+	/**
+	 * Radio button allowing to process all the resource contents.
+	 */
+	private Button processAllResourceContentsRadio;
+
+	/**
+	 * Radio button allowing to select a root to process.
+	 */
+	private Button selectElementToProcessRadio;
+
+	/**
+	 * Text containing the uri fragment of the model's element to use as a root
+	 * when required.
+	 */
+	private Text selectedElementUriFragmentText;
+
+	/**
+	 * Brows button allowing to select the model element to prcess.
+	 */
+	private Button selectElementToProcessBrowseButton;
+
+	/**
+	 * Text containing the target image path.
+	 */
+	private Text targetImageText;
+
+	/**
+	 * Checkbox allowing to keep the generated graphviz source file.
+	 */
+	private Button keepGeneratedGvCheckBox;
+
+	/**
+	 * Checkbox allowing to open automatically an editor to visualize the
+	 * generated image file.
+	 */
+	private Button autoOpenImageEditorCheckBox;
+
+	/**
+	 * Checkbox allowing to add validation decorators.
+	 */
 	private Button addValidationDecoratorsCheckbox;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.debug.ui.ILaunchConfigurationTab#setDefaults(org.eclipse.
+	 * debug.core.ILaunchConfigurationWorkingCopy)
+	 */
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.debug.ui.ILaunchConfigurationTab#performApply(org.eclipse
+	 * .debug.core.ILaunchConfigurationWorkingCopy)
+	 */
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy cfg) {
 		// Graphical description
-		EMF2GvLaunchConfigTypeProperties.setGenerateGraphDesc(cfg,
+		EMF2GvLaunchConfigHelper.setGenerateGraphDesc(cfg,
 				generateGraphDescCheckbox.getSelection());
-		EMF2GvLaunchConfigTypeProperties.setGraphDescPath(cfg,
+		EMF2GvLaunchConfigHelper.setGraphDescPath(cfg,
 				graphDescText.getText());
 
 		// Model to process
-		EMF2GvLaunchConfigTypeProperties
-				.setModelPath(cfg, modelText.getText());
-		EMF2GvLaunchConfigTypeProperties.setProcessAllResourceContents(cfg,
+		EMF2GvLaunchConfigHelper.setModelPath(cfg, modelText.getText());
+		EMF2GvLaunchConfigHelper.setProcessAllResourceContents(cfg,
 				processAllResourceContentsRadio.getSelection());
-		EMF2GvLaunchConfigTypeProperties.setSelectedElementUriFragment(cfg,
+		EMF2GvLaunchConfigHelper.setSelectedElementUriFragment(cfg,
 				selectedElementUriFragmentText.getText());
 
 		// Target image
-		EMF2GvLaunchConfigTypeProperties.setTargetPath(cfg,
-				targetText.getText());
+		EMF2GvLaunchConfigHelper.setTargetPath(cfg,
+				targetImageText.getText());
 
 		// Options
-		EMF2GvLaunchConfigTypeProperties.setAddValidationDecorators(cfg,
+		EMF2GvLaunchConfigHelper.setAddValidationDecorators(cfg,
 				addValidationDecoratorsCheckbox.getSelection());
-		EMF2GvLaunchConfigTypeProperties.setKeepGeneratedGvFile(cfg,
+		EMF2GvLaunchConfigHelper.setKeepGeneratedGvFile(cfg,
 				keepGeneratedGvCheckBox.getSelection());
-		EMF2GvLaunchConfigTypeProperties.setAutoOpenImageEditor(cfg,
+		EMF2GvLaunchConfigHelper.setAutoOpenImageEditor(cfg,
 				autoOpenImageEditorCheckBox.getSelection());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.debug.ui.ILaunchConfigurationTab#initializeFrom(org.eclipse
+	 * .debug.core.ILaunchConfiguration)
+	 */
 	@Override
 	public void initializeFrom(ILaunchConfiguration cfg) {
 		try {
 			// Graphical description
 			generateGraphDescCheckbox
-					.setSelection(EMF2GvLaunchConfigTypeProperties
+					.setSelection(EMF2GvLaunchConfigHelper
 							.getGenerateGraphDesc(cfg));
-			graphDescText.setText(EMF2GvLaunchConfigTypeProperties
+			graphDescText.setText(EMF2GvLaunchConfigHelper
 					.getGraphDescPath(cfg));
 			updateGraphDescTextEnablement();
 
 			// Model to process
-			modelText.setText(EMF2GvLaunchConfigTypeProperties
+			modelText.setText(EMF2GvLaunchConfigHelper
 					.getModelPath(cfg));
-			boolean procesAllResourcesContents = EMF2GvLaunchConfigTypeProperties
+			boolean procesAllResourcesContents = EMF2GvLaunchConfigHelper
 					.getProcessAllResourceContents(cfg);
 			processAllResourceContentsRadio
 					.setSelection(procesAllResourcesContents);
 			selectElementToProcessRadio
 					.setSelection(!procesAllResourcesContents);
 			selectedElementUriFragmentText
-					.setText(EMF2GvLaunchConfigTypeProperties
+					.setText(EMF2GvLaunchConfigHelper
 							.getSelectedElementUriFragment(cfg));
 			updateSelectedElementToProcessEnablement();
 
 			// Target image
-			targetText.setText(EMF2GvLaunchConfigTypeProperties
+			targetImageText.setText(EMF2GvLaunchConfigHelper
 					.getTargetPath(cfg));
 
 			// Options
 			addValidationDecoratorsCheckbox
-					.setSelection(EMF2GvLaunchConfigTypeProperties
+					.setSelection(EMF2GvLaunchConfigHelper
 							.getAddValidationDecorators(cfg));
 			keepGeneratedGvCheckBox
-					.setSelection(EMF2GvLaunchConfigTypeProperties
+					.setSelection(EMF2GvLaunchConfigHelper
 							.getKeepGeneratedGvFile(cfg));
 			autoOpenImageEditorCheckBox
-					.setSelection(EMF2GvLaunchConfigTypeProperties
+					.setSelection(EMF2GvLaunchConfigHelper
 							.getAutoOpenImageEditor(cfg));
 
 			scheduleUpdateJob();
@@ -221,11 +301,33 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getName()
+	 */
 	@Override
 	public String getName() {
 		return "EMF To Graphviz";
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.debug.ui.AbstractLaunchConfigurationTab#getImage()
+	 */
+	@Override
+	public Image getImage() {
+		return Activator.getDefault().getImage("icons/EMF2Gv.gif");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.debug.ui.ILaunchConfigurationTab#createControl(org.eclipse
+	 * .swt.widgets.Composite)
+	 */
 	@Override
 	public void createControl(Composite parent) {
 		Composite comp = new Composite(parent, SWT.NONE);
@@ -240,6 +342,35 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		createOptionsGroup(comp);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.debug.ui.AbstractLaunchConfigurationTab#isValid(org.eclipse.debug.core.ILaunchConfiguration)
+	 */
+	@Override
+	public boolean isValid(ILaunchConfiguration launchConfig) {
+		setErrorMessage(null);
+		boolean isValid = true;
+		if (!generateGraphDescCheckbox.getSelection()) {
+			isValid &= checkResourceField(graphDescText,
+					"Graphical description file is not set",
+					"Graphical description file path is not valid",
+					"Graphical description file does not exist");
+		}
+		if (isValid)
+			isValid = checkResourceField(modelText, "Model file is not set",
+					"Model file path is not valid", "Model file does not exist");
+		if (isValid)
+			isValid = checkResourceField(targetImageText,
+					"Target file is not set", "Target file path is not valid",
+					null);
+		return isValid;
+	}
+
+	/**
+	 * Creates the graphical description group.
+	 * 
+	 * @param parent
+	 *            the parent composite.
+	 */
 	private void createGraphDescGroup(Composite parent) {
 		Group group = createGroup(parent, "Graphical description", 2);
 		generateGraphDescCheckbox = new Button(group, SWT.CHECK);
@@ -266,6 +397,12 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		updateGraphDescTextEnablement();
 	}
 
+	/**
+	 * Creates the model group.
+	 * 
+	 * @param parent
+	 *            the parent composite.
+	 */
 	private void createModelGroup(Composite parent) {
 		Group group = createGroup(parent, "Model to draw", 2);
 		modelText = createText(group);
@@ -324,9 +461,15 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 				});
 	}
 
+	/**
+	 * Creates the target group.
+	 * 
+	 * @param parent
+	 *            the parent composite.
+	 */
 	private void createTargetGroup(Composite parent) {
 		Group group = createGroup(parent, "Target image (jpg)", 3);
-		targetText = createText(group);
+		targetImageText = createText(group);
 		createButton(group, "New...", new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -341,6 +484,12 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		});
 	}
 
+	/**
+	 * Creates the options group.
+	 * 
+	 * @param parent
+	 *            the parent composite.
+	 */
 	private void createOptionsGroup(Composite parent) {
 		Group group = createGroup(parent, "Options", 1);
 
@@ -349,8 +498,10 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
 		checkBoxComposite.setLayoutData(gridData);
 		checkBoxComposite.setLayout(new GridLayout());
-		addValidationDecoratorsCheckbox = new Button(checkBoxComposite, SWT.CHECK);
-		addValidationDecoratorsCheckbox.setText("Add validation decorators (errors & warnings)");
+		addValidationDecoratorsCheckbox = new Button(checkBoxComposite,
+				SWT.CHECK);
+		addValidationDecoratorsCheckbox
+				.setText("Add validation decorators (errors & warnings)");
 		keepGeneratedGvCheckBox = new Button(checkBoxComposite, SWT.CHECK);
 		keepGeneratedGvCheckBox.setText("Keep generated GraphViz source file");
 		autoOpenImageEditorCheckBox = new Button(checkBoxComposite, SWT.CHECK);
@@ -369,6 +520,10 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		autoOpenImageEditorCheckBox.addSelectionListener(listener);
 	}
 
+	/**
+	 * Handles a click on the browse button allowing to select en element to
+	 * process.
+	 */
 	private void handleSelectElementToProcessBrowseButton() {
 		trimTexts();
 		// EMF resource loading
@@ -393,17 +548,29 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		}
 	}
 
+	/**
+	 * Trims the text fields.
+	 */
 	private void trimTexts() {
 		trimText(graphDescText);
 		trimText(modelText);
 		trimText(selectedElementUriFragmentText);
-		trimText(targetText);
+		trimText(targetImageText);
 	}
 
+	/**
+	 * Trims a text field.
+	 * 
+	 * @param text
+	 *            the text field to trim.
+	 */
 	private static void trimText(Text text) {
 		text.setText(text.getText().trim());
 	}
 
+	/**
+	 * Changes the graphical descritpion text enablement.
+	 */
 	private void updateGraphDescTextEnablement() {
 		boolean generateGraphDesc = generateGraphDescCheckbox.getSelection();
 		graphDescText.setEnabled(!generateGraphDesc);
@@ -413,6 +580,9 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		}
 	}
 
+	/**
+	 * Changes the selected element text enablement.
+	 */
 	private void updateSelectedElementToProcessEnablement() {
 		boolean processAllResourceContents = processAllResourceContentsRadio
 				.getSelection();
@@ -424,11 +594,17 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		}
 	}
 
-	@Override
-	public Image getImage() {
-		return Activator.getDefault().getImage("icons/EMF2Gv.gif");
-	}
-
+	/**
+	 * Creates a group.
+	 * 
+	 * @param parent
+	 *            the parent composite.
+	 * @param name
+	 *            the group's name.
+	 * @param columnNb
+	 *            the number of columns in the grid.
+	 * @return the created group.
+	 */
 	private Group createGroup(Composite parent, String name, int columnNb) {
 		Group group = new Group(parent, SWT.NONE);
 		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -437,6 +613,13 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		return group;
 	}
 
+	/**
+	 * Creates a text field.
+	 * 
+	 * @param parent
+	 *            the parent composite.
+	 * @return the created text field.
+	 */
 	private Text createText(Composite parent) {
 		Text text = new Text(parent, SWT.BORDER);
 		text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -448,11 +631,31 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		return text;
 	}
 
+	/**
+	 * Creates a browse button.
+	 * 
+	 * @param parent
+	 *            the parent composite.
+	 * @param buttonListener
+	 *            the listener.
+	 * @return the created button.
+	 */
 	private Button createBrowseButton(Composite parent,
 			SelectionListener buttonListener) {
 		return createButton(parent, "Browse...", buttonListener);
 	}
 
+	/**
+	 * Creates a button.
+	 * 
+	 * @param parent
+	 *            the parent composite.
+	 * @param label
+	 *            the label to use.
+	 * @param buttonListener
+	 *            the listener.
+	 * @return the created button.
+	 */
 	private Button createButton(Composite parent, String label,
 			SelectionListener buttonListener) {
 		Button button = new Button(parent, SWT.NONE);
@@ -463,6 +666,9 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		return button;
 	}
 
+	/**
+	 * Handles a click on the browse button allowing to select a graphical description file.
+	 */
 	private void handleBrowseGraphDescButton() {
 		trimTexts();
 		Object[] initialSelection = buildInitialSelectionFromText(graphDescText);
@@ -476,6 +682,11 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		}
 	}
 
+	/**
+	 * Builds a initial selection list from a text field.
+	 * @param text the text field to use.
+	 * @return the initial selection list.
+	 */
 	private Object[] buildInitialSelectionFromText(Text text) {
 		Object[] initialSelection = null;
 		if (!"".equals(text.getText())) {
@@ -488,6 +699,9 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		return initialSelection;
 	}
 
+	/**
+	 * Handles a click on the browse button allowing to select a model file.
+	 */
 	private void handleBrowseModelButton() {
 		trimTexts();
 		Object[] initialSelection = buildInitialSelectionFromText(modelText);
@@ -497,12 +711,15 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		if (result != null && result.length > 0) {
 			modelText.setText(result[0].getFullPath().toString());
 			// If the target is not defined, we predefine it
-			if ("".equals(targetText.getText())) {
-				targetText.setText(modelText.getText() + ".jpg");
+			if ("".equals(targetImageText.getText())) {
+				targetImageText.setText(modelText.getText() + ".jpg");
 			}
 		}
 	}
 
+	/**
+	 * Handles a click on the browse button allowing to select a new target image file.
+	 */
 	private void handleBrowseNewTargetButton() {
 		trimTexts();
 		IFile result = WorkspaceResourceDialog.openNewFile(getShell(),
@@ -512,43 +729,35 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 			String path = result.getFullPath().toString();
 			if (!path.endsWith(".jpg"))
 				path += ".jpg";
-			targetText.setText(path);
+			targetImageText.setText(path);
 		}
 	}
 
+	/**
+	 * Handles a click on the browse button allowing to select an existing target file.
+	 */
 	private void handleBrowseExistingTargetButton() {
 		trimTexts();
-		Object[] initialSelection = buildInitialSelectionFromText(targetText);
+		Object[] initialSelection = buildInitialSelectionFromText(targetImageText);
 		IFile[] result = WorkspaceResourceDialog.openFileSelection(getShell(),
 				"File selection", "Please select the image file", false,
 				initialSelection, JPG_VIEWER_FILTERS);
 		if (result != null) {
-			targetText.setText(result[0].getFullPath().toString());
+			targetImageText.setText(result[0].getFullPath().toString());
 		}
 	}
 
-	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
-		setErrorMessage(null);
-		boolean isValid = true;
-		if (!generateGraphDescCheckbox.getSelection()) {
-			isValid &= checkResourceField(graphDescText,
-					"Graphical description file is not set",
-					"Graphical description file path is not valid",
-					"Graphical description file does not exist");
-		}
-		if (isValid)
-			isValid = checkResourceField(modelText, "Model file is not set",
-					"Model file path is not valid", "Model file does not exist");
-		if (isValid)
-			isValid = checkResourceField(targetText, "Target file is not set",
-					"Target file path is not valid", null);
-		return isValid;
-	}
-
-	// TODO ajouter check que namespace model EMF OK
+	/**
+	 * Checks a resource field.
+	 * @param field the field to check.
+	 * @param errorMessageIfEmpty the error message to use when the field is empty.
+	 * @param errorMessageIfNotValid the error message to use when the field does not contain a valid path.
+	 * @param errorMessageIfExistsNot the error message to use when the field does not contain an existing path.
+	 * @return a boolean indicating if the field is valid.
+	 */
 	private boolean checkResourceField(Text field, String errorMessageIfEmpty,
 			String errorMessageIfNotValid, String errorMessageIfExistsNot) {
+		// TODO add namespace check ?
 		boolean isValid = true;
 		String path = field.getText();
 		if (path == null || "".equals(path.trim())) {

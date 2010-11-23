@@ -55,22 +55,50 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.emftools.emf2gv.util.EMFHelper;
 
+/**
+ * Dialog allowing to select an EMF resource content element.
+ */
 public class EMFModelElementSectionDialog extends Dialog {
 
+	/** The EMF resource */
 	private Resource emfResource;
-	private AdapterFactory adapterFactory;
-	private TreeViewer viewer;
-	private EObject selection;
-	private EObject selectedEObject;
 
-	public EMFModelElementSectionDialog(Shell parentShell, Resource emfResource, EObject selectedEObject) {
+	/** The default selected EObject */
+	private EObject defaultSelection;
+	
+	/** The adapter factory */
+	private AdapterFactory adapterFactory;
+	
+	/** The tree viewer */
+	private TreeViewer viewer;
+	
+	/** The selected EObject */
+	private EObject selection;
+
+	/**
+	 * Default constructor.
+	 * 
+	 * @param parentShell
+	 *            the parent shell.
+	 * @param emfResource
+	 *            the EMF resource.
+	 * @param defaultSelectedEObject
+	 *            the default selected EObject.
+	 */
+	public EMFModelElementSectionDialog(Shell parentShell,
+			Resource emfResource, EObject defaultSelectedEObject) {
 		super(parentShell);
 		this.emfResource = emfResource;
-		this.selectedEObject = selectedEObject;
+		this.defaultSelection = defaultSelectedEObject;
 		List<EPackage> ePackages = getResourcePackages(emfResource);
 		adapterFactory = EMFHelper.getAdapterFactory(ePackages);
 	}
-	
+
+	/**
+	 * Retrieves the EPackage list referenced by the EMF resource contents. 
+	 * @param emfResource the EMF resource.
+	 * @return the EPackage list.
+	 */
 	private static List<EPackage> getResourcePackages(Resource emfResource) {
 		// EPackage list extraction
 		ResourceSet rs = emfResource.getResourceSet();
@@ -88,25 +116,30 @@ public class EMFModelElementSectionDialog extends Dialog {
 		return ePackages;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.Dialog#createDialogArea(org.eclipse.swt.widgets.Composite)
+	 */
 	protected Control createDialogArea(Composite parent) {
-        Composite composite = (Composite) super.createDialogArea(parent);
-        GridData gd = ((GridData)composite.getLayoutData());
-        gd.minimumHeight = 300;
-        gd.minimumWidth = 300;
-        
-        Font dialogFont = parent.getFont();
-        composite.setFont(dialogFont);
-        Tree tree = new Tree(composite, SWT.BORDER);
-        tree.setLayoutData(new GridData(GridData.FILL_BOTH));
+		Composite composite = (Composite) super.createDialogArea(parent);
+		GridData gd = ((GridData) composite.getLayoutData());
+		gd.minimumHeight = 300;
+		gd.minimumWidth = 300;
+
+		Font dialogFont = parent.getFont();
+		composite.setFont(dialogFont);
+		Tree tree = new Tree(composite, SWT.BORDER);
+		tree.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		viewer = new TreeViewer(tree);
-		viewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+		viewer.setContentProvider(new AdapterFactoryContentProvider(
+				adapterFactory));
 		viewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
-		//new AdapterFactoryTreeEditor(viewer.getTree(), adapterFactory);
+		// new AdapterFactoryTreeEditor(viewer.getTree(), adapterFactory);
 		viewer.setInput(emfResource);
 		viewer.expandToLevel(2);
-		if (selectedEObject != null) {
-			viewer.setSelection(new TreeSelection(new TreePath(new Object[] { selectedEObject } )), true);
+		if (defaultSelection != null) {
+			viewer.setSelection(new TreeSelection(new TreePath(
+					new Object[] { defaultSelection })), true);
 		}
 		// Double click listener
 		viewer.getTree().addMouseListener(new MouseAdapter() {
@@ -115,9 +148,12 @@ public class EMFModelElementSectionDialog extends Dialog {
 				okPressed();
 			}
 		});
-        return composite;
+		return composite;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.Dialog#okPressed()
+	 */
 	protected void okPressed() {
 		ISelection selection = viewer.getSelection();
 		if (!selection.isEmpty()) {
@@ -126,7 +162,10 @@ public class EMFModelElementSectionDialog extends Dialog {
 		}
 		super.okPressed();
 	}
-	
+
+	/**
+	 * @return the selected EObject.
+	 */
 	public EObject getSelection() {
 		return selection;
 	}

@@ -53,6 +53,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.emftools.emf2gv.processor.Activator;
 
+/**
+ * Emf2gv launch shortcut.
+ */
 public class EMF2GvProcessorShortcut implements ILaunchShortcut {
 
 	/*
@@ -83,9 +86,9 @@ public class EMF2GvProcessorShortcut implements ILaunchShortcut {
 			List<ILaunchConfiguration> fileLaunchCfgs = new ArrayList<ILaunchConfiguration>();
 			for (int i = 0; i < launchCfgs.length; i++) {
 				ILaunchConfiguration launchCfg = launchCfgs[i];
-				String launchCfgFilePath = isGraphDesc ? EMF2GvLaunchConfigTypeProperties
+				String launchCfgFilePath = isGraphDesc ? EMF2GvLaunchConfigHelper
 						.getGraphDescPath(launchCfg)
-						: EMF2GvLaunchConfigTypeProperties
+						: EMF2GvLaunchConfigHelper
 								.getModelPath(launchCfg);
 				if (filePath.equals(launchCfgFilePath)) {
 					fileLaunchCfgs.add(launchCfg);
@@ -138,14 +141,14 @@ public class EMF2GvProcessorShortcut implements ILaunchShortcut {
 					// Then we save the launch configuration
 					ILaunchConfigurationWorkingCopy wc = launchConfigurationType
 							.newInstance(null, configName);
-					EMF2GvLaunchConfigTypeProperties.setGenerateGraphDesc(wc,
+					EMF2GvLaunchConfigHelper.setGenerateGraphDesc(wc,
 							graphDescFile == null);
-					EMF2GvLaunchConfigTypeProperties.setGraphDescPath(wc,
+					EMF2GvLaunchConfigHelper.setGraphDescPath(wc,
 							graphDescFile != null ? graphDescFile.getFullPath()
 									.toString() : "");
-					EMF2GvLaunchConfigTypeProperties.setModelPath(wc,
+					EMF2GvLaunchConfigHelper.setModelPath(wc,
 							modelFile.getFullPath().toString());
-					EMF2GvLaunchConfigTypeProperties.setTargetPath(wc,
+					EMF2GvLaunchConfigHelper.setTargetPath(wc,
 							modelFile.getParent().getFullPath().toString()
 									+ "/" + configName + ".jpg");
 					wc.doSave();

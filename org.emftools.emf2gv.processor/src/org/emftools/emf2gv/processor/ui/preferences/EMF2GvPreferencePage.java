@@ -54,6 +54,9 @@ import org.emftools.emf2gv.processor.Activator;
 public class EMF2GvPreferencePage extends FieldEditorPreferencePage implements
 		IWorkbenchPreferencePage {
 
+	/**
+	 * Default constructor.
+	 */
 	public EMF2GvPreferencePage() {
 		super(GRID);
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());

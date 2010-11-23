@@ -27,6 +27,22 @@
  */
 package org.emftools.emf2gv.processor.core;
 
+/**
+ * A call back that can be used to interrupt the processor (for example if there
+ * are too many diagram items to represent).
+ * 
+ */
 public interface EMF2GvProcessorCallback {
-	public abstract boolean confirmImageGeneration(int nodesCount, int edgesCount);
+
+	/**
+	 * @param nodesCount
+	 *            the nodes count.
+	 * @param edgesCount
+	 *            the edges count.
+	 * @return a boolean indicating if the image generation is confirmed or must
+	 *         be interrupted.
+	 */
+	public abstract boolean confirmImageGeneration(int nodesCount,
+			int edgesCount);
+
 }

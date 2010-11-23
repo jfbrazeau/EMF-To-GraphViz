@@ -43,8 +43,14 @@ import org.emftools.emf2gv.processor.core.EMF2GvProcessor;
 import org.emftools.emf2gv.processor.core.EMF2GvProcessorCallback;
 import org.emftools.emf2gv.processor.ui.preferences.EMF2GvPreferenceConstants;
 
+/**
+ * EMF To Grahviz launch configuration type.
+ */
 public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.debug.core.model.ILaunchConfigurationDelegate#launch(org.eclipse.debug.core.ILaunchConfiguration, java.lang.String, org.eclipse.debug.core.ILaunch, org.eclipse.core.runtime.IProgressMonitor)
+	 */
 	@Override
 	public void launch(ILaunchConfiguration cfg, String mode, ILaunch launch,
 			IProgressMonitor monitor) throws CoreException {
@@ -58,51 +64,57 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 		String dotCommand = Activator.getDefault().getPreferenceStore()
 				.getString(EMF2GvPreferenceConstants.P_DOT_UTILITY_PATH);
 		// Run config
-		boolean generateGraphDesc = EMF2GvLaunchConfigTypeProperties
+		boolean generateGraphDesc = EMF2GvLaunchConfigHelper
 				.getGenerateGraphDesc(cfg);
 		Path graphDescPath = generateGraphDesc ? null : new Path(
-				EMF2GvLaunchConfigTypeProperties.getGraphDescPath(cfg));
+				EMF2GvLaunchConfigHelper.getGraphDescPath(cfg));
 		Path modelPath = new Path(
-				EMF2GvLaunchConfigTypeProperties.getModelPath(cfg));
+				EMF2GvLaunchConfigHelper.getModelPath(cfg));
 		Path targetPath = new Path(
-				EMF2GvLaunchConfigTypeProperties.getTargetPath(cfg));
-		boolean processAllResourceContents = EMF2GvLaunchConfigTypeProperties
+				EMF2GvLaunchConfigHelper.getTargetPath(cfg));
+		boolean processAllResourceContents = EMF2GvLaunchConfigHelper
 				.getProcessAllResourceContents(cfg);
-		String uriFragment = !processAllResourceContents ? EMF2GvLaunchConfigTypeProperties
+		String uriFragment = !processAllResourceContents ? EMF2GvLaunchConfigHelper
 				.getSelectedElementUriFragment(cfg) : null;
-		boolean addValidationDecorators = EMF2GvLaunchConfigTypeProperties
+		boolean addValidationDecorators = EMF2GvLaunchConfigHelper
 				.getAddValidationDecorators(cfg);
-		boolean keepGeneratedGvFile = EMF2GvLaunchConfigTypeProperties
+		boolean keepGeneratedGvFile = EMF2GvLaunchConfigHelper
 				.getKeepGeneratedGvFile(cfg);
 
 		// EMF2GvProcessorCallback
 		EMF2GvProcessorCallback eMF2GvProcessorCallback = new EMF2GvProcessorCallback() {
 			@Override
-			public boolean confirmImageGeneration(final int nodesCount, final int edgesCount) {
+			public boolean confirmImageGeneration(final int nodesCount,
+					final int edgesCount) {
 				final boolean[] result = new boolean[1];
 				if (nodesCount + edgesCount > 600) {
-					PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-						@Override
-						public void run() {
-							result[0] = MessageDialog
-									.openQuestion(
-											PlatformUI.getWorkbench().getDisplay()
-													.getActiveShell(),
-											"Warning",
-											"There is a high number of nodes and/or edges to represent :\n" +
-											"Nodes : " + nodesCount + "\n" +
-											"Edges : " + edgesCount + "\n" +
-											"\n" +
-											"This may take a long time.\n" +
-											"Do you want to proceed ?\n" +
-											"\n" +
-											"In order to decrease the nodes/edges count, it is possible to\n" +
-											" - remove some reference figures from the Graphdesc model\n" +
-											" - select a root element to process in the run configuration");
-						}
-					});
-				}
-				else {
+					PlatformUI.getWorkbench().getDisplay()
+							.syncExec(new Runnable() {
+								@Override
+								public void run() {
+									result[0] = MessageDialog
+											.openQuestion(
+													PlatformUI.getWorkbench()
+															.getDisplay()
+															.getActiveShell(),
+													"Warning",
+													"There is a high number of nodes and/or edges to represent :\n"
+															+ "Nodes : "
+															+ nodesCount
+															+ "\n"
+															+ "Edges : "
+															+ edgesCount
+															+ "\n"
+															+ "\n"
+															+ "This may take a long time.\n"
+															+ "Do you want to proceed ?\n"
+															+ "\n"
+															+ "In order to decrease the nodes/edges count, it is possible to\n"
+															+ " - remove some reference figures from the Graphdesc model\n"
+															+ " - select a root element to process in the run configuration");
+								}
+							});
+				} else {
 					result[0] = true;
 				}
 				return result[0];
@@ -110,13 +122,13 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 		};
 
 		// Image generation
-		final IFile targetFile = EMF2GvProcessor.process(dotCommand,
-				gvSourceEncoding, graphDescPath, modelPath,
-				addValidationDecorators, uriFragment, targetPath,
-				keepGeneratedGvFile, eMF2GvProcessorCallback, monitor);
+		final IFile targetFile = EMF2GvProcessor.process(modelPath,
+				uriFragment, graphDescPath, targetPath,
+				eMF2GvProcessorCallback, dotCommand, addValidationDecorators,
+				keepGeneratedGvFile, gvSourceEncoding, monitor);
 
 		// Image editor is automatically opened
-		if (EMF2GvLaunchConfigTypeProperties.getAutoOpenImageEditor(cfg)) {
+		if (EMF2GvLaunchConfigHelper.getAutoOpenImageEditor(cfg)) {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				@Override
 				public void run() {
