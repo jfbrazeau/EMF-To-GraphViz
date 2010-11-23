@@ -57,8 +57,10 @@ import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 
 public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 
-	/** EClasses table viewer */
+	/** EReferences table viewer */
 	private CheckboxTreeViewer eReferencesTreeViewer;
+
+	/** EReferences content provider */
 	private EReferencesContentProvider contentProvider;
 
 	/**
@@ -107,8 +109,10 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 
 		// Update checked status
 		for (ClassFigure classFigure : gvFigureDescription.getClassFigures()) {
-			for (ReferenceFigure referenceFigure : classFigure.getReferenceFigures()) {
-				eReferencesTreeViewer.setChecked(referenceFigure.getEReference(), true);
+			for (ReferenceFigure referenceFigure : classFigure
+					.getReferenceFigures()) {
+				eReferencesTreeViewer.setChecked(
+						referenceFigure.getEReference(), true);
 			}
 		}
 
@@ -131,7 +135,7 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 		// EClass table initialization
 		Tree eClassesTree = new Tree(eClassesListGroup, SWT.CHECK | SWT.BORDER);
 		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
-		gridData.verticalSpan = 2;
+		gridData.verticalSpan = 3;
 		eClassesTree.setLayoutData(gridData);
 		eReferencesTreeViewer = new CheckboxTreeViewer(eClassesTree);
 		contentProvider = new EReferencesContentProvider(
@@ -140,20 +144,36 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 		eReferencesTreeViewer.setLabelProvider(new AdapterFactoryLabelProvider(
 				getEcoreAdapterFactory()));
 		eReferencesTreeViewer.setSorter(new ViewerSorter() {
-            public int compare(Viewer viewer, Object e1, Object e2) {
-                if (e1 instanceof ENamedElement && e2 instanceof ENamedElement) {
-                    return ((ENamedElement)e1).getName().toLowerCase().compareTo(
-                            ((ENamedElement) e2).getName().toLowerCase());
-                }
+			public int compare(Viewer viewer, Object e1, Object e2) {
+				if (e1 instanceof ENamedElement && e2 instanceof ENamedElement) {
+					return ((ENamedElement) e1)
+							.getName()
+							.toLowerCase()
+							.compareTo(
+									((ENamedElement) e2).getName()
+											.toLowerCase());
+				}
 
-                return super.compare(viewer, e1, e2);
-            }
+				return super.compare(viewer, e1, e2);
+			}
 		});
 		eReferencesTreeViewer.addCheckStateListener(new ICheckStateListener() {
 			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				handleTreeItemCheckedStateChanged(event.getElement(),
 						event.getChecked());
+			}
+		});
+
+		Button selectAllContainmentsRadio = new Button(eClassesListGroup,
+				SWT.NONE);
+		selectAllContainmentsRadio.setText("Select containments refs");
+		gridData = new GridData(SWT.FILL, SWT.NONE, false, false);
+		selectAllContainmentsRadio.setLayoutData(gridData);
+		selectAllContainmentsRadio.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				handleSelectAllContainment();
 			}
 		});
 
@@ -180,19 +200,44 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 		});
 	}
 
+	private void handleSelectAllContainment() {
+		boolean atLeastOneChange = false;
+		for (EPackage ePackage : getGvFigureDescription().getEPackages()) {
+			for (Object eClass : contentProvider.getChildren(ePackage)) {
+				for (Object child : contentProvider.getChildren(eClass)) {
+					EReference eReference = (EReference) child;
+					boolean mustBeChecked = eReference.isContainment();
+					boolean isActuallyChecked = eReferencesTreeViewer
+							.getChecked(eReference);
+					if (mustBeChecked != isActuallyChecked) {
+						atLeastOneChange = true;
+						eReferencesTreeViewer.setChecked(eReference,
+								mustBeChecked);
+						handleEReferenceCheckedStateChanged(eReference,
+								mustBeChecked);
+					}
+				}
+			}
+		}
+		if (atLeastOneChange)
+			entryChanged();
+	}
+
 	private void handleSetAllCheckedState(boolean newCheckState) {
 		boolean atLeastOneChange = false;
 		for (EPackage ePackage : getGvFigureDescription().getEPackages()) {
-			Object[] childElements = contentProvider.getChildren(ePackage);
-			for (Object childElement : childElements) {
-				boolean actualCheckedStatus = eReferencesTreeViewer
-						.getChecked(childElement);
-				if (actualCheckedStatus != newCheckState) {
-					eReferencesTreeViewer.setChecked(childElement,
-							newCheckState);
-					handleEReferenceCheckedStateChanged(
-							(EReference) childElement, newCheckState);
-					atLeastOneChange = true;
+			for (Object eClass : contentProvider.getChildren(ePackage)) {
+				for (Object child : contentProvider.getChildren(eClass)) {
+					EReference eReference = (EReference) child;
+					boolean actualCheckedStatus = eReferencesTreeViewer
+							.getChecked(eReference);
+					if (actualCheckedStatus != newCheckState) {
+						eReferencesTreeViewer.setChecked(eReference,
+								newCheckState);
+						handleEReferenceCheckedStateChanged(eReference,
+								newCheckState);
+						atLeastOneChange = true;
+					}
 				}
 			}
 		}
@@ -245,11 +290,11 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 	protected boolean validatePage() {
 		setErrorMessage(null);
 		Object[] checkedElements = eReferencesTreeViewer.getCheckedElements();
-		List<EReference> checkedEreferences = new ArrayList<EReference>();
+		List<EReference> checkedEReferences = new ArrayList<EReference>();
 		if (checkedElements != null) {
 			for (Object checkedElement : checkedElements) {
 				if (checkedElement instanceof EReference) {
-					checkedEreferences.add((EReference) checkedElement);
+					checkedEReferences.add((EReference) checkedElement);
 				}
 			}
 		}
@@ -257,8 +302,8 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 		// (associated
 		// to the target EClass or one of its subclass of the EReference)
 		boolean valid = true;
-		for (int i = 0; i < checkedEreferences.size() && valid; i++) {
-			EReference eReference = checkedEreferences.get(i);
+		for (int i = 0; i < checkedEReferences.size() && valid; i++) {
+			EReference eReference = checkedEReferences.get(i);
 			ClassFigure classFigure = getGvFigureDescription().getClassFigure(
 					eReference.getEContainingClass());
 			ReferenceFigure referenceFigure = classFigure
