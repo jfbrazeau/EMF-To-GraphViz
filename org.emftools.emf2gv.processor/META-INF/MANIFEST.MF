@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EMF To Graphviz Processor
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.emftools.emf2gv.processor;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.emftools.emf2gv.processor.Activator
+Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6,
  J2SE-1.5
 Require-Bundle: org.eclipse.core.runtime,
@@ -13,3 +14,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.expressions,
  org.emftools.emf2gv.util
 Bundle-ActivationPolicy: lazy
+Bundle-Vendor: %providerName
