@@ -3,13 +3,14 @@
       id="org.emftools.samples"
       label="EMF Tools Samples"
       version="1.0.0.qualifier"
-      provider-name="Jean-François Brazeau">
+      provider-name="Jean-François Brazeau"
+      plugin="org.emftools.samples.school">
 
    <description url="https://sourceforge.net/projects/emf2gv/">
       Sample School model referenced in emf2gv documentation examples.
    </description>
 
-   <copyright url="https://sourceforge.net/projects/emf2gv/">
+   <copyright url="LICENSE.txt">
       Copyright (c) 2010, Jean-Francois Brazeau. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
@@ -38,7 +39,7 @@ ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
    </copyright>
 
-   <license url="https://sourceforge.net/projects/emf2gv/">
+   <license url="LICENSE.txt">
       Copyright (c) 2010, Jean-Francois Brazeau. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
