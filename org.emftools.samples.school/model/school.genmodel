@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.emftools.samples.school/src"
+    modelPluginID="org.emftools.samples.school" modelName="School" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>school.ecore</foreignModel>
+  <genPackages prefix="School" basePackage="org.emftools.samples" disposableProviderFactory="true"
+      ecorePackage="school.ecore#/">
+    <genClasses ecoreClass="school.ecore#//Classroom">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute school.ecore#//Classroom/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute school.ecore#//Classroom/teacher"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute school.ecore#//Classroom/rank"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute school.ecore#//Classroom/capacity"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference school.ecore#//Classroom/students"/>
+      <genOperations ecoreOperation="school.ecore#//Classroom/validate">
+        <genParameters ecoreParameter="school.ecore#//Classroom/validate/diagnostic"/>
+        <genParameters ecoreParameter="school.ecore#//Classroom/validate/context"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="school.ecore#//School">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute school.ecore#//School/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute school.ecore#//School/director"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute school.ecore#//School/zipCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute school.ecore#//School/city"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference school.ecore#//School/classrooms"/>
+    </genClasses>
+    <genClasses ecoreClass="school.ecore#//Student">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute school.ecore#//Student/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute school.ecore#//Student/nickname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute school.ecore#//Student/age"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference school.ecore#//Student/friends"/>
+      <genOperations ecoreOperation="school.ecore#//Student/validate">
+        <genParameters ecoreParameter="school.ecore#//Student/validate/diagnostic"/>
+        <genParameters ecoreParameter="school.ecore#//Student/validate/context"/>
+      </genOperations>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

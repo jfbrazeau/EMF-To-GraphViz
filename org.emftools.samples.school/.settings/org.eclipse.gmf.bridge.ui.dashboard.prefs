@@ -1,0 +1,8 @@
+#Fri Dec 04 21:57:51 CET 2009
+eclipse.preferences.version=1
+gmf_dashboard/domainGenerationModel=platform\:/resource/School/model/school.genmodel
+gmf_dashboard/domainModel=platform\:/resource/School/model/school.ecore
+gmf_dashboard/generationModel=platform\:/resource/School/model/school.gmfgen
+gmf_dashboard/graphicalDefinitionModel=platform\:/resource/School/model/school.gmfgraph
+gmf_dashboard/mappingModel=platform\:/resource/School/model/school.gmfmap
+gmf_dashboard/toolingDefinitionModel=platform\:/resource/School/model/school.gmftool
