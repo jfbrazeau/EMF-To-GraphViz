@@ -69,7 +69,9 @@ POSSIBILITY OF SUCH DAMAGE.
    </license>
 
    <url>
+      <update label="EMF Tools Update Site" url="http://emftools.tuxfamily.org/update/"/>
       <discovery label="Sourceforge Site" url="https://sourceforge.net/projects/emf2gv/"/>
+      <discovery label="EMF Tools Project documentation" url="http://emftools.tuxfamily.org"/>
    </url>
 
    <plugin
