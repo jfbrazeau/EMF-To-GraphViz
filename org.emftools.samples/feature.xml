@@ -3,7 +3,7 @@
       id="org.emftools.samples"
       label="EMF Tools Samples"
       version="1.0.0.qualifier"
-      provider-name="Jean-François Brazeau"
+      provider-name="EMF Tools Project"
       plugin="org.emftools.samples.school">
 
    <description url="https://sourceforge.net/projects/emf2gv/">
