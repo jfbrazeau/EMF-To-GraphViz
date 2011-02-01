@@ -38,6 +38,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 
+// TODO Javadoc
 public class ArrowTypePropertyDescriptor extends PropertyDescriptor {
 
 	public ArrowTypePropertyDescriptor(Object object,
@@ -52,7 +53,7 @@ public class ArrowTypePropertyDescriptor extends PropertyDescriptor {
 			protected Object openDialogBox(Control cellEditorWindow) {
 				ElementListSelectionDialog dialog = new ElementListSelectionDialog(
 						PlatformUI.getWorkbench().getDisplay().getActiveShell(),
-						getLabelProvider());	
+						getLabelProvider());
 				dialog.setElements(ArrowType.VALUES.toArray());
 				dialog.setInitialSelections(new Object[] { getValue() });
 				dialog.setTitle("Arrow types");

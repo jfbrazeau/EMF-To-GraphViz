@@ -36,6 +36,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 
+// TODO Javadoc
 public class GraphdescPropertySource extends PropertySource {
 
 	private Map<Integer, Image> colorIcons;
@@ -57,7 +58,8 @@ public class GraphdescPropertySource extends PropertySource {
 				.getReferenceFigure_TargetArrowType());
 		boolean colorFeature = (feature == gdPkg
 				.getClassFigure_HeaderBackgroundColor() || feature == gdPkg
-				.getClassFigure_BodyBackgroundColor());
+				.getClassFigure_BodyBackgroundColor())
+				|| feature == gdPkg.getReferenceFigure_Color();
 		if (arrowTypeFeature) {
 			result = new ArrowTypePropertyDescriptor(object,
 					itemPropertyDescriptor);
