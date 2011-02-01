@@ -27,6 +27,7 @@
  */
 package org.emftools.emf2gv.graphdesc.provider;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -46,10 +47,12 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.provider.util.ArrowTypeItemLabelProvider;
+import org.osgi.framework.Bundle;
 
 /**
  * This is the item provider adapter for a
@@ -70,6 +73,12 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 	private ArrowTypeItemLabelProvider targetArrowTypeItemLabelProvider = new ArrowTypeItemLabelProvider(
 			ArrowTypeItemLabelProvider.Category.Target);
 
+	/** Custom source arrow property descriptor (hidden if the arrow type is different from custom) */
+	private IItemPropertyDescriptor customSourceArrowPropertyDescriptor;
+
+	/** Custom target arrow property descriptor (hidden if the arrow type is different from custom) */
+	private IItemPropertyDescriptor customTargetArrowPropertyDescriptor;
+	
 	/**
 	 * This constructs an instance from a factory and a notifier. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
@@ -84,19 +93,43 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 	 * This returns the property descriptors for the adapted class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addColorPropertyDescriptor(object);
+			addStylePropertyDescriptor(object);
 			addEReferencePropertyDescriptor(object);
 			addTargetArrowTypePropertyDescriptor(object);
+			addCustomTargetArrowPropertyDescriptor(object);
+			customTargetArrowPropertyDescriptor = itemPropertyDescriptors.get(itemPropertyDescriptors.size() - 1);
 			addSourceArrowTypePropertyDescriptor(object);
+			addCustomSourceArrowPropertyDescriptor(object);
+			customSourceArrowPropertyDescriptor = itemPropertyDescriptors.get(itemPropertyDescriptors.size() - 1);
 			addContainmentPropertyDescriptor(object);
 		}
-		return itemPropertyDescriptors;
+		// Custom arrow fields are shown only if the corresponding types are set to 'custom'
+		List<IItemPropertyDescriptor> result = new ArrayList<IItemPropertyDescriptor>();
+		ReferenceFigure figure = (ReferenceFigure) object;
+		boolean customTargetArrowType = figure.getTargetArrowType().equals(ArrowType.CUSTOM); 
+		boolean customSourceArrowType = figure.getSourceArrowType().equals(ArrowType.CUSTOM); 
+		if (customSourceArrowType && customTargetArrowType) {
+			result = itemPropertyDescriptors;
+		}
+		else {
+			result = new ArrayList<IItemPropertyDescriptor>();
+			result.addAll(itemPropertyDescriptors);
+			if (!customTargetArrowType) {
+				result.remove(customTargetArrowPropertyDescriptor);
+			}
+			if (!customSourceArrowType) {
+				result.remove(customSourceArrowPropertyDescriptor);
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -235,6 +268,128 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Custom Target Arrow feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	protected void addCustomTargetArrowPropertyDescriptor(Object object) {
+		Bundle bundle = GraphdescEditPlugin.getPlugin().getBundle();
+		final URL iconUrl = bundle.getResource("/icons/full/obj16/arrows/target/custom.png");
+		final IItemLabelProvider labelProvider = new IItemLabelProvider() {
+			@Override
+			public String getText(Object object) {
+				return (String) object;
+			}
+			@Override
+			public Object getImage(Object object) {
+				return iconUrl;
+			}
+		};
+		itemPropertyDescriptors.add
+			(new ItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ReferenceFigure_customTargetArrow_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ReferenceFigure_customTargetArrow_feature", "_UI_ReferenceFigure_type"),
+				 GraphdescPackage.Literals.REFERENCE_FIGURE__CUSTOM_TARGET_ARROW,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null) {
+				@Override
+				public IItemLabelProvider getLabelProvider(Object object) {
+					return labelProvider;
+				}
+			});
+	}
+
+	/**
+	 * This adds a property descriptor for the Custom Source Arrow feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	protected void addCustomSourceArrowPropertyDescriptor(Object object) {
+		Bundle bundle = GraphdescEditPlugin.getPlugin().getBundle();
+		final URL iconUrl = bundle.getResource("/icons/full/obj16/arrows/source/custom.png");
+		final IItemLabelProvider labelProvider = new IItemLabelProvider() {
+			@Override
+			public String getText(Object object) {
+				return (String) object;
+			}
+			@Override
+			public Object getImage(Object object) {
+				return iconUrl;
+			}
+		};
+		itemPropertyDescriptors.add
+			(new ItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ReferenceFigure_customSourceArrow_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ReferenceFigure_customSourceArrow_feature", "_UI_ReferenceFigure_type"),
+				 GraphdescPackage.Literals.REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null) {
+				@Override
+				public IItemLabelProvider getLabelProvider(Object object) {
+					return labelProvider;
+				}
+			});
+	}
+
+	/**
+	 * This adds a property descriptor for the Color feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addColorPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ReferenceFigure_color_feature"),
+				 getString("_UI_ReferenceFigure_color_description"),
+				 GraphdescPackage.Literals.REFERENCE_FIGURE__COLOR,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Style feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStylePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ReferenceFigure_style_feature"),
+				 getString("_UI_ReferenceFigure_style_description"),
+				 GraphdescPackage.Literals.REFERENCE_FIGURE__STYLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null));
+	}
+
+	/**
 	 * This returns ReferenceFigure.gif.
 	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -284,6 +439,10 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 			case GraphdescPackage.REFERENCE_FIGURE__TARGET_ARROW_TYPE:
 			case GraphdescPackage.REFERENCE_FIGURE__SOURCE_ARROW_TYPE:
 			case GraphdescPackage.REFERENCE_FIGURE__CONTAINMENT:
+			case GraphdescPackage.REFERENCE_FIGURE__CUSTOM_TARGET_ARROW:
+			case GraphdescPackage.REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW:
+			case GraphdescPackage.REFERENCE_FIGURE__COLOR:
+			case GraphdescPackage.REFERENCE_FIGURE__STYLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

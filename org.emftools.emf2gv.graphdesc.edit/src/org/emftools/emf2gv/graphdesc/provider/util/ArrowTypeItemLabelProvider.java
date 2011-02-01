@@ -28,12 +28,8 @@
 package org.emftools.emf2gv.graphdesc.provider.util;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
-import org.eclipse.swt.graphics.Image;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.provider.GraphdescEditPlugin;
 import org.osgi.framework.Bundle;
@@ -43,6 +39,7 @@ import org.osgi.framework.Bundle;
  * 
  * Manages the arrow types icons.
  */
+// TODO Javadoc
 public class ArrowTypeItemLabelProvider implements IItemLabelProvider {
 
 	/**
@@ -53,8 +50,6 @@ public class ArrowTypeItemLabelProvider implements IItemLabelProvider {
 	}
 
 	private Category category;
-
-	private Map<ArrowType, Image> images = new HashMap<ArrowType, Image>();
 
 	public ArrowTypeItemLabelProvider(Category category) {
 		this.category = category;
@@ -69,16 +64,11 @@ public class ArrowTypeItemLabelProvider implements IItemLabelProvider {
 	@Override
 	public Object getImage(Object object) {
 		ArrowType arrowType = (ArrowType) object;
-		Image result = images.get(arrowType);
-		if (result == null) {
-			Bundle bundle = GraphdescEditPlugin.getPlugin().getBundle();
-			URL url = bundle.getResource("/icons/full/obj16/arrows/"
-					+ category.toString().toLowerCase() + '/'
-					+ arrowType.toString().toLowerCase() + ".png");
-			result = ExtendedImageRegistry.getInstance().getImage(url);
-			images.put(arrowType, result);
-		}
-		return result;
+		Bundle bundle = GraphdescEditPlugin.getPlugin().getBundle();
+		URL url = bundle.getResource("/icons/full/obj16/arrows/"
+				+ category.toString().toLowerCase() + '/'
+				+ arrowType.toString().toLowerCase() + ".png");
+		return url;
 	}
 
 }
