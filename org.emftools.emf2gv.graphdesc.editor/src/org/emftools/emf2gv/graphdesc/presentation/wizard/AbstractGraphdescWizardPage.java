@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.Group;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.util.EMFHelper;
 
+// TODO Javadoc
 public abstract class AbstractGraphdescWizardPage extends WizardPage {
 
 	private GVFigureDescription gvFigureDescription;

@@ -59,6 +59,7 @@ import org.emftools.emf2gv.graphdesc.presentation.GraphdescEditorPlugin;
 import org.emftools.emf2gv.graphdesc.util.GraphdescGenerator;
 import org.emftools.validation.builder.util.EMFValidationNatureHelper;
 
+// TODO Javadoc
 public class GraphdescModelWizard extends Wizard implements INewWizard {
 
 	private IStructuredSelection selection;

@@ -58,6 +58,8 @@ public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 
 	/** EClasses table viewer */
 	private CheckboxTreeViewer eClassesTreeViewer;
+	
+	/** EClass content provider */
 	private EClassesContentProvider contentProvider;
 
 	/**
@@ -282,7 +284,8 @@ class EClassesContentProvider implements ITreeContentProvider {
 			List<EClass> eClasses = new ArrayList<EClass>();
 			List<EClassifier> eCLassifiers = ePackage.getEClassifiers();
 			for (EClassifier eClassifier : eCLassifiers) {
-				if (eClassifier instanceof EClass) {
+				if (eClassifier instanceof EClass
+						&& !((EClass) eClassifier).isAbstract()) {
 					eClasses.add((EClass) eClassifier);
 				}
 			}
