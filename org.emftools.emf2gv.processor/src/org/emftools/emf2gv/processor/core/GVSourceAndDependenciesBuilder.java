@@ -52,6 +52,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.emftools.emf2gv.graphdesc.ArrowStyle;
+import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
@@ -84,7 +86,8 @@ public class GVSourceAndDependenciesBuilder {
 	private StringWriter buffer = new StringWriter();
 
 	/**
-	 * A print writer on top of the graphviz source buffer giving some helpful utility methods.
+	 * A print writer on top of the graphviz source buffer giving some helpful
+	 * utility methods.
 	 */
 	private PrintWriter out = new PrintWriter(buffer);
 
@@ -94,7 +97,8 @@ public class GVSourceAndDependenciesBuilder {
 	private Map<EObject, String> eObjectIdsCache = new HashMap<EObject, String>();
 
 	/**
-	 * A list containing the node descriptions list sorted by EClass. That list is used when the nodes of a same EClass must be aligned.
+	 * A list containing the node descriptions list sorted by EClass. That list
+	 * is used when the nodes of a same EClass must be aligned.
 	 */
 	private Map<EClass, List<NodeDesc>> nodesListByEclass = new HashMap<EClass, List<NodeDesc>>();
 
@@ -114,7 +118,8 @@ public class GVSourceAndDependenciesBuilder {
 	private AdapterFactory adapterFactory;
 
 	/**
-	 * A map containing the associations between icons URL and generated PNG files.
+	 * A map containing the associations between icons URL and generated PNG
+	 * files.
 	 */
 	private Map<URL, String> iconUrlsToPngImagePathsAssociationMap = new HashMap<URL, String>();
 
@@ -208,7 +213,21 @@ public class GVSourceAndDependenciesBuilder {
 			}
 			// Nodes & edges extraction
 			for (EObject eContentRoot : eContentRoots) {
-				processEObject(eContentRoot, monitor);
+				// If the root has no classfigure, the containment references are
+				// automatically processed (it is authorized to build a diagram
+				// with a root node that is not represented => its containement
+				// references are then processed)
+				EClass eContentRootEClass = eContentRoot.eClass();
+				ClassFigure classFigure = figureDesc.getClassFigure(eContentRootEClass);
+				if (classFigure != null) {
+					processEObject(eContentRoot, monitor);
+				}
+				else {
+					List<EObject> eContentRootChilds = eContentRoot.eContents();
+					for (EObject eContentRootChild : eContentRootChilds) {
+						processEObject(eContentRootChild, monitor);
+					}
+				}
 			}
 			// GraphViz source build
 			flushHeader();
@@ -526,9 +545,21 @@ public class GVSourceAndDependenciesBuilder {
 		out.print(edgeDesc.targetEObjectId);
 		// Arrow style
 		out.print(" [arrowhead = ");
-		out.print(referenceFigure.getTargetArrowType().toString());
+		out.print(referenceFigure.getTargetArrowType().equals(ArrowType.CUSTOM) ? referenceFigure
+				.getCustomTargetArrow() : referenceFigure.getTargetArrowType()
+				.toString());
 		out.print(", arrowtail = ");
-		out.print(referenceFigure.getSourceArrowType().toString());
+		out.print(referenceFigure.getSourceArrowType().equals(ArrowType.CUSTOM) ? referenceFigure
+				.getCustomSourceArrow() : referenceFigure.getSourceArrowType()
+				.toString());
+		out.print(", color=\"");
+		out.print(ColorsHelper.toHtmlColor(referenceFigure
+				.getColor()));
+		out.print("\"");
+		if (!ArrowStyle.NORMAL.equals(referenceFigure.getStyle())) {
+			out.print(", style=");
+			out.print(referenceFigure.getStyle().toString());
+		}
 		out.println("]");
 
 		// Edges count update
