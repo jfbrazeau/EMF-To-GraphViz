@@ -22,6 +22,14 @@
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowType/none"/>
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowType/tee"/>
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowType/vee"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowType/custom"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="graphdesc.ecore#//ArrowStyle">
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/normal"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/dashed"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/dotted"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/bold"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/invis"/>
     </genEnums>
     <genClasses ecoreClass="graphdesc.ecore#//GVFigureDescription">
       <genFeatures createChild="false" propertyCategory="Model" propertyDescription="EPackages list authorized in this figure description"
@@ -87,6 +95,16 @@
       <genFeatures property="Readonly" createChild="false" propertyCategory="Model"
           propertyDescription="Shows if the EReference is a containment reference"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/containment"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The custom target arrow"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/customTargetArrow"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The custom source arrow"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/customSourceArrow"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The edge color"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/color"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The edge weight"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/weight"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The edge style"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/style"/>
       <genOperations ecoreOperation="graphdesc.ecore#//ReferenceFigure/validate">
         <genParameters ecoreParameter="graphdesc.ecore#//ReferenceFigure/validate/diagnostic"/>
         <genParameters ecoreParameter="graphdesc.ecore#//ReferenceFigure/validate/context"/>

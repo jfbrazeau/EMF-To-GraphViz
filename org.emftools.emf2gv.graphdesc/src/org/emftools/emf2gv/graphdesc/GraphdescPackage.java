@@ -384,13 +384,49 @@ public interface GraphdescPackage extends EPackage {
 	int REFERENCE_FIGURE__CONTAINMENT = ABSTRACT_FIGURE_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Custom Target Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__CUSTOM_TARGET_ARROW = ABSTRACT_FIGURE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Custom Source Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW = ABSTRACT_FIGURE_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__COLOR = ABSTRACT_FIGURE_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Style</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__STYLE = ABSTRACT_FIGURE_FEATURE_COUNT + 8;
+
+	/**
 	 * The number of structural features of the '<em>Reference Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 5;
+	int REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
 
 
 	/**
@@ -413,6 +449,17 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	int ARROW_TYPE = 6;
+
+
+	/**
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.ArrowStyle <em>Arrow Style</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftools.emf2gv.graphdesc.ArrowStyle
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowStyle()
+	 * @generated
+	 */
+	int ARROW_STYLE = 7;
 
 
 	/**
@@ -622,6 +669,50 @@ public interface GraphdescPackage extends EPackage {
 	EAttribute getReferenceFigure_Containment();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomTargetArrow <em>Custom Target Arrow</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Custom Target Arrow</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomTargetArrow()
+	 * @see #getReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getReferenceFigure_CustomTargetArrow();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomSourceArrow <em>Custom Source Arrow</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Custom Source Arrow</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomSourceArrow()
+	 * @see #getReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getReferenceFigure_CustomSourceArrow();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getColor <em>Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Color</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getColor()
+	 * @see #getReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getReferenceFigure_Color();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getStyle <em>Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Style</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getStyle()
+	 * @see #getReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getReferenceFigure_Style();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.AbstractFigure <em>Abstract Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -704,6 +795,16 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getArrowType();
+
+	/**
+	 * Returns the meta object for enum '{@link org.emftools.emf2gv.graphdesc.ArrowStyle <em>Arrow Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Arrow Style</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ArrowStyle
+	 * @generated
+	 */
+	EEnum getArrowStyle();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.emftools.emf2gv.graphdesc.GVFigureDescription#getEPackages <em>EPackages</em>}'.
@@ -897,6 +998,38 @@ public interface GraphdescPackage extends EPackage {
 		EAttribute REFERENCE_FIGURE__CONTAINMENT = eINSTANCE.getReferenceFigure_Containment();
 
 		/**
+		 * The meta object literal for the '<em><b>Custom Target Arrow</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REFERENCE_FIGURE__CUSTOM_TARGET_ARROW = eINSTANCE.getReferenceFigure_CustomTargetArrow();
+
+		/**
+		 * The meta object literal for the '<em><b>Custom Source Arrow</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW = eINSTANCE.getReferenceFigure_CustomSourceArrow();
+
+		/**
+		 * The meta object literal for the '<em><b>Color</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REFERENCE_FIGURE__COLOR = eINSTANCE.getReferenceFigure_Color();
+
+		/**
+		 * The meta object literal for the '<em><b>Style</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REFERENCE_FIGURE__STYLE = eINSTANCE.getReferenceFigure_Style();
+
+		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl <em>Abstract Figure</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -967,6 +1100,16 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum ARROW_TYPE = eINSTANCE.getArrowType();
+
+		/**
+		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.ArrowStyle <em>Arrow Style</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftools.emf2gv.graphdesc.ArrowStyle
+		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowStyle()
+		 * @generated
+		 */
+		EEnum ARROW_STYLE = eINSTANCE.getArrowStyle();
 
 		/**
 		 * The meta object literal for the '<em><b>EPackages</b></em>' reference list feature.

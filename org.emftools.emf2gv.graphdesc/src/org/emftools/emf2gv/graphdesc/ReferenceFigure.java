@@ -45,6 +45,10 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getTargetArrowType <em>Target Arrow Type</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getSourceArrowType <em>Source Arrow Type</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#isContainment <em>Containment</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomTargetArrow <em>Custom Target Arrow</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomSourceArrow <em>Custom Source Arrow</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getColor <em>Color</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getStyle <em>Style</em>}</li>
  * </ul>
  * </p>
  *
@@ -181,6 +185,114 @@ public interface ReferenceFigure extends AbstractFigure {
 	 * @generated
 	 */
 	boolean isContainment();
+
+	/**
+	 * Returns the value of the '<em><b>Custom Target Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Custom Target Arrow</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Custom Target Arrow</em>' attribute.
+	 * @see #setCustomTargetArrow(String)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getReferenceFigure_CustomTargetArrow()
+	 * @model
+	 * @generated
+	 */
+	String getCustomTargetArrow();
+
+	/**
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomTargetArrow <em>Custom Target Arrow</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Custom Target Arrow</em>' attribute.
+	 * @see #getCustomTargetArrow()
+	 * @generated
+	 */
+	void setCustomTargetArrow(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Custom Source Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Custom Source Arrow</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Custom Source Arrow</em>' attribute.
+	 * @see #setCustomSourceArrow(String)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getReferenceFigure_CustomSourceArrow()
+	 * @model
+	 * @generated
+	 */
+	String getCustomSourceArrow();
+
+	/**
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomSourceArrow <em>Custom Source Arrow</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Custom Source Arrow</em>' attribute.
+	 * @see #getCustomSourceArrow()
+	 * @generated
+	 */
+	void setCustomSourceArrow(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Color</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Color</em>' attribute.
+	 * @see #setColor(int)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getReferenceFigure_Color()
+	 * @model
+	 * @generated
+	 */
+	int getColor();
+
+	/**
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getColor <em>Color</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Color</em>' attribute.
+	 * @see #getColor()
+	 * @generated
+	 */
+	void setColor(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Style</b></em>' attribute.
+	 * The default value is <code>"normal"</code>.
+	 * The literals are from the enumeration {@link org.emftools.emf2gv.graphdesc.ArrowStyle}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Style</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Style</em>' attribute.
+	 * @see org.emftools.emf2gv.graphdesc.ArrowStyle
+	 * @see #setStyle(ArrowStyle)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getReferenceFigure_Style()
+	 * @model default="normal"
+	 * @generated
+	 */
+	ArrowStyle getStyle();
+
+	/**
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getStyle <em>Style</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Style</em>' attribute.
+	 * @see org.emftools.emf2gv.graphdesc.ArrowStyle
+	 * @see #getStyle()
+	 * @generated
+	 */
+	void setStyle(ArrowStyle value);
 
 	/**
 	 * <!-- begin-user-doc -->

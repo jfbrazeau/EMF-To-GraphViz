@@ -131,7 +131,15 @@ public enum ArrowType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VEE(8, "vee", "vee");
+	VEE(8, "vee", "vee"), /**
+	 * The '<em><b>Custom</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CUSTOM_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CUSTOM(9, "custom", "custom");
 
 	/**
 	 * The '<em><b>Normal</b></em>' literal value.
@@ -269,6 +277,21 @@ public enum ArrowType implements Enumerator {
 	public static final int VEE_VALUE = 8;
 
 	/**
+	 * The '<em><b>Custom</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Custom</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #CUSTOM
+	 * @model name="custom"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CUSTOM_VALUE = 9;
+
+	/**
 	 * An array of all the '<em><b>Arrow Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -285,6 +308,7 @@ public enum ArrowType implements Enumerator {
 			NONE,
 			TEE,
 			VEE,
+			CUSTOM,
 		};
 
 	/**
@@ -344,6 +368,7 @@ public enum ArrowType implements Enumerator {
 			case NONE_VALUE: return NONE;
 			case TEE_VALUE: return TEE;
 			case VEE_VALUE: return VEE;
+			case CUSTOM_VALUE: return CUSTOM;
 		}
 		return null;
 	}

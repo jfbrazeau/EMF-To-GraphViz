@@ -94,6 +94,11 @@
         defaultValueLiteral="none"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="containment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="customTargetArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="customSourceArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="color" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//ArrowStyle"
+        defaultValueLiteral="normal"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Orientation">
     <eLiterals name="TopDown"/>
@@ -109,9 +114,17 @@
     <eLiterals name="none" value="5"/>
     <eLiterals name="tee" value="7"/>
     <eLiterals name="vee" value="8"/>
+    <eLiterals name="custom" value="9"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractFigure" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
         changeable="false" volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ArrowStyle">
+    <eLiterals name="normal" value="1"/>
+    <eLiterals name="dashed" value="2"/>
+    <eLiterals name="dotted" value="3"/>
+    <eLiterals name="bold"/>
+    <eLiterals name="invis" value="4"/>
   </eClassifiers>
 </ecore:EPackage>

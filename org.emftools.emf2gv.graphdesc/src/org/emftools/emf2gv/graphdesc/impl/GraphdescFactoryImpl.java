@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
@@ -107,6 +108,8 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 				return createOrientationFromString(eDataType, initialValue);
 			case GraphdescPackage.ARROW_TYPE:
 				return createArrowTypeFromString(eDataType, initialValue);
+			case GraphdescPackage.ARROW_STYLE:
+				return createArrowStyleFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -124,6 +127,8 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 				return convertOrientationToString(eDataType, instanceValue);
 			case GraphdescPackage.ARROW_TYPE:
 				return convertArrowTypeToString(eDataType, instanceValue);
+			case GraphdescPackage.ARROW_STYLE:
+				return convertArrowStyleToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -206,6 +211,26 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 	 * @generated
 	 */
 	public String convertArrowTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ArrowStyle createArrowStyleFromString(EDataType eDataType, String initialValue) {
+		ArrowStyle result = ArrowStyle.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertArrowStyleToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

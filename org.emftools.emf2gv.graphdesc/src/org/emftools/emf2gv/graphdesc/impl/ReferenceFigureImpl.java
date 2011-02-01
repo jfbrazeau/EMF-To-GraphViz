@@ -29,6 +29,7 @@ package org.emftools.emf2gv.graphdesc.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -38,6 +39,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
@@ -57,6 +59,10 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#getTargetArrowType <em>Target Arrow Type</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#getSourceArrowType <em>Source Arrow Type</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#isContainment <em>Containment</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#getCustomTargetArrow <em>Custom Target Arrow</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#getCustomSourceArrow <em>Custom Source Arrow</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#getColor <em>Color</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#getStyle <em>Style</em>}</li>
  * </ul>
  * </p>
  *
@@ -121,6 +127,82 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 	 * @ordered
 	 */
 	protected static final boolean CONTAINMENT_EDEFAULT = false;
+
+	/**
+	 * The default value of the '{@link #getCustomTargetArrow() <em>Custom Target Arrow</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * @see #getCustomTargetArrow()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CUSTOM_TARGET_ARROW_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCustomTargetArrow() <em>Custom Target Arrow</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * @see #getCustomTargetArrow()
+	 * @generated
+	 * @ordered
+	 */
+	protected String customTargetArrow = CUSTOM_TARGET_ARROW_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCustomSourceArrow() <em>Custom Source Arrow</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * @see #getCustomSourceArrow()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CUSTOM_SOURCE_ARROW_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCustomSourceArrow() <em>Custom Source Arrow</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * @see #getCustomSourceArrow()
+	 * @generated
+	 * @ordered
+	 */
+	protected String customSourceArrow = CUSTOM_SOURCE_ARROW_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getColor() <em>Color</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getColor()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int COLOR_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getColor() <em>Color</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getColor()
+	 * @generated
+	 * @ordered
+	 */
+	protected int color = COLOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getStyle() <em>Style</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getStyle()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ArrowStyle STYLE_EDEFAULT = ArrowStyle.NORMAL;
+
+	/**
+	 * The cached value of the '{@link #getStyle() <em>Style</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getStyle()
+	 * @generated
+	 * @ordered
+	 */
+	protected ArrowStyle style = STYLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -247,13 +329,20 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
+	 * 
+	 * @generated NOT
 	 */
 	public void setTargetArrowType(ArrowType newTargetArrowType) {
 		ArrowType oldTargetArrowType = targetArrowType;
-		targetArrowType = newTargetArrowType == null ? TARGET_ARROW_TYPE_EDEFAULT : newTargetArrowType;
+		targetArrowType = newTargetArrowType == null ? TARGET_ARROW_TYPE_EDEFAULT
+				: newTargetArrowType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.REFERENCE_FIGURE__TARGET_ARROW_TYPE, oldTargetArrowType, targetArrowType));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GraphdescPackage.REFERENCE_FIGURE__TARGET_ARROW_TYPE,
+					oldTargetArrowType, targetArrowType));
+		if (!ArrowType.CUSTOM.equals(newTargetArrowType)) {
+			setCustomTargetArrow(null);
+		}
 	}
 
 	/**
@@ -266,13 +355,20 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
+	 * 
+	 * @generated NOT
 	 */
 	public void setSourceArrowType(ArrowType newSourceArrowType) {
 		ArrowType oldSourceArrowType = sourceArrowType;
-		sourceArrowType = newSourceArrowType == null ? SOURCE_ARROW_TYPE_EDEFAULT : newSourceArrowType;
+		sourceArrowType = newSourceArrowType == null ? SOURCE_ARROW_TYPE_EDEFAULT
+				: newSourceArrowType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.REFERENCE_FIGURE__SOURCE_ARROW_TYPE, oldSourceArrowType, sourceArrowType));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GraphdescPackage.REFERENCE_FIGURE__SOURCE_ARROW_TYPE,
+					oldSourceArrowType, sourceArrowType));
+		if (!ArrowType.CUSTOM.equals(newSourceArrowType)) {
+			setCustomSourceArrow(null);
+		}
 	}
 
 	/**
@@ -286,6 +382,94 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 			result = getEReference().isContainment();
 		}
 		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getCustomTargetArrow() {
+		return customTargetArrow;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public void setCustomTargetArrow(String newCustomTargetArrow) {
+		if (ArrowType.CUSTOM.equals(getTargetArrowType())
+				|| newCustomTargetArrow == null) {
+			String oldCustomTargetArrow = customTargetArrow;
+			customTargetArrow = newCustomTargetArrow;
+			if (eNotificationRequired())
+				eNotify(new ENotificationImpl(this, Notification.SET,
+						GraphdescPackage.REFERENCE_FIGURE__CUSTOM_TARGET_ARROW,
+						oldCustomTargetArrow, customTargetArrow));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getCustomSourceArrow() {
+		return customSourceArrow;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public void setCustomSourceArrow(String newCustomSourceArrow) {
+		if (ArrowType.CUSTOM.equals(getSourceArrowType())
+				|| newCustomSourceArrow == null) {
+			String oldCustomSourceArrow = customSourceArrow;
+			customSourceArrow = newCustomSourceArrow;
+			if (eNotificationRequired())
+				eNotify(new ENotificationImpl(this, Notification.SET,
+						GraphdescPackage.REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW,
+						oldCustomSourceArrow, customSourceArrow));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getColor() {
+		return color;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setColor(int newColor) {
+		int oldColor = color;
+		color = newColor;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.REFERENCE_FIGURE__COLOR, oldColor, color));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ArrowStyle getStyle() {
+		return style;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStyle(ArrowStyle newStyle) {
+		ArrowStyle oldStyle = style;
+		style = newStyle == null ? STYLE_EDEFAULT : newStyle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.REFERENCE_FIGURE__STYLE, oldStyle, style));
 	}
 
 	/**
@@ -346,8 +530,52 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 										this,
 										0,
 										"The is no class figure associated to the reference type ({0}) or one of its sub-EClass",
-										eReference.getEReferenceType().getName());
+										eReference.getEReferenceType()
+												.getName());
 						valid = false;
+					}
+				}
+				String regexp = "(o?[lr]?(box|crow|diamond|dot|inv|none|normal|tee|vee))+";
+
+				// Custom source arrow check
+				if (ArrowType.CUSTOM.equals(getSourceArrowType())) {
+					boolean notEmpty = constraintsHelper
+							.addErrorIfEmpty(
+									getCustomSourceArrow(),
+									diagnostic,
+									this,
+									0,
+									"The source arrow type is set to custom, you have to define it manually through the 'Custom Arrow' property");
+					if (notEmpty
+							&& !Pattern.matches(regexp, getCustomSourceArrow())) {
+						constraintsHelper
+								.addError(
+										diagnostic,
+										this,
+										0,
+										"The custom source arrow does not seem to be valid (it doesn't matches the regular expression '"
+												+ regexp + "')");
+					}
+				}
+
+				// Custom target arrow check
+				if (ArrowType.CUSTOM.equals(getTargetArrowType())) {
+					boolean notEmpty = constraintsHelper
+							.addErrorIfEmpty(
+									getCustomTargetArrow(),
+									diagnostic,
+									this,
+									0,
+									"The target arrow type is set to custom, you have to define it manually through the 'Custom Arrow' property");
+					if (notEmpty
+							&& !Pattern.matches(regexp, getCustomTargetArrow())) {
+						constraintsHelper
+								.addError(
+										diagnostic,
+										this,
+										0,
+										"The custom target arrow does not seem to be valid (it doesn't matches the regular expression '"
+												+ regexp + "')");
 					}
 				}
 
@@ -457,6 +685,14 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 				return getSourceArrowType();
 			case GraphdescPackage.REFERENCE_FIGURE__CONTAINMENT:
 				return isContainment();
+			case GraphdescPackage.REFERENCE_FIGURE__CUSTOM_TARGET_ARROW:
+				return getCustomTargetArrow();
+			case GraphdescPackage.REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW:
+				return getCustomSourceArrow();
+			case GraphdescPackage.REFERENCE_FIGURE__COLOR:
+				return getColor();
+			case GraphdescPackage.REFERENCE_FIGURE__STYLE:
+				return getStyle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -479,6 +715,18 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 				return;
 			case GraphdescPackage.REFERENCE_FIGURE__SOURCE_ARROW_TYPE:
 				setSourceArrowType((ArrowType)newValue);
+				return;
+			case GraphdescPackage.REFERENCE_FIGURE__CUSTOM_TARGET_ARROW:
+				setCustomTargetArrow((String)newValue);
+				return;
+			case GraphdescPackage.REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW:
+				setCustomSourceArrow((String)newValue);
+				return;
+			case GraphdescPackage.REFERENCE_FIGURE__COLOR:
+				setColor((Integer)newValue);
+				return;
+			case GraphdescPackage.REFERENCE_FIGURE__STYLE:
+				setStyle((ArrowStyle)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -503,6 +751,18 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 			case GraphdescPackage.REFERENCE_FIGURE__SOURCE_ARROW_TYPE:
 				setSourceArrowType(SOURCE_ARROW_TYPE_EDEFAULT);
 				return;
+			case GraphdescPackage.REFERENCE_FIGURE__CUSTOM_TARGET_ARROW:
+				setCustomTargetArrow(CUSTOM_TARGET_ARROW_EDEFAULT);
+				return;
+			case GraphdescPackage.REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW:
+				setCustomSourceArrow(CUSTOM_SOURCE_ARROW_EDEFAULT);
+				return;
+			case GraphdescPackage.REFERENCE_FIGURE__COLOR:
+				setColor(COLOR_EDEFAULT);
+				return;
+			case GraphdescPackage.REFERENCE_FIGURE__STYLE:
+				setStyle(STYLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -524,6 +784,14 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 				return sourceArrowType != SOURCE_ARROW_TYPE_EDEFAULT;
 			case GraphdescPackage.REFERENCE_FIGURE__CONTAINMENT:
 				return isContainment() != CONTAINMENT_EDEFAULT;
+			case GraphdescPackage.REFERENCE_FIGURE__CUSTOM_TARGET_ARROW:
+				return CUSTOM_TARGET_ARROW_EDEFAULT == null ? customTargetArrow != null : !CUSTOM_TARGET_ARROW_EDEFAULT.equals(customTargetArrow);
+			case GraphdescPackage.REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW:
+				return CUSTOM_SOURCE_ARROW_EDEFAULT == null ? customSourceArrow != null : !CUSTOM_SOURCE_ARROW_EDEFAULT.equals(customSourceArrow);
+			case GraphdescPackage.REFERENCE_FIGURE__COLOR:
+				return color != COLOR_EDEFAULT;
+			case GraphdescPackage.REFERENCE_FIGURE__STYLE:
+				return style != STYLE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -541,6 +809,14 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 		result.append(targetArrowType);
 		result.append(", sourceArrowType: ");
 		result.append(sourceArrowType);
+		result.append(", customTargetArrow: ");
+		result.append(customTargetArrow);
+		result.append(", customSourceArrow: ");
+		result.append(customSourceArrow);
+		result.append(", color: ");
+		result.append(color);
+		result.append(", style: ");
+		result.append(style);
 		result.append(')');
 		return result.toString();
 	}

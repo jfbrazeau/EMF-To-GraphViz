@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
+import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
@@ -103,6 +104,13 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * @generated
 	 */
 	private EEnum arrowTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum arrowStyleEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -353,6 +361,42 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getReferenceFigure_CustomTargetArrow() {
+		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReferenceFigure_CustomSourceArrow() {
+		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReferenceFigure_Color() {
+		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReferenceFigure_Style() {
+		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAbstractFigure() {
 		return abstractFigureEClass;
 	}
@@ -425,6 +469,15 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getArrowStyle() {
+		return arrowStyleEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGVFigureDescription_EPackages() {
 		return (EReference)gvFigureDescriptionEClass.getEStructuralFeatures().get(0);
 	}
@@ -484,6 +537,10 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__TARGET_ARROW_TYPE);
 		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__SOURCE_ARROW_TYPE);
 		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__CONTAINMENT);
+		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__CUSTOM_TARGET_ARROW);
+		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW);
+		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__COLOR);
+		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__STYLE);
 
 		abstractFigureEClass = createEClass(ABSTRACT_FIGURE);
 		createEAttribute(abstractFigureEClass, ABSTRACT_FIGURE__NAME);
@@ -491,6 +548,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		// Create enums
 		orientationEEnum = createEEnum(ORIENTATION);
 		arrowTypeEEnum = createEEnum(ARROW_TYPE);
+		arrowStyleEEnum = createEEnum(ARROW_STYLE);
 	}
 
 	/**
@@ -592,6 +650,10 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEAttribute(getReferenceFigure_TargetArrowType(), this.getArrowType(), "targetArrowType", "normal", 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReferenceFigure_SourceArrowType(), this.getArrowType(), "sourceArrowType", "none", 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReferenceFigure_Containment(), ecorePackage.getEBoolean(), "containment", null, 0, 1, ReferenceFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReferenceFigure_CustomTargetArrow(), theEcorePackage.getEString(), "customTargetArrow", null, 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReferenceFigure_CustomSourceArrow(), theEcorePackage.getEString(), "customSourceArrow", null, 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReferenceFigure_Color(), theEcorePackage.getEInt(), "color", null, 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReferenceFigure_Style(), this.getArrowStyle(), "style", "normal", 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(referenceFigureEClass, ecorePackage.getEBoolean(), "validate", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostic", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -622,6 +684,14 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		addEEnumLiteral(arrowTypeEEnum, ArrowType.NONE);
 		addEEnumLiteral(arrowTypeEEnum, ArrowType.TEE);
 		addEEnumLiteral(arrowTypeEEnum, ArrowType.VEE);
+		addEEnumLiteral(arrowTypeEEnum, ArrowType.CUSTOM);
+
+		initEEnum(arrowStyleEEnum, ArrowStyle.class, "ArrowStyle");
+		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.NORMAL);
+		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.DASHED);
+		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.DOTTED);
+		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.BOLD);
+		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.INVIS);
 
 		// Create resource
 		createResource(eNS_URI);

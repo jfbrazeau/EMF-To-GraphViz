@@ -34,6 +34,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
+import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
@@ -160,6 +161,8 @@ public class GraphdescValidator extends EObjectValidator {
 				return validateOrientation((Orientation)value, diagnostics, context);
 			case GraphdescPackage.ARROW_TYPE:
 				return validateArrowType((ArrowType)value, diagnostics, context);
+			case GraphdescPackage.ARROW_STYLE:
+				return validateArrowStyle((ArrowStyle)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -305,6 +308,15 @@ public class GraphdescValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateArrowType(ArrowType arrowType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateArrowStyle(ArrowStyle arrowStyle, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
