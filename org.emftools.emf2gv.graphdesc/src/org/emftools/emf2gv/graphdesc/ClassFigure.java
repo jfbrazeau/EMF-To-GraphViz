@@ -52,6 +52,8 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getGvFigureDescription <em>Gv Figure Description</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getHeaderBackgroundColor <em>Header Background Color</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getBodyBackgroundColor <em>Body Background Color</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getNestedFiguresEReferences <em>Nested Figures EReferences</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#isContainer <em>Container</em>}</li>
  * </ul>
  * </p>
  *
@@ -244,6 +246,37 @@ public interface ClassFigure extends AbstractFigure {
 	 * @generated
 	 */
 	void setBodyBackgroundColor(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Nested Figures EReferences</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.emf.ecore.EReference}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Nested Figures EReferences</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Nested Figures EReferences</em>' reference list.
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getClassFigure_NestedFiguresEReferences()
+	 * @model
+	 * @generated
+	 */
+	EList<EReference> getNestedFiguresEReferences();
+
+	/**
+	 * Returns the value of the '<em><b>Container</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Container</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Container</em>' attribute.
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getClassFigure_Container()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	boolean isContainer();
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -27,7 +27,6 @@
  */
 package org.emftools.emf2gv.graphdesc.provider;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -52,23 +51,19 @@ import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 
 /**
- * This is the item provider adapter for a {@link org.emftools.emf2gv.graphdesc.AttributeFigure} object.
- * <!-- begin-user-doc -->
- * <!-- end-user-doc -->
+ * This is the item provider adapter for a
+ * {@link org.emftools.emf2gv.graphdesc.AttributeFigure} object. <!--
+ * begin-user-doc --> <!-- end-user-doc -->
+ * 
  * @generated
  */
-public class AttributeFigureItemProvider
-	extends AbstractFigureItemProvider
-	implements
-		IEditingDomainItemProvider,
-		IStructuredItemContentProvider,
-		ITreeItemContentProvider,
-		IItemLabelProvider,
-		IItemPropertySource {
+public class AttributeFigureItemProvider extends AbstractFigureItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
-	 * This constructs an instance from a factory and a notifier.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This constructs an instance from a factory and a notifier. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public AttributeFigureItemProvider(AdapterFactory adapterFactory) {
@@ -76,9 +71,9 @@ public class AttributeFigureItemProvider
 	}
 
 	/**
-	 * This returns the property descriptors for the adapted class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This returns the property descriptors for the adapted class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -93,31 +88,9 @@ public class AttributeFigureItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-//		itemPropertyDescriptors.add
-//			(createItemPropertyDescriptor
-//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-//				 getResourceLocator(),
-//				 getString("_UI_AttributeFigure_name_feature"),
-//				 getString("_UI_PropertyDescriptor_description", "_UI_AttributeFigure_name_feature", "_UI_AttributeFigure_type"),
-//				 GraphdescPackage.Literals.ATTRIBUTE_FIGURE__NAME,
-//				 false,
-//				 false,
-//				 false,
-//				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-//				 null,
-//				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Label feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This adds a property descriptor for the Label feature. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected void addLabelPropertyDescriptor(Object object) {
@@ -137,53 +110,49 @@ public class AttributeFigureItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the EAttribute feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This adds a property descriptor for the EAttribute feature. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
 	protected void addEAttributePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_AttributeFigure_eAttribute_feature"),
-				 getString("_UI_AttributeFigure_eAttribute_description", "_UI_AttributeFigure_eAttribute_feature", "_UI_AttributeFigure_type"),
-				 GraphdescPackage.Literals.ATTRIBUTE_FIGURE__EATTRIBUTE,
-				 true,
-				 false,
-				 true,
-				 null,
-				 getString("_UI_ModelPropertyCategory"),
-				 null) {
-				@Override
-				public Collection<?> getChoiceOfValues(Object object) {
-					AttributeFigure attrFigure = (AttributeFigure) object;
-					List<Object> result = new ArrayList<Object>();
-					ClassFigure classFigure = attrFigure.getClassFigure();
-					if (classFigure != null) {
-						EClass eClass = classFigure.getEClass();
-						if (eClass != null) {
-							result.addAll(eClass.getEAllAttributes());
+		itemPropertyDescriptors
+				.add(new ItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(), getResourceLocator(),
+						getString("_UI_AttributeFigure_eAttribute_feature"),
+						getString("_UI_AttributeFigure_eAttribute_description",
+								"_UI_AttributeFigure_eAttribute_feature",
+								"_UI_AttributeFigure_type"),
+						GraphdescPackage.Literals.ATTRIBUTE_FIGURE__EATTRIBUTE,
+						true, false, true, null,
+						getString("_UI_ModelPropertyCategory"), null) {
+					@Override
+					public Collection<?> getChoiceOfValues(Object object) {
+						AttributeFigure attrFigure = (AttributeFigure) object;
+						List<EAttribute> result = new ArrayList<EAttribute>();
+						ClassFigure classFigure = attrFigure.getClassFigure();
+						if (classFigure != null) {
+							EClass eClass = classFigure.getEClass();
+							if (eClass != null) {
+								result.addAll(eClass.getEAllAttributes());
+							}
 						}
+						Collections.sort(result, new Comparator<EAttribute>() {
+							@Override
+							public int compare(EAttribute e1, EAttribute e2) {
+								return e1.getName().compareTo(e2.getName());
+							}
+						});
+						return result;
 					}
-					Collections.sort(result, new Comparator<Object>() {
-						@Override
-						public int compare(Object o1, Object o2) {
-							EAttribute e1 = (EAttribute) o1;
-							EAttribute e2 = (EAttribute) o2;
-							return e1.getName().compareTo(e2.getName());
-						}
-					});
-					return result;
-				}
-			});
+				});
 	}
 
 	/**
 	 * This returns AttributeFigure.gif.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -192,8 +161,7 @@ public class AttributeFigureItemProvider
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -203,8 +171,8 @@ public class AttributeFigureItemProvider
 
 	/**
 	 * This returns the label text for the adapted class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -218,8 +186,8 @@ public class AttributeFigureItemProvider
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -235,14 +203,15 @@ public class AttributeFigureItemProvider
 	}
 
 	/**
-	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-	 * that can be created under this object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s
+	 * describing the children that can be created under this object. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -96,6 +97,7 @@ public class ClassFigureItemProvider
 			addLabelEAttributePropertyDescriptor(object);
 			addHeaderBackgroundColorPropertyDescriptor(object);
 			addBodyBackgroundColorPropertyDescriptor(object);
+			addNestedFiguresEReferencesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -122,7 +124,7 @@ public class ClassFigureItemProvider
 				 null) {
 				@Override
 				public Collection<?> getChoiceOfValues(Object object) {
-					List<Object> result = new ArrayList<Object>();
+					List<EClass> result = new ArrayList<EClass>();
 					ClassFigure classFigure = (ClassFigure) object;
 					GVFigureDescription gvFigureDesc = classFigure.getGvFigureDescription();
 					if (gvFigureDesc != null) {
@@ -131,15 +133,13 @@ public class ClassFigureItemProvider
 							for (EClassifier eClassifier : classifiers) {
 								if (eClassifier instanceof EClass) {
 									if (!result.contains(eClassifier))
-										result.add(eClassifier);
+										result.add((EClass) eClassifier);
 								}
 							}
 						}
-						Collections.sort(result, new Comparator<Object>() {
+						Collections.sort(result, new Comparator<EClass>() {
 							@Override
-							public int compare(Object o1, Object o2) {
-								EClass e1 = (EClass) o1;
-								EClass e2 = (EClass) o2;
+							public int compare(EClass e1, EClass e2) {
 								return e1.getName().compareTo(e2.getName());
 							}
 						});
@@ -172,15 +172,14 @@ public class ClassFigureItemProvider
 				@Override
 				public Collection<?> getChoiceOfValues(Object object) {
 					ClassFigure classFigure = (ClassFigure) object;
-					List<Object> result = new ArrayList<Object>();
+					List<EAttribute> result = new ArrayList<EAttribute>();
 					EClass eClass = classFigure.getEClass();
 					if (eClass != null) {
 						result.addAll(eClass.getEAllAttributes());
-						Collections.sort(result, new Comparator<Object>() {
+						// TODO factoriser les sort
+						Collections.sort(result, new Comparator<EAttribute>() {
 							@Override
-							public int compare(Object o1, Object o2) {
-								EAttribute e1 = (EAttribute) o1;
-								EAttribute e2 = (EAttribute) o2;
+							public int compare(EAttribute e1, EAttribute e2) {
 								return e1.getName().compareTo(e2.getName());
 							}
 						});
@@ -235,25 +234,42 @@ public class ClassFigureItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Nested Figures EReferences feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
-//		itemPropertyDescriptors.add
-//			(createItemPropertyDescriptor
-//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-//				 getResourceLocator(),
-//				 getString("_UI_ClassFigure_name_feature"),
-//				 getString("_UI_PropertyDescriptor_description", "_UI_ClassFigure_name_feature", "_UI_ClassFigure_type"),
-//				 GraphdescPackage.Literals.CLASS_FIGURE__NAME,
-//				 false,
-//				 false,
-//				 false,
-//				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-//				 null,
-//				 null));
+	protected void addNestedFiguresEReferencesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(new ItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ClassFigure_nestedFiguresEReferences_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ClassFigure_nestedFiguresEReferences_feature", "_UI_ClassFigure_type"),
+				 GraphdescPackage.Literals.CLASS_FIGURE__NESTED_FIGURES_EREFERENCES,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null) {
+				@Override
+				public Collection<?> getChoiceOfValues(Object object) {
+					List<EReference> result = new ArrayList<EReference>();
+					ClassFigure classFigure = (ClassFigure) object;
+					EClass eClass = classFigure.getEClass();
+					if (eClass != null) {
+						result.addAll(eClass.getEAllContainments());
+						// TODO factoriser
+						Collections.sort(result, new Comparator<EReference>() {
+							public int compare(EReference ref1, EReference ref2) {
+								return ref1.getName().compareTo(ref2.getName());
+							}
+						});
+					}
+					return result;
+				}
+			});
 	}
 
 	/**
@@ -358,6 +374,7 @@ public class ClassFigureItemProvider
 		switch (notification.getFeatureID(ClassFigure.class)) {
 			case GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR:
 			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR:
+			case GraphdescPackage.CLASS_FIGURE__CONTAINER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES:

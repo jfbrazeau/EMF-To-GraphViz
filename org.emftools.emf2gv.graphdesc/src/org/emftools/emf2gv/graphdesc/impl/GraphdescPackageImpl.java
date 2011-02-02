@@ -271,6 +271,24 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getClassFigure_NestedFiguresEReferences() {
+		return (EReference)classFigureEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getClassFigure_Container() {
+		return (EAttribute)classFigureEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAttributeFigure() {
 		return attributeFigureEClass;
 	}
@@ -525,6 +543,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		createEReference(classFigureEClass, CLASS_FIGURE__GV_FIGURE_DESCRIPTION);
 		createEAttribute(classFigureEClass, CLASS_FIGURE__HEADER_BACKGROUND_COLOR);
 		createEAttribute(classFigureEClass, CLASS_FIGURE__BODY_BACKGROUND_COLOR);
+		createEReference(classFigureEClass, CLASS_FIGURE__NESTED_FIGURES_EREFERENCES);
+		createEAttribute(classFigureEClass, CLASS_FIGURE__CONTAINER);
 
 		attributeFigureEClass = createEClass(ATTRIBUTE_FIGURE);
 		createEAttribute(attributeFigureEClass, ATTRIBUTE_FIGURE__LABEL);
@@ -614,6 +634,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEReference(getClassFigure_GvFigureDescription(), this.getGVFigureDescription(), this.getGVFigureDescription_ClassFigures(), "gvFigureDescription", null, 1, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClassFigure_HeaderBackgroundColor(), theEcorePackage.getEInt(), "headerBackgroundColor", "10337785", 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClassFigure_BodyBackgroundColor(), theEcorePackage.getEInt(), "bodyBackgroundColor", "15658734", 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClassFigure_NestedFiguresEReferences(), theEcorePackage.getEReference(), null, "nestedFiguresEReferences", null, 0, -1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getClassFigure_Container(), theEcorePackage.getEBoolean(), "container", null, 0, 1, ClassFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(classFigureEClass, this.getAttributeFigure(), "getAttributeFigure", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theEcorePackage.getEAttribute(), "eAttribute", 0, 1, IS_UNIQUE, IS_ORDERED);

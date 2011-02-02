@@ -31,6 +31,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
+// TODO Javadoc
 public class NewFileCreationPage extends
 		WizardNewFileCreationPage {
 

@@ -54,6 +54,7 @@ import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 
+// TODO Javadoc
 public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 
 	/** EClasses table viewer */

@@ -496,10 +496,10 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 				valid = false;
 			} else {
 				// Check unique
-				valid = !constraintsHelper.addErrorIfNotUnique(classFigure
+				valid = constraintsHelper.addErrorIfNotUnique(classFigure
 						.getReferenceFigures(), GraphdescPackage.eINSTANCE
 						.getReferenceFigure_EReference(), diagnostic, this, 0,
-						"The EReference '{0}' is referenced twice or more",
+						"The EReference ''{0}'' is referenced twice or more",
 						eReference.getName());
 
 				// Check eReference eClass
@@ -516,6 +516,22 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 											eReference.getName(),
 											eClass.getName());
 							valid = false;
+						}
+						// Check that the reference is not already declared
+						// in the nested figure EReferences
+						else {
+							// TODO tester 
+							if (classFigure.getNestedFiguresEReferences()
+									.contains(eReference)) {
+								constraintsHelper
+										.addError(
+												diagnostic,
+												this,
+												0,
+												"The reference figure is associated to an EReference ({0}) that is already declared as a nested figure in the parent class figure",
+												eReference.getName());
+								valid = false;
+							}
 						}
 					}
 				}

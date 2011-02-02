@@ -97,15 +97,14 @@ public class GVSourceAndDependenciesBuilder {
 	private Map<EObject, String> eObjectIdsCache = new HashMap<EObject, String>();
 
 	/**
-	 * A list containing the node descriptions list sorted by EClass. That list
-	 * is used when the nodes of a same EClass must be aligned.
-	 */
-	private Map<EClass, List<NodeDesc>> nodesListByEclass = new HashMap<EClass, List<NodeDesc>>();
-
-	/**
 	 * The edges list.
 	 */
 	private List<EdgeDesc> edges = new ArrayList<EdgeDesc>();
+
+	/**
+	 * The non contained nodes list.
+	 */
+	private List<NodeDesc> rootNodeList = new ArrayList<NodeDesc>();
 
 	/**
 	 * The graphical description.
@@ -161,12 +160,6 @@ public class GVSourceAndDependenciesBuilder {
 				.getEPackages());
 		this.iconsFolder = iconsFolder;
 
-		// Nodes map initialization
-		for (ClassFigure classFigure : figureDesc.getClassFigures()) {
-			nodesListByEclass.put(classFigure.getEClass(),
-					new ArrayList<NodeDesc>());
-		}
-
 		// Diagnostician initialization
 		diagnostician = !addValidationDecorators ? null : new Diagnostician() {
 			// This method is overrided to prevent from
@@ -213,35 +206,28 @@ public class GVSourceAndDependenciesBuilder {
 			}
 			// Nodes & edges extraction
 			for (EObject eContentRoot : eContentRoots) {
-				// If the root has no classfigure, the containment references are
+				// If the root has no classfigure, the containment references
+				// are
 				// automatically processed (it is authorized to build a diagram
 				// with a root node that is not represented => its containement
 				// references are then processed)
 				EClass eContentRootEClass = eContentRoot.eClass();
-				ClassFigure classFigure = figureDesc.getClassFigure(eContentRootEClass);
+				ClassFigure classFigure = figureDesc
+						.getClassFigure(eContentRootEClass);
 				if (classFigure != null) {
-					processEObject(eContentRoot, monitor);
-				}
-				else {
+					processEObject(rootNodeList, eContentRoot, monitor);
+				} else {
 					List<EObject> eContentRootChilds = eContentRoot.eContents();
 					for (EObject eContentRootChild : eContentRootChilds) {
-						processEObject(eContentRootChild, monitor);
+						processEObject(rootNodeList, eContentRootChild, monitor);
 					}
 				}
 			}
 			// GraphViz source build
 			flushHeader();
-			for (ClassFigure classFigure : figureDesc.getClassFigures()) {
-				if (figureDesc.isAlignSameEClasses()) {
-					out.print("{ rank = same;\n");
-				}
-				for (NodeDesc nodeDesc : nodesListByEclass.get(classFigure
-						.getEClass())) {
-					flushNode(nodeDesc);
-				}
-				if (figureDesc.isAlignSameEClasses()) {
-					out.print("}\n");
-				}
+			// TODO reimplement align same eclass
+			for (NodeDesc nodeDesc : rootNodeList) {
+				flushNode(nodeDesc);
 			}
 			for (EdgeDesc edgeDesc : edges) {
 				flushEdge(edgeDesc);
@@ -276,6 +262,10 @@ public class GVSourceAndDependenciesBuilder {
 	/**
 	 * Processes an EObject and its childs recursively.
 	 * 
+	 * @param containerList
+	 *            the container list (the main list if the eObject's figure is
+	 *            not conained in a parent container, or the parent container
+	 *            otherwise.
 	 * @param eContentRoot
 	 *            the root EObjet.
 	 * @param monitor
@@ -284,7 +274,8 @@ public class GVSourceAndDependenciesBuilder {
 	 * @throws CoreException
 	 *             thrown if an unexpected error occurs.
 	 */
-	private String processEObject(EObject eContentRoot, IProgressMonitor monitor)
+	private String processEObject(List<NodeDesc> containerList,
+			EObject eContentRoot, IProgressMonitor monitor)
 			throws CoreException {
 		String eContentRootId = eObjectIdsCache.get(eContentRoot);
 		if (eContentRootId == null) {
@@ -326,9 +317,22 @@ public class GVSourceAndDependenciesBuilder {
 				nodeDesc.iconPath = iconPath;
 				nodeDesc.validationDecoratorIconPath = validationDecoratorIconPath != null ? validationDecoratorIconPath
 						: null;
-				List<NodeDesc> nodeList = nodesListByEclass.get(classFigure
-						.getEClass());
-				nodeList.add(nodeDesc);
+				if (classFigure.isContainer()) {
+					nodeDesc.nestedNodes = new ArrayList<NodeDesc>();
+				}
+				containerList.add(nodeDesc);
+
+				// Nested figures EReferences browsing
+				for (EReference eReference : classFigure
+						.getNestedFiguresEReferences()) {
+					List<EObject> targetEObjects = getTargetRefEObjects(
+							eContentRoot, eReference);
+					// Nested figures generation
+					for (EObject targetEObject : targetEObjects) {
+						processEObject(nodeDesc.nestedNodes, targetEObject,
+								monitor);
+					}
+				}
 
 				// EReferences browsing
 				List<ReferenceFigure> refFigures = classFigure
@@ -339,8 +343,8 @@ public class GVSourceAndDependenciesBuilder {
 							eContentRoot, eReference);
 					// Edges figures generation
 					for (EObject targetEObject : targetEObjects) {
-						String targetEObjectId = processEObject(targetEObject,
-								monitor);
+						String targetEObjectId = processEObject(rootNodeList,
+								targetEObject, monitor);
 						// the target EObject Id may hav not been built if the
 						// target EObject's Eclass
 						// is not associated to a ClassFigure.
@@ -553,8 +557,7 @@ public class GVSourceAndDependenciesBuilder {
 				.getCustomSourceArrow() : referenceFigure.getSourceArrowType()
 				.toString());
 		out.print(", color=\"");
-		out.print(ColorsHelper.toHtmlColor(referenceFigure
-				.getColor()));
+		out.print(ColorsHelper.toHtmlColor(referenceFigure.getColor()));
 		out.print("\"");
 		if (!ArrowStyle.NORMAL.equals(referenceFigure.getStyle())) {
 			out.print(", style=");
@@ -575,27 +578,120 @@ public class GVSourceAndDependenciesBuilder {
 	 *             thrown if an unexpected error occurs.
 	 */
 	private void flushNode(NodeDesc nodeDesc) throws CoreException {
+		if (nodeDesc.classFigure.isContainer()) {
+			flushClusterNode(nodeDesc);
+		}
+		else {
+			flushStandardNode(nodeDesc);
+		}
+		// Nodes count update
+		nodesCount++;
+	}
+	// TODO Javadoc
+	private void flushClusterNode(NodeDesc nodeDesc) throws CoreException {
+		ClassFigure classFigure = nodeDesc.classFigure;
+		/*
+		 * Node generation.
+		 */
+		out.print("\tsubgraph cluster_");
+		out.print(nodeDesc.eObjectId);
+		out.println(" { label=<");
+		flushNodeHeader("\t\t", nodeDesc);
+		out.print("\t\t>; bgcolor=\"");
+		out.print(ColorsHelper.toHtmlColor(classFigure
+				.getHeaderBackgroundColor()));
+		out.println("\"; labeljust=\"l\";");
+
+		if (classFigure.getAttributeFigures().size() > 0) {
+			out.print("\t\t");
+			out.print(nodeDesc.eObjectId);
+			out.print("_attributes");
+			out.print(" [label=<\n"
+					+ "\t\t<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"0\">\n"
+					+ "\t\t\t<TR><TD BGCOLOR=\"");
+			out.print(ColorsHelper.toHtmlColor(classFigure.getBodyBackgroundColor()));
+			out.println("\">");
+			flushNodeAttributes(nodeDesc);
+			out.println("\t\t\t</TD></TR>");
+			out.println("\t\t</TABLE>>, margin=0, shape=plaintext]");
+		}
+		// Flush nested nodes
+		for (NodeDesc nestedNodeDesc : nodeDesc.nestedNodes) {
+			flushNode(nestedNodeDesc);
+		}
+		out.println("\t\t}");
+	}
+
+	// TODO Javadoc
+	private void flushStandardNode(NodeDesc nodeDesc) throws CoreException {
 		ClassFigure classFigure = nodeDesc.classFigure;
 		/*
 		 * Node generation.
 		 */
 		out.print('\t');
 		out.print(nodeDesc.eObjectId);
-		out.print(" [label=<\n"
-				+ "\t\t<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"0\">\n"
-				+ "\t\t\t<TR><TD BGCOLOR=\"");
+		out.println(" [label=<");
+		out.println("\t\t<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"0\">");
+		out.print("\t\t\t<TR><TD BGCOLOR=\"");
 		out.print(ColorsHelper.toHtmlColor(classFigure
 				.getHeaderBackgroundColor()));
 		out.println("\">");
+		// Flushes the node header
+		flushNodeHeader("\t\t\t\t", nodeDesc);
+		
+		out.println("\t\t\t</TD></TR>");
+		out.print("\t\t\t<TR><TD ALIGN=\"LEFT\" BGCOLOR=\"");
+		out.print(ColorsHelper.toHtmlColor(classFigure.getBodyBackgroundColor()));
+		out.println("\">");
 
-		out.println("\t\t\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"1\">\n\t\t\t\t\t<TR>");
+		if (classFigure.getAttributeFigures().size() == 0) {
+			out.println("\t\t\t\t&nbsp;");
+		} else {
+			flushNodeAttributes(nodeDesc);
+		}
+		out.println("\t\t\t</TD></TR>");
+		out.println("\t\t</TABLE>>, margin=0, shape=plaintext]");
+
+	}
+
+	// TODO Javado
+	private void flushNodeAttributes(NodeDesc nodeDesc) {
+		ClassFigure classFigure = nodeDesc.classFigure;
+		EList<AttributeFigure> attrFigures = classFigure.getAttributeFigures();
+		out.println("\t\t\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\">");
+		for (AttributeFigure attrFigure : attrFigures) {
+			EAttribute eAttribute = attrFigure.getEAttribute();
+			String attrLabel = attrFigure.getLabel();
+			if (attrLabel == null || "".equals(attrLabel.trim())) {
+				attrLabel = eAttribute.getName();
+			}
+			attrLabel = attrLabel.trim();
+			out.print("\t\t\t\t\t<TR><TD ALIGN=\"LEFT\">");
+			out.print(attrLabel);
+			out.print(" :</TD><TD ALIGN=\"LEFT\">");
+			String attrValue = String.valueOf(nodeDesc.eObject
+					.eGet(eAttribute));
+			out.print(toHtmlString(attrValue));
+			out.println("</TD></TR>");
+		}
+		out.println("\t\t\t\t</TABLE>");
+	}
+
+	// TODO Javadoc
+	private void flushNodeHeader(String indent, NodeDesc nodeDesc) {
+		ClassFigure classFigure = nodeDesc.classFigure;
+		out.print(indent);
+		out.println("<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"1\">");
+		out.print(indent);
+		out.println("\t<TR>");
 		/*
 		 * EObject icon processing
 		 */
 		boolean iconAvailable = nodeDesc.iconPath != null;
 		boolean statusIconAvailable = nodeDesc.validationDecoratorIconPath != null;
 		if (iconAvailable) {
-			out.print("\t\t\t\t\t\t<TD ALIGN=\"RIGHT\"><IMG SCALE=\"FALSE\" SRC=\"");
+			out.print(indent);
+			out.print("\t\t<TD ALIGN=\"RIGHT\"><IMG SCALE=\"FALSE\" SRC=\"");
 			out.print(nodeDesc.iconPath);
 			out.println("\"/></TD>");
 		}
@@ -615,7 +711,8 @@ public class GVSourceAndDependenciesBuilder {
 		}
 
 		// TD tag for the label
-		out.print("\t\t\t\t\t\t<TD ALIGN=\"");
+		out.print(indent);
+		out.print("\t\t<TD ALIGN=\"");
 		out.print(iconAvailable && !statusIconAvailable ? "LEFT" : "CENTER");
 		out.print("\">");
 
@@ -637,43 +734,15 @@ public class GVSourceAndDependenciesBuilder {
 
 		// Status icon
 		if (statusIconAvailable) {
-			out.print("\t\t\t\t\t\t<TD ALIGN=\"LEFT\"><IMG SCALE=\"FALSE\" SRC=\"");
+			out.print(indent);
+			out.print("\t\t<TD ALIGN=\"LEFT\"><IMG SCALE=\"FALSE\" SRC=\"");
 			out.print(nodeDesc.validationDecoratorIconPath);
 			out.println("\"/></TD>");
 		}
-		out.println("\t\t\t\t\t</TR>");
-		out.println("\t\t\t\t</TABLE>");
-		out.println("\t\t\t</TD></TR>");
-		out.print("\t\t\t<TR><TD ALIGN=\"LEFT\" BGCOLOR=\"");
-		out.print(ColorsHelper.toHtmlColor(classFigure.getBodyBackgroundColor()));
-		out.println("\">");
-		EList<AttributeFigure> attrFigures = classFigure.getAttributeFigures();
-		if (attrFigures.size() == 0) {
-			out.println("\t\t\t\t&nbsp;");
-		} else {
-			out.println("\t\t\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\">");
-			for (AttributeFigure attrFigure : attrFigures) {
-				EAttribute eAttribute = attrFigure.getEAttribute();
-				String attrLabel = attrFigure.getLabel();
-				if (attrLabel == null || "".equals(attrLabel.trim())) {
-					attrLabel = eAttribute.getName();
-				}
-				attrLabel = attrLabel.trim();
-				out.print("\t\t\t\t\t<TR><TD ALIGN=\"LEFT\">");
-				out.print(attrLabel);
-				out.print(" :</TD><TD ALIGN=\"LEFT\">");
-				String attrValue = String.valueOf(nodeDesc.eObject
-						.eGet(eAttribute));
-				out.print(toHtmlString(attrValue));
-				out.println("</TD></TR>");
-			}
-			out.println("\t\t\t\t</TABLE>");
-		}
-		out.println("\t\t\t</TD></TR>");
-		out.println("\t\t</TABLE>>, margin=0, shape=plaintext]");
-
-		// Nodes count update
-		nodesCount++;
+		out.print(indent);
+		out.println("\t</TR>");
+		out.print(indent);
+		out.println("</TABLE>");
 	}
 
 	/**
@@ -753,6 +822,9 @@ class NodeDesc {
 
 	/** Validation decorator icon path */
 	String validationDecoratorIconPath;
+
+	/** Nested nodes list */
+	List<NodeDesc> nestedNodes;
 
 }
 

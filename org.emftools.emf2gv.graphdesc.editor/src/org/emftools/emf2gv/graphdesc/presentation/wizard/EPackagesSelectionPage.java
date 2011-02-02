@@ -50,6 +50,7 @@ import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.util.EMFHelper;
 import org.emftools.emf2gv.util.EPackageFake;
 
+// TODO Javadoc
 public class EPackagesSelectionPage extends AbstractGraphdescWizardPage {
 
 	/** EPackage table viewer */
@@ -96,6 +97,7 @@ public class EPackagesSelectionPage extends AbstractGraphdescWizardPage {
 		entryChanged();
 	}
 
+	// TODO Javadoc
 	private void createEPackageSelectionGroup(Composite rootContainer) {
 		// EPackage list group
 		Group ePackageListGroup = createGroup(rootContainer,
@@ -119,6 +121,7 @@ public class EPackagesSelectionPage extends AbstractGraphdescWizardPage {
 
 	}
 
+	// TODO Javadoc
 	private void handleEPackageCheckedStateChanged(EPackage ePackage,
 			boolean checked) {
 		if (checked) {
@@ -174,6 +177,7 @@ public class EPackagesSelectionPage extends AbstractGraphdescWizardPage {
 
 }
 
+// TODO Javadoc
 class EPackagesContentProvider implements IStructuredContentProvider {
 
 	/*

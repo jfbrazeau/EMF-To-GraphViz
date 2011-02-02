@@ -45,6 +45,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
@@ -56,9 +57,8 @@ import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
 import org.emftools.validation.utils.EMFConstraintsHelper;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Class Figure</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Class Figure</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -70,6 +70,8 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getGvFigureDescription <em>Gv Figure Description</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getHeaderBackgroundColor <em>Header Background Color</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getBodyBackgroundColor <em>Body Background Color</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getNestedFiguresEReferences <em>Nested Figures EReferences</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#isContainer <em>Container</em>}</li>
  * </ul>
  * </p>
  *
@@ -78,8 +80,7 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
 public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	/**
 	 * The cached value of the '{@link #getEClass() <em>EClass</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getEClass()
 	 * @generated
 	 * @ordered
@@ -88,8 +89,8 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 
 	/**
 	 * The cached value of the '{@link #getLabelEAttribute() <em>Label EAttribute</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * @see #getLabelEAttribute()
 	 * @generated
 	 * @ordered
@@ -97,9 +98,10 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	protected EAttribute labelEAttribute;
 
 	/**
-	 * The cached value of the '{@link #getAttributeFigures() <em>Attribute Figures</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getAttributeFigures()
+	 * <em>Attribute Figures</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getAttributeFigures()
 	 * @generated
 	 * @ordered
@@ -107,9 +109,10 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	protected EList<AttributeFigure> attributeFigures;
 
 	/**
-	 * The cached value of the '{@link #getReferenceFigures() <em>Reference Figures</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getReferenceFigures()
+	 * <em>Reference Figures</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getReferenceFigures()
 	 * @generated
 	 * @ordered
@@ -138,8 +141,8 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 
 	/**
 	 * The default value of the '{@link #getBodyBackgroundColor() <em>Body Background Color</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * @see #getBodyBackgroundColor()
 	 * @generated
 	 * @ordered
@@ -148,8 +151,8 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 
 	/**
 	 * The cached value of the '{@link #getBodyBackgroundColor() <em>Body Background Color</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * @see #getBodyBackgroundColor()
 	 * @generated
 	 * @ordered
@@ -157,8 +160,27 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	protected int bodyBackgroundColor = BODY_BACKGROUND_COLOR_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getNestedFiguresEReferences() <em>Nested Figures EReferences</em>}' reference list.
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * @see #getNestedFiguresEReferences()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EReference> nestedFiguresEReferences;
+
+	/**
+	 * The default value of the '{@link #isContainer() <em>Container</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @see #isContainer()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean CONTAINER_EDEFAULT = false;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected ClassFigureImpl() {
@@ -166,8 +188,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -176,8 +197,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EClass getEClass() {
@@ -193,8 +213,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EClass basicGetEClass() {
@@ -202,8 +221,8 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
 	public void setEClass(EClass newEClass) {
@@ -211,14 +230,15 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 		EClass oldEClass = eClass;
 		eClass = newEClass;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.CLASS_FIGURE__ECLASS, oldEClass, eClass));
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.CLASS_FIGURE__NAME, oldNom, getName()));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GraphdescPackage.CLASS_FIGURE__ECLASS, oldEClass, eClass));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GraphdescPackage.CLASS_FIGURE__NAME, oldNom, getName()));
 		}
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EAttribute getLabelEAttribute() {
@@ -234,8 +254,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EAttribute basicGetLabelEAttribute() {
@@ -243,8 +262,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setLabelEAttribute(EAttribute newLabelEAttribute) {
@@ -255,8 +273,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<AttributeFigure> getAttributeFigures() {
@@ -267,8 +284,8 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
 	public String getName() {
@@ -279,8 +296,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 			result.append('.');
 			if (getEClass() != null) {
 				result.append(getEClass().getName());
-			}
-			else {
+			} else {
 				result.append("<>");
 			}
 		}
@@ -288,8 +304,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EPackage getEPackage() {
@@ -298,8 +313,8 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
 	public EPackage basicGetEPackage() {
@@ -312,8 +327,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<ReferenceFigure> getReferenceFigures() {
@@ -324,8 +338,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public GVFigureDescription getGvFigureDescription() {
@@ -334,21 +347,21 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetGvFigureDescription(GVFigureDescription newGvFigureDescription, NotificationChain msgs) {
+	public NotificationChain basicSetGvFigureDescription(
+			GVFigureDescription newGvFigureDescription, NotificationChain msgs) {
 		msgs = eBasicSetContainer((InternalEObject)newGvFigureDescription, GraphdescPackage.CLASS_FIGURE__GV_FIGURE_DESCRIPTION, msgs);
 		return msgs;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setGvFigureDescription(GVFigureDescription newGvFigureDescription) {
+	public void setGvFigureDescription(
+			GVFigureDescription newGvFigureDescription) {
 		if (newGvFigureDescription != eInternalContainer() || (eContainerFeatureID() != GraphdescPackage.CLASS_FIGURE__GV_FIGURE_DESCRIPTION && newGvFigureDescription != null)) {
 			if (EcoreUtil.isAncestor(this, newGvFigureDescription))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -365,8 +378,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public int getHeaderBackgroundColor() {
@@ -374,8 +386,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setHeaderBackgroundColor(int newHeaderBackgroundColor) {
@@ -386,8 +397,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public int getBodyBackgroundColor() {
@@ -395,8 +405,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setBodyBackgroundColor(int newBodyBackgroundColor) {
@@ -407,8 +416,28 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<EReference> getNestedFiguresEReferences() {
+		if (nestedFiguresEReferences == null) {
+			nestedFiguresEReferences = new EObjectResolvingEList<EReference>(EReference.class, this, GraphdescPackage.CLASS_FIGURE__NESTED_FIGURES_EREFERENCES);
+		}
+		return nestedFiguresEReferences;
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isContainer() {
+		return getNestedFiguresEReferences().size() != 0;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
 	public AttributeFigure getAttributeFigure(EAttribute eAttribute) {
@@ -424,8 +453,8 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
 	public ReferenceFigure getReferenceFigure(EReference eReference) {
@@ -441,29 +470,35 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated NOT
 	 */
-	public boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context) {
-		EMFConstraintsHelper constraintsHelper = EMFConstraintsHelper.getInstance(GraphdescValidator.DIAGNOSTIC_SOURCE);
+	public boolean validate(DiagnosticChain diagnostic,
+			Map<Object, Object> context) {
+		EMFConstraintsHelper constraintsHelper = EMFConstraintsHelper
+				.getInstance(GraphdescValidator.DIAGNOSTIC_SOURCE);
 		boolean valid = true;
 		GVFigureDescription gvFigureDescription = getGvFigureDescription();
 		if (gvFigureDescription == null) {
-			constraintsHelper.addError(diagnostic, this, 0, "The class figure must be contained in a GVFigureDescription");
+			constraintsHelper
+					.addError(diagnostic, this, 0,
+							"The class figure must be contained in a GVFigureDescription");
 			valid = false;
-		}
-		else {
+		} else {
 			EClass eClass = getEClass();
 			if (eClass == null) {
-				constraintsHelper.addError(diagnostic, this, 0, "The class figure must be associated to an EClass");
+				constraintsHelper.addError(diagnostic, this, 0,
+						"The class figure must be associated to an EClass");
 				valid = false;
-			}
-			else {
+			} else {
 				// Check unique
-				valid = !constraintsHelper.addErrorIfNotUnique(gvFigureDescription.getClassFigures(),
-						GraphdescPackage.eINSTANCE.getClassFigure_EClass(), diagnostic, this,
-						0, "The EClass '{0}' is referenced twice or more", eClass.getName());
+				valid = !constraintsHelper.addErrorIfNotUnique(
+						gvFigureDescription.getClassFigures(),
+						GraphdescPackage.eINSTANCE.getClassFigure_EClass(),
+						diagnostic, this, 0,
+						"The EClass ''{0}'' is referenced twice or more",
+						eClass.getName());
 
 				if (valid) {
 					// Check eClass package
@@ -472,32 +507,72 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 						classifiers.addAll(ePackage.getEClassifiers());
 					}
 					if (!classifiers.contains(eClass)) {
-						constraintsHelper.addError(diagnostic, this, 0, "The class figure EClass '{0}' is not contained in the EPackage authorized list", eClass.getName());
+						constraintsHelper
+								.addError(
+										diagnostic,
+										this,
+										0,
+										"The class figure EClass ''{0}'' is not contained in the EPackage authorized list",
+										eClass.getName());
 						valid = false;
 					}
 				}
 
 				if (valid) {
-					// If the label attribute is defined, it must belong to the class figure's EClass
+					// If the label attribute is defined, it must belong to the
+					// class figure's EClass
 					EAttribute eAttribute = getLabelEAttribute();
-					if (eAttribute != null && !eClass.getEAllAttributes().contains(eAttribute)) {
-						constraintsHelper.addError(diagnostic, this, 0, "The class figure label attibute '{0}' does not belong to the class figure's EClass '{1}'", eAttribute.getName(), eClass.getName());
+					if (eAttribute != null
+							&& !eClass.getEAllAttributes().contains(eAttribute)) {
+						constraintsHelper
+								.addError(
+										diagnostic,
+										this,
+										0,
+										"The class figure label attibute ''{0}'' does not belong to the class figure's EClass ''{1}''",
+										eAttribute.getName(), eClass.getName());
 						valid = false;
 					}
+
+					// If the class figure has nested figures EReferences,
+					// theses
+					// references must be containment references
+					for (EReference eReference : getNestedFiguresEReferences()) {
+						if (!eClass.getEAllReferences().contains(eReference)) {
+							constraintsHelper
+									.addError(
+											diagnostic,
+											this,
+											0,
+											"The class figure has a nested figure that doesn''t correspond to one of its own EReferences",
+											eReference.getName());
+							valid = false;
+						} else if (!eReference.isContainment()) {
+							constraintsHelper
+									.addError(
+											diagnostic,
+											this,
+											0,
+											"The class figure has a nested figure that doesn''t correspond to a containment feature ({0})",
+											eReference.getName());
+							valid = false;
+						}
+					}
 				}
+
 			}
 		}
 		return valid;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseAdd(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttributeFigures()).basicAdd(otherEnd, msgs);
@@ -512,12 +587,12 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES:
 				return ((InternalEList<?>)getAttributeFigures()).basicRemove(otherEnd, msgs);
@@ -530,12 +605,12 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+	public NotificationChain eBasicRemoveFromContainerFeature(
+			NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 			case GraphdescPackage.CLASS_FIGURE__GV_FIGURE_DESCRIPTION:
 				return eInternalContainer().eInverseRemove(this, GraphdescPackage.GV_FIGURE_DESCRIPTION__CLASS_FIGURES, GVFigureDescription.class, msgs);
@@ -544,8 +619,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -570,13 +644,16 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				return getHeaderBackgroundColor();
 			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR:
 				return getBodyBackgroundColor();
+			case GraphdescPackage.CLASS_FIGURE__NESTED_FIGURES_EREFERENCES:
+				return getNestedFiguresEReferences();
+			case GraphdescPackage.CLASS_FIGURE__CONTAINER:
+				return isContainer();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -606,13 +683,16 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR:
 				setBodyBackgroundColor((Integer)newValue);
 				return;
+			case GraphdescPackage.CLASS_FIGURE__NESTED_FIGURES_EREFERENCES:
+				getNestedFiguresEReferences().clear();
+				getNestedFiguresEReferences().addAll((Collection<? extends EReference>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -639,13 +719,15 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR:
 				setBodyBackgroundColor(BODY_BACKGROUND_COLOR_EDEFAULT);
 				return;
+			case GraphdescPackage.CLASS_FIGURE__NESTED_FIGURES_EREFERENCES:
+				getNestedFiguresEReferences().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -667,13 +749,16 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				return headerBackgroundColor != HEADER_BACKGROUND_COLOR_EDEFAULT;
 			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR:
 				return bodyBackgroundColor != BODY_BACKGROUND_COLOR_EDEFAULT;
+			case GraphdescPackage.CLASS_FIGURE__NESTED_FIGURES_EREFERENCES:
+				return nestedFiguresEReferences != null && !nestedFiguresEReferences.isEmpty();
+			case GraphdescPackage.CLASS_FIGURE__CONTAINER:
+				return isContainer() != CONTAINER_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -689,4 +774,4 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 		return result.toString();
 	}
 
-} //ClassFigureImpl
+} // ClassFigureImpl

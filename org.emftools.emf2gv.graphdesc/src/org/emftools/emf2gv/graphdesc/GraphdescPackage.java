@@ -63,7 +63,7 @@ public interface GraphdescPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://org.emftools.emf2gv.graphdesc/1.0";
+	String eNS_URI = "http://org.emftools.emf2gv.graphdesc/1.0.1";
 
 	/**
 	 * The package namespace name.
@@ -276,13 +276,31 @@ public interface GraphdescPackage extends EPackage {
 	int CLASS_FIGURE__BODY_BACKGROUND_COLOR = ABSTRACT_FIGURE_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>Nested Figures EReferences</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_FIGURE__NESTED_FIGURES_EREFERENCES = ABSTRACT_FIGURE_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_FIGURE__CONTAINER = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
+
+	/**
 	 * The number of structural features of the '<em>Class Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 8;
+	int CLASS_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -559,6 +577,28 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getClassFigure_BodyBackgroundColor();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getNestedFiguresEReferences <em>Nested Figures EReferences</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Nested Figures EReferences</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ClassFigure#getNestedFiguresEReferences()
+	 * @see #getClassFigure()
+	 * @generated
+	 */
+	EReference getClassFigure_NestedFiguresEReferences();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ClassFigure#isContainer <em>Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Container</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ClassFigure#isContainer()
+	 * @see #getClassFigure()
+	 * @generated
+	 */
+	EAttribute getClassFigure_Container();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.AttributeFigure <em>Attribute Figure</em>}'.
@@ -912,6 +952,22 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CLASS_FIGURE__BODY_BACKGROUND_COLOR = eINSTANCE.getClassFigure_BodyBackgroundColor();
+
+		/**
+		 * The meta object literal for the '<em><b>Nested Figures EReferences</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CLASS_FIGURE__NESTED_FIGURES_EREFERENCES = eINSTANCE.getClassFigure_NestedFiguresEReferences();
+
+		/**
+		 * The meta object literal for the '<em><b>Container</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CLASS_FIGURE__CONTAINER = eINSTANCE.getClassFigure_Container();
 
 		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.AttributeFigureImpl <em>Attribute Figure</em>}' class.

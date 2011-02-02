@@ -153,7 +153,7 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 					@Override
 					public Collection<?> getChoiceOfValues(Object object) {
 						ReferenceFigure refFigure = (ReferenceFigure) object;
-						List<Object> result = new ArrayList<Object>();
+						List<EReference> result = new ArrayList<EReference>();
 						ClassFigure classFigure = refFigure.getClassFigure();
 						if (classFigure != null) {
 							EClass eClass = classFigure.getEClass();
@@ -161,40 +161,16 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 								result.addAll(eClass.getEAllReferences());
 							}
 						}
-						Collections.sort(result, new Comparator<Object>() {
+						// TODO factoriser les sort
+						Collections.sort(result, new Comparator<EReference>() {
 							@Override
-							public int compare(Object o1, Object o2) {
-								EReference e1 = (EReference) o1;
-								EReference e2 = (EReference) o2;
+							public int compare(EReference e1, EReference e2) {
 								return e1.getName().compareTo(e2.getName());
 							}
 						});
 						return result;
 					}
 				});
-	}
-
-	/**
-	 * This adds a property descriptor for the Name feature. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * 
-	 * @generated NOT
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-		// itemPropertyDescriptors.add
-		// (createItemPropertyDescriptor
-		// (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-		// getResourceLocator(),
-		// getString("_UI_ReferenceFigure_name_feature"),
-		// getString("_UI_PropertyDescriptor_description",
-		// "_UI_ReferenceFigure_name_feature", "_UI_ReferenceFigure_type"),
-		// GraphdescPackage.Literals.REFERENCE_FIGURE__NAME,
-		// false,
-		// false,
-		// false,
-		// ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-		// null,
-		// null));
 	}
 
 	/**

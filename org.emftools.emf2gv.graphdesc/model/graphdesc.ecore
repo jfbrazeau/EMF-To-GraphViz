@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="graphdesc"
-    nsURI="http://org.emftools.emf2gv.graphdesc/1.0" nsPrefix="graphdesc">
+    nsURI="http://org.emftools.emf2gv.graphdesc/1.0.1" nsPrefix="graphdesc">
   <eClassifiers xsi:type="ecore:EClass" name="GVFigureDescription">
     <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="diagnostic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>
@@ -56,6 +56,10 @@
         defaultValueLiteral="10337785"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bodyBackgroundColor" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
         defaultValueLiteral="15658734"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nestedFiguresEReferences"
+        upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="container" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AttributeFigure" eSuperTypes="#//AbstractFigure">
     <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
