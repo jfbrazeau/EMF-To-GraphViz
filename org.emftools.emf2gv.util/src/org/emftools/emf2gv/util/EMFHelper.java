@@ -37,9 +37,9 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.edit.EMFEditPlugin;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
-import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory.Descriptor;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory.Descriptor.Registry;
+import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 
 public class EMFHelper {

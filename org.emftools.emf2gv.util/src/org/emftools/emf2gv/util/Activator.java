@@ -30,10 +30,18 @@ package org.emftools.emf2gv.util;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
+/**
+ * Plugin activator.
+ * @author jbrazeau
+ */
 public class Activator implements BundleActivator {
 
+	/** The bundle context */
 	private static BundleContext context;
 
+	/**
+	 * @return the bundle context.
+	 */
 	static BundleContext getContext() {
 		return context;
 	}

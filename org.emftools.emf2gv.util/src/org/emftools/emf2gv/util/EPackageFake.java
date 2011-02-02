@@ -29,10 +29,25 @@ package org.emftools.emf2gv.util;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+/**
+ * Fake class used in order not to resolve all the registered EPackages of the
+ * workspace.
+ * 
+ * This fake class is used for example in the tree of the wizard page that
+ * allows to select the EPackages when one creates an new Graphical description
+ * file.
+ * 
+ * @author jbrazeau
+ * 
+ */
 public class EPackageFake extends EPackageImpl {
 
+	/**
+	 * Default constructor.
+	 * @param uri the EPackage uri.
+	 */
 	public EPackageFake(String uri) {
 		setNsURI(uri);
 	}
-	
+
 }

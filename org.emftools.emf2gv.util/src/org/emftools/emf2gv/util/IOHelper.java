@@ -43,9 +43,25 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 
+/**
+ * I/O helper class.
+ * 
+ * @author jbrazeau
+ */
 public class IOHelper {
 
-	public static void copyTo(InputStream in, OutputStream out) throws IOException {
+	/**
+	 * Copy a stream into another.
+	 * 
+	 * @param in
+	 *            the stream to read from.
+	 * @param out
+	 *            the stream to write to.
+	 * @throws IOException
+	 *             thrown if an I/O error occurs.
+	 */
+	public static void copyTo(InputStream in, OutputStream out)
+			throws IOException {
 		byte[] buf = new byte[1024];
 		int n = 0;
 		while ((n = in.read(buf)) > 0) {
@@ -53,26 +69,48 @@ public class IOHelper {
 		}
 	}
 
-	public static byte[] loadAndConvertImageToPng(InputStream srcImageStream) throws IOException {
+	/**
+	 * Loads an image and converts it to PNG format.
+	 * 
+	 * @param srcImageStream
+	 *            the source stream containing the image to convert.
+	 * @return the converted image.
+	 * @throws IOException
+	 *             throw if an I/O error occurs.
+	 */
+	public static byte[] loadAndConvertImageToPng(InputStream srcImageStream)
+			throws IOException {
 		BufferedImage image = ImageIO.read(srcImageStream);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		ImageIO.write(image, "png", out);
 		return out.toByteArray();
 	}
 
-	public static IFile save(IPath path,
-			byte[] content, IProgressMonitor monitor)
-			throws CoreException {
+	/**
+	 * Saves a file.
+	 * 
+	 * @param path
+	 *            the file's path.
+	 * @param content
+	 *            the file's content.
+	 * @param monitor
+	 *            the progress monitor.
+	 * @return the saved file.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
+	public static IFile save(IPath path, byte[] content,
+			IProgressMonitor monitor) throws CoreException {
 		monitor.beginTask("Saving " + path, 1);
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IFile file = root.getFile(path);
 		if (file.exists()) {
-			file.setContents(
-					new ByteArrayInputStream(content), true, true, null);
+			file.setContents(new ByteArrayInputStream(content), true, true,
+					null);
 		} else {
-			file.create(
-					new ByteArrayInputStream(content), true, null);
+			file.create(new ByteArrayInputStream(content), true, null);
 		}
 		return file;
 	}
+
 }

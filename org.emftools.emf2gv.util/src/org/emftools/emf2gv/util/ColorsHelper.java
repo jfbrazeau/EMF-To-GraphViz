@@ -27,11 +27,24 @@
  */
 package org.emftools.emf2gv.util;
 
+/**
+ * Helper class used to manipulate colors.
+ * 
+ * @author jbrazeau
+ */
 public class ColorsHelper {
 
+	/** Hex characters */
 	private static final char[] c = new char[] { '0', '1', '2', '3', '4', '5',
 			'6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
+	/**
+	 * Converts an integer to an HTML color representation.
+	 * 
+	 * @param color
+	 *            the color to convert.
+	 * @return the converted string.
+	 */
 	public static String toHtmlColor(int color) {
 		char[] result = new char[7];
 		result[0] = '#';
@@ -41,27 +54,70 @@ public class ColorsHelper {
 		return new String(result);
 	}
 
-	private static void toHex(byte b, char[] table, int from) {
-		table[from] = c[(b >> 4) & 0x0F];
-		table[from + 1] = c[b & 0x0F];
+	/**
+	 * Converts a byte value to hexadecimal and put the result in an array.
+	 * 
+	 * @param b
+	 *            the byte value to convert.
+	 * @param charArray
+	 *            the array in which the result is put.
+	 * @param from
+	 *            the array's index to use as a starting point.
+	 */
+	private static void toHex(byte b, char[] charArray, int from) {
+		charArray[from] = c[(b >> 4) & 0x0F];
+		charArray[from + 1] = c[b & 0x0F];
 	}
 
+	/**
+	 * @param color
+	 *            the color.
+	 * @return the red component of the given color.
+	 */
 	public static int getRed(int color) {
 		return (color >> 16) & 255;
 	}
 
+	/**
+	 * @param color
+	 *            the color.
+	 * @return the green component of the given color.
+	 */
 	public static int getGreen(int color) {
 		return (color >> 8) & 255;
 	}
 
+	/**
+	 * @param color
+	 *            the color.
+	 * @return the blue component of the given color.
+	 */
 	public static int getBlue(int color) {
 		return color & 255;
 	}
 
+	/**
+	 * Computes a color from its red, green, blue components.
+	 * 
+	 * @param red
+	 *            the red component.
+	 * @param green
+	 *            the green component.
+	 * @param blue
+	 *            the blue component.
+	 * @return the computed color value.
+	 */
 	public static int getColor(int red, int green, int blue) {
 		return (blue & 255) + ((green & 255) << 8) + ((red & 255) << 16);
 	}
 
+	/**
+	 * Makes a color get brighter.
+	 * 
+	 * @param color
+	 *            the color to change.
+	 * @return the brighter color.
+	 */
 	public static int makeColorBrighter(int color) {
 		int r = makeBaseColorBrighter(getRed(color));
 		int g = makeBaseColorBrighter(getGreen(color));
@@ -69,8 +125,15 @@ public class ColorsHelper {
 		return getColor((int) r, (int) g, (int) b);
 	}
 
-	private static int makeBaseColorBrighter(int d) {
-		return (int) (255d - ((255d - ((double)d)) / 3));
+	/**
+	 * Makes a base color (red, green or blue) get brighter.
+	 * 
+	 * @param baseColor
+	 *            the base color.
+	 * @return the brighter base color.
+	 */
+	private static int makeBaseColorBrighter(int baseColor) {
+		return (int) (255d - ((255d - ((double) baseColor)) / 3));
 	}
 
 }
