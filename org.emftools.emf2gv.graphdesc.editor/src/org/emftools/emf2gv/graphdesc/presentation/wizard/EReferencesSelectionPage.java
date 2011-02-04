@@ -28,7 +28,9 @@
 package org.emftools.emf2gv.graphdesc.presentation.wizard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
@@ -56,7 +58,12 @@ import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 
-// TODO Javadoc
+/**
+ * EReference selection page.
+ * 
+ * @author jbrazeau
+ * 
+ */
 public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 
 	/** EReferences table viewer */
@@ -100,6 +107,13 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 		entryChanged();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.emftools.emf2gv.graphdesc.presentation.wizard.AbstractGraphdescWizardPage
+	 * #initPageContent()
+	 */
 	@Override
 	protected void initPageContent() {
 		GVFigureDescription gvFigureDescription = getGvFigureDescription();
@@ -131,9 +145,19 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 			eReferencesTreeViewer.setGrayChecked(classFigure.getEClass(), true);
 		}
 
+		// Let's try to validate the page
+		entryChanged();
 	}
 
-	// TODO Javadoc
+	/**
+	 * Returns the EReferenceTreeItem for the given eClass and eReference.
+	 * 
+	 * @param eClass
+	 *            the EClass.
+	 * @param eReference
+	 *            the EReference.
+	 * @return the ERefenceTreeItem for the given eClass and eReference.
+	 */
 	private EReferenceTreeItem getEReferenceTreeItem(EClass eClass,
 			EReference eReference) {
 		Object[] eClassChilds = contentProvider.getChildren(eClass);
@@ -146,7 +170,10 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 		return null;
 	}
 
-	// TODO Javadoc
+	/**
+	 * Creates the EReference selection group.
+	 * @param rootContainer the root container.
+	 */
 	private void createEReferencesSelectionGroup(Composite rootContainer) {
 		// EClass list group
 		Group eClassesListGroup = createGroup(rootContainer,
@@ -164,16 +191,17 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 				getEcoreAdapterFactory()) {
 			@Override
 			public Image getImage(Object object) {
-				// EReferenceTreeItem must be handle specifically in order to let
-				// the adapter factory act as if it was an EReference
+				// EReferenceTreeItem must be handle specifically in order to
+				// let the adapter factory act as if it was an EReference
 				return super
 						.getImage(object instanceof EReferenceTreeItem ? ((EReferenceTreeItem) object)
 								.getEReference() : object);
 			}
+
 			@Override
 			public String getText(Object object) {
-				// EReferenceTreeItem must be handle specifically in order to let
-				// the adapter factory act as if it was an EReference
+				// EReferenceTreeItem must be handle specifically in order to
+				// let the adapter factory act as if it was an EReference
 				return super
 						.getText(object instanceof EReferenceTreeItem ? ((EReferenceTreeItem) object)
 								.getEReference() : object);
@@ -189,7 +217,6 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 									((ENamedElement) e2).getName()
 											.toLowerCase());
 				}
-
 				return super.compare(viewer, e1, e2);
 			}
 		});
@@ -236,6 +263,9 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 		});
 	}
 
+	/**
+	 * Handles a click on the select all containment button.
+	 */
 	private void handleSelectAllContainment() {
 		boolean atLeastOneChange = false;
 		for (EPackage ePackage : getGvFigureDescription().getEPackages()) {
@@ -260,6 +290,10 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 			entryChanged();
 	}
 
+	/**
+	 * Handles a click on the select all (or unselect all) button.
+	 * @param newCheckState the new check state.
+	 */
 	private void handleSetAllCheckedState(boolean newCheckState) {
 		boolean atLeastOneChange = false;
 		for (EPackage ePackage : getGvFigureDescription().getEPackages()) {
@@ -282,7 +316,12 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 			entryChanged();
 	}
 
-	// TODO Javadoc
+
+	/**
+	 * Handles a click on a reference checkbox.
+	 * @param element the element behind the tree item.
+	 * @param checked the check status.
+	 */
 	private void handleTreeItemCheckedStateChanged(Object element,
 			boolean checked) {
 		// EPackage & EClass case
@@ -345,8 +384,8 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 			}
 		}
 		// Page is valid if all checked reference have a target figure
-		// (associated
-		// to the target EClass or one of its subclass of the EReference)
+		// (associated to the target EClass or one of its subclass of 
+		// the EReference)
 		boolean valid = true;
 		for (int i = 0; i < checkedEReferenceTreeItems.size() && valid; i++) {
 			EReferenceTreeItem eReferenceTreeItem = checkedEReferenceTreeItems
@@ -379,7 +418,10 @@ class EReferencesContentProvider implements ITreeContentProvider {
 
 	/** Graphical description edited in the wizard. */
 	private GVFigureDescription gvFigureDescription;
-
+	
+	/** Child nodes cache */
+	private Map<Object, Object[]> childsCache = new HashMap<Object, Object[]>();
+	
 	/**
 	 * Default constructor.
 	 * 
@@ -411,26 +453,30 @@ class EReferencesContentProvider implements ITreeContentProvider {
 	 */
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		Object[] result = null;
-		if (parentElement instanceof EPackage) {
-			EPackage ePackage = (EPackage) parentElement;
-			List<EClass> eClasses = new ArrayList<EClass>();
-			for (ClassFigure classFigure : gvFigureDescription
-					.getClassFigures()) {
-				if (ePackage == classFigure.getEPackage()) {
-					eClasses.add(classFigure.getEClass());
+		Object[] result = childsCache.get(parentElement);
+		if (result == null) {
+			if (parentElement instanceof EPackage) {
+				EPackage ePackage = (EPackage) parentElement;
+				List<EClass> eClasses = new ArrayList<EClass>();
+				for (ClassFigure classFigure : gvFigureDescription
+						.getClassFigures()) {
+					if (ePackage == classFigure.getEPackage()) {
+						eClasses.add(classFigure.getEClass());
+					}
 				}
+				result = eClasses.toArray();
+			} else if (parentElement instanceof EClass) {
+				EClass eClass = (EClass) parentElement;
+				List<EReference> eReferences = eClass.getEAllReferences();
+				List<EReferenceTreeItem> eReferenceTreeItems = new ArrayList<EReferenceTreeItem>();
+				for (EReference eReference : eReferences) {
+					eReferenceTreeItems.add(new EReferenceTreeItem(eClass,
+							eReference));
+				}
+				result = eReferenceTreeItems.toArray();
 			}
-			result = eClasses.toArray();
-		} else if (parentElement instanceof EClass) {
-			EClass eClass = (EClass) parentElement;
-			List<EReference> eReferences = eClass.getEAllReferences();
-			List<EReferenceTreeItem> eReferenceTreeItems = new ArrayList<EReferenceTreeItem>();
-			for (EReference eReference : eReferences) {
-				eReferenceTreeItems.add(new EReferenceTreeItem(eClass,
-						eReference));
-			}
-			result = eReferenceTreeItems.toArray();
+			// Cache management
+			childsCache.put(parentElement, result);
 		}
 		return result;
 	}
@@ -476,6 +522,14 @@ class EReferencesContentProvider implements ITreeContentProvider {
 	 */
 	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		if (oldInput != null) {
+			childsCache.remove(oldInput);
+			@SuppressWarnings("unchecked")
+			List<EPackage> ePackages = (List<EPackage>) oldInput; 
+			for (EPackage ePackage : ePackages) {
+				childsCache.remove(ePackage);
+			}
+		}
 	}
 
 	/*
@@ -485,6 +539,7 @@ class EReferencesContentProvider implements ITreeContentProvider {
 	 */
 	@Override
 	public void dispose() {
+		childsCache.clear();
 	}
 
 }
