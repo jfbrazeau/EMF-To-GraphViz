@@ -520,7 +520,6 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 						// Check that the reference is not already declared
 						// in the nested figure EReferences
 						else {
-							// TODO tester 
 							if (classFigure.getNestedFiguresEReferences()
 									.contains(eReference)) {
 								constraintsHelper
