@@ -39,7 +39,6 @@ import org.osgi.framework.Bundle;
  * 
  * Manages the arrow types icons.
  */
-// TODO Javadoc
 public class ArrowTypeItemLabelProvider implements IItemLabelProvider {
 
 	/**
@@ -49,18 +48,29 @@ public class ArrowTypeItemLabelProvider implements IItemLabelProvider {
 		Source, Target
 	}
 
+	/** The category of the label provider (source or target arrow) */
 	private Category category;
 
+	/**
+	 * Default constructor.
+	 * @param category the category to use.
+	 */
 	public ArrowTypeItemLabelProvider(Category category) {
 		this.category = category;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.edit.provider.IItemLabelProvider#getText(java.lang.Object)
+	 */
 	@Override
 	public String getText(Object object) {
 		ArrowType arrowType = (ArrowType) object;
 		return arrowType.getName();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.edit.provider.IItemLabelProvider#getImage(java.lang.Object)
+	 */
 	@Override
 	public Object getImage(Object object) {
 		ArrowType arrowType = (ArrowType) object;
