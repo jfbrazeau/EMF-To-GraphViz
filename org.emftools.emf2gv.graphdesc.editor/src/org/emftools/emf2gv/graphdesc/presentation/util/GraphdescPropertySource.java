@@ -36,11 +36,26 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 
-// TODO Javadoc
+/**
+ * The graphical description property source.
+ * 
+ * @author jbrazeau
+ */
 public class GraphdescPropertySource extends PropertySource {
 
+	/** The color icons map */
 	private Map<Integer, Image> colorIcons;
 
+	/**
+	 * Default constructor.
+	 * 
+	 * @param object
+	 *            the edited object.
+	 * @param itemPropertySource
+	 *            the item property source.
+	 * @param colorIcons
+	 *            the color icons map.
+	 */
 	public GraphdescPropertySource(Object object,
 			IItemPropertySource itemPropertySource,
 			Map<Integer, Image> colorIcons) {
@@ -48,6 +63,13 @@ public class GraphdescPropertySource extends PropertySource {
 		this.colorIcons = colorIcons;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.emf.edit.ui.provider.PropertySource#createPropertyDescriptor
+	 * (org.eclipse.emf.edit.provider.IItemPropertyDescriptor)
+	 */
 	protected IPropertyDescriptor createPropertyDescriptor(
 			IItemPropertyDescriptor itemPropertyDescriptor) {
 		IPropertyDescriptor result = null;

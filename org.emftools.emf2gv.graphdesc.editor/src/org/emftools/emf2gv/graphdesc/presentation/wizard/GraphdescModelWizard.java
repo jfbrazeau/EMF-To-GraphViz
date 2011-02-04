@@ -59,15 +59,32 @@ import org.emftools.emf2gv.graphdesc.presentation.GraphdescEditorPlugin;
 import org.emftools.emf2gv.graphdesc.util.GraphdescGenerator;
 import org.emftools.validation.builder.util.EMFValidationNatureHelper;
 
-// TODO Javadoc
+/**
+ * The graphical description model creation wizard.
+ * 
+ * @author jbrazeau
+ */
 public class GraphdescModelWizard extends Wizard implements INewWizard {
 
-	private IStructuredSelection selection;
-	private IWorkbench workbench;
-	private NewFileCreationPage wizardNewFileCreationPage;
-	private EPackagesSelectionPage ePackageSelectionPage;
-	private EClassesSelectionPage eClassesSelectionPage;
+	/** The edited graphical description */
 	private GVFigureDescription gvFigureDescription;
+
+	/** The selection */
+	private IStructuredSelection selection;
+
+	/** The workbench */
+	private IWorkbench workbench;
+
+	/** The new file creation page */
+	private NewFileCreationPage wizardNewFileCreationPage;
+
+	/** The EPackage selection page */
+	private EPackagesSelectionPage ePackageSelectionPage;
+
+	/** The EClass selection page */
+	private EClassesSelectionPage eClassesSelectionPage;
+
+	/** The EReference selection page */
 	private EReferencesSelectionPage eReferencesSelectionPage;
 
 	/**
@@ -192,6 +209,11 @@ public class GraphdescModelWizard extends Wizard implements INewWizard {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#addPages()
+	 */
 	@Override
 	public void addPages() {
 		wizardNewFileCreationPage = new NewFileCreationPage("creationPage",

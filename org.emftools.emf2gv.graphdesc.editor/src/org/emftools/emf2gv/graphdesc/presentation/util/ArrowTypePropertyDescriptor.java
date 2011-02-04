@@ -38,16 +38,34 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 
-// TODO Javadoc
+/**
+ * Arrow type property descriptor.
+ * 
+ * @author jbrazeau
+ */
 public class ArrowTypePropertyDescriptor extends PropertyDescriptor {
 
+	/**
+	 * Default constructor.
+	 * 
+	 * @param object
+	 *            the object.
+	 * @param itemPropertyDescriptor
+	 *            the item propertye descriptor.
+	 */
 	public ArrowTypePropertyDescriptor(Object object,
 			IItemPropertyDescriptor itemPropertyDescriptor) {
 		super(object, itemPropertyDescriptor);
 	}
 
-	public CellEditor createPropertyEditor(
-			Composite composite) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.emf.edit.ui.provider.PropertyDescriptor#createPropertyEditor
+	 * (org.eclipse.swt.widgets.Composite)
+	 */
+	public CellEditor createPropertyEditor(Composite composite) {
 		return new ExtendedDialogCellEditor(composite, getLabelProvider()) {
 			@Override
 			protected Object openDialogBox(Control cellEditorWindow) {

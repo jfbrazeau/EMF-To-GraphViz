@@ -37,45 +37,71 @@ import org.eclipse.swt.widgets.Group;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.util.EMFHelper;
 
-// TODO Javadoc
+/**
+ * The abstract base wizard page.
+ * 
+ * @author jbrazeau
+ * 
+ */
 public abstract class AbstractGraphdescWizardPage extends WizardPage {
 
+	/** The graphical edited description */
 	private GVFigureDescription gvFigureDescription;
 
+	/** The adapter factory */
 	private AdapterFactory adapterFactory;
 
 	/**
 	 * Default constructor.
-	 * @param pageName the page name.
-	 * @param gvFigureDescription the figure description model.
+	 * 
+	 * @param pageName
+	 *            the page name.
+	 * @param gvFigureDescription
+	 *            the figure description model.
 	 */
-	protected AbstractGraphdescWizardPage(String pageName, GVFigureDescription gvFigureDescription) {
+	protected AbstractGraphdescWizardPage(String pageName,
+			GVFigureDescription gvFigureDescription) {
 		super(pageName);
 		this.gvFigureDescription = gvFigureDescription;
 		this.adapterFactory = EMFHelper.getEcoreAdapterFactory();
 	}
 
-	protected Group createGroup(Composite parent, String name, int columnNb, boolean fillVertical) {
+	/**
+	 * Creates a group.
+	 * 
+	 * @param parent
+	 *            the parent composite.
+	 * @param name
+	 *            the group's name.
+	 * @param columnNb
+	 *            the colums count.
+	 * @param fillVertical
+	 *            a boolean indicating if the group must fill the available
+	 *            vertical space.
+	 * @return the group.
+	 */
+	protected Group createGroup(Composite parent, String name, int columnNb,
+			boolean fillVertical) {
 		Group group = new Group(parent, SWT.NONE);
-		group.setLayoutData(new GridData(SWT.FILL, fillVertical ? SWT.FILL : SWT.NONE, true, fillVertical));
+		group.setLayoutData(new GridData(SWT.FILL, fillVertical ? SWT.FILL
+				: SWT.NONE, true, fillVertical));
 		group.setLayout(new GridLayout(columnNb, false));
 		group.setText(name);
 		return group;
 	}
 
 	/**
-	 * To be invoked when the page entry has changed. 
+	 * To be invoked when the page entry has changed.
 	 */
 	protected void entryChanged() {
 		setPageComplete(validatePage());
 	}
-	
+
 	/**
 	 * @return a boolean indicating if the entry is valid.
 	 */
 	protected abstract boolean validatePage();
 
-	
 	protected GVFigureDescription getGvFigureDescription() {
 		return gvFigureDescription;
 	}
@@ -92,8 +118,7 @@ public abstract class AbstractGraphdescWizardPage extends WizardPage {
 			validatePage();
 		}
 	}
-	
+
 	protected abstract void initPageContent();
 
 }
-

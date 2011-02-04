@@ -50,7 +50,11 @@ import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.util.EMFHelper;
 import org.emftools.emf2gv.util.EPackageFake;
 
-// TODO Javadoc
+/**
+ * The EPackage selection page.
+ * 
+ * @author jbrazeau
+ */
 public class EPackagesSelectionPage extends AbstractGraphdescWizardPage {
 
 	/** EPackage table viewer */
@@ -97,7 +101,12 @@ public class EPackagesSelectionPage extends AbstractGraphdescWizardPage {
 		entryChanged();
 	}
 
-	// TODO Javadoc
+	/**
+	 * Creates the EPackage selection group.
+	 * 
+	 * @param rootContainer
+	 *            the root container.
+	 */
 	private void createEPackageSelectionGroup(Composite rootContainer) {
 		// EPackage list group
 		Group ePackageListGroup = createGroup(rootContainer,
@@ -121,7 +130,14 @@ public class EPackagesSelectionPage extends AbstractGraphdescWizardPage {
 
 	}
 
-	// TODO Javadoc
+	/**
+	 * Handles a status change event on an EPackage tree item.
+	 * 
+	 * @param ePackage
+	 *            the EPackage.
+	 * @param checked
+	 *            the check status.
+	 */
 	private void handleEPackageCheckedStateChanged(EPackage ePackage,
 			boolean checked) {
 		if (checked) {
@@ -137,7 +153,7 @@ public class EPackagesSelectionPage extends AbstractGraphdescWizardPage {
 			}
 			// Then we can add the EPackage to the graphical definition
 			getGvFigureDescription().getEPackages().add(ePackage);
-			
+
 		} else {
 			// If the EPackage is unchecked, we remove it from the
 			// graphical definition
@@ -177,7 +193,11 @@ public class EPackagesSelectionPage extends AbstractGraphdescWizardPage {
 
 }
 
-// TODO Javadoc
+/**
+ * EPackage content provider.
+ * 
+ * @author jbrazeau
+ */
 class EPackagesContentProvider implements IStructuredContentProvider {
 
 	/*

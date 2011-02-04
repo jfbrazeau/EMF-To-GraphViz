@@ -31,15 +31,30 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
-// TODO Javadoc
-public class NewFileCreationPage extends
-		WizardNewFileCreationPage {
+/**
+ * New file creation wizard.
+ * 
+ * @author jbrazeau
+ */
+public class NewFileCreationPage extends WizardNewFileCreationPage {
 
-	public NewFileCreationPage(String pageName,
-			IStructuredSelection selection) {
+	/**
+	 * Default constructor.
+	 * 
+	 * @param pageName
+	 *            the page name.
+	 * @param selection
+	 *            the selection.
+	 */
+	public NewFileCreationPage(String pageName, IStructuredSelection selection) {
 		super(pageName, selection);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.dialogs.WizardNewFileCreationPage#validatePage()
+	 */
 	@Override
 	protected boolean validatePage() {
 		boolean valid = super.validatePage();

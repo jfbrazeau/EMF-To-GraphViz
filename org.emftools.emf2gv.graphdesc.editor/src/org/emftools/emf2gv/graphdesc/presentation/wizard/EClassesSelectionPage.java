@@ -54,12 +54,17 @@ import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 
-// TODO Javadoc
+/**
+ * EClass selction page.
+ * 
+ * @author jbrazeau
+ * 
+ */
 public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 
 	/** EClasses table viewer */
 	private CheckboxTreeViewer eClassesTreeViewer;
-	
+
 	/** EClass content provider */
 	private EClassesContentProvider contentProvider;
 
@@ -98,6 +103,13 @@ public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 		entryChanged();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.emftools.emf2gv.graphdesc.presentation.wizard.AbstractGraphdescWizardPage
+	 * #initPageContent()
+	 */
 	@Override
 	protected void initPageContent() {
 		// Let's retrieve the EPackage list and clean the graphical
@@ -128,6 +140,12 @@ public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 		}
 	}
 
+	/**
+	 * Creates the EClass selection group.
+	 * 
+	 * @param rootContainer
+	 *            teh root container.
+	 */
 	private void createEClassesSelectionGroup(Composite rootContainer) {
 		// EClass list group
 		Group eClassesListGroup = createGroup(rootContainer,
@@ -143,14 +161,18 @@ public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 		eClassesTreeViewer.setLabelProvider(new AdapterFactoryLabelProvider(
 				getEcoreAdapterFactory()));
 		eClassesTreeViewer.setSorter(new ViewerSorter() {
-            public int compare(Viewer viewer, Object e1, Object e2) {
-                if (e1 instanceof ENamedElement && e2 instanceof ENamedElement) {
-                    return ((ENamedElement)e1).getName().toLowerCase().compareTo(
-                            ((ENamedElement) e2).getName().toLowerCase());
-                }
+			public int compare(Viewer viewer, Object e1, Object e2) {
+				if (e1 instanceof ENamedElement && e2 instanceof ENamedElement) {
+					return ((ENamedElement) e1)
+							.getName()
+							.toLowerCase()
+							.compareTo(
+									((ENamedElement) e2).getName()
+											.toLowerCase());
+				}
 
-                return super.compare(viewer, e1, e2);
-            }
+				return super.compare(viewer, e1, e2);
+			}
 		});
 		eClassesTreeViewer.addCheckStateListener(new ICheckStateListener() {
 			@Override
@@ -183,6 +205,12 @@ public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 		});
 	}
 
+	/**
+	 * Handles a click on an EClass state checkbox.
+	 * 
+	 * @param newCheckState
+	 *            the new check state.
+	 */
 	private void handleSetAllCheckedState(boolean newCheckState) {
 		boolean atLeastOneChange = false;
 		for (EPackage ePackage : getGvFigureDescription().getEPackages()) {
@@ -202,6 +230,14 @@ public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 			entryChanged();
 	}
 
+	/**
+	 * Handles a status change event on a tree item.
+	 * 
+	 * @param element
+	 *            the element behind the viewer.
+	 * @param checked
+	 *            the check status.
+	 */
 	private void handleTreeItemCheckedStateChanged(Object element,
 			boolean checked) {
 		// EPackage case
@@ -218,6 +254,14 @@ public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 		}
 	}
 
+	/**
+	 * Handles a status change event on an EClass tree item.
+	 * 
+	 * @param eClass
+	 *            the EClass.
+	 * @param checked
+	 *            the check status.
+	 */
 	private void handleEClassCheckedStateChanged(EClass eClass, boolean checked) {
 		// ClassFigure add
 		if (checked) {
@@ -256,6 +300,11 @@ public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 
 }
 
+/**
+ * EClass content provider.
+ * 
+ * @author jbrazeau
+ */
 class EClassesContentProvider implements ITreeContentProvider {
 
 	/*
