@@ -29,11 +29,13 @@ package org.emftools.emf2gv.graphdesc.provider;
 
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -59,6 +61,27 @@ public class AbstractFigureItemProvider
 		ITreeItemContentProvider,
 		IItemLabelProvider,
 		IItemPropertySource {
+
+	/** EAttriutes comparator */
+	public static final Comparator<ENamedElement> ENAMED_ELEMENT_COMPARATOR = new Comparator<ENamedElement>() {
+		/**
+		 * Compares two EAttributes.
+		 * 
+		 * @param eNamedElement1
+		 *            the first named element.
+		 * @param eNamedElement2
+		 *            the second named element.
+		 * @return an positive integer if eNamedElement1 > eNamedElement2, a
+		 *         negative integer if eNamedElement1 < eNamedElement2, zero
+		 *         otherwise.
+		 */
+		@Override
+		public int compare(ENamedElement eNamedElement1,
+				ENamedElement eNamedElement2) {
+			return eNamedElement1.getName().compareTo(eNamedElement2.getName());
+		}
+	};
+	
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->

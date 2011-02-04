@@ -31,7 +31,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -161,13 +160,7 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 								result.addAll(eClass.getEAllReferences());
 							}
 						}
-						// TODO factoriser les sort
-						Collections.sort(result, new Comparator<EReference>() {
-							@Override
-							public int compare(EReference e1, EReference e2) {
-								return e1.getName().compareTo(e2.getName());
-							}
-						});
+						Collections.sort(result, ENAMED_ELEMENT_COMPARATOR);
 						return result;
 					}
 				});

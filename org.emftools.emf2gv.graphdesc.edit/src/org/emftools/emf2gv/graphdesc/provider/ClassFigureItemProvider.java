@@ -31,7 +31,6 @@ package org.emftools.emf2gv.graphdesc.provider;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -131,18 +130,14 @@ public class ClassFigureItemProvider
 						for (EPackage ePackage : gvFigureDesc.getEPackages()) {
 							EList<EClassifier> classifiers = ePackage.getEClassifiers();
 							for (EClassifier eClassifier : classifiers) {
-								if (eClassifier instanceof EClass) {
-									if (!result.contains(eClassifier))
-										result.add((EClass) eClassifier);
-								}
+							if (eClassifier instanceof EClass
+									&& !((EClass) eClassifier).isAbstract()) {
+								if (!result.contains(eClassifier))
+									result.add((EClass) eClassifier);
+							}
 							}
 						}
-						Collections.sort(result, new Comparator<EClass>() {
-							@Override
-							public int compare(EClass e1, EClass e2) {
-								return e1.getName().compareTo(e2.getName());
-							}
-						});
+						Collections.sort(result, ENAMED_ELEMENT_COMPARATOR);
 					}
 					return result;
 				}
@@ -176,13 +171,7 @@ public class ClassFigureItemProvider
 					EClass eClass = classFigure.getEClass();
 					if (eClass != null) {
 						result.addAll(eClass.getEAllAttributes());
-						// TODO factoriser les sort
-						Collections.sort(result, new Comparator<EAttribute>() {
-							@Override
-							public int compare(EAttribute e1, EAttribute e2) {
-								return e1.getName().compareTo(e2.getName());
-							}
-						});
+						Collections.sort(result, ENAMED_ELEMENT_COMPARATOR);
 					}
 					return result;
 				}
@@ -260,12 +249,7 @@ public class ClassFigureItemProvider
 					EClass eClass = classFigure.getEClass();
 					if (eClass != null) {
 						result.addAll(eClass.getEAllContainments());
-						// TODO factoriser
-						Collections.sort(result, new Comparator<EReference>() {
-							public int compare(EReference ref1, EReference ref2) {
-								return ref1.getName().compareTo(ref2.getName());
-							}
-						});
+						Collections.sort(result, ENAMED_ELEMENT_COMPARATOR);
 					}
 					return result;
 				}

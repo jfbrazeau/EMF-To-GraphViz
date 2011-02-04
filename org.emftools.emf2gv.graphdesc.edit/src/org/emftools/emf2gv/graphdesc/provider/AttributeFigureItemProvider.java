@@ -30,7 +30,6 @@ package org.emftools.emf2gv.graphdesc.provider;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -138,12 +137,7 @@ public class AttributeFigureItemProvider extends AbstractFigureItemProvider
 								result.addAll(eClass.getEAllAttributes());
 							}
 						}
-						Collections.sort(result, new Comparator<EAttribute>() {
-							@Override
-							public int compare(EAttribute e1, EAttribute e2) {
-								return e1.getName().compareTo(e2.getName());
-							}
-						});
+						Collections.sort(result, ENAMED_ELEMENT_COMPARATOR);
 						return result;
 					}
 				});
