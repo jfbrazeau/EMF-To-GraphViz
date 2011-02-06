@@ -225,14 +225,11 @@ public class GVSourceAndDependenciesBuilder {
 			}
 
 			// Build the nodes hierarchy
-			List<NodeDesc> nodesHierarchy = buildContainersHierarchy();
+			List<NodeDesc> nodesHierarchy = buildContainersHierarchyAndReturnRoots();
 
 			// GraphViz source build
 			flushHeader();
-			// TODO reimplement align same eclass
-			for (NodeDesc nodeDesc : nodesHierarchy) {
-				flushNode(nodeDesc);
-			}
+			flushNodes(nodesHierarchy);
 			for (EdgeDesc edgeDesc : edges) {
 				flushEdge(edgeDesc);
 			}
@@ -242,8 +239,35 @@ public class GVSourceAndDependenciesBuilder {
 		}
 	}
 
-	// TODO Javadoc
-	private List<NodeDesc> buildContainersHierarchy() {
+	/**
+	 * @return the graphiz source buffer.
+	 */
+	public String getGvSource() {
+		return buffer.toString();
+	}
+
+	/**
+	 * @return the nodes count.
+	 */
+	public int getNodesCount() {
+		return nodesCount;
+	}
+
+	/**
+	 * @return the adgees count.
+	 */
+	public int getEdgesCount() {
+		return edgesCount;
+	}
+
+	/**
+	 * Iterates overs the node descriptions and builds a hierarchical tree by
+	 * adding child nodes to container nodes. The list that is returned contains
+	 * the hierarchy roots.
+	 * 
+	 * @return the hierarchical tree.
+	 */
+	private List<NodeDesc> buildContainersHierarchyAndReturnRoots() {
 		List<NodeDesc> result = new ArrayList<NodeDesc>();
 		result.addAll(nodes.values());
 
@@ -289,27 +313,6 @@ public class GVSourceAndDependenciesBuilder {
 		}
 
 		return result;
-	}
-
-	/**
-	 * @return the graphiz source buffer.
-	 */
-	public String getGvSource() {
-		return buffer.toString();
-	}
-
-	/**
-	 * @return the nodes count.
-	 */
-	public int getNodesCount() {
-		return nodesCount;
-	}
-
-	/**
-	 * @return the adgees count.
-	 */
-	public int getEdgesCount() {
-		return edgesCount;
 	}
 
 	/**
@@ -630,24 +633,59 @@ public class GVSourceAndDependenciesBuilder {
 	}
 
 	/**
-	 * Flushes a node in the graphviz source buffer.
+	 * Flushes a node list in the graphviz source buffer.
 	 * 
-	 * @param nodeDesc
+	 * @param nodeDescs
+	 *            the node descriptions to flush.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
+	private void flushNodes(List<NodeDesc> nodeDescs) throws CoreException {
+		// NodeDescs are sorted by EClass
+		Map<EClass, List<NodeDesc>> nodesListByEclass = new HashMap<EClass, List<NodeDesc>>();
+		for (NodeDesc nodeDesc : nodeDescs) {
+			EClass eClass = nodeDesc.eObject.eClass();
+			List<NodeDesc> sameEClassNodes = nodesListByEclass.get(eClass);
+			if (sameEClassNodes == null) {
+				sameEClassNodes = new ArrayList<NodeDesc>();
+				nodesListByEclass.put(eClass, sameEClassNodes);
+			}
+			sameEClassNodes.add(nodeDesc);
+		}
+		// And then the nodes are flushed
+		for (ClassFigure classFigure : figureDesc.getClassFigures()) {
+			List<NodeDesc> sameEClassNodes = nodesListByEclass.get(classFigure
+					.getEClass());
+			boolean doAlignNodes = figureDesc.isAlignSameEClasses()
+					&& !classFigure.isContainer();
+			if (sameEClassNodes != null) {
+				if (doAlignNodes) {
+					out.print("{ rank = same;\n");
+				}
+				for (NodeDesc nodeDesc : sameEClassNodes) {
+					if (nodeDesc.classFigure.isContainer()) {
+						flushClusterNode(nodeDesc);
+					} else {
+						flushStandardNode(nodeDesc);
+					}
+					// Nodes count update
+					nodesCount++;
+				}
+				if (doAlignNodes) {
+					out.print("}\n");
+				}
+			}
+		}
+	}
+
+	/**
+	 * Flushes a cluster node and its child nodes in the graphviz source buffer.
+	 * 
+	 * @param nodeDescs
 	 *            the node description to flush.
 	 * @throws CoreException
 	 *             thrown if an unexpected error occurs.
 	 */
-	private void flushNode(NodeDesc nodeDesc) throws CoreException {
-		if (nodeDesc.classFigure.isContainer()) {
-			flushClusterNode(nodeDesc);
-		} else {
-			flushStandardNode(nodeDesc);
-		}
-		// Nodes count update
-		nodesCount++;
-	}
-
-	// TODO Javadoc
 	private void flushClusterNode(NodeDesc nodeDesc) throws CoreException {
 		ClassFigure classFigure = nodeDesc.classFigure;
 		/*
@@ -674,9 +712,8 @@ public class GVSourceAndDependenciesBuilder {
 				.getHeaderBackgroundColor()));
 		out.println("\"; labeljust=\"l\";");
 		// Flush nested nodes
-		for (NodeDesc nestedNodeDesc : nodeDesc.nestedNodes) {
-			flushNode(nestedNodeDesc);
-		}
+		flushNodes(nodeDesc.nestedNodes);
+
 		// Flush the anchor that is used to connect the cluster to or from
 		// other nodes or cluster
 		out.print("\t\t");
@@ -685,7 +722,14 @@ public class GVSourceAndDependenciesBuilder {
 		out.println("\t\t}");
 	}
 
-	// TODO Javadoc
+	/**
+	 * Flushes a standard node in the graphviz source buffer.
+	 * 
+	 * @param nodeDescs
+	 *            the node description to flush.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
 	private void flushStandardNode(NodeDesc nodeDesc) throws CoreException {
 		ClassFigure classFigure = nodeDesc.classFigure;
 		/*
@@ -717,7 +761,12 @@ public class GVSourceAndDependenciesBuilder {
 
 	}
 
-	// TODO Javado
+	/**
+	 * Flushes the node attributes in the graphviz source buffer.
+	 * 
+	 * @param nodeDesc
+	 *            the node description.
+	 */
 	private void flushNodeAttributes(NodeDesc nodeDesc) {
 		ClassFigure classFigure = nodeDesc.classFigure;
 		EList<AttributeFigure> attrFigures = classFigure.getAttributeFigures();
@@ -740,7 +789,16 @@ public class GVSourceAndDependenciesBuilder {
 		out.println("\t\t\t\t</TABLE>");
 	}
 
-	// TODO Javadoc
+	/**
+	 * Flushes a node header in the graphviz source buffer.
+	 * 
+	 * @param indent
+	 *            the indent to apply.
+	 * @param border
+	 *            the border width to apply.
+	 * @param nodeDesc
+	 *            the node description.
+	 */
 	private void flushNodeHeader(String indent, int border, NodeDesc nodeDesc) {
 		ClassFigure classFigure = nodeDesc.classFigure;
 		out.print(indent);
