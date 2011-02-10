@@ -63,7 +63,7 @@ public interface GraphdescPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://org.emftools.emf2gv.graphdesc/1.0.1";
+	String eNS_URI = "http://org.emftools.emf2gv.graphdesc/1.0";
 
 	/**
 	 * The package namespace name.
@@ -285,13 +285,40 @@ public interface GraphdescPackage extends EPackage {
 	int CLASS_FIGURE__NESTED_FIGURES_EREFERENCES = ABSTRACT_FIGURE_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Dynamic Appearance</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_FIGURE__DYNAMIC_APPEARANCE = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Header Background Color Accessor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR = ABSTRACT_FIGURE_FEATURE_COUNT + 10;
+
+	/**
+	 * The feature id for the '<em><b>Body Background Color Accessor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR = ABSTRACT_FIGURE_FEATURE_COUNT + 11;
+
+	/**
 	 * The feature id for the '<em><b>Container</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE__CONTAINER = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
+	int CLASS_FIGURE__CONTAINER = ABSTRACT_FIGURE_FEATURE_COUNT + 12;
 
 	/**
 	 * The number of structural features of the '<em>Class Figure</em>' class.
@@ -300,7 +327,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 10;
+	int CLASS_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 13;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -588,6 +615,39 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getClassFigure_NestedFiguresEReferences();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ClassFigure#isDynamicAppearance <em>Dynamic Appearance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Dynamic Appearance</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ClassFigure#isDynamicAppearance()
+	 * @see #getClassFigure()
+	 * @generated
+	 */
+	EAttribute getClassFigure_DynamicAppearance();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getHeaderBackgroundColorAccessor <em>Header Background Color Accessor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Header Background Color Accessor</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ClassFigure#getHeaderBackgroundColorAccessor()
+	 * @see #getClassFigure()
+	 * @generated
+	 */
+	EAttribute getClassFigure_HeaderBackgroundColorAccessor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getBodyBackgroundColorAccessor <em>Body Background Color Accessor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Body Background Color Accessor</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ClassFigure#getBodyBackgroundColorAccessor()
+	 * @see #getClassFigure()
+	 * @generated
+	 */
+	EAttribute getClassFigure_BodyBackgroundColorAccessor();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ClassFigure#isContainer <em>Container</em>}'.
@@ -960,6 +1020,30 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CLASS_FIGURE__NESTED_FIGURES_EREFERENCES = eINSTANCE.getClassFigure_NestedFiguresEReferences();
+
+		/**
+		 * The meta object literal for the '<em><b>Dynamic Appearance</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CLASS_FIGURE__DYNAMIC_APPEARANCE = eINSTANCE.getClassFigure_DynamicAppearance();
+
+		/**
+		 * The meta object literal for the '<em><b>Header Background Color Accessor</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR = eINSTANCE.getClassFigure_HeaderBackgroundColorAccessor();
+
+		/**
+		 * The meta object literal for the '<em><b>Body Background Color Accessor</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR = eINSTANCE.getClassFigure_BodyBackgroundColorAccessor();
 
 		/**
 		 * The meta object literal for the '<em><b>Container</b></em>' attribute feature.

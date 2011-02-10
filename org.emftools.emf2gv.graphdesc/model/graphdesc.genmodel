@@ -62,7 +62,14 @@
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/headerBackgroundColor"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Figure's body background color"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/bodyBackgroundColor"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/nestedFiguresEReferences"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Container"
+          propertyDescription="" propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/nestedFiguresEReferences"/>
+      <genFeatures createChild="false" propertyCategory="Dynamic Color Accessors"
+          propertyDescription="Enables dynamic color accessors" ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/dynamicAppearance"/>
+      <genFeatures createChild="false" propertyCategory="Dynamic Appearance" propertyDescription="Dynamic header's background color accessor"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/headerBackgroundColorAccessor"/>
+      <genFeatures createChild="false" propertyCategory="Dynamic Appearance" propertyDescription="Dynamic body's background color accessor"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/bodyBackgroundColorAccessor"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/container"/>
       <genOperations ecoreOperation="graphdesc.ecore#//ClassFigure/getAttributeFigure">
         <genParameters ecoreParameter="graphdesc.ecore#//ClassFigure/getAttributeFigure/eAttribute"/>

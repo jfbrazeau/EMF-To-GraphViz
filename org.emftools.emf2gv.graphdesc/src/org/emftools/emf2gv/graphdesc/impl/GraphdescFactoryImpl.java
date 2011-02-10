@@ -58,7 +58,7 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 	 */
 	public static GraphdescFactory init() {
 		try {
-			GraphdescFactory theGraphdescFactory = (GraphdescFactory)EPackage.Registry.INSTANCE.getEFactory("http://org.emftools.emf2gv.graphdesc/1.0.1"); 
+			GraphdescFactory theGraphdescFactory = (GraphdescFactory)EPackage.Registry.INSTANCE.getEFactory("http://org.emftools.emf2gv.graphdesc/1.0"); 
 			if (theGraphdescFactory != null) {
 				return theGraphdescFactory;
 			}

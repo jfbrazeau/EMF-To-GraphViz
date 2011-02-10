@@ -24,6 +24,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
@@ -61,6 +62,13 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass gvFigureDescriptionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass classFigureEClass = null;
 
 	/**
@@ -83,13 +91,6 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * @generated
 	 */
 	private EClass abstractFigureEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass gvFigureDescriptionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -190,8 +191,62 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGVFigureDescription() {
+		return gvFigureDescriptionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGVFigureDescription_EPackages() {
+		return (EReference)gvFigureDescriptionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGVFigureDescription_ClassFigures() {
+		return (EReference)gvFigureDescriptionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGVFigureDescription_Orientation() {
+		return (EAttribute)gvFigureDescriptionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGVFigureDescription_AlignSameEClasses() {
+		return (EAttribute)gvFigureDescriptionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getClassFigure() {
 		return classFigureEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getClassFigure_EPackage() {
+		return (EReference)classFigureEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -226,15 +281,6 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClassFigure_EPackage() {
-		return (EReference)classFigureEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getClassFigure_ReferenceFigures() {
 		return (EReference)classFigureEClass.getEStructuralFeatures().get(4);
 	}
@@ -253,8 +299,35 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getClassFigure_Container() {
+		return (EAttribute)classFigureEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getClassFigure_DynamicAppearance() {
+		return (EAttribute)classFigureEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getClassFigure_HeaderBackgroundColor() {
 		return (EAttribute)classFigureEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getClassFigure_HeaderBackgroundColorAccessor() {
+		return (EAttribute)classFigureEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -271,8 +344,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClassFigure_NestedFiguresEReferences() {
-		return (EReference)classFigureEClass.getEStructuralFeatures().get(8);
+	public EAttribute getClassFigure_BodyBackgroundColorAccessor() {
+		return (EAttribute)classFigureEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -280,8 +353,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getClassFigure_Container() {
-		return (EAttribute)classFigureEClass.getEStructuralFeatures().get(9);
+	public EReference getClassFigure_NestedFiguresEReferences() {
+		return (EReference)classFigureEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -334,8 +407,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getReferenceFigure_EReference() {
-		return (EReference)referenceFigureEClass.getEStructuralFeatures().get(1);
+	public EReference getReferenceFigure_ClassFigure() {
+		return (EReference)referenceFigureEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -343,8 +416,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getReferenceFigure_ClassFigure() {
-		return (EReference)referenceFigureEClass.getEStructuralFeatures().get(0);
+	public EReference getReferenceFigure_EReference() {
+		return (EReference)referenceFigureEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -433,42 +506,6 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getGVFigureDescription() {
-		return gvFigureDescriptionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGVFigureDescription_ClassFigures() {
-		return (EReference)gvFigureDescriptionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGVFigureDescription_Orientation() {
-		return (EAttribute)gvFigureDescriptionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGVFigureDescription_AlignSameEClasses() {
-		return (EAttribute)gvFigureDescriptionEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EEnum getOrientation() {
 		return orientationEEnum;
 	}
@@ -489,15 +526,6 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 */
 	public EEnum getArrowStyle() {
 		return arrowStyleEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGVFigureDescription_EPackages() {
-		return (EReference)gvFigureDescriptionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -544,6 +572,9 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		createEAttribute(classFigureEClass, CLASS_FIGURE__HEADER_BACKGROUND_COLOR);
 		createEAttribute(classFigureEClass, CLASS_FIGURE__BODY_BACKGROUND_COLOR);
 		createEReference(classFigureEClass, CLASS_FIGURE__NESTED_FIGURES_EREFERENCES);
+		createEAttribute(classFigureEClass, CLASS_FIGURE__DYNAMIC_APPEARANCE);
+		createEAttribute(classFigureEClass, CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR);
+		createEAttribute(classFigureEClass, CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR);
 		createEAttribute(classFigureEClass, CLASS_FIGURE__CONTAINER);
 
 		attributeFigureEClass = createEClass(ATTRIBUTE_FIGURE);
@@ -635,6 +666,9 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEAttribute(getClassFigure_HeaderBackgroundColor(), theEcorePackage.getEInt(), "headerBackgroundColor", "10337785", 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClassFigure_BodyBackgroundColor(), theEcorePackage.getEInt(), "bodyBackgroundColor", "15658734", 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassFigure_NestedFiguresEReferences(), theEcorePackage.getEReference(), null, "nestedFiguresEReferences", null, 0, -1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getClassFigure_DynamicAppearance(), theEcorePackage.getEBoolean(), "dynamicAppearance", null, 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getClassFigure_HeaderBackgroundColorAccessor(), theEcorePackage.getEString(), "headerBackgroundColorAccessor", null, 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getClassFigure_BodyBackgroundColorAccessor(), theEcorePackage.getEString(), "bodyBackgroundColorAccessor", null, 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClassFigure_Container(), theEcorePackage.getEBoolean(), "container", null, 0, 1, ClassFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(classFigureEClass, this.getAttributeFigure(), "getAttributeFigure", 0, 1, IS_UNIQUE, IS_ORDERED);

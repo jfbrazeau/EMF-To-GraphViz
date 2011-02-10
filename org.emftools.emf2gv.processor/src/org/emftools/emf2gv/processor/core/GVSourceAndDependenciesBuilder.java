@@ -27,9 +27,12 @@
  */
 package org.emftools.emf2gv.processor.core;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,6 +60,7 @@ import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
+import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.processor.Activator;
 import org.emftools.emf2gv.util.ColorsHelper;
@@ -701,15 +705,13 @@ public class GVSourceAndDependenciesBuilder {
 		// Header
 		if (classFigure.getAttributeFigures().size() > 0) {
 			out.print("\t\t\t<TR><TD ALIGN=\"LEFT\" BGCOLOR=\"");
-			out.print(ColorsHelper.toHtmlColor(classFigure
-					.getBodyBackgroundColor()));
+			flushBodyBackgroundColor(nodeDesc);
 			out.println("\">");
 			flushNodeAttributes(nodeDesc);
 			out.println("\t\t\t</TD></TR>");
 		}
 		out.print("\t\t</TABLE>>; bgcolor=\"");
-		out.print(ColorsHelper.toHtmlColor(classFigure
-				.getHeaderBackgroundColor()));
+		flushHeaderBackgroundColor(nodeDesc);
 		out.println("\"; labeljust=\"l\";");
 		// Flush nested nodes
 		flushNodes(nodeDesc.nestedNodes);
@@ -720,6 +722,62 @@ public class GVSourceAndDependenciesBuilder {
 		out.print(nodeDesc.eObjectId);
 		out.println(" [label=\"\", shape=\"none\", width=0, height=0];");
 		out.println("\t\t}");
+	}
+
+	// TODO Javadoc
+	private void flushHeaderBackgroundColor(NodeDesc nodeDesc) {
+		flushColor(nodeDesc,
+				GraphdescPackage.eINSTANCE
+						.getClassFigure_HeaderBackgroundColor(),
+				GraphdescPackage.eINSTANCE
+						.getClassFigure_HeaderBackgroundColorAccessor());
+	}
+
+	// TODO Javadoc
+	private void flushBodyBackgroundColor(NodeDesc nodeDesc) {
+		flushColor(nodeDesc,
+				GraphdescPackage.eINSTANCE
+						.getClassFigure_BodyBackgroundColor(),
+				GraphdescPackage.eINSTANCE
+						.getClassFigure_BodyBackgroundColorAccessor());
+	}
+
+	// TODO Javadoc
+	private void flushColor(NodeDesc nodeDesc, EAttribute defaultColorEAttribute, EAttribute colorAccessorEAttribute) {
+		ClassFigure classFigure = nodeDesc.classFigure;
+		String colorAccessorName = (String) classFigure.eGet(colorAccessorEAttribute);
+		int bgColor = (Integer) classFigure.eGet(defaultColorEAttribute);
+		if (classFigure.isDynamicAppearance() && colorAccessorName != null) {
+			EObject eObject = nodeDesc.eObject;
+			try {
+				Method method = eObject.getClass().getMethod(colorAccessorName, new Class<?>[] {});
+				Color result = (Color) method.invoke(eObject, new Object[] {});
+				if (result != null) {
+					bgColor = ColorsHelper.toInt(result);
+				}
+			}
+			// TODO Gestion des erreurs
+			catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		out.print(ColorsHelper.toHtmlColor(bgColor));
 	}
 
 	/**
@@ -740,15 +798,14 @@ public class GVSourceAndDependenciesBuilder {
 		out.println(" [label=<");
 		out.println("\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"0\">");
 		out.print("\t\t\t<TR><TD BGCOLOR=\"");
-		out.print(ColorsHelper.toHtmlColor(classFigure
-				.getHeaderBackgroundColor()));
+		flushHeaderBackgroundColor(nodeDesc);
 		out.println("\">");
 		// Flushes the node header
 		flushNodeHeader("\t\t\t\t", 1, nodeDesc);
 
 		out.println("\t\t\t</TD></TR>");
 		out.print("\t\t\t<TR><TD ALIGN=\"LEFT\" BGCOLOR=\"");
-		out.print(ColorsHelper.toHtmlColor(classFigure.getBodyBackgroundColor()));
+		flushBodyBackgroundColor(nodeDesc);
 		out.println("\">");
 
 		if (classFigure.getAttributeFigures().size() == 0) {

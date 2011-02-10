@@ -27,6 +27,8 @@
  */
 package org.emftools.emf2gv.util;
 
+import java.awt.Color;
+
 /**
  * Helper class used to manipulate colors.
  * 
@@ -54,6 +56,15 @@ public class ColorsHelper {
 		return new String(result);
 	}
 
+	/**
+	 * Converts a color to an integer value.
+	 * @param color the color to convert.
+	 * @return the converted color.
+	 */
+	public static int toInt(Color color) {
+		return getColor(color.getRed(), color.getGreen(), color.getBlue());
+	}
+	
 	/**
 	 * Converts a byte value to hexadecimal and put the result in an array.
 	 * 

@@ -64,6 +64,7 @@ import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
@@ -141,10 +142,13 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.ui.views.properties.IPropertySheetEntry;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
+import org.eclipse.ui.views.properties.PropertySheetSorter;
 import org.emftools.emf2gv.graphdesc.presentation.util.GraphdescPropertySourceProvider;
+import org.emftools.emf2gv.graphdesc.provider.GraphdescEditPlugin;
 import org.emftools.emf2gv.graphdesc.provider.GraphdescItemProviderAdapterFactory;
 
 
@@ -1369,16 +1373,42 @@ public class GraphdescEditor
 	 * @generated NOT
 	 */
 	public IPropertySheetPage getPropertySheetPage() {
-		final Map<Integer, Image> colorIcons = new HashMap<Integer, Image>();
 		if (propertySheetPage == null) {
+			final Map<Integer, Image> colorIcons = new HashMap<Integer, Image>();
+			ResourceLocator rl = GraphdescEditPlugin.INSTANCE;
+			final String appearanceCategory = rl.getString("_UI_AppearancePropertyCategory");
+			final List<String> appearanceProps = new ArrayList<String>();
+			appearanceProps.add(rl.getString("_UI_ClassFigure_labelEAttribute_feature"));
+			appearanceProps.add(rl.getString("_UI_ClassFigure_dynamicAppearance_feature"));
+			appearanceProps.add(rl.getString("_UI_ClassFigure_headerBackgroundColor_feature"));
+			appearanceProps.add(rl.getString("_UI_ClassFigure_headerBackgroundColorAccessor_feature"));
+			appearanceProps.add(rl.getString("_UI_ClassFigure_defaultHeaderBackgroundColor_feature"));
+			appearanceProps.add(rl.getString("_UI_ClassFigure_bodyBackgroundColor_feature"));
+			appearanceProps.add(rl.getString("_UI_ClassFigure_bodyBackgroundColorAccessor_feature"));
+			appearanceProps.add(rl.getString("_UI_ClassFigure_defaultBodyBackgroundColor_feature"));
 			propertySheetPage =
 				new ExtendedPropertySheetPage(editingDomain) {
+					{
+						setSorter(new PropertySheetSorter() {
+							@Override
+							public int compare(IPropertySheetEntry entryA,
+									IPropertySheetEntry entryB) {
+								if (appearanceCategory.equals(entryA.getCategory())) {
+									int aIdx = appearanceProps.indexOf(entryA.getDisplayName());
+									int bIdx = appearanceProps.indexOf(entryB.getDisplayName());
+									return Integer.valueOf(aIdx).compareTo(Integer.valueOf(bIdx));
+								}
+								else {
+									return super.compare(entryA, entryB);
+								}
+							}
+						});
+					}
 					@Override
 					public void setSelectionToViewer(List<?> selection) {
 						GraphdescEditor.this.setSelectionToViewer(selection);
 						GraphdescEditor.this.setFocus();
 					}
-
 					@Override
 					public void setActionBars(IActionBars actionBars) {
 						super.setActionBars(actionBars);
@@ -1391,8 +1421,8 @@ public class GraphdescEditor
 						}
 					};
 				};
-			propertySheetPage.setPropertySourceProvider(new GraphdescPropertySourceProvider(adapterFactory, colorIcons));		}
-
+			propertySheetPage.setPropertySourceProvider(new GraphdescPropertySourceProvider(adapterFactory, colorIcons));
+		}
 		return propertySheetPage;
 	}
 

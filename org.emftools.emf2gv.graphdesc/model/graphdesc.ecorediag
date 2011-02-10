@@ -3,17 +3,25 @@
   <children xmi:type="notation:Node" xmi:id="_Kp_dgM2XEd-0o-eLLqMsMw" type="1001">
     <children xmi:type="notation:Node" xmi:id="_Kp_dg82XEd-0o-eLLqMsMw" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_Kp_dhM2XEd-0o-eLLqMsMw" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_JiU9UDSOEeCwpYI5pz6Oww" type="2001">
+        <element xmi:type="ecore:EAttribute" href="graphdesc.ecore#//ClassFigure/dynamicAppearance"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JiU9UTSOEeCwpYI5pz6Oww"/>
+      </children>
       <children xmi:type="notation:Node" xmi:id="_PeimgNlcEd-Bme1p45HEhw" type="2001">
         <element xmi:type="ecore:EAttribute" href="graphdesc.ecore#//ClassFigure/headerBackgroundColor"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_PeimgdlcEd-Bme1p45HEhw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_RtNUEDSOEeCwpYI5pz6Oww" type="2001">
+        <element xmi:type="ecore:EAttribute" href="graphdesc.ecore#//ClassFigure/headerBackgroundColorAccessor"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_RtNUETSOEeCwpYI5pz6Oww"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_T1oikNlcEd-Bme1p45HEhw" type="2001">
         <element xmi:type="ecore:EAttribute" href="graphdesc.ecore#//ClassFigure/bodyBackgroundColor"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_T1oikdlcEd-Bme1p45HEhw"/>
       </children>
-      <children xmi:type="notation:Node" xmi:id="_iqBawC8NEeCCJovYMr45Pg" type="2001">
-        <element xmi:type="ecore:EAttribute" href="graphdesc.ecore#//ClassFigure/container"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_iqBawS8NEeCCJovYMr45Pg"/>
+      <children xmi:type="notation:Node" xmi:id="_ZH0EcDSOEeCwpYI5pz6Oww" type="2001">
+        <element xmi:type="ecore:EAttribute" href="graphdesc.ecore#//ClassFigure/bodyBackgroundColorAccessor"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_ZH0EcTSOEeCwpYI5pz6Oww"/>
       </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_Kp_dhc2XEd-0o-eLLqMsMw"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_Kp_dhs2XEd-0o-eLLqMsMw"/>
@@ -30,7 +38,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_Kp_dgc2XEd-0o-eLLqMsMw" fontColor="4210752" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="graphdesc.ecore#//ClassFigure"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Kp_dgs2XEd-0o-eLLqMsMw" x="450" y="510" width="248" height="88"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Kp_dgs2XEd-0o-eLLqMsMw" x="450" y="510" width="338" height="128"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_KqIndM2XEd-0o-eLLqMsMw" type="1001">
     <children xmi:type="notation:Node" xmi:id="_KqInd82XEd-0o-eLLqMsMw" type="4001"/>

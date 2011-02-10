@@ -104,14 +104,12 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 			addEReferencePropertyDescriptor(object);
 			addTargetArrowTypePropertyDescriptor(object);
 			addCustomTargetArrowPropertyDescriptor(object);
-			customTargetArrowPropertyDescriptor = itemPropertyDescriptors.get(itemPropertyDescriptors.size() - 1);
 			addSourceArrowTypePropertyDescriptor(object);
 			addCustomSourceArrowPropertyDescriptor(object);
-			customSourceArrowPropertyDescriptor = itemPropertyDescriptors.get(itemPropertyDescriptors.size() - 1);
 			addContainmentPropertyDescriptor(object);
 		}
 		// Custom arrow fields are shown only if the corresponding types are set to 'custom'
-		List<IItemPropertyDescriptor> result = new ArrayList<IItemPropertyDescriptor>();
+		List<IItemPropertyDescriptor> result = null;
 		ReferenceFigure figure = (ReferenceFigure) object;
 		boolean customTargetArrowType = figure.getTargetArrowType().equals(ArrowType.CUSTOM); 
 		boolean customSourceArrowType = figure.getSourceArrowType().equals(ArrowType.CUSTOM); 
@@ -244,7 +242,8 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 	 */
 	protected void addCustomTargetArrowPropertyDescriptor(Object object) {
 		Bundle bundle = GraphdescEditPlugin.getPlugin().getBundle();
-		final URL iconUrl = bundle.getResource("/icons/full/obj16/arrows/target/custom.png");
+		final URL iconUrl = bundle
+				.getResource("/icons/full/obj16/arrows/target/custom.png");
 		final IItemLabelProvider labelProvider = new IItemLabelProvider() {
 			@Override
 			public String getText(Object object) {
@@ -255,24 +254,23 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 				return iconUrl;
 			}
 		};
-		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ReferenceFigure_customTargetArrow_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ReferenceFigure_customTargetArrow_feature", "_UI_ReferenceFigure_type"),
-				 GraphdescPackage.Literals.REFERENCE_FIGURE__CUSTOM_TARGET_ARROW,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_AppearancePropertyCategory"),
-				 null) {
-				@Override
-				public IItemLabelProvider getLabelProvider(Object object) {
-					return labelProvider;
-				}
-			});
+		customTargetArrowPropertyDescriptor = new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ReferenceFigure_customTargetArrow_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ReferenceFigure_customTargetArrow_feature",
+						"_UI_ReferenceFigure_type"),
+				GraphdescPackage.Literals.REFERENCE_FIGURE__CUSTOM_TARGET_ARROW,
+				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				getString("_UI_AppearancePropertyCategory"), null) {
+			@Override
+			public IItemLabelProvider getLabelProvider(Object object) {
+				return labelProvider;
+			}
+		};
+		itemPropertyDescriptors.add(customTargetArrowPropertyDescriptor);
 	}
 
 	/**
@@ -283,35 +281,36 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 	 */
 	protected void addCustomSourceArrowPropertyDescriptor(Object object) {
 		Bundle bundle = GraphdescEditPlugin.getPlugin().getBundle();
-		final URL iconUrl = bundle.getResource("/icons/full/obj16/arrows/source/custom.png");
+		final URL iconUrl = bundle
+				.getResource("/icons/full/obj16/arrows/source/custom.png");
 		final IItemLabelProvider labelProvider = new IItemLabelProvider() {
 			@Override
 			public String getText(Object object) {
 				return (String) object;
 			}
+
 			@Override
 			public Object getImage(Object object) {
 				return iconUrl;
 			}
 		};
-		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ReferenceFigure_customSourceArrow_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ReferenceFigure_customSourceArrow_feature", "_UI_ReferenceFigure_type"),
-				 GraphdescPackage.Literals.REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_AppearancePropertyCategory"),
-				 null) {
-				@Override
-				public IItemLabelProvider getLabelProvider(Object object) {
-					return labelProvider;
-				}
-			});
+		customSourceArrowPropertyDescriptor = new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ReferenceFigure_customSourceArrow_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ReferenceFigure_customSourceArrow_feature",
+						"_UI_ReferenceFigure_type"),
+				GraphdescPackage.Literals.REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW,
+				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				getString("_UI_AppearancePropertyCategory"), null) {
+			@Override
+			public IItemLabelProvider getLabelProvider(Object object) {
+				return labelProvider;
+			}
+		};
+		itemPropertyDescriptors.add(customSourceArrowPropertyDescriptor);
 	}
 
 	/**
