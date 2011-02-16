@@ -2,7 +2,7 @@
 <feature
       id="org.emftools.samples"
       label="EMF Tools Samples"
-      version="1.0.0.qualifier"
+      version="1.0.1.qualifier"
       provider-name="EMF Tools Project"
       plugin="org.emftools.samples.school">
 
