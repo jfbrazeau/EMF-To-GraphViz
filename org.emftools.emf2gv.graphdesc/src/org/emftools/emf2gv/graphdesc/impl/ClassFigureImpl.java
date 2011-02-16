@@ -28,6 +28,7 @@
 package org.emftools.emf2gv.graphdesc.impl;
 
 import java.io.StringWriter;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -627,7 +628,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				valid = false;
 			} else {
 				// Check unique
-				valid = !constraintsHelper.addErrorIfNotUnique(
+				valid = constraintsHelper.addErrorIfNotUnique(
 						gvFigureDescription.getClassFigures(),
 						GraphdescPackage.eINSTANCE.getClassFigure_EClass(),
 						diagnostic, this, 0,
@@ -668,6 +669,15 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 						valid = false;
 					}
 
+					// If the class figure has color providers, they must belong
+					// to the underlying class
+					valid &= checkColorProvider(diagnostic,
+							constraintsHelper,
+							getHeaderBackgroundColorAccessor());
+					valid &= checkColorProvider(diagnostic,
+							constraintsHelper,
+							getBodyBackgroundColorAccessor());
+					
 					// If the class figure has nested figures EReferences,
 					// theses
 					// references must be containment references
@@ -694,6 +704,35 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 					}
 				}
 
+			}
+		}
+		return valid;
+	}
+
+	private boolean checkColorProvider(DiagnosticChain diagnostic, EMFConstraintsHelper constraintsHelper, String colorProvider) {
+		boolean valid = true;
+		if (colorProvider != null) {
+			Class<?> javaClass = getEClass().getInstanceClass();
+			try {
+				Method method = javaClass.getMethod(
+						colorProvider,
+						new Class[] {});
+				if (!method.getReturnType().getName()
+						.equals("java.awt.Color")) {
+					constraintsHelper
+							.addError(
+									diagnostic,
+									this,
+									0,
+									"The color provider ''{0}'' is invalid (it does not return a java.awt.Color)",
+									colorProvider);
+					valid = false;
+				}
+			} catch (NoSuchMethodException e) {
+				constraintsHelper.addError(diagnostic, this, 0,
+						"The color provider ''{0}'' does not exist",
+						colorProvider);
+				valid = false;
 			}
 		}
 		return valid;
