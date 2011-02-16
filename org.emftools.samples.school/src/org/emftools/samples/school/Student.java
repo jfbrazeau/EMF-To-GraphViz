@@ -27,6 +27,7 @@
  */
 package org.emftools.samples.school;
 
+import java.awt.Color;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
@@ -117,5 +118,15 @@ public interface Student extends EObject {
 	 * @generated
 	 */
 	boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context);
+	
+	/**
+	 * @return the node header color. 
+	 */
+	Color getEmf2gvNodeHeaderColor();
+
+	/**
+	 * @return the node header color. 
+	 */
+	Color getEmf2gvNodeBodyColor();
 
 }
