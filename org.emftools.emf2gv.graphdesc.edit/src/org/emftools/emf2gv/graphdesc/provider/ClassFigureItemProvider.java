@@ -358,9 +358,13 @@ public class ClassFigureItemProvider
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 getString("_UI_AppearancePropertyCategory"),
 				 null) {
-			// TODO Changer icone de la propriété
 			protected Collection<?> getComboBoxObjects(Object object) {
-				return getAvailableColorAccessors((ClassFigure) object);
+				ClassFigure classFigure = (ClassFigure) object;
+				List<String> result = getAvailableColorAccessors(classFigure);
+				if (!result.contains(classFigure.getHeaderBackgroundColorAccessor())) {
+					result.add(classFigure.getHeaderBackgroundColorAccessor());
+				}
+				return result;
 			};
 		};
 		itemPropertyDescriptors.add(headerBgColorAccessor);
@@ -405,9 +409,13 @@ public class ClassFigureItemProvider
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 getString("_UI_AppearancePropertyCategory"),
 				 null) {
-			// TODO Changer icone de la propriété
 			protected Collection<?> getComboBoxObjects(Object object) {
-				return getAvailableColorAccessors((ClassFigure) object);
+				ClassFigure classFigure = (ClassFigure) object;
+				List<String> result = getAvailableColorAccessors(classFigure);
+				if (!result.contains(classFigure.getBodyBackgroundColorAccessor())) {
+					result.add(classFigure.getBodyBackgroundColorAccessor());
+				}
+				return result;
 			};
 			
 		};
