@@ -80,8 +80,7 @@ public class EMF2GvPreferencePage extends FieldEditorPreferencePage implements
 		}
 		ComboFieldEditor comboFieldEditor = new ComboFieldEditor(
 				EMF2GvPreferenceConstants.P_GV_SOURCE_ENCODING,
-				"&Graphviz source encoding :", charsets,
-				getFieldEditorParent());
+				"&Graphviz source encoding :", charsets, getFieldEditorParent());
 		addField(comboFieldEditor);
 
 		// Dot path

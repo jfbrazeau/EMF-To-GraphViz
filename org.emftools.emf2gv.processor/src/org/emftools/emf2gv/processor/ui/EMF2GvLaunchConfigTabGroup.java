@@ -43,8 +43,12 @@ public class EMF2GvLaunchConfigTabGroup extends
 	public EMF2GvLaunchConfigTabGroup() {
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.ui.ILaunchConfigurationTabGroup#createTabs(org.eclipse.debug.ui.ILaunchConfigurationDialog, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.debug.ui.ILaunchConfigurationTabGroup#createTabs(org.eclipse
+	 * .debug.ui.ILaunchConfigurationDialog, java.lang.String)
 	 */
 	@Override
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {

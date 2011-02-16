@@ -48,8 +48,14 @@ import org.emftools.emf2gv.processor.ui.preferences.EMF2GvPreferenceConstants;
  */
 public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.ILaunchConfigurationDelegate#launch(org.eclipse.debug.core.ILaunchConfiguration, java.lang.String, org.eclipse.debug.core.ILaunch, org.eclipse.core.runtime.IProgressMonitor)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.debug.core.model.ILaunchConfigurationDelegate#launch(org.
+	 * eclipse.debug.core.ILaunchConfiguration, java.lang.String,
+	 * org.eclipse.debug.core.ILaunch,
+	 * org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
 	public void launch(ILaunchConfiguration cfg, String mode, ILaunch launch,
@@ -68,10 +74,8 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 				.getGenerateGraphDesc(cfg);
 		Path graphDescPath = generateGraphDesc ? null : new Path(
 				EMF2GvLaunchConfigHelper.getGraphDescPath(cfg));
-		Path modelPath = new Path(
-				EMF2GvLaunchConfigHelper.getModelPath(cfg));
-		Path targetPath = new Path(
-				EMF2GvLaunchConfigHelper.getTargetPath(cfg));
+		Path modelPath = new Path(EMF2GvLaunchConfigHelper.getModelPath(cfg));
+		Path targetPath = new Path(EMF2GvLaunchConfigHelper.getTargetPath(cfg));
 		boolean processAllResourceContents = EMF2GvLaunchConfigHelper
 				.getProcessAllResourceContents(cfg);
 		String uriFragment = !processAllResourceContents ? EMF2GvLaunchConfigHelper

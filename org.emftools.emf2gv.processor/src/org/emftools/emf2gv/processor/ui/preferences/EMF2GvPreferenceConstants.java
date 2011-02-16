@@ -37,5 +37,5 @@ public class EMF2GvPreferenceConstants {
 
 	/** Graphviz source encoding constant */
 	public static final String P_GV_SOURCE_ENCODING = "gvSourceEncoding";
-	
+
 }

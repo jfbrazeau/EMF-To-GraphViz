@@ -39,12 +39,14 @@ public class EMF2GvPreferenceInitializer extends AbstractPreferenceInitializer {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences()
+	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#
+	 * initializeDefaultPreferences()
 	 */
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		store.setDefault(EMF2GvPreferenceConstants.P_DOT_UTILITY_PATH, "dot");
-		store.setDefault(EMF2GvPreferenceConstants.P_GV_SOURCE_ENCODING, "UTF-8");
+		store.setDefault(EMF2GvPreferenceConstants.P_GV_SOURCE_ENCODING,
+				"UTF-8");
 	}
 
 }

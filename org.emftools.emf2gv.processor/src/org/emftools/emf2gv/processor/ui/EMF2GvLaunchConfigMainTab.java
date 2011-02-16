@@ -224,8 +224,7 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		// Graphical description
 		EMF2GvLaunchConfigHelper.setGenerateGraphDesc(cfg,
 				generateGraphDescCheckbox.getSelection());
-		EMF2GvLaunchConfigHelper.setGraphDescPath(cfg,
-				graphDescText.getText());
+		EMF2GvLaunchConfigHelper.setGraphDescPath(cfg, graphDescText.getText());
 
 		// Model to process
 		EMF2GvLaunchConfigHelper.setModelPath(cfg, modelText.getText());
@@ -235,8 +234,7 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 				selectedElementUriFragmentText.getText());
 
 		// Target image
-		EMF2GvLaunchConfigHelper.setTargetPath(cfg,
-				targetImageText.getText());
+		EMF2GvLaunchConfigHelper.setTargetPath(cfg, targetImageText.getText());
 
 		// Options
 		EMF2GvLaunchConfigHelper.setAddValidationDecorators(cfg,
@@ -258,41 +256,36 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 	public void initializeFrom(ILaunchConfiguration cfg) {
 		try {
 			// Graphical description
-			generateGraphDescCheckbox
-					.setSelection(EMF2GvLaunchConfigHelper
-							.getGenerateGraphDesc(cfg));
+			generateGraphDescCheckbox.setSelection(EMF2GvLaunchConfigHelper
+					.getGenerateGraphDesc(cfg));
 			graphDescText.setText(EMF2GvLaunchConfigHelper
 					.getGraphDescPath(cfg));
 			updateGraphDescTextEnablement();
 
 			// Model to process
-			modelText.setText(EMF2GvLaunchConfigHelper
-					.getModelPath(cfg));
+			modelText.setText(EMF2GvLaunchConfigHelper.getModelPath(cfg));
 			boolean procesAllResourcesContents = EMF2GvLaunchConfigHelper
 					.getProcessAllResourceContents(cfg);
 			processAllResourceContentsRadio
 					.setSelection(procesAllResourcesContents);
 			selectElementToProcessRadio
 					.setSelection(!procesAllResourcesContents);
-			selectedElementUriFragmentText
-					.setText(EMF2GvLaunchConfigHelper
-							.getSelectedElementUriFragment(cfg));
+			selectedElementUriFragmentText.setText(EMF2GvLaunchConfigHelper
+					.getSelectedElementUriFragment(cfg));
 			updateSelectedElementToProcessEnablement();
 
 			// Target image
-			targetImageText.setText(EMF2GvLaunchConfigHelper
-					.getTargetPath(cfg));
+			targetImageText
+					.setText(EMF2GvLaunchConfigHelper.getTargetPath(cfg));
 
 			// Options
 			addValidationDecoratorsCheckbox
 					.setSelection(EMF2GvLaunchConfigHelper
 							.getAddValidationDecorators(cfg));
-			keepGeneratedGvCheckBox
-					.setSelection(EMF2GvLaunchConfigHelper
-							.getKeepGeneratedGvFile(cfg));
-			autoOpenImageEditorCheckBox
-					.setSelection(EMF2GvLaunchConfigHelper
-							.getAutoOpenImageEditor(cfg));
+			keepGeneratedGvCheckBox.setSelection(EMF2GvLaunchConfigHelper
+					.getKeepGeneratedGvFile(cfg));
+			autoOpenImageEditorCheckBox.setSelection(EMF2GvLaunchConfigHelper
+					.getAutoOpenImageEditor(cfg));
 
 			scheduleUpdateJob();
 		} catch (CoreException e) {
@@ -342,8 +335,12 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		createOptionsGroup(comp);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.ui.AbstractLaunchConfigurationTab#isValid(org.eclipse.debug.core.ILaunchConfiguration)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.debug.ui.AbstractLaunchConfigurationTab#isValid(org.eclipse
+	 * .debug.core.ILaunchConfiguration)
 	 */
 	@Override
 	public boolean isValid(ILaunchConfiguration launchConfig) {
@@ -667,7 +664,8 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 	}
 
 	/**
-	 * Handles a click on the browse button allowing to select a graphical description file.
+	 * Handles a click on the browse button allowing to select a graphical
+	 * description file.
 	 */
 	private void handleBrowseGraphDescButton() {
 		trimTexts();
@@ -684,7 +682,9 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 
 	/**
 	 * Builds a initial selection list from a text field.
-	 * @param text the text field to use.
+	 * 
+	 * @param text
+	 *            the text field to use.
 	 * @return the initial selection list.
 	 */
 	private Object[] buildInitialSelectionFromText(Text text) {
@@ -718,7 +718,8 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 	}
 
 	/**
-	 * Handles a click on the browse button allowing to select a new target image file.
+	 * Handles a click on the browse button allowing to select a new target
+	 * image file.
 	 */
 	private void handleBrowseNewTargetButton() {
 		trimTexts();
@@ -734,7 +735,8 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 	}
 
 	/**
-	 * Handles a click on the browse button allowing to select an existing target file.
+	 * Handles a click on the browse button allowing to select an existing
+	 * target file.
 	 */
 	private void handleBrowseExistingTargetButton() {
 		trimTexts();
@@ -749,10 +751,17 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 
 	/**
 	 * Checks a resource field.
-	 * @param field the field to check.
-	 * @param errorMessageIfEmpty the error message to use when the field is empty.
-	 * @param errorMessageIfNotValid the error message to use when the field does not contain a valid path.
-	 * @param errorMessageIfExistsNot the error message to use when the field does not contain an existing path.
+	 * 
+	 * @param field
+	 *            the field to check.
+	 * @param errorMessageIfEmpty
+	 *            the error message to use when the field is empty.
+	 * @param errorMessageIfNotValid
+	 *            the error message to use when the field does not contain a
+	 *            valid path.
+	 * @param errorMessageIfExistsNot
+	 *            the error message to use when the field does not contain an
+	 *            existing path.
 	 * @return a boolean indicating if the field is valid.
 	 */
 	private boolean checkResourceField(Text field, String errorMessageIfEmpty,

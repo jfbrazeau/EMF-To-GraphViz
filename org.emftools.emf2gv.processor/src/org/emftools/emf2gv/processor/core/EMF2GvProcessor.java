@@ -64,6 +64,7 @@ public class EMF2GvProcessor {
 
 	/**
 	 * Converts a given model into a diagram file.
+	 * 
 	 * @param modelPath
 	 *            the model path.
 	 * @param modelUriFragment
@@ -96,8 +97,8 @@ public class EMF2GvProcessor {
 			IPath graphDescPath, IPath targetImagePath,
 			EMF2GvProcessorCallback eMF2GvProcessorCallback, String dotCommand,
 			boolean addValidationDecorators, boolean keepGeneratedGvFile,
-			String gvSourceEnconding,
-			IProgressMonitor monitor) throws CoreException {
+			String gvSourceEnconding, IProgressMonitor monitor)
+			throws CoreException {
 
 		/**
 		 * Model file loading and validation
@@ -206,8 +207,8 @@ public class EMF2GvProcessor {
 		/**
 		 * Image production
 		 */
-		IFile imageFile = runGraphViz(dotCommand,
-				targetGv.getRawLocation(), targetImagePath, monitor);
+		IFile imageFile = runGraphViz(dotCommand, targetGv.getRawLocation(),
+				targetImagePath, monitor);
 
 		// Gv source file deletion
 		if (!keepGeneratedGvFile) {
@@ -220,8 +221,11 @@ public class EMF2GvProcessor {
 
 	/**
 	 * Launches Graphivz and retrieves the generated image file.
-	 * @param dotCommand the graphviz dot utility command path.
-	 * @param gvRawLocation the graphvis source file location.
+	 * 
+	 * @param dotCommand
+	 *            the graphviz dot utility command path.
+	 * @param gvRawLocation
+	 *            the graphvis source file location.
 	 * @param targetImagePath
 	 *            the target image path.
 	 * @param monitor
@@ -231,8 +235,8 @@ public class EMF2GvProcessor {
 	 * @throws CoreException
 	 *             thrown if an unexpected error occurs.
 	 */
-	private static IFile runGraphViz(String dotCommand,
-			IPath gvRawLocation, IPath targetImagePath, IProgressMonitor monitor)
+	private static IFile runGraphViz(String dotCommand, IPath gvRawLocation,
+			IPath targetImagePath, IProgressMonitor monitor)
 			throws CoreException {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IFile target = root.getFile(targetImagePath);

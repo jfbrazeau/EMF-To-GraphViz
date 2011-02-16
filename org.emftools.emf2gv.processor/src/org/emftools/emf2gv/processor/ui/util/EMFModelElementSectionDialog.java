@@ -65,13 +65,13 @@ public class EMFModelElementSectionDialog extends Dialog {
 
 	/** The default selected EObject */
 	private EObject defaultSelection;
-	
+
 	/** The adapter factory */
 	private AdapterFactory adapterFactory;
-	
+
 	/** The tree viewer */
 	private TreeViewer viewer;
-	
+
 	/** The selected EObject */
 	private EObject selection;
 
@@ -95,8 +95,10 @@ public class EMFModelElementSectionDialog extends Dialog {
 	}
 
 	/**
-	 * Retrieves the EPackage list referenced by the EMF resource contents. 
-	 * @param emfResource the EMF resource.
+	 * Retrieves the EPackage list referenced by the EMF resource contents.
+	 * 
+	 * @param emfResource
+	 *            the EMF resource.
 	 * @return the EPackage list.
 	 */
 	private static List<EPackage> getResourcePackages(Resource emfResource) {
@@ -116,8 +118,12 @@ public class EMFModelElementSectionDialog extends Dialog {
 		return ePackages;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.Dialog#createDialogArea(org.eclipse.swt.widgets.Composite)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.dialogs.Dialog#createDialogArea(org.eclipse.swt.widgets
+	 * .Composite)
 	 */
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
@@ -151,7 +157,9 @@ public class EMFModelElementSectionDialog extends Dialog {
 		return composite;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jface.dialogs.Dialog#okPressed()
 	 */
 	protected void okPressed() {

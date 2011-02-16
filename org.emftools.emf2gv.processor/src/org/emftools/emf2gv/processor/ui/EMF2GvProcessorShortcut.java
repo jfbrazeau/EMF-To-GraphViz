@@ -87,9 +87,8 @@ public class EMF2GvProcessorShortcut implements ILaunchShortcut {
 			for (int i = 0; i < launchCfgs.length; i++) {
 				ILaunchConfiguration launchCfg = launchCfgs[i];
 				String launchCfgFilePath = isGraphDesc ? EMF2GvLaunchConfigHelper
-						.getGraphDescPath(launchCfg)
-						: EMF2GvLaunchConfigHelper
-								.getModelPath(launchCfg);
+						.getGraphDescPath(launchCfg) : EMF2GvLaunchConfigHelper
+						.getModelPath(launchCfg);
 				if (filePath.equals(launchCfgFilePath)) {
 					fileLaunchCfgs.add(launchCfg);
 				}
@@ -101,8 +100,7 @@ public class EMF2GvProcessorShortcut implements ILaunchShortcut {
 			ILaunchConfiguration selectedLaunchConfig = null;
 			if (fileLaunchCfgs.size() == 1) {
 				selectedLaunchConfig = fileLaunchCfgs.get(0);
-			}
-			else if (fileLaunchCfgs.size() > 1) {
+			} else if (fileLaunchCfgs.size() > 1) {
 				selectedLaunchConfig = selectLaunchConfig(fileLaunchCfgs);
 			}
 
@@ -146,11 +144,11 @@ public class EMF2GvProcessorShortcut implements ILaunchShortcut {
 					EMF2GvLaunchConfigHelper.setGraphDescPath(wc,
 							graphDescFile != null ? graphDescFile.getFullPath()
 									.toString() : "");
-					EMF2GvLaunchConfigHelper.setModelPath(wc,
-							modelFile.getFullPath().toString());
-					EMF2GvLaunchConfigHelper.setTargetPath(wc,
-							modelFile.getParent().getFullPath().toString()
-									+ "/" + configName + ".jpg");
+					EMF2GvLaunchConfigHelper.setModelPath(wc, modelFile
+							.getFullPath().toString());
+					EMF2GvLaunchConfigHelper.setTargetPath(wc, modelFile
+							.getParent().getFullPath().toString()
+							+ "/" + configName + ".jpg");
 					wc.doSave();
 					selectedLaunchConfig = wc;
 				}

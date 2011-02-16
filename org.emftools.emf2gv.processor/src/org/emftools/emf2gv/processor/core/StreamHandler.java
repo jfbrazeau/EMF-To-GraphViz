@@ -46,13 +46,17 @@ public class StreamHandler extends Thread {
 
 	/**
 	 * Default constructor.
-	 * @param in the input stream to read.
+	 * 
+	 * @param in
+	 *            the input stream to read.
 	 */
 	public StreamHandler(InputStream in) {
 		this.in = in;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Thread#run()
 	 */
 	public void run() {

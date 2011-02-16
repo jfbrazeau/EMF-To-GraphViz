@@ -104,7 +104,8 @@ public class Activator extends AbstractUIPlugin {
 	/**
 	 * Loads an image for the given path.
 	 * 
-	 * @param path the image path.
+	 * @param path
+	 *            the image path.
 	 * @return the image.
 	 */
 	public Image getImage(String path) {
