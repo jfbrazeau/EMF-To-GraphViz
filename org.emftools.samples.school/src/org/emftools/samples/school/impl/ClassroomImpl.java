@@ -202,7 +202,7 @@ public class ClassroomImpl extends EObjectImpl implements Classroom {
 	 */
 	public EList<Student> getStudents() {
 		if (students == null) {
-			students = new EObjectContainmentEList<Student>(Student.class, this, SchoolPackage.CLASSROOM__STUDENTS);
+			students = new EObjectContainmentEList.Resolving<Student>(Student.class, this, SchoolPackage.CLASSROOM__STUDENTS);
 		}
 		return students;
 	}

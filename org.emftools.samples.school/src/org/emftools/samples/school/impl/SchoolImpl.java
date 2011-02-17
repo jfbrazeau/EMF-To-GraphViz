@@ -197,7 +197,7 @@ public class SchoolImpl extends EObjectImpl implements School {
 	 */
 	public EList<Classroom> getClassrooms() {
 		if (classrooms == null) {
-			classrooms = new EObjectContainmentEList<Classroom>(Classroom.class, this, SchoolPackage.SCHOOL__CLASSROOMS);
+			classrooms = new EObjectContainmentEList.Resolving<Classroom>(Classroom.class, this, SchoolPackage.SCHOOL__CLASSROOMS);
 		}
 		return classrooms;
 	}
