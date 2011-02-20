@@ -106,9 +106,14 @@ public class GVSourceAndDependenciesBuilder {
 	private List<EdgeDesc> edges = new ArrayList<EdgeDesc>();
 
 	/**
+	 * The nodes list.
+	 */
+	private List<NodeDesc> nodes = new ArrayList<NodeDesc>();
+
+	/**
 	 * The nodes map.
 	 */
-	private Map<EObject, NodeDesc> nodes = new HashMap<EObject, NodeDesc>();
+	private Map<EObject, NodeDesc> nodesMap = new HashMap<EObject, NodeDesc>();
 
 	/**
 	 * The graphical description.
@@ -273,7 +278,7 @@ public class GVSourceAndDependenciesBuilder {
 	 */
 	private List<NodeDesc> buildContainersHierarchyAndReturnRoots() {
 		List<NodeDesc> result = new ArrayList<NodeDesc>();
-		result.addAll(nodes.values());
+		result.addAll(nodes);
 
 		// Containers EClass lookup
 		List<EClass> containerEClasses = new ArrayList<EClass>();
@@ -291,7 +296,7 @@ public class GVSourceAndDependenciesBuilder {
 				EClass eClass = eObject.eClass();
 				if (containerEClasses.contains(eClass)) {
 					ClassFigure classFigure = figureDesc.getClassFigure(eClass);
-					NodeDesc containerNode = nodes.get(eObject);
+					NodeDesc containerNode = nodesMap.get(eObject);
 					containerNode.nestedNodes = new ArrayList<NodeDesc>();
 					// Nested figures EReferences browsing
 					for (EReference eReference : classFigure
@@ -299,7 +304,7 @@ public class GVSourceAndDependenciesBuilder {
 						List<EObject> targetEObjects = getTargetRefEObjects(
 								eObject, eReference);
 						for (EObject targetEObject : targetEObjects) {
-							NodeDesc targetNode = nodes.get(targetEObject);
+							NodeDesc targetNode = nodesMap.get(targetEObject);
 							// The target node may be null if the target eObject
 							// has no class figure in the graphical description
 							if (targetNode != null) {
@@ -372,7 +377,8 @@ public class GVSourceAndDependenciesBuilder {
 				nodeDesc.iconPath = iconPath;
 				nodeDesc.validationDecoratorIconPath = validationDecoratorIconPath != null ? validationDecoratorIconPath
 						: null;
-				nodes.put(eContentRoot, nodeDesc);
+				nodes.add(nodeDesc);
+				nodesMap.put(eContentRoot, nodeDesc);
 
 				// Nested figures EReferences browsing
 				for (EReference eReference : classFigure
