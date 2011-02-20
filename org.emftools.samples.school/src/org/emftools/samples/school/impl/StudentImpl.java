@@ -357,12 +357,20 @@ public class StudentImpl extends EObjectImpl implements Student {
 
 	@Override
 	public Color getEmf2gvNodeHeaderColor() {
-		return Color.gray;
+		Color result = Color.gray;
+		if (getName() != null && getName().length() % 2 == 0) {
+			result = Color.red;
+		}
+		return result;
 	}
 
 	@Override
 	public Color getEmf2gvNodeBodyColor() {
-		return Color.lightGray;
+		Color result = Color.lightGray;
+		if (getName() != null && getName().length() % 2 == 0) {
+			result = Color.pink;
+		}
+		return result;
 	}
 
 } //StudentImpl
