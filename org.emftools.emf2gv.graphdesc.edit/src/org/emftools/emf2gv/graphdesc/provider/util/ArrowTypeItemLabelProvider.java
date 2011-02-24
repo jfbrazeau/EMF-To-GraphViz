@@ -62,7 +62,6 @@ public class ArrowTypeItemLabelProvider implements IItemLabelProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.IItemLabelProvider#getText(java.lang.Object)
 	 */
-	@Override
 	public String getText(Object object) {
 		ArrowType arrowType = (ArrowType) object;
 		return arrowType.getName();
@@ -71,7 +70,6 @@ public class ArrowTypeItemLabelProvider implements IItemLabelProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.IItemLabelProvider#getImage(java.lang.Object)
 	 */
-	@Override
 	public Object getImage(Object object) {
 		ArrowType arrowType = (ArrowType) object;
 		Bundle bundle = GraphdescEditPlugin.getPlugin().getBundle();

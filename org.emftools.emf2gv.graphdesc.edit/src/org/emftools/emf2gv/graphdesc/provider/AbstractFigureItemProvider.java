@@ -75,7 +75,6 @@ public class AbstractFigureItemProvider
 		 *         negative integer if eNamedElement1 < eNamedElement2, zero
 		 *         otherwise.
 		 */
-		@Override
 		public int compare(ENamedElement eNamedElement1,
 				ENamedElement eNamedElement2) {
 			return eNamedElement1.getName().compareTo(eNamedElement2.getName());

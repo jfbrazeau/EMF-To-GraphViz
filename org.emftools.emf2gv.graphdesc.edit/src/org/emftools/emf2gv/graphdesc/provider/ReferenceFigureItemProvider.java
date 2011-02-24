@@ -245,11 +245,9 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 		final URL iconUrl = bundle
 				.getResource("/icons/full/obj16/arrows/target/custom.png");
 		final IItemLabelProvider labelProvider = new IItemLabelProvider() {
-			@Override
 			public String getText(Object object) {
 				return (String) object;
 			}
-			@Override
 			public Object getImage(Object object) {
 				return iconUrl;
 			}
@@ -284,12 +282,9 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 		final URL iconUrl = bundle
 				.getResource("/icons/full/obj16/arrows/source/custom.png");
 		final IItemLabelProvider labelProvider = new IItemLabelProvider() {
-			@Override
 			public String getText(Object object) {
 				return (String) object;
 			}
-
-			@Override
 			public Object getImage(Object object) {
 				return iconUrl;
 			}
