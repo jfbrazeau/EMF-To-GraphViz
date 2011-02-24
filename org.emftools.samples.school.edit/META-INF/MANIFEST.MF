@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.emftools.samples.school.provider.SchoolEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.emftools.samples.school.provider
 Require-Bundle: org.eclipse.core.runtime,
  org.emftools.samples.school;visibility:=reexport,
