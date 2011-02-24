@@ -65,7 +65,6 @@ public class EMF2GvProcessorShortcut implements ILaunchShortcut {
 	 * org.eclipse.debug.ui.ILaunchShortcut#launch(org.eclipse.jface.viewers
 	 * .ISelection, java.lang.String)
 	 */
-	@Override
 	public void launch(ISelection selection, String mode) {
 		try {
 			// Selected file retrieval
@@ -182,7 +181,6 @@ public class EMF2GvProcessorShortcut implements ILaunchShortcut {
 	 * org.eclipse.debug.ui.ILaunchShortcut#launch(org.eclipse.ui.IEditorPart,
 	 * java.lang.String)
 	 */
-	@Override
 	public void launch(IEditorPart editor, String mode) {
 		// Not used
 	}

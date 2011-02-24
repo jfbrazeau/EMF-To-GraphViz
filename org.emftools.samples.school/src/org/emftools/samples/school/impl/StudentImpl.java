@@ -355,7 +355,6 @@ public class StudentImpl extends EObjectImpl implements Student {
 		return result.toString();
 	}
 
-	@Override
 	public Color getEmf2gvNodeHeaderColor() {
 		Color result = Color.gray;
 		if (getName() != null && getName().length() % 2 == 0) {
@@ -364,7 +363,6 @@ public class StudentImpl extends EObjectImpl implements Student {
 		return result;
 	}
 
-	@Override
 	public Color getEmf2gvNodeBodyColor() {
 		Color result = Color.lightGray;
 		if (getName() != null && getName().length() % 2 == 0) {

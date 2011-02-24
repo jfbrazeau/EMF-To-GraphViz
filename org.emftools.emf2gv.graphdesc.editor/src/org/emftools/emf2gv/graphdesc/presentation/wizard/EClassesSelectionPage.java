@@ -88,7 +88,6 @@ public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 	 * org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets
 	 * .Composite)
 	 */
-	@Override
 	public void createControl(Composite parent) {
 		Composite rootContainer = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout(1, false);
@@ -175,7 +174,6 @@ public class EClassesSelectionPage extends AbstractGraphdescWizardPage {
 			}
 		});
 		eClassesTreeViewer.addCheckStateListener(new ICheckStateListener() {
-			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				handleTreeItemCheckedStateChanged(event.getElement(),
 						event.getChecked());
@@ -314,7 +312,6 @@ class EClassesContentProvider implements ITreeContentProvider {
 	 * org.eclipse.jface.viewers.ITreeContentProvider#getElements(java.lang.
 	 * Object)
 	 */
-	@Override
 	public Object[] getElements(Object inputElement) {
 		return ((List<?>) inputElement).toArray();
 	}
@@ -326,7 +323,6 @@ class EClassesContentProvider implements ITreeContentProvider {
 	 * org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.
 	 * Object)
 	 */
-	@Override
 	public Object[] getChildren(Object parentElement) {
 		Object[] result = null;
 		if (parentElement instanceof EPackage) {
@@ -351,7 +347,6 @@ class EClassesContentProvider implements ITreeContentProvider {
 	 * org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object
 	 * )
 	 */
-	@Override
 	public Object getParent(Object element) {
 		Object parent = null;
 		if (element instanceof EClass) {
@@ -368,7 +363,6 @@ class EClassesContentProvider implements ITreeContentProvider {
 	 * org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.
 	 * Object)
 	 */
-	@Override
 	public boolean hasChildren(Object element) {
 		return (element instanceof EPackage);
 	}
@@ -380,7 +374,6 @@ class EClassesContentProvider implements ITreeContentProvider {
 	 * org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface
 	 * .viewers.Viewer, java.lang.Object, java.lang.Object)
 	 */
-	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 
@@ -389,7 +382,6 @@ class EClassesContentProvider implements ITreeContentProvider {
 	 * 
 	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
 	 */
-	@Override
 	public void dispose() {
 	}
 

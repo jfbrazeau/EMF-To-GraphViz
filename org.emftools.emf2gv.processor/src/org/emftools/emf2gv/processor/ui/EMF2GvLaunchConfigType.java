@@ -57,7 +57,6 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 	 * org.eclipse.debug.core.ILaunch,
 	 * org.eclipse.core.runtime.IProgressMonitor)
 	 */
-	@Override
 	public void launch(ILaunchConfiguration cfg, String mode, ILaunch launch,
 			IProgressMonitor monitor) throws CoreException {
 
@@ -87,14 +86,12 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 
 		// EMF2GvProcessorCallback
 		EMF2GvProcessorCallback eMF2GvProcessorCallback = new EMF2GvProcessorCallback() {
-			@Override
 			public boolean confirmImageGeneration(final int nodesCount,
 					final int edgesCount) {
 				final boolean[] result = new boolean[1];
 				if (nodesCount + edgesCount > 600) {
 					PlatformUI.getWorkbench().getDisplay()
 							.syncExec(new Runnable() {
-								@Override
 								public void run() {
 									result[0] = MessageDialog
 											.openQuestion(
@@ -134,7 +131,6 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 		// Image editor is automatically opened
 		if (EMF2GvLaunchConfigHelper.getAutoOpenImageEditor(cfg)) {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-				@Override
 				public void run() {
 					try {
 						IWorkbenchPage page = PlatformUI.getWorkbench()

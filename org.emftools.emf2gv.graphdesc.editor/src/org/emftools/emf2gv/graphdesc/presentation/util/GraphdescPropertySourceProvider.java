@@ -36,18 +36,31 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
+/**
+ * Graphical description property source provider.
+ */
 public class GraphdescPropertySourceProvider implements IPropertySourceProvider {
 
+	/** The adapter factory */
 	private AdapterFactory adapterFactory;
+	
+	/** The icons cache */
 	private Map<Integer, Image> colorIcons;
 
+	/**
+	 * Default constructor.
+	 * @param adapterFactory the adapter factory.
+	 * @param colorIcons the icons cache.
+	 */
 	public GraphdescPropertySourceProvider(AdapterFactory adapterFactory,
 			Map<Integer, Image> colorIcons) {
 		this.adapterFactory = adapterFactory;
 		this.colorIcons = colorIcons;
 	}
 
-	@Override
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.views.properties.IPropertySourceProvider#getPropertySource(java.lang.Object)
+	 */
 	public IPropertySource getPropertySource(Object object) {
 		if (object instanceof IPropertySource) {
 			return (IPropertySource) object;
@@ -61,6 +74,12 @@ public class GraphdescPropertySourceProvider implements IPropertySourceProvider 
 		}
 	}
 
+	/**
+	 * Creates a property source for the given object.
+	 * @param object the object.
+	 * @param itemPropertySource the item property source.
+	 * @return the property source.
+	 */
 	protected IPropertySource createPropertySource(Object object,
 			IItemPropertySource itemPropertySource) {
 		return new GraphdescPropertySource(object, itemPropertySource,

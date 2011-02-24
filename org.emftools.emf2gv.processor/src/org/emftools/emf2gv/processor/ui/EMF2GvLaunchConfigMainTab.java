@@ -208,7 +208,6 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 	 * org.eclipse.debug.ui.ILaunchConfigurationTab#setDefaults(org.eclipse.
 	 * debug.core.ILaunchConfigurationWorkingCopy)
 	 */
-	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 	}
 
@@ -219,7 +218,6 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 	 * org.eclipse.debug.ui.ILaunchConfigurationTab#performApply(org.eclipse
 	 * .debug.core.ILaunchConfigurationWorkingCopy)
 	 */
-	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy cfg) {
 		// Graphical description
 		EMF2GvLaunchConfigHelper.setGenerateGraphDesc(cfg,
@@ -252,7 +250,6 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 	 * org.eclipse.debug.ui.ILaunchConfigurationTab#initializeFrom(org.eclipse
 	 * .debug.core.ILaunchConfiguration)
 	 */
-	@Override
 	public void initializeFrom(ILaunchConfiguration cfg) {
 		try {
 			// Graphical description
@@ -299,7 +296,6 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 	 * 
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getName()
 	 */
-	@Override
 	public String getName() {
 		return "EMF To Graphviz";
 	}
@@ -321,7 +317,6 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 	 * org.eclipse.debug.ui.ILaunchConfigurationTab#createControl(org.eclipse
 	 * .swt.widgets.Composite)
 	 */
-	@Override
 	public void createControl(Composite parent) {
 		Composite comp = new Composite(parent, SWT.NONE);
 		setControl(comp);

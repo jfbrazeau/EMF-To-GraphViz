@@ -86,7 +86,6 @@ public class EPackagesSelectionPage extends AbstractGraphdescWizardPage {
 	 * org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets
 	 * .Composite)
 	 */
-	@Override
 	public void createControl(Composite parent) {
 		Composite rootContainer = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout(1, false);
@@ -121,7 +120,6 @@ public class EPackagesSelectionPage extends AbstractGraphdescWizardPage {
 		ePackageTableViewer.setContentProvider(new EPackagesContentProvider());
 		ePackageTableViewer.setLabelProvider(new EPackageLabelProvider());
 		ePackageTableViewer.addCheckStateListener(new ICheckStateListener() {
-			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				handleEPackageCheckedStateChanged(
 						(EPackage) event.getElement(), event.getChecked());
@@ -207,7 +205,6 @@ class EPackagesContentProvider implements IStructuredContentProvider {
 	 * org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface
 	 * .viewers.Viewer, java.lang.Object, java.lang.Object)
 	 */
-	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 
@@ -216,7 +213,6 @@ class EPackagesContentProvider implements IStructuredContentProvider {
 	 * 
 	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
 	 */
-	@Override
 	public void dispose() {
 	}
 
@@ -227,7 +223,6 @@ class EPackagesContentProvider implements IStructuredContentProvider {
 	 * org.eclipse.jface.viewers.ITreeContentProvider#getElements(java.lang.
 	 * Object)
 	 */
-	@Override
 	public Object[] getElements(Object inputElement) {
 		return ((List<?>) inputElement).toArray();
 	}
