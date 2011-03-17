@@ -27,6 +27,7 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -41,6 +42,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
+import org.emftools.emf2gv.graphdesc.AssociationFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
@@ -63,6 +65,8 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#getCustomSourceArrow <em>Custom Source Arrow</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#getColor <em>Color</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#getStyle <em>Style</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#getTargetEType <em>Target EType</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl#getMinimumEdgeLength <em>Minimum Edge Length</em>}</li>
  * </ul>
  * </p>
  *
@@ -203,6 +207,26 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 	 * @ordered
 	 */
 	protected ArrowStyle style = STYLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMinimumEdgeLength() <em>Minimum Edge Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMinimumEdgeLength()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int MINIMUM_EDGE_LENGTH_EDEFAULT = 1;
+
+	/**
+	 * The cached value of the '{@link #getMinimumEdgeLength() <em>Minimum Edge Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMinimumEdgeLength()
+	 * @generated
+	 * @ordered
+	 */
+	protected int minimumEdgeLength = MINIMUM_EDGE_LENGTH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -473,6 +497,51 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTargetEType() {
+		EClass targetEType = basicGetTargetEType();
+		return targetEType != null && targetEType.eIsProxy() ? (EClass)eResolveProxy((InternalEObject)targetEType) : targetEType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EClass basicGetTargetEType() {
+		EClass result = null;
+		if (getEReference() != null) {
+			result = getEReference().getEReferenceType();
+		}
+		return result;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getMinimumEdgeLength() {
+		return minimumEdgeLength;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMinimumEdgeLength(int newMinimumEdgeLength) {
+		int oldMinimumEdgeLength = minimumEdgeLength;
+		minimumEdgeLength = newMinimumEdgeLength;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH, oldMinimumEdgeLength, minimumEdgeLength));
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated NOT
@@ -482,25 +551,39 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 		EMFConstraintsHelper constraintsHelper = EMFConstraintsHelper
 				.getInstance(GraphdescValidator.DIAGNOSTIC_SOURCE);
 		boolean valid = true;
+		// This validation method is also used by the association figure
+		// Error messages have to be specialized
+		String currentObjectName = (this instanceof AssociationFigure) ? "association"
+				: "reference";
 		ClassFigure classFigure = getClassFigure();
 		if (classFigure == null) {
 			constraintsHelper.addError(diagnostic, this, 0,
-					"The reference figure must be contained in a class figure");
+					"The {0} figure must be contained in a class figure", currentObjectName);
 			valid = false;
 		} else {
 			EReference eReference = getEReference();
 			if (eReference == null) {
 				constraintsHelper
 						.addError(diagnostic, this, 0,
-								"The reference figure must be associated to an EReference");
+								"The {0} figure must be associated to an EReference", currentObjectName);
 				valid = false;
 			} else {
-				// Check unique
-				valid = constraintsHelper.addErrorIfNotUnique(classFigure
-						.getReferenceFigures(), GraphdescPackage.eINSTANCE
-						.getReferenceFigure_EReference(), diagnostic, this, 0,
-						"The EReference ''{0}'' is referenced twice or more",
-						eReference.getName());
+				// Check unique (ignoring the association figures)
+				if (!(this instanceof AssociationFigure)) {
+					List<ReferenceFigure> referenceFigures = new ArrayList<ReferenceFigure>();
+					for (ReferenceFigure referenceFigure : classFigure.getReferenceFigures()) {
+						if (!(referenceFigure instanceof AssociationFigure)) {
+							if (!referenceFigures.contains(referenceFigure))
+								referenceFigures.add(referenceFigure);
+						}
+					}
+					valid = constraintsHelper.addErrorIfNotUnique(referenceFigures,
+							GraphdescPackage.eINSTANCE
+									.getReferenceFigure_EReference(), diagnostic,
+							this, 0,
+							"The EReference ''{0}'' is referenced twice or more",
+							eReference.getName());
+				}
 
 				// Check eReference eClass
 				if (valid) {
@@ -512,7 +595,8 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 											diagnostic,
 											this,
 											0,
-											"The reference figure is associated to an EReference ({0}) that is not a member of the parent class figure''s EClass ({1})",
+											"The {0} figure is associated to an EReference ({1}) that is not a member of the parent class figure''s EClass ({2})",
+											currentObjectName,
 											eReference.getName(),
 											eClass.getName());
 							valid = false;
@@ -527,7 +611,8 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 												diagnostic,
 												this,
 												0,
-												"The reference figure is associated to an EReference ({0}) that is already declared as a nested figure in the parent class figure",
+												"The {0} figure is associated to an EReference ({1}) that is already declared as a nested figure in the parent class figure",
+												currentObjectName,
 												eReference.getName());
 								valid = false;
 							}
@@ -536,15 +621,16 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 				}
 
 				// At least on of the EReference target type subclasses must be
-				// declared in the graph description
-				if (valid) {
+				// declared in the graph description (if the instance is not an
+				// association figure)
+				if (valid && !(this instanceof AssociationFigure)) {
 					if (!targetClassFigureExists()) {
 						constraintsHelper
 								.addError(
 										diagnostic,
 										this,
 										0,
-										"The is no class figure associated to the reference type ({0}) or one of its sub-EClass",
+										"There is no class figure associated to the reference type ({0}) or one of its sub-EClass",
 										eReference.getEReferenceType()
 												.getName());
 						valid = false;
@@ -606,30 +692,32 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 	 */
 	public boolean targetClassFigureExists() {
 		boolean refTypeEClassOrSubEClassFigureFound = false;
-		EClass refTypeEClass = eReference.getEReferenceType();
-		ClassFigure classFigure = getClassFigure();
-		if (classFigure != null) {
-			GVFigureDescription gvFigureDescription = classFigure
-					.getGvFigureDescription();
+		EClass targetEType = getTargetEType();
+		if (targetEType != null) {
+			ClassFigure classFigure = getClassFigure();
+			if (classFigure != null) {
+				GVFigureDescription gvFigureDescription = classFigure
+						.getGvFigureDescription();
 
-			if (gvFigureDescription != null) {
-				// If the ref type has a ClassFigure, that's OK !
-				if (gvFigureDescription.getClassFigure(refTypeEClass) != null) {
-					refTypeEClassOrSubEClassFigureFound = true;
-				}
-				// Else let's see if there is a ClassFigure that is
-				// associated
-				// to an EClass that derives from the refTypeEClass
-				else {
-					List<ClassFigure> classFigures = gvFigureDescription
-							.getClassFigures();
-					for (int i = 0; i < classFigures.size()
-							&& !refTypeEClassOrSubEClassFigureFound; i++) {
-						ClassFigure classFigureCursor = classFigures.get(i);
-						EClass eClass = classFigureCursor.getEClass();
-						if (eClass != null) {
-							refTypeEClassOrSubEClassFigureFound = refTypeEClass
-									.isSuperTypeOf(eClass);
+				if (gvFigureDescription != null) {
+					// If the ref type has a ClassFigure, that's OK !
+					if (gvFigureDescription.getClassFigure(targetEType) != null) {
+						refTypeEClassOrSubEClassFigureFound = true;
+					}
+					// Else let's see if there is a ClassFigure that is
+					// associated
+					// to an EClass that derives from the targetEType
+					else {
+						List<ClassFigure> classFigures = gvFigureDescription
+								.getClassFigures();
+						for (int i = 0; i < classFigures.size()
+								&& !refTypeEClassOrSubEClassFigureFound; i++) {
+							ClassFigure classFigureCursor = classFigures.get(i);
+							EClass eClass = classFigureCursor.getEClass();
+							if (eClass != null) {
+								refTypeEClassOrSubEClassFigureFound = targetEType
+										.isSuperTypeOf(eClass);
+							}
 						}
 					}
 				}
@@ -708,6 +796,11 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 				return getColor();
 			case GraphdescPackage.REFERENCE_FIGURE__STYLE:
 				return getStyle();
+			case GraphdescPackage.REFERENCE_FIGURE__TARGET_ETYPE:
+				if (resolve) return getTargetEType();
+				return basicGetTargetEType();
+			case GraphdescPackage.REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH:
+				return getMinimumEdgeLength();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -742,6 +835,9 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 				return;
 			case GraphdescPackage.REFERENCE_FIGURE__STYLE:
 				setStyle((ArrowStyle)newValue);
+				return;
+			case GraphdescPackage.REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH:
+				setMinimumEdgeLength((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -778,6 +874,9 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 			case GraphdescPackage.REFERENCE_FIGURE__STYLE:
 				setStyle(STYLE_EDEFAULT);
 				return;
+			case GraphdescPackage.REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH:
+				setMinimumEdgeLength(MINIMUM_EDGE_LENGTH_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -807,6 +906,10 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 				return color != COLOR_EDEFAULT;
 			case GraphdescPackage.REFERENCE_FIGURE__STYLE:
 				return style != STYLE_EDEFAULT;
+			case GraphdescPackage.REFERENCE_FIGURE__TARGET_ETYPE:
+				return basicGetTargetEType() != null;
+			case GraphdescPackage.REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH:
+				return minimumEdgeLength != MINIMUM_EDGE_LENGTH_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -832,6 +935,8 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 		result.append(color);
 		result.append(", style: ");
 		result.append(style);
+		result.append(", minimumEdgeLength: ");
+		result.append(minimumEdgeLength);
 		result.append(')');
 		return result.toString();
 	}

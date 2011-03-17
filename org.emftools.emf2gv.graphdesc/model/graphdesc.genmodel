@@ -64,11 +64,11 @@
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/bodyBackgroundColor"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Container"
           propertyDescription="" propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/nestedFiguresEReferences"/>
-      <genFeatures createChild="false" propertyCategory="Dynamic Color Accessors"
-          propertyDescription="Enables dynamic color accessors" ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/dynamicAppearance"/>
-      <genFeatures createChild="false" propertyCategory="Dynamic Appearance" propertyDescription="Dynamic header's background color accessor"
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Enables dynamic color accessors"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/dynamicAppearance"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Dynamic header's background color accessor"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/headerBackgroundColorAccessor"/>
-      <genFeatures createChild="false" propertyCategory="Dynamic Appearance" propertyDescription="Dynamic body's background color accessor"
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Dynamic body's background color accessor"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/bodyBackgroundColorAccessor"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/container"/>
       <genOperations ecoreOperation="graphdesc.ecore#//ClassFigure/getAttributeFigure">
@@ -101,8 +101,7 @@
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/targetArrowType"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The source arrow type"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/sourceArrowType"/>
-      <genFeatures property="Readonly" createChild="false" propertyCategory="Model"
-          propertyDescription="Shows if the EReference is a containment reference"
+      <genFeatures property="None" createChild="false" propertyCategory="Model" propertyDescription="Shows if the EReference is a containment reference"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/containment"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The custom target arrow"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/customTargetArrow"/>
@@ -112,11 +111,32 @@
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/color"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The edge style"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/style"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertyCategory="Model"
+          propertyDescription="The target type of the EReference" ecoreFeature="ecore:EReference graphdesc.ecore#//ReferenceFigure/targetEType"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Minimum edge length (same as Graphviz minlen property)"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/minimumEdgeLength"/>
       <genOperations ecoreOperation="graphdesc.ecore#//ReferenceFigure/validate">
         <genParameters ecoreParameter="graphdesc.ecore#//ReferenceFigure/validate/diagnostic"/>
         <genParameters ecoreParameter="graphdesc.ecore#//ReferenceFigure/validate/context"/>
       </genOperations>
       <genOperations ecoreOperation="graphdesc.ecore#//ReferenceFigure/targetClassFigureExists"/>
+    </genClasses>
+    <genClasses ecoreClass="graphdesc.ecore#//AssociationFigure">
+      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The target EReference of the association EClass"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//AssociationFigure/targetEReference"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Appearance"
+          propertyDescription="The EAttribute to display in the source label" propertySortChoices="true"
+          ecoreFeature="ecore:EReference graphdesc.ecore#//AssociationFigure/sourceLabelEAttribute"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Appearance"
+          propertyDescription="The EAttribute to display in the standard label (centered)"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//AssociationFigure/standardLabelEAttribute"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Appearance"
+          propertyDescription="The EAttribute to display in the target label" propertySortChoices="true"
+          ecoreFeature="ecore:EReference graphdesc.ecore#//AssociationFigure/targetLabelEAttribute"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Multiplicative scaling factor adjusting the distance that the headlabel(taillabel) is from the head(tail) node (same as Graphviz labeldistance property)"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//AssociationFigure/labelDistance"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="This, along with labeldistance, determine where the headlabel (taillabel) are placed with respect to the head (tail) in polar coordinates. The origin in the coordinate system is the point where the edge touches the node. The ray of 0 degrees goes from the origin back along the edge, parallel to the edge at the origin. (same as Graphviz labelangle property)"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//AssociationFigure/labelAngle"/>
     </genClasses>
     <genClasses ecoreClass="graphdesc.ecore#//AbstractFigure">
       <genFeatures property="None" createChild="false" propertyCategory="" ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractFigure/name"/>

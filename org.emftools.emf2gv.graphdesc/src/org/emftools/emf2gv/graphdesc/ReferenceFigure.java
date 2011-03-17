@@ -30,6 +30,7 @@ package org.emftools.emf2gv.graphdesc;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 
 /**
@@ -49,6 +50,8 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomSourceArrow <em>Custom Source Arrow</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getColor <em>Color</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getStyle <em>Style</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getTargetEType <em>Target EType</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getMinimumEdgeLength <em>Minimum Edge Length</em>}</li>
  * </ul>
  * </p>
  *
@@ -293,6 +296,48 @@ public interface ReferenceFigure extends AbstractFigure {
 	 * @generated
 	 */
 	void setStyle(ArrowStyle value);
+
+	/**
+	 * Returns the value of the '<em><b>Target EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Target EType</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Target EType</em>' reference.
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getReferenceFigure_TargetEType()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EClass getTargetEType();
+
+	/**
+	 * Returns the value of the '<em><b>Minimum Edge Length</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Minimum Edge Length</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Minimum Edge Length</em>' attribute.
+	 * @see #setMinimumEdgeLength(int)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getReferenceFigure_MinimumEdgeLength()
+	 * @model default="1"
+	 * @generated
+	 */
+	int getMinimumEdgeLength();
+
+	/**
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getMinimumEdgeLength <em>Minimum Edge Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Minimum Edge Length</em>' attribute.
+	 * @see #getMinimumEdgeLength()
+	 * @generated
+	 */
+	void setMinimumEdgeLength(int value);
 
 	/**
 	 * <!-- begin-user-doc -->

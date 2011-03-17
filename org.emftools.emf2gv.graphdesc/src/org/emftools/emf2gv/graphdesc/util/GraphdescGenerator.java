@@ -29,6 +29,7 @@ package org.emftools.emf2gv.graphdesc.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -144,13 +145,22 @@ public class GraphdescGenerator {
 			classFigure.setBodyBackgroundColor(ColorsHelper
 					.makeColorBrighter(baseColor));
 			/*
-			 * Label attribute generation
+			 * Label attribute selection
 			 */
 			List<EAttribute> eAttributes = eClass.getEAllAttributes();
 			EAttribute labelEAttribute = null;
 			if (eAttributes.size() > 0) {
-				labelEAttribute = eAttributes.get(0);
-				classFigure.setLabelEAttribute(labelEAttribute);
+				for (Iterator<EAttribute> iterator = eAttributes.iterator(); iterator
+						.hasNext();) {
+					EAttribute eAttribute = iterator.next();
+					if (String.class.equals(eAttribute.getEAttributeType().getInstanceClass())) {
+						labelEAttribute = eAttribute;
+						break;
+					}
+				}
+				if (labelEAttribute != null) {
+					classFigure.setLabelEAttribute(labelEAttribute);
+				}
 			}
 
 			/*

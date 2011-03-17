@@ -63,7 +63,7 @@ public interface GraphdescPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://org.emftools.emf2gv.graphdesc/1.0";
+	String eNS_URI = "http://org.emftools.emf2gv.graphdesc/1.0.3";
 
 	/**
 	 * The package namespace name.
@@ -174,7 +174,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAbstractFigure()
 	 * @generated
 	 */
-	int ABSTRACT_FIGURE = 4;
+	int ABSTRACT_FIGURE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -465,14 +465,213 @@ public interface GraphdescPackage extends EPackage {
 	int REFERENCE_FIGURE__STYLE = ABSTRACT_FIGURE_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Target EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__TARGET_ETYPE = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Edge Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH = ABSTRACT_FIGURE_FEATURE_COUNT + 10;
+
+	/**
 	 * The number of structural features of the '<em>Reference Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
+	int REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 11;
 
+
+	/**
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.AssociationFigureImpl <em>Association Figure</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftools.emf2gv.graphdesc.impl.AssociationFigureImpl
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAssociationFigure()
+	 * @generated
+	 */
+	int ASSOCIATION_FIGURE = 4;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__NAME = REFERENCE_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__CLASS_FIGURE = REFERENCE_FIGURE__CLASS_FIGURE;
+
+	/**
+	 * The feature id for the '<em><b>EReference</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__EREFERENCE = REFERENCE_FIGURE__EREFERENCE;
+
+	/**
+	 * The feature id for the '<em><b>Target Arrow Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__TARGET_ARROW_TYPE = REFERENCE_FIGURE__TARGET_ARROW_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Source Arrow Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__SOURCE_ARROW_TYPE = REFERENCE_FIGURE__SOURCE_ARROW_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Containment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__CONTAINMENT = REFERENCE_FIGURE__CONTAINMENT;
+
+	/**
+	 * The feature id for the '<em><b>Custom Target Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__CUSTOM_TARGET_ARROW = REFERENCE_FIGURE__CUSTOM_TARGET_ARROW;
+
+	/**
+	 * The feature id for the '<em><b>Custom Source Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__CUSTOM_SOURCE_ARROW = REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW;
+
+	/**
+	 * The feature id for the '<em><b>Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__COLOR = REFERENCE_FIGURE__COLOR;
+
+	/**
+	 * The feature id for the '<em><b>Style</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__STYLE = REFERENCE_FIGURE__STYLE;
+
+	/**
+	 * The feature id for the '<em><b>Target EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__TARGET_ETYPE = REFERENCE_FIGURE__TARGET_ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Edge Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__MINIMUM_EDGE_LENGTH = REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH;
+
+	/**
+	 * The feature id for the '<em><b>Target EReference</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__TARGET_EREFERENCE = REFERENCE_FIGURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Source Label EAttribute</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__SOURCE_LABEL_EATTRIBUTE = REFERENCE_FIGURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Standard Label EAttribute</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__STANDARD_LABEL_EATTRIBUTE = REFERENCE_FIGURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Target Label EAttribute</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__TARGET_LABEL_EATTRIBUTE = REFERENCE_FIGURE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Label Distance</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__LABEL_DISTANCE = REFERENCE_FIGURE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Label Angle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE__LABEL_ANGLE = REFERENCE_FIGURE_FEATURE_COUNT + 5;
+
+	/**
+	 * The number of structural features of the '<em>Association Figure</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION_FIGURE_FEATURE_COUNT = REFERENCE_FIGURE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.Orientation <em>Orientation</em>}' enum.
@@ -482,7 +681,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getOrientation()
 	 * @generated
 	 */
-	int ORIENTATION = 5;
+	int ORIENTATION = 6;
 
 
 	/**
@@ -493,7 +692,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowType()
 	 * @generated
 	 */
-	int ARROW_TYPE = 6;
+	int ARROW_TYPE = 7;
 
 
 	/**
@@ -504,7 +703,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowStyle()
 	 * @generated
 	 */
-	int ARROW_STYLE = 7;
+	int ARROW_STYLE = 8;
 
 
 	/**
@@ -813,6 +1012,28 @@ public interface GraphdescPackage extends EPackage {
 	EAttribute getReferenceFigure_Style();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getTargetEType <em>Target EType</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target EType</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getTargetEType()
+	 * @see #getReferenceFigure()
+	 * @generated
+	 */
+	EReference getReferenceFigure_TargetEType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getMinimumEdgeLength <em>Minimum Edge Length</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Minimum Edge Length</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getMinimumEdgeLength()
+	 * @see #getReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getReferenceFigure_MinimumEdgeLength();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.AbstractFigure <em>Abstract Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -832,6 +1053,82 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAbstractFigure_Name();
+
+	/**
+	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.AssociationFigure <em>Association Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Association Figure</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AssociationFigure
+	 * @generated
+	 */
+	EClass getAssociationFigure();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getTargetEReference <em>Target EReference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target EReference</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AssociationFigure#getTargetEReference()
+	 * @see #getAssociationFigure()
+	 * @generated
+	 */
+	EReference getAssociationFigure_TargetEReference();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getSourceLabelEAttribute <em>Source Label EAttribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source Label EAttribute</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AssociationFigure#getSourceLabelEAttribute()
+	 * @see #getAssociationFigure()
+	 * @generated
+	 */
+	EReference getAssociationFigure_SourceLabelEAttribute();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getStandardLabelEAttribute <em>Standard Label EAttribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Standard Label EAttribute</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AssociationFigure#getStandardLabelEAttribute()
+	 * @see #getAssociationFigure()
+	 * @generated
+	 */
+	EReference getAssociationFigure_StandardLabelEAttribute();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getTargetLabelEAttribute <em>Target Label EAttribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target Label EAttribute</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AssociationFigure#getTargetLabelEAttribute()
+	 * @see #getAssociationFigure()
+	 * @generated
+	 */
+	EReference getAssociationFigure_TargetLabelEAttribute();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getLabelDistance <em>Label Distance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Label Distance</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AssociationFigure#getLabelDistance()
+	 * @see #getAssociationFigure()
+	 * @generated
+	 */
+	EAttribute getAssociationFigure_LabelDistance();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getLabelAngle <em>Label Angle</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Label Angle</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AssociationFigure#getLabelAngle()
+	 * @see #getAssociationFigure()
+	 * @generated
+	 */
+	EAttribute getAssociationFigure_LabelAngle();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.GVFigureDescription <em>GV Figure Description</em>}'.
@@ -1170,6 +1467,22 @@ public interface GraphdescPackage extends EPackage {
 		EAttribute REFERENCE_FIGURE__STYLE = eINSTANCE.getReferenceFigure_Style();
 
 		/**
+		 * The meta object literal for the '<em><b>Target EType</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REFERENCE_FIGURE__TARGET_ETYPE = eINSTANCE.getReferenceFigure_TargetEType();
+
+		/**
+		 * The meta object literal for the '<em><b>Minimum Edge Length</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH = eINSTANCE.getReferenceFigure_MinimumEdgeLength();
+
+		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl <em>Abstract Figure</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1186,6 +1499,64 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ABSTRACT_FIGURE__NAME = eINSTANCE.getAbstractFigure_Name();
+
+		/**
+		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.AssociationFigureImpl <em>Association Figure</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftools.emf2gv.graphdesc.impl.AssociationFigureImpl
+		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAssociationFigure()
+		 * @generated
+		 */
+		EClass ASSOCIATION_FIGURE = eINSTANCE.getAssociationFigure();
+
+		/**
+		 * The meta object literal for the '<em><b>Target EReference</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSOCIATION_FIGURE__TARGET_EREFERENCE = eINSTANCE.getAssociationFigure_TargetEReference();
+
+		/**
+		 * The meta object literal for the '<em><b>Source Label EAttribute</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSOCIATION_FIGURE__SOURCE_LABEL_EATTRIBUTE = eINSTANCE.getAssociationFigure_SourceLabelEAttribute();
+
+		/**
+		 * The meta object literal for the '<em><b>Standard Label EAttribute</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSOCIATION_FIGURE__STANDARD_LABEL_EATTRIBUTE = eINSTANCE.getAssociationFigure_StandardLabelEAttribute();
+
+		/**
+		 * The meta object literal for the '<em><b>Target Label EAttribute</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSOCIATION_FIGURE__TARGET_LABEL_EATTRIBUTE = eINSTANCE.getAssociationFigure_TargetLabelEAttribute();
+
+		/**
+		 * The meta object literal for the '<em><b>Label Distance</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ASSOCIATION_FIGURE__LABEL_DISTANCE = eINSTANCE.getAssociationFigure_LabelDistance();
+
+		/**
+		 * The meta object literal for the '<em><b>Label Angle</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ASSOCIATION_FIGURE__LABEL_ANGLE = eINSTANCE.getAssociationFigure_LabelAngle();
 
 		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.GVFigureDescriptionImpl <em>GV Figure Description</em>}' class.

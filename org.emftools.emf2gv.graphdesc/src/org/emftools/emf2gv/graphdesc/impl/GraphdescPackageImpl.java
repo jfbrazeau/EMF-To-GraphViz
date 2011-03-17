@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
+import org.emftools.emf2gv.graphdesc.AssociationFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
@@ -91,6 +92,13 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * @generated
 	 */
 	private EClass abstractFigureEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass associationFigureEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -488,6 +496,24 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getReferenceFigure_TargetEType() {
+		return (EReference)referenceFigureEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReferenceFigure_MinimumEdgeLength() {
+		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAbstractFigure() {
 		return abstractFigureEClass;
 	}
@@ -499,6 +525,69 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 */
 	public EAttribute getAbstractFigure_Name() {
 		return (EAttribute)abstractFigureEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAssociationFigure() {
+		return associationFigureEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAssociationFigure_TargetEReference() {
+		return (EReference)associationFigureEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAssociationFigure_SourceLabelEAttribute() {
+		return (EReference)associationFigureEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAssociationFigure_StandardLabelEAttribute() {
+		return (EReference)associationFigureEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAssociationFigure_TargetLabelEAttribute() {
+		return (EReference)associationFigureEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAssociationFigure_LabelDistance() {
+		return (EAttribute)associationFigureEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAssociationFigure_LabelAngle() {
+		return (EAttribute)associationFigureEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -592,6 +681,16 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW);
 		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__COLOR);
 		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__STYLE);
+		createEReference(referenceFigureEClass, REFERENCE_FIGURE__TARGET_ETYPE);
+		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH);
+
+		associationFigureEClass = createEClass(ASSOCIATION_FIGURE);
+		createEReference(associationFigureEClass, ASSOCIATION_FIGURE__TARGET_EREFERENCE);
+		createEReference(associationFigureEClass, ASSOCIATION_FIGURE__SOURCE_LABEL_EATTRIBUTE);
+		createEReference(associationFigureEClass, ASSOCIATION_FIGURE__STANDARD_LABEL_EATTRIBUTE);
+		createEReference(associationFigureEClass, ASSOCIATION_FIGURE__TARGET_LABEL_EATTRIBUTE);
+		createEAttribute(associationFigureEClass, ASSOCIATION_FIGURE__LABEL_DISTANCE);
+		createEAttribute(associationFigureEClass, ASSOCIATION_FIGURE__LABEL_ANGLE);
 
 		abstractFigureEClass = createEClass(ABSTRACT_FIGURE);
 		createEAttribute(abstractFigureEClass, ABSTRACT_FIGURE__NAME);
@@ -636,6 +735,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		classFigureEClass.getESuperTypes().add(this.getAbstractFigure());
 		attributeFigureEClass.getESuperTypes().add(this.getAbstractFigure());
 		referenceFigureEClass.getESuperTypes().add(this.getAbstractFigure());
+		associationFigureEClass.getESuperTypes().add(this.getReferenceFigure());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(gvFigureDescriptionEClass, GVFigureDescription.class, "GVFigureDescription", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -710,6 +810,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEAttribute(getReferenceFigure_CustomSourceArrow(), theEcorePackage.getEString(), "customSourceArrow", null, 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReferenceFigure_Color(), theEcorePackage.getEInt(), "color", null, 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReferenceFigure_Style(), this.getArrowStyle(), "style", "normal", 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getReferenceFigure_TargetEType(), theEcorePackage.getEClass(), null, "targetEType", null, 0, 1, ReferenceFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReferenceFigure_MinimumEdgeLength(), theEcorePackage.getEInt(), "minimumEdgeLength", "1", 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(referenceFigureEClass, ecorePackage.getEBoolean(), "validate", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostic", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -721,6 +823,14 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(referenceFigureEClass, theEcorePackage.getEBoolean(), "targetClassFigureExists", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(associationFigureEClass, AssociationFigure.class, "AssociationFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAssociationFigure_TargetEReference(), theEcorePackage.getEReference(), null, "targetEReference", null, 1, 1, AssociationFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssociationFigure_SourceLabelEAttribute(), theEcorePackage.getEAttribute(), null, "sourceLabelEAttribute", null, 0, 1, AssociationFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssociationFigure_StandardLabelEAttribute(), theEcorePackage.getEAttribute(), null, "standardLabelEAttribute", null, 0, 1, AssociationFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssociationFigure_TargetLabelEAttribute(), theEcorePackage.getEAttribute(), null, "targetLabelEAttribute", null, 0, 1, AssociationFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAssociationFigure_LabelDistance(), ecorePackage.getEDouble(), "labelDistance", "1", 0, 1, AssociationFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAssociationFigure_LabelAngle(), theEcorePackage.getEDouble(), "labelAngle", "0", 0, 1, AssociationFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abstractFigureEClass, AbstractFigure.class, "AbstractFigure", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAbstractFigure_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AbstractFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);

@@ -74,6 +74,15 @@ public interface GraphdescFactory extends EFactory {
 	ReferenceFigure createReferenceFigure();
 
 	/**
+	 * Returns a new object of class '<em>Association Figure</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Association Figure</em>'.
+	 * @generated
+	 */
+	AssociationFigure createAssociationFigure();
+
+	/**
 	 * Returns a new object of class '<em>GV Figure Description</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
