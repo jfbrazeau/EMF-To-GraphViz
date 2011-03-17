@@ -32,9 +32,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.edit.EMFEditPlugin;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory.Descriptor;
@@ -42,12 +54,23 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory.Descriptor.Registry;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 
+/**
+ * This class provides several helper methods around EMF.
+ */
 public class EMFHelper {
 	
+	/**
+	 * @return an Ecore adapter factory.
+	 */
 	public static AdapterFactory getEcoreAdapterFactory() {
 		return getAdapterFactory(Arrays.asList(new EPackage[] { EcorePackage.eINSTANCE }));
 	}
 
+	/**
+	 * Returns an adapter factory for the given EPackages.
+	 * @param ePackages the EPackages.
+	 * @return the adapter factory.
+	 */
 	public static AdapterFactory getAdapterFactory(List<EPackage> ePackages) {
 		Registry reg = EMFEditPlugin.getComposedAdapterFactoryDescriptorRegistry();
 		ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
@@ -64,12 +87,20 @@ public class EMFHelper {
 		return adapterFactory;
 	}
 
+	/**
+	 * Resolves an EPackage.
+	 * @param ePackageFake the fake EPackage (that is used to lazily resolve the EPackages).
+	 * @return the resolved EPackage.
+	 */
 	public static EPackage resolve(EPackageFake ePackageFake) {
 		// EPackage resolution
 		String uri = ePackageFake.getNsURI();
 		return EPackage.Registry.INSTANCE.getEPackage(uri);
 	}
 	
+	/**
+	 * @return the registered EPackages list.
+	 */
 	public static List<EPackage> getRegisteredEPackages() {
 		// Workspace EPackages retrieval
 		List<EPackage> ePackages = new ArrayList<EPackage>();
@@ -94,4 +125,62 @@ public class EMFHelper {
 		}
 		return ePackages;
 	}
+
+	/**
+	 * Loads a given EMF resource.
+	 * 
+	 * @param rs
+	 *            the resource set.
+	 * @param path
+	 *            the resource path.
+	 * @param validate
+	 *            a boolean indicating if the resource must be validated.
+	 * @param monitor
+	 *            the progress monitor.
+	 * @return the EMF resource.
+	 * @throws CoreException
+	 *             thrown if an unexpected eroor occurs.
+	 */
+	public static Resource loadEMFResource(ResourceSet rs, IPath path,
+			boolean validate, IProgressMonitor monitor) throws CoreException {
+		if (monitor != null) {
+			monitor.beginTask("Loading " + path, 2);
+		}
+		URI uri = URI.createPlatformResourceURI(path.toPortableString(), true);
+		Resource emfResource = rs.getResource(uri, true);
+		if (monitor != null) {
+			monitor.worked(1);
+		}
+		if (validate) {
+			IStatus status = validate(emfResource);
+			if (!status.isOK()) {
+				throw new CoreException(status);
+			}
+		}
+		if (monitor != null) {
+			monitor.worked(2);
+		}
+		return emfResource;
+	}
+
+	/**
+	 * Validates an EMF resource.
+	 * 
+	 * @param emfResource
+	 *            the resource to validate.
+	 * @return the validation status.
+	 */
+	public static IStatus validate(Resource emfResource) {
+		Diagnostician diagnostician = new Diagnostician();
+		TreeIterator<EObject> iterator = emfResource.getAllContents();
+		BasicDiagnostic diagnostic = new BasicDiagnostic(
+				EObjectValidator.DIAGNOSTIC_SOURCE, 0, emfResource.getURI()
+						.toString() + " has validation errors", emfResource
+						.getContents().toArray());
+		while (iterator.hasNext()) {
+			diagnostic.add(diagnostician.validate(iterator.next()));
+		}
+		return BasicDiagnostic.toIStatus(diagnostic);
+	}
+	
 }
