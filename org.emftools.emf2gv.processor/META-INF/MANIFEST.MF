@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.emftools.emf2gv.processor;singleton:=true
-Bundle-Version: 1.0.2.qualifier
+Bundle-Version: 1.0.3.qualifier
 Bundle-Activator: org.emftools.emf2gv.processor.Activator
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
@@ -11,6 +11,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.emftools.emf2gv.graphdesc,
  org.eclipse.emf.ecore.editor,
  org.eclipse.core.expressions,
- org.emftools.emf2gv.util
+ org.emftools.emf2gv.util,
+ org.eclipse.ocl.ecore;bundle-version="3.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName
