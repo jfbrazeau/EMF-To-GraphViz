@@ -27,14 +27,28 @@
  */
 package org.emftools.emf2gv.processor.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.OCL;
+import org.eclipse.ocl.helper.OCLHelper;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
@@ -84,6 +98,33 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 		boolean keepGeneratedGvFile = EMF2GvLaunchConfigHelper
 				.getKeepGeneratedGvFile(cfg);
 
+		/* OCL expressions parsing */
+		String[][] cfgExpressions = EMF2GvLaunchConfigHelper
+				.getHideNodeExpressions(cfg);
+		Map<EClass, Constraint> parsedExpressions = new HashMap<EClass, Constraint>();
+		OCL ocl = OCL.newInstance();
+		OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper = ocl
+				.createOCLHelper();
+		try {
+			for (int i = 0; i < cfgExpressions.length; i++) {
+				String[] cfgExpression = cfgExpressions[i];
+				String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_EPACKAGE_IDX];
+				String eClassName = cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_ECLASS_IDX];
+				String expression = cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_VALUE_IDX];
+				EPackage ePackage = EPackage.Registry.INSTANCE
+						.getEPackage(ePackakeNsUri);
+				EClass eClass = (EClass) ePackage.getEClassifier(eClassName);
+				// Parsing...
+				oclHelper.setContext(eClass);
+				Constraint parsed = oclHelper.createInvariant(expression);
+				parsedExpressions.put(eClass, parsed);
+			}
+		}
+		catch (ParserException e) {
+			throw new CoreException(new Status(IStatus.ERROR,
+					Activator.PLUGIN_ID, "OCL Expression parsing error", e));
+		}
+
 		// EMF2GvProcessorCallback
 		EMF2GvProcessorCallback eMF2GvProcessorCallback = new EMF2GvProcessorCallback() {
 			public boolean confirmImageGeneration(final int nodesCount,
@@ -126,7 +167,8 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 		final IFile targetFile = EMF2GvProcessor.process(modelPath,
 				uriFragment, graphDescPath, targetPath,
 				eMF2GvProcessorCallback, dotCommand, addValidationDecorators,
-				keepGeneratedGvFile, gvSourceEncoding, monitor);
+				keepGeneratedGvFile, gvSourceEncoding, parsedExpressions,
+				monitor);
 
 		// Image editor is automatically opened
 		if (EMF2GvLaunchConfigHelper.getAutoOpenImageEditor(cfg)) {

@@ -53,10 +53,14 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.OCL;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
+import org.emftools.emf2gv.graphdesc.AssociationFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
@@ -151,6 +155,12 @@ public class GVSourceAndDependenciesBuilder {
 	 */
 	private Diagnostician diagnostician;
 
+	/** Boolean OCL expressions allowing to hide nodes. */
+	private Map<EClass, Constraint> hideNodeExpressions;
+
+	/** The OCL (lazy instantiation) */
+	private OCL ocl;
+
 	/**
 	 * Default constructor.
 	 * 
@@ -158,16 +168,21 @@ public class GVSourceAndDependenciesBuilder {
 	 *            the figure description.
 	 * @param iconsFolder
 	 *            the folder receiving the PNG icons.
+	 * @param hideNodeExpressions
+	 *            the boolean OCL expressions allowing to hide nodes.
 	 * @param addValidationDecorators
 	 *            a boolean indicating if validation decorators have to be
 	 *            included in the diagram.
 	 */
 	public GVSourceAndDependenciesBuilder(GVFigureDescription figureDesc,
-			IFolder iconsFolder, boolean addValidationDecorators) {
+			IFolder iconsFolder, boolean addValidationDecorators,
+			Map<EClass, Constraint> hideNodeExpressions) {
 		this.figureDesc = figureDesc;
 		this.adapterFactory = EMFHelper.getAdapterFactory(figureDesc
 				.getEPackages());
 		this.iconsFolder = iconsFolder;
+		this.hideNodeExpressions = hideNodeExpressions == null ? new HashMap<EClass, Constraint>()
+				: hideNodeExpressions;
 
 		// Diagnostician initialization
 		diagnostician = !addValidationDecorators ? null : new Diagnostician() {
@@ -325,6 +340,36 @@ public class GVSourceAndDependenciesBuilder {
 	}
 
 	/**
+	 * @param eObject
+	 *            the processed eObject.
+	 * @return a boolean indicating if the node must be hidden.
+	 */
+	private boolean mustHide(EObject eObject) {
+		boolean mustHide = false;
+		EClass eClass = eObject.eClass();
+		List<EClass> types = new ArrayList<EClass>();
+		types.add(eClass);
+		types.addAll(eClass.getEAllSuperTypes());
+		for (EClass type : types) {
+			Constraint hideExpression = hideNodeExpressions.get(type);
+			if (hideExpression != null) {
+				mustHide |= getOCL().check(eObject, hideExpression);
+			}
+		}
+		return mustHide;
+	}
+	
+	/**
+	 * @return an OCL instance.
+	 */
+	private OCL getOCL() {
+		if (ocl == null) {
+			ocl = OCL.newInstance();
+		}
+		return ocl;
+	}
+
+	/**
 	 * Processes an EObject and its childs recursively.
 	 * 
 	 * @param eContentRoot
@@ -337,88 +382,196 @@ public class GVSourceAndDependenciesBuilder {
 	 */
 	private String processEObject(EObject eContentRoot, IProgressMonitor monitor)
 			throws CoreException {
-		String eContentRootId = eObjectIdsCache.get(eContentRoot);
-		if (eContentRootId == null) {
-			EClass eContentRootEClass = eContentRoot.eClass();
-			ClassFigure classFigure = figureDesc
-					.getClassFigure(eContentRootEClass);
-			// We proceed only if the classFigure has been defined
-			if (classFigure != null) {
-				eContentRootId = buildEObjectIdentifier(classFigure,
-						eContentRoot);
-				eObjectIdsCache.put(eContentRoot, eContentRootId);
+		String eContentRootId = null;
+		// First, we must check if the node must be hidden
+		if (!mustHide(eContentRoot)) {
+			// If not we can process the node normally
+			eContentRootId = eObjectIdsCache.get(eContentRoot);
+			if (eContentRootId == null) {
+				EClass eContentRootEClass = eContentRoot.eClass();
+				ClassFigure classFigure = figureDesc
+						.getClassFigure(eContentRootEClass);
+				// We proceed only if the classFigure has been defined
+				if (classFigure != null) {
+					eContentRootId = buildEObjectIdentifier(classFigure,
+							eContentRoot);
+					eObjectIdsCache.put(eContentRoot, eContentRootId);
 
-				// EObject icon retrieval
-				String iconPath = findAndSaveEObjectIcon(eContentRoot, monitor);
+					// EObject icon retrieval
+					String iconPath = findAndSaveEObjectIcon(eContentRoot, monitor);
 
-				// EObject validation and status icons retrieval
-				boolean addValidationDecorators = (diagnostician != null);
-				String validationDecoratorIconPath = null;
-				if (addValidationDecorators) {
-					Diagnostic diagnostic = diagnostician
-							.validate(eContentRoot);
-					switch (diagnostic.getSeverity()) {
-					case Diagnostic.ERROR:
-						validationDecoratorIconPath = findAndSavePluginIcon(
-								"error", monitor);
-						break;
-					case Diagnostic.WARNING:
-						validationDecoratorIconPath = findAndSavePluginIcon(
-								"warning", monitor);
-						break;
+					// Node description creation and registration
+					NodeDesc nodeDesc = new NodeDesc();
+					nodeDesc.classFigure = classFigure;
+					nodeDesc.eObject = eContentRoot;
+					nodeDesc.eObjectId = eContentRootId;
+					nodeDesc.iconPath = iconPath;
+					nodeDesc.validationDecoratorIconPath = getValidationDecoratorIconPath(
+							eContentRoot, monitor);
+					nodes.add(nodeDesc);
+					nodesMap.put(eContentRoot, nodeDesc);
+
+					// Nested figures EReferences browsing
+					for (EReference eReference : classFigure
+							.getNestedFiguresEReferences()) {
+						List<EObject> targetEObjects = getTargetRefEObjects(
+								eContentRoot, eReference);
+						// Nested figures generation
+						for (EObject targetEObject : targetEObjects) {
+							processEObject(targetEObject, monitor);
+						}
 					}
-				}
 
-				// Node description creation and registration
-				NodeDesc nodeDesc = new NodeDesc();
-				nodeDesc.classFigure = classFigure;
-				nodeDesc.eObject = eContentRoot;
-				nodeDesc.eObjectId = eContentRootId;
-				nodeDesc.iconPath = iconPath;
-				nodeDesc.validationDecoratorIconPath = validationDecoratorIconPath != null ? validationDecoratorIconPath
-						: null;
-				nodes.add(nodeDesc);
-				nodesMap.put(eContentRoot, nodeDesc);
-
-				// Nested figures EReferences browsing
-				for (EReference eReference : classFigure
-						.getNestedFiguresEReferences()) {
-					List<EObject> targetEObjects = getTargetRefEObjects(
-							eContentRoot, eReference);
-					// Nested figures generation
-					for (EObject targetEObject : targetEObjects) {
-						processEObject(targetEObject, monitor);
-					}
-				}
-
-				// EReferences browsing
-				List<ReferenceFigure> refFigures = classFigure
-						.getReferenceFigures();
-				for (ReferenceFigure referenceFigure : refFigures) {
-					EReference eReference = referenceFigure.getEReference();
-					List<EObject> targetEObjects = getTargetRefEObjects(
-							eContentRoot, eReference);
-					// Edges figures generation
-					for (EObject targetEObject : targetEObjects) {
-						String targetEObjectId = processEObject(targetEObject,
-								monitor);
-						// the target EObject Id may hav not been built if the
-						// target EObject's Eclass
-						// is not associated to a ClassFigure.
-						if (targetEObjectId != null) {
-							EdgeDesc edgeDesc = new EdgeDesc();
-							edgeDesc.referenceFigure = referenceFigure;
-							edgeDesc.srcEObjectId = eContentRootId;
-							edgeDesc.srcEObject = eContentRoot;
-							edgeDesc.targetEObjectId = targetEObjectId;
-							edgeDesc.targetEObject = targetEObject;
-							edges.add(edgeDesc);
+					// EReferences browsing
+					List<ReferenceFigure> refFigures = classFigure
+							.getReferenceFigures();
+					for (ReferenceFigure referenceFigure : refFigures) {
+						// Simple reference case
+						if (!(referenceFigure instanceof AssociationFigure)) {
+							List<EObject> targetEObjects = getTargetRefEObjects(
+									eContentRoot, referenceFigure.getEReference());
+							processReferenceTargetEObjects(referenceFigure,
+									eContentRoot, eContentRootId, targetEObjects,
+									null, null, null, null, monitor);
+						}
+						// Association case
+						else {
+							AssociationFigure associationFigure = (AssociationFigure) referenceFigure;
+							EReference eReference = associationFigure
+									.getEReference();
+							List<EObject> associationEClassInstances = getTargetRefEObjects(
+									eContentRoot, eReference);
+							for (EObject associationEClassInstance : associationEClassInstances) {
+								// Check if the EObject has to be hidden
+								if (!mustHide(associationEClassInstance)) {
+									// If not, the association instance is processed
+									List<EObject> targetEObjects = getTargetRefEObjects(
+											associationEClassInstance,
+											associationFigure.getTargetEReference());
+									// Labels value retrieval
+									String srcLabel = eGetToString(
+											associationEClassInstance,
+											associationFigure
+													.getSourceLabelEAttribute());
+									String stdLabel = eGetToString(
+											associationEClassInstance,
+											associationFigure
+													.getStandardLabelEAttribute());
+									String targetLabel = eGetToString(
+											associationEClassInstance,
+											associationFigure
+													.getTargetLabelEAttribute());
+									// Association instance validation
+									String validationDecoratorIconPath = getValidationDecoratorIconPath(
+											associationEClassInstance, monitor);
+									processReferenceTargetEObjects(referenceFigure,
+											eContentRoot, eContentRootId,
+											targetEObjects, srcLabel, stdLabel,
+											targetLabel, validationDecoratorIconPath,
+											monitor);
+								}
+							}
 						}
 					}
 				}
 			}
 		}
 		return eContentRootId;
+	}
+
+	/**
+	 * @param eObject
+	 *            the eObject to validate.
+	 * @param monitor
+	 *            the progress monitor.
+	 * @return the validation decorator icon path.
+	 */
+	private String getValidationDecoratorIconPath(EObject eObject,
+			IProgressMonitor monitor) {
+		boolean addValidationDecorators = (diagnostician != null);
+		String validationDecoratorIconPath = null;
+		if (addValidationDecorators) {
+			Diagnostic diagnostic = diagnostician.validate(eObject);
+			switch (diagnostic.getSeverity()) {
+			case Diagnostic.ERROR:
+				validationDecoratorIconPath = findAndSavePluginIcon("error",
+						monitor);
+				break;
+			case Diagnostic.WARNING:
+				validationDecoratorIconPath = findAndSavePluginIcon("warning",
+						monitor);
+				break;
+			}
+		}
+		return validationDecoratorIconPath;
+	}
+
+	/**
+	 * @param eObject
+	 *            the eObject to read the feature from.
+	 * @param feature
+	 *            the feature to read.
+	 * @return the eObject's feature value turned into string.
+	 */
+	private static String eGetToString(EObject eObject,
+			EStructuralFeature feature) {
+		String result = null;
+		if (eObject != null && feature != null) {
+			Object objectResult = eObject.eGet(feature);
+			if (objectResult != null) {
+				result = String.valueOf(objectResult);
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Processes an ERefence target eObjects.
+	 * 
+	 * @param figure
+	 *            the reference figure.
+	 * @param srcEObject
+	 *            the source eObject.
+	 * @param srcEObjectId
+	 *            the source eObject identifier.
+	 * @param targetEObjects
+	 *            the target EObjects list.
+	 * @param srcLabel
+	 *            the source label to apply to the edge.
+	 * @param stdLabel
+	 *            the standard label to apply to the edge.
+	 * @param targetLabel
+	 *            the target label to apply to the edge.
+	 * @param monitor
+	 *            the progress monitor.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
+	private void processReferenceTargetEObjects(ReferenceFigure figure,
+			EObject srcEObject, String srcEObjectId,
+			List<EObject> targetEObjects, String srcLabel, String stdLabel,
+			String targetLabel, String validationDecoratorIconPath,
+			IProgressMonitor monitor) throws CoreException {
+		// Edges figures generation
+		for (EObject targetEObject : targetEObjects) {
+			String targetEObjectId = processEObject(targetEObject, monitor);
+			// the target EObject Id may hav not been built if the
+			// target EObject's Eclass
+			// is not associated to a ClassFigure.
+			if (targetEObjectId != null) {
+				EdgeDesc edgeDesc = new EdgeDesc();
+				edgeDesc.referenceFigure = figure;
+				edgeDesc.srcEObjectId = srcEObjectId;
+				edgeDesc.srcEObject = srcEObject;
+				edgeDesc.targetEObjectId = targetEObjectId;
+				edgeDesc.targetEObject = targetEObject;
+				edgeDesc.srcLabel = srcLabel;
+				edgeDesc.stdLabel = stdLabel;
+				edgeDesc.targetLabel = targetLabel;
+				edgeDesc.validationDecoratorIconPath = validationDecoratorIconPath;
+				edges.add(edgeDesc);
+			}
+		}
 	}
 
 	/**
@@ -619,6 +772,44 @@ public class GVSourceAndDependenciesBuilder {
 		out.print(referenceFigure.getSourceArrowType().equals(ArrowType.CUSTOM) ? referenceFigure
 				.getCustomSourceArrow() : referenceFigure.getSourceArrowType()
 				.toString());
+		if (edgeDesc.srcLabel != null) {
+			out.print(", taillabel=\"");
+			out.print(toHtmlString(edgeDesc.srcLabel));
+			out.print("\"");
+		}
+		// Start of the centered label
+		if (edgeDesc.stdLabel != null
+				|| edgeDesc.validationDecoratorIconPath != null) {
+			out.print(", label=<");
+			out.println("\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"0\"><TR>");
+			if (edgeDesc.stdLabel != null) {
+				out.print("<TD>");
+				out.print(toHtmlString(edgeDesc.stdLabel));
+				out.print("</TD>");
+			}
+			if (edgeDesc.validationDecoratorIconPath != null) {
+				out.print("\t\t<TD><IMG SCALE=\"FALSE\" SRC=\"");
+				out.print(edgeDesc.validationDecoratorIconPath);
+				out.println("\"/></TD>");
+			}
+			out.print("</TR></TABLE>>");
+		}
+		if (edgeDesc.targetLabel != null) {
+			out.print(", headlabel=\"");
+			out.print(toHtmlString(edgeDesc.targetLabel));
+			out.print("\"");
+		}
+		out.print(", minlen=");
+		out.print(referenceFigure.getMinimumEdgeLength());
+		if (referenceFigure instanceof AssociationFigure) {
+			AssociationFigure associationFigure = (AssociationFigure) referenceFigure;
+			out.print(", labeldistance=");
+			out.print(String.valueOf(associationFigure.getLabelDistance())
+					.replace(',', '.'));
+			out.print(", labelangle=");
+			out.print(String.valueOf(associationFigure.getLabelAngle())
+					.replace(',', '.'));
+		}
 		out.print(", color=\"");
 		out.print(ColorsHelper.toHtmlColor(referenceFigure.getColor()));
 		out.print("\"");
@@ -1056,5 +1247,17 @@ class EdgeDesc {
 
 	/** Target EObject */
 	EObject targetEObject;
+
+	/** Source label */
+	String srcLabel;
+
+	/** Standard label */
+	String stdLabel;
+
+	/** Target label */
+	String targetLabel;
+
+	/** Validation decorator icon path */
+	String validationDecoratorIconPath;
 
 }

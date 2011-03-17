@@ -40,7 +40,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -53,11 +52,8 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -71,7 +67,7 @@ import org.emftools.emf2gv.processor.ui.util.EMFModelElementSectionDialog;
 /**
  * Emf2gv launch configuration main tab.
  */
-public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
+public class EMF2GvLaunchConfigMainTab extends AbstractEMF2GvLaunchConfigTab {
 
 	/**
 	 * Viewer filter used to filter the .classpath & .project resources.
@@ -291,13 +287,20 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		}
 	}
 
+	/**
+	 * @return the graphical description text.
+	 */
+	public Text getGraphDescText() {
+		return graphDescText;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getName()
 	 */
 	public String getName() {
-		return "EMF To Graphviz";
+		return "Main";
 	}
 
 	/*
@@ -584,78 +587,6 @@ public class EMF2GvLaunchConfigMainTab extends AbstractLaunchConfigurationTab {
 		if (processAllResourceContents) {
 			selectedElementUriFragmentText.setText("");
 		}
-	}
-
-	/**
-	 * Creates a group.
-	 * 
-	 * @param parent
-	 *            the parent composite.
-	 * @param name
-	 *            the group's name.
-	 * @param columnNb
-	 *            the number of columns in the grid.
-	 * @return the created group.
-	 */
-	private Group createGroup(Composite parent, String name, int columnNb) {
-		Group group = new Group(parent, SWT.NONE);
-		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		group.setLayout(new GridLayout(columnNb, false));
-		group.setText(name);
-		return group;
-	}
-
-	/**
-	 * Creates a text field.
-	 * 
-	 * @param parent
-	 *            the parent composite.
-	 * @return the created text field.
-	 */
-	private Text createText(Composite parent) {
-		Text text = new Text(parent, SWT.BORDER);
-		text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		text.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				updateLaunchConfigurationDialog();
-			}
-		});
-		return text;
-	}
-
-	/**
-	 * Creates a browse button.
-	 * 
-	 * @param parent
-	 *            the parent composite.
-	 * @param buttonListener
-	 *            the listener.
-	 * @return the created button.
-	 */
-	private Button createBrowseButton(Composite parent,
-			SelectionListener buttonListener) {
-		return createButton(parent, "Browse...", buttonListener);
-	}
-
-	/**
-	 * Creates a button.
-	 * 
-	 * @param parent
-	 *            the parent composite.
-	 * @param label
-	 *            the label to use.
-	 * @param buttonListener
-	 *            the listener.
-	 * @return the created button.
-	 */
-	private Button createButton(Composite parent, String label,
-			SelectionListener buttonListener) {
-		Button button = new Button(parent, SWT.NONE);
-		button.setText(label);
-		if (buttonListener != null) {
-			button.addSelectionListener(buttonListener);
-		}
-		return button;
 	}
 
 	/**

@@ -51,7 +51,10 @@ public class EMF2GvLaunchConfigTabGroup extends
 	 * .debug.ui.ILaunchConfigurationDialog, java.lang.String)
 	 */
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
-		setTabs(new ILaunchConfigurationTab[] { new EMF2GvLaunchConfigMainTab() });
+		EMF2GvLaunchConfigMainTab mainTab = new EMF2GvLaunchConfigMainTab();
+		EMF2GvLaunchConfigHideNodesTab hideNodesTab = new EMF2GvLaunchConfigHideNodesTab(
+				mainTab);
+		setTabs(new ILaunchConfigurationTab[] { mainTab, hideNodesTab });
 	}
 
 }

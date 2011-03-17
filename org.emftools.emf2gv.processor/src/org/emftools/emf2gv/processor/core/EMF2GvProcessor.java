@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -42,19 +43,18 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eclipse.ocl.ecore.Constraint;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.util.GraphdescGenerator;
 import org.emftools.emf2gv.processor.Activator;
+import org.emftools.emf2gv.util.EMFHelper;
 import org.emftools.emf2gv.util.IOHelper;
 
 /**
@@ -86,6 +86,8 @@ public class EMF2GvProcessor {
 	 *            to be kept.
 	 * @param gvSourceEnconding
 	 *            the encoding to use for the generated graphviz source file.
+	 * @param hideNodeExpressions
+	 *            the boolean OCL expressions allowing to hide nodes.
 	 * @param monitor
 	 *            a progress monitor.
 	 * 
@@ -97,15 +99,17 @@ public class EMF2GvProcessor {
 			IPath graphDescPath, IPath targetImagePath,
 			EMF2GvProcessorCallback eMF2GvProcessorCallback, String dotCommand,
 			boolean addValidationDecorators, boolean keepGeneratedGvFile,
-			String gvSourceEnconding, IProgressMonitor monitor)
-			throws CoreException {
+			String gvSourceEnconding,
+			Map<EClass, Constraint> hideNodeExpressions,
+			IProgressMonitor monitor) throws CoreException {
 
 		/**
 		 * Model file loading and validation
 		 */
 		ResourceSet rs = new ResourceSetImpl();
 		rs.setPackageRegistry(EPackage.Registry.INSTANCE);
-		Resource modelRes = loadEMFResource(rs, modelPath, false, monitor);
+		Resource modelRes = EMFHelper.loadEMFResource(rs, modelPath, false,
+				monitor);
 
 		/**
 		 * Graphdesc file loading or generation
@@ -132,8 +136,8 @@ public class EMF2GvProcessor {
 		 * If the Graphdesc file path is specified, it is loaded
 		 */
 		else {
-			Resource graphDescRes = loadEMFResource(new ResourceSetImpl(),
-					graphDescPath, true, monitor);
+			Resource graphDescRes = EMFHelper.loadEMFResource(
+					new ResourceSetImpl(), graphDescPath, true, monitor);
 			figureDesc = (GVFigureDescription) graphDescRes.getContents()
 					.get(0);
 		}
@@ -153,7 +157,8 @@ public class EMF2GvProcessor {
 		 * URI Fragment processing and GraphViz source build.
 		 */
 		GVSourceAndDependenciesBuilder gvSourceBuilder = new GVSourceAndDependenciesBuilder(
-				figureDesc, outputFolder, addValidationDecorators);
+				figureDesc, outputFolder, addValidationDecorators,
+				hideNodeExpressions);
 		if (modelUriFragment == null || "".equals(modelUriFragment.trim())) {
 			gvSourceBuilder.process(modelRes.getContents(), monitor);
 		} else {
@@ -316,57 +321,6 @@ public class EMF2GvProcessor {
 					Activator.PLUGIN_ID, -1,
 					"Unexpected error while running Graphviz 'dot' utility", e));
 		}
-	}
-
-	/**
-	 * Loads a given EMF resource.
-	 * 
-	 * @param rs
-	 *            the resource set.
-	 * @param path
-	 *            the resource path.
-	 * @param validate
-	 *            a boolean indicating if the resource must be validated.
-	 * @param monitor
-	 *            the progress monitor.
-	 * @return the EMF resource.
-	 * @throws CoreException
-	 *             thrown if an unexpected eroor occurs.
-	 */
-	private static Resource loadEMFResource(ResourceSet rs, IPath path,
-			boolean validate, IProgressMonitor monitor) throws CoreException {
-		monitor.beginTask("Loading " + path, 2);
-		URI uri = URI.createPlatformResourceURI(path.toPortableString(), true);
-		Resource emfResource = rs.getResource(uri, true);
-		monitor.worked(1);
-		if (validate) {
-			IStatus status = validate(emfResource);
-			if (!status.isOK()) {
-				throw new CoreException(status);
-			}
-		}
-		monitor.worked(2);
-		return emfResource;
-	}
-
-	/**
-	 * Validates an EMF resource.
-	 * 
-	 * @param emfResource
-	 *            the resource to validate.
-	 * @return the validation status.
-	 */
-	private static IStatus validate(Resource emfResource) {
-		Diagnostician diagnostician = new Diagnostician();
-		TreeIterator<EObject> iterator = emfResource.getAllContents();
-		BasicDiagnostic diagnostic = new BasicDiagnostic(
-				EObjectValidator.DIAGNOSTIC_SOURCE, 0, emfResource.getURI()
-						.toString() + " has validation errors", emfResource
-						.getContents().toArray());
-		while (iterator.hasNext()) {
-			diagnostic.add(diagnostician.validate(iterator.next()));
-		}
-		return BasicDiagnostic.toIStatus(diagnostic);
 	}
 
 }

@@ -70,6 +70,33 @@ public class EMF2GvLaunchConfigHelper {
 	 */
 	private static final String ADD_VALIDATION_DECORATORS = "addValidationDecorators";
 
+	/** EPackage associated to an expression that is used to hide nodes */
+	private static final String HIDE_NODE_EXPRESSION_EPACKAGE = "hideNodeExpressionEPackage";
+
+	/**
+	 * Index of the EPackage attribute associated to an expression that is used
+	 * to hide nodes
+	 */
+	public static final int HIDE_NODE_EXPRESSION_EPACKAGE_IDX = 0;
+
+	/** EClass associated to an expression that is used to hide nodes */
+	private static final String HIDE_NODE_EXPRESSION_ECLASS = "hideNodeExpressionEClass";
+
+	/**
+	 * Index of the EClass attribute associated to an expression that is used to
+	 * hide nodes
+	 */
+	public static final int HIDE_NODE_EXPRESSION_ECLASS_IDX = 1;
+
+	/** Value of an expression that is used to hide nodes */
+	private static final String HIDE_NODE_EXPRESSION_VALUE = "hideNodeExpressionValue";
+
+	/** Index of the value attribute of an expression that is used to hide nodes */
+	public static final int HIDE_NODE_EXPRESSION_VALUE_IDX = 2;
+
+	/** Number of expressions that are used to hide nodes */
+	private static final String HIDE_NODE_EXPRESSIONS_COUNT = "hideNodeExpressionsCount";
+
 	/**
 	 * @param cfg
 	 *            the launch configuration.
@@ -301,6 +328,52 @@ public class EMF2GvLaunchConfigHelper {
 	public static void setAddValidationDecorators(
 			ILaunchConfigurationWorkingCopy cfg, boolean value) {
 		cfg.setAttribute(ADD_VALIDATION_DECORATORS, value);
+	}
+
+	/**
+	 * @param cfg
+	 *            the launch configuration.
+	 * @return the expressions used to hide nodes.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
+	 */
+	public static String[][] getHideNodeExpressions(ILaunchConfiguration cfg)
+			throws CoreException {
+		int expressionCount = cfg.getAttribute(HIDE_NODE_EXPRESSIONS_COUNT, 0);
+		String[][] expressions = new String[expressionCount][3];
+		for (int i = 0; i < expressionCount; i++) {
+			String[] expression = expressions[i];
+			expression[HIDE_NODE_EXPRESSION_EPACKAGE_IDX] = cfg.getAttribute(
+					HIDE_NODE_EXPRESSION_EPACKAGE + "." + i, "");
+			expression[HIDE_NODE_EXPRESSION_ECLASS_IDX] = cfg.getAttribute(
+					HIDE_NODE_EXPRESSION_ECLASS + "." + i, "");
+			expression[HIDE_NODE_EXPRESSION_VALUE_IDX] = cfg.getAttribute(
+					HIDE_NODE_EXPRESSION_VALUE + "." + i, "");
+		}
+		return expressions;
+	}
+
+	/**
+	 * Save the expressions used to hide nodes in the configuration.
+	 * 
+	 * @param cfg
+	 *            the launch configuration.
+	 * @param expressions
+	 *            the expressions.
+	 */
+	public static void setHideNodeExpressions(
+			ILaunchConfigurationWorkingCopy cfg, String[][] expressions) {
+		int expressionCount = expressions.length;
+		cfg.setAttribute(HIDE_NODE_EXPRESSIONS_COUNT, expressionCount);
+		for (int i = 0; i < expressionCount; i++) {
+			String[] expression = expressions[i];
+			cfg.setAttribute(HIDE_NODE_EXPRESSION_EPACKAGE + "." + i,
+					expression[HIDE_NODE_EXPRESSION_EPACKAGE_IDX]);
+			cfg.setAttribute(HIDE_NODE_EXPRESSION_ECLASS + "." + i,
+					expression[HIDE_NODE_EXPRESSION_ECLASS_IDX]);
+			cfg.setAttribute(HIDE_NODE_EXPRESSION_VALUE + "." + i,
+					expression[HIDE_NODE_EXPRESSION_VALUE_IDX]);
+		}
 	}
 
 }
