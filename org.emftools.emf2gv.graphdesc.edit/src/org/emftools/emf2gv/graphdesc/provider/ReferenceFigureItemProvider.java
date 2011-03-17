@@ -99,18 +99,33 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			// Model properties
 			addColorPropertyDescriptor(object);
 			addStylePropertyDescriptor(object);
-			addEReferencePropertyDescriptor(object);
-			addTargetArrowTypePropertyDescriptor(object);
-			addCustomTargetArrowPropertyDescriptor(object);
 			addSourceArrowTypePropertyDescriptor(object);
 			addCustomSourceArrowPropertyDescriptor(object);
-			addContainmentPropertyDescriptor(object);
+			addTargetArrowTypePropertyDescriptor(object);
+			addCustomTargetArrowPropertyDescriptor(object);
+			addMinimumEdgeLengthPropertyDescriptor(object);
+
+			// Model properties
+			addEReferencePropertyDescriptor(object);
+			addTargetETypePropertyDescriptor(object);
 		}
+		// Filtering of the property descriptors (custom arrow type are hidden 
+		// if not required)
+		return getFilteredPropertyDescriptors((ReferenceFigure) object);
+	}
+
+	/**
+	 * Remove the custom arrow property descriptors if required.
+	 * @param object the reference figure.
+	 * @return the filtered property descriptors.
+	 * @generated NOT
+	 */
+	protected List<IItemPropertyDescriptor> getFilteredPropertyDescriptors(ReferenceFigure figure) {
 		// Custom arrow fields are shown only if the corresponding types are set to 'custom'
 		List<IItemPropertyDescriptor> result = null;
-		ReferenceFigure figure = (ReferenceFigure) object;
 		boolean customTargetArrowType = figure.getTargetArrowType().equals(ArrowType.CUSTOM); 
 		boolean customSourceArrowType = figure.getSourceArrowType().equals(ArrowType.CUSTOM); 
 		if (customSourceArrowType && customTargetArrowType) {
@@ -128,7 +143,7 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 		}
 		return result;
 	}
-
+	
 	/**
 	 * This adds a property descriptor for the EReference feature. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
@@ -210,28 +225,6 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 				return sourceArrowTypeItemLabelProvider;
 			}
 		});
-	}
-
-	/**
-	 * This adds a property descriptor for the Containment feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addContainmentPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ReferenceFigure_containment_feature"),
-				 getString("_UI_ReferenceFigure_containment_description"),
-				 GraphdescPackage.Literals.REFERENCE_FIGURE__CONTAINMENT,
-				 false,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_ModelPropertyCategory"),
-				 null));
 	}
 
 	/**
@@ -353,6 +346,50 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Target EType feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTargetETypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ReferenceFigure_targetEType_feature"),
+				 getString("_UI_ReferenceFigure_targetEType_description"),
+				 GraphdescPackage.Literals.REFERENCE_FIGURE__TARGET_ETYPE,
+				 false,
+				 false,
+				 false,
+				 null,
+				 getString("_UI_ModelPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Minimum Edge Length feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMinimumEdgeLengthPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ReferenceFigure_minimumEdgeLength_feature"),
+				 getString("_UI_ReferenceFigure_minimumEdgeLength_description"),
+				 GraphdescPackage.Literals.REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null));
+	}
+
+	/**
 	 * This returns ReferenceFigure.gif.
 	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -406,6 +443,7 @@ public class ReferenceFigureItemProvider extends AbstractFigureItemProvider
 			case GraphdescPackage.REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW:
 			case GraphdescPackage.REFERENCE_FIGURE__COLOR:
 			case GraphdescPackage.REFERENCE_FIGURE__STYLE:
+			case GraphdescPackage.REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

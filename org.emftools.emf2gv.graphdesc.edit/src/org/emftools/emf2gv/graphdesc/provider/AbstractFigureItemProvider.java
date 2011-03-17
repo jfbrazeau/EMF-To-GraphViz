@@ -77,7 +77,17 @@ public class AbstractFigureItemProvider
 		 */
 		public int compare(ENamedElement eNamedElement1,
 				ENamedElement eNamedElement2) {
-			return eNamedElement1.getName().compareTo(eNamedElement2.getName());
+			if (eNamedElement1 == null) {
+				if (eNamedElement2 == null) {
+					return 0;
+				}
+				else {
+					return -1;
+				}
+			}
+			else {
+				return eNamedElement1.getName().compareTo(eNamedElement2.getName());
+			}
 		}
 	};
 	

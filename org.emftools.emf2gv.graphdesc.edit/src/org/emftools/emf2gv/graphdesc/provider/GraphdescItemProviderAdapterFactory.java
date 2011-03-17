@@ -164,6 +164,29 @@ public class GraphdescItemProviderAdapterFactory extends GraphdescAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.emftools.emf2gv.graphdesc.AssociationFigure} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AssociationFigureItemProvider associationFigureItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftools.emf2gv.graphdesc.AssociationFigure}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAssociationFigureAdapter() {
+		if (associationFigureItemProvider == null) {
+			associationFigureItemProvider = new AssociationFigureItemProvider(this);
+		}
+
+		return associationFigureItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.emftools.emf2gv.graphdesc.GVFigureDescription} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -289,6 +312,7 @@ public class GraphdescItemProviderAdapterFactory extends GraphdescAdapterFactory
 		if (classFigureItemProvider != null) classFigureItemProvider.dispose();
 		if (attributeFigureItemProvider != null) attributeFigureItemProvider.dispose();
 		if (referenceFigureItemProvider != null) referenceFigureItemProvider.dispose();
+		if (associationFigureItemProvider != null) associationFigureItemProvider.dispose();
 	}
 
 }

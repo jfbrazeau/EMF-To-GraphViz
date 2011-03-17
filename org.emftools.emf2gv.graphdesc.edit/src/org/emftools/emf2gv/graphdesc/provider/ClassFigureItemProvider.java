@@ -101,8 +101,7 @@ public class ClassFigureItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addEPackagePropertyDescriptor(object);
-			addEClassPropertyDescriptor(object);
+			// Appearance properties
 			addLabelEAttributePropertyDescriptor(object);
 			addDynamicAppearancePropertyDescriptor(object);
 			addHeaderBackgroundColorPropertyDescriptor(object);
@@ -111,9 +110,15 @@ public class ClassFigureItemProvider
 			addBodyBackgroundColorPropertyDescriptor(object);
 			addDefaultBodyBackgroundColorPropertyDescriptor(object);
 			addBodyBackgroundColorAccessorPropertyDescriptor(object);
+
+			// Container properties
 			addNestedFiguresEReferencesPropertyDescriptor(object);
+
+			// Model properties
+			addEClassPropertyDescriptor(object);
+			addEPackagePropertyDescriptor(object);
 		}
-		// Dynamic color fields managemebt 
+		// Dynamic color fields management 
 		List<IItemPropertyDescriptor> result = new ArrayList<IItemPropertyDescriptor>();
 		result.addAll(itemPropertyDescriptors);
 		ClassFigure figure = (ClassFigure) object;
@@ -197,6 +202,7 @@ public class ClassFigureItemProvider
 				public Collection<?> getChoiceOfValues(Object object) {
 					ClassFigure classFigure = (ClassFigure) object;
 					List<EAttribute> result = new ArrayList<EAttribute>();
+					result.add(null);
 					EClass eClass = classFigure.getEClass();
 					if (eClass != null) {
 						result.addAll(eClass.getEAllAttributes());
@@ -558,6 +564,11 @@ public class ClassFigureItemProvider
 			(createChildParameter
 				(GraphdescPackage.Literals.CLASS_FIGURE__REFERENCE_FIGURES,
 				 GraphdescFactory.eINSTANCE.createReferenceFigure()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GraphdescPackage.Literals.CLASS_FIGURE__REFERENCE_FIGURES,
+				 GraphdescFactory.eINSTANCE.createAssociationFigure()));
 	}
 
 }
