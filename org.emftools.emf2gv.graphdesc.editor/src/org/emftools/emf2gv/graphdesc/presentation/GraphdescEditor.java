@@ -64,7 +64,6 @@ import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
@@ -142,13 +141,18 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySheetEntry;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
+import org.eclipse.ui.views.properties.PropertySheetEntry;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetSorter;
+import org.emftools.emf2gv.graphdesc.AssociationFigure;
+import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.GraphdescPackage;
+import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.presentation.util.GraphdescPropertySourceProvider;
-import org.emftools.emf2gv.graphdesc.provider.GraphdescEditPlugin;
 import org.emftools.emf2gv.graphdesc.provider.GraphdescItemProviderAdapterFactory;
 
 
@@ -1375,30 +1379,81 @@ public class GraphdescEditor
 	public IPropertySheetPage getPropertySheetPage() {
 		if (propertySheetPage == null) {
 			final Map<Integer, Image> colorIcons = new HashMap<Integer, Image>();
-			ResourceLocator rl = GraphdescEditPlugin.INSTANCE;
-			final String appearanceCategory = rl.getString("_UI_AppearancePropertyCategory");
-			final List<String> appearanceProps = new ArrayList<String>();
-			appearanceProps.add(rl.getString("_UI_ClassFigure_labelEAttribute_feature"));
-			appearanceProps.add(rl.getString("_UI_ClassFigure_dynamicAppearance_feature"));
-			appearanceProps.add(rl.getString("_UI_ClassFigure_headerBackgroundColor_feature"));
-			appearanceProps.add(rl.getString("_UI_ClassFigure_headerBackgroundColorAccessor_feature"));
-			appearanceProps.add(rl.getString("_UI_ClassFigure_defaultHeaderBackgroundColor_feature"));
-			appearanceProps.add(rl.getString("_UI_ClassFigure_bodyBackgroundColor_feature"));
-			appearanceProps.add(rl.getString("_UI_ClassFigure_bodyBackgroundColorAccessor_feature"));
-			appearanceProps.add(rl.getString("_UI_ClassFigure_defaultBodyBackgroundColor_feature"));
+			GraphdescPackage pkg = GraphdescPackage.eINSTANCE;
+
+			// Class figure properties order
+			final List<String> classFigureOrderedPropertyIds = new ArrayList<String>();
+			classFigureOrderedPropertyIds.add(pkg.getClassFigure_LabelEAttribute().getName());
+			classFigureOrderedPropertyIds.add(pkg.getClassFigure_DynamicAppearance().getName());
+			classFigureOrderedPropertyIds.add(pkg.getClassFigure_HeaderBackgroundColor().getName());
+			classFigureOrderedPropertyIds.add(pkg.getClassFigure_HeaderBackgroundColorAccessor().getName());
+			classFigureOrderedPropertyIds.add(pkg.getClassFigure_BodyBackgroundColor().getName());
+			classFigureOrderedPropertyIds.add(pkg.getClassFigure_BodyBackgroundColorAccessor().getName());
+
+			// Reference figure properties order
+			final List<String> referenceFigureOrderedPropertyIds = new ArrayList<String>();
+			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_Color().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_Style().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_SourceArrowType().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_CustomSourceArrow().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_TargetArrowType().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_CustomTargetArrow().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_MinimumEdgeLength().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_EReference().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_TargetEType().getName());
+
+			// Association figure properties order
+			final List<String> associationFigureOrderedPropertyIds = new ArrayList<String>();
+			associationFigureOrderedPropertyIds.addAll(referenceFigureOrderedPropertyIds);
+			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_SourceLabelEAttribute().getName());
+			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_StandardLabelEAttribute().getName());
+			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_TargetLabelEAttribute().getName());
+			// Minimum edge length must be removed as it has been added for the reference figure
+			associationFigureOrderedPropertyIds.remove(pkg.getReferenceFigure_MinimumEdgeLength().getName());
+			associationFigureOrderedPropertyIds.add(pkg.getReferenceFigure_MinimumEdgeLength().getName());
+			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_LabelDistance().getName());
+			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_LabelAngle().getName());
+			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_TargetEReference().getName());
+			// Target eType must be removed as it has been added for the reference figure
+			associationFigureOrderedPropertyIds.remove(pkg.getReferenceFigure_TargetEType().getName());
+			associationFigureOrderedPropertyIds.add(pkg.getReferenceFigure_TargetEType().getName());
+			
 			propertySheetPage =
 				new ExtendedPropertySheetPage(editingDomain) {
 					{
+						// Overrides the default sorter (that sorts the properties according to their names)
 						setSorter(new PropertySheetSorter() {
 							@Override
 							public int compare(IPropertySheetEntry entryA,
 									IPropertySheetEntry entryB) {
-								if (appearanceCategory.equals(entryA.getCategory())) {
-									int aIdx = appearanceProps.indexOf(entryA.getDisplayName());
-									int bIdx = appearanceProps.indexOf(entryB.getDisplayName());
-									return Integer.valueOf(aIdx).compareTo(Integer.valueOf(bIdx));
-								}
-								else {
+								CustomPropertySheetEntry entryA1 = (CustomPropertySheetEntry) entryA;
+								Object entryAId = entryA1.getDescriptor().getId();
+								CustomPropertySheetEntry entryA2 = (CustomPropertySheetEntry) entryB;
+								Object entryBId = entryA2.getDescriptor().getId();
+								// Retrieve the parent
+								CustomPropertySheetEntry parentEntry = (CustomPropertySheetEntry) entryA1.getParent();
+								Object[] parentValues = parentEntry.getValues();
+								if (parentValues != null && parentValues.length > 0) {
+									Object parentValue = parentValues[0];
+									List<?> orderedPropertyIds = null;
+									if (parentValue instanceof ClassFigure) {
+										orderedPropertyIds = classFigureOrderedPropertyIds;
+									}
+									else if (parentValue instanceof AssociationFigure) {
+										orderedPropertyIds = associationFigureOrderedPropertyIds;
+									}
+									else if (parentValue instanceof ReferenceFigure) {
+										orderedPropertyIds = referenceFigureOrderedPropertyIds;
+									}
+									if (orderedPropertyIds != null) {
+										int aIdx = orderedPropertyIds.indexOf(entryAId);
+										int bIdx = orderedPropertyIds.indexOf(entryBId);
+										return Integer.valueOf(aIdx).compareTo(
+												Integer.valueOf(bIdx));
+									} else {
+										return super.compare(entryA, entryB);
+									}
+								} else {
 									return super.compare(entryA, entryB);
 								}
 							}
@@ -1421,7 +1476,11 @@ public class GraphdescEditor
 						}
 					};
 				};
-			propertySheetPage.setPropertySourceProvider(new GraphdescPropertySourceProvider(adapterFactory, colorIcons));
+				GraphdescPropertySourceProvider gpsp = new GraphdescPropertySourceProvider(adapterFactory, colorIcons);
+				propertySheetPage.setPropertySourceProvider(gpsp);
+				CustomPropertySheetEntry rootEntry = new CustomPropertySheetEntry();
+				rootEntry.setPropertySourceProvider(gpsp);
+			propertySheetPage.setRootEntry(rootEntry);
 		}
 		return propertySheetPage;
 	}
@@ -1835,5 +1894,20 @@ public class GraphdescEditor
 	 */
 	protected boolean showOutlineView() {
 		return true;
+	}
+}
+
+class CustomPropertySheetEntry extends PropertySheetEntry {
+	@Override
+	protected IPropertyDescriptor getDescriptor() {
+		return super.getDescriptor();
+	}
+	@Override
+	protected PropertySheetEntry createChildEntry() {
+		return new CustomPropertySheetEntry();
+	}
+	@Override
+	protected PropertySheetEntry getParent() {
+		return super.getParent();
 	}
 }
