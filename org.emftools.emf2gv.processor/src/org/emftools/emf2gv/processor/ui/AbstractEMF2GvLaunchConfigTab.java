@@ -42,10 +42,11 @@ import org.eclipse.swt.widgets.Text;
 /**
  * Abstract launch configuration tab.
  */
-public abstract class AbstractEMF2GvLaunchConfigTab extends AbstractLaunchConfigurationTab {
+public abstract class AbstractEMF2GvLaunchConfigTab extends
+		AbstractLaunchConfigurationTab {
 
 	/**
-	 * Creates a group.
+	 * Creates a group (with a <code>FILL_HORIZONTAL</code> style).
 	 * 
 	 * @param parent
 	 *            the parent composite.
@@ -56,8 +57,26 @@ public abstract class AbstractEMF2GvLaunchConfigTab extends AbstractLaunchConfig
 	 * @return the created group.
 	 */
 	protected Group createGroup(Composite parent, String name, int columnNb) {
+		return createGroup(parent, name, columnNb, GridData.FILL_HORIZONTAL);
+	}
+
+	/**
+	 * Creates a group.
+	 * 
+	 * @param parent
+	 *            the parent composite.
+	 * @param name
+	 *            the group's name.
+	 * @param columnNb
+	 *            the number of columns in the grid.
+	 * @param gridDataStyle
+	 *            the grid data style.
+	 * @return the created group.
+	 */
+	protected Group createGroup(Composite parent, String name, int columnNb,
+			int gridDataStyle) {
 		Group group = new Group(parent, SWT.NONE);
-		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		group.setLayoutData(new GridData(gridDataStyle));
 		group.setLayout(new GridLayout(columnNb, false));
 		group.setText(name);
 		return group;

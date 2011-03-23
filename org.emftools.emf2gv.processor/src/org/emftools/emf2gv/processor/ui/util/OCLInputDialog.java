@@ -27,31 +27,36 @@
  */
 package org.emftools.emf2gv.processor.ui.util;
 
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TrayDialog;
+import org.eclipse.jface.text.Document;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 
 /**
- * A multiline input dialog.
+ * An OCL input dialog.
  */
-public class MultiLineInputDialog extends TrayDialog {
+public class OCLInputDialog extends TrayDialog {
 
 	/** The dialog title */
 	private String title;
-
-	/** The text */
-	private Text text;
 
 	/** The dialog value */
 	private String value;
 
 	/** A boolean indicating if the text value must be selected by default */
 	private boolean selectAll;
+
+	/** OCL Input */
+	private OCLSourceViewer input;
+
+	/** The context of the OCL expression */
+	private EClassifier context;
 
 	/**
 	 * Default constructor.
@@ -61,18 +66,21 @@ public class MultiLineInputDialog extends TrayDialog {
 	 *            shell
 	 * @param title
 	 *            the dialog title
+	 * @param context
+	 *            the context of the OCL expression.
 	 * @param initialValue
 	 *            the dialog initial value.
 	 * @param selectAll
 	 *            a boolean indicating if the text value must be selected by
 	 *            default
 	 */
-	public MultiLineInputDialog(Shell shell, String title, String initialValue,
-			boolean selectAll) {
+	public OCLInputDialog(Shell shell, String title, EClassifier context,
+			String initialValue, boolean selectAll) {
 		super(shell);
 		this.title = title;
 		this.value = initialValue;
 		this.selectAll = selectAll;
+		this.context = context;
 	}
 
 	/*
@@ -98,20 +106,18 @@ public class MultiLineInputDialog extends TrayDialog {
 	 */
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
-		text = new Text(composite, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
-				| SWT.BORDER);
+		input = new OCLSourceViewer(composite, SWT.BORDER | SWT.MULTI, context);
+		input.setDocument(new Document(getValue()));
+		StyledText text = input.getTextWidget();
 		GridData data = new GridData(GridData.FILL_HORIZONTAL
 				| GridData.FILL_VERTICAL);
-		data.heightHint = 5 * text.getLineHeight();
-		data.widthHint = convertHorizontalDLUsToPixels(IDialogConstants.ENTRY_FIELD_WIDTH);
+		data.heightHint = 10 * text.getLineHeight();
+		data.widthHint = convertHorizontalDLUsToPixels((int) (IDialogConstants.ENTRY_FIELD_WIDTH * 1.5));
 		text.setLayoutData(data);
-		if (value != null) {
-			text.setText(value);
-		}
+		text.setWordWrap(true);
 		if (selectAll) {
 			text.selectAll();
-		}
-		else {
+		} else {
 			text.setSelection(text.getText().length());
 		}
 		return composite;
@@ -123,7 +129,7 @@ public class MultiLineInputDialog extends TrayDialog {
 	@Override
 	protected void buttonPressed(int buttonId) {
 		if (buttonId == IDialogConstants.OK_ID) {
-			value = text.getText();
+			value = input.getDocument().get();
 		} else {
 			value = null;
 		}

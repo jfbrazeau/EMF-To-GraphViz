@@ -155,8 +155,8 @@ public class GVSourceAndDependenciesBuilder {
 	 */
 	private Diagnostician diagnostician;
 
-	/** Boolean OCL expressions allowing to hide nodes. */
-	private Map<EClass, Constraint> hideNodeExpressions;
+	/** Boolean OCL expressions allowing to filter the nodes. */
+	private Map<EClass, Constraint> filters;
 
 	/** The OCL (lazy instantiation) */
 	private OCL ocl;
@@ -168,21 +168,21 @@ public class GVSourceAndDependenciesBuilder {
 	 *            the figure description.
 	 * @param iconsFolder
 	 *            the folder receiving the PNG icons.
-	 * @param hideNodeExpressions
-	 *            the boolean OCL expressions allowing to hide nodes.
+	 * @param filters
+	 *            the boolean OCL expressions allowing to filter the nodes.
 	 * @param addValidationDecorators
 	 *            a boolean indicating if validation decorators have to be
 	 *            included in the diagram.
 	 */
 	public GVSourceAndDependenciesBuilder(GVFigureDescription figureDesc,
 			IFolder iconsFolder, boolean addValidationDecorators,
-			Map<EClass, Constraint> hideNodeExpressions) {
+			Map<EClass, Constraint> filters) {
 		this.figureDesc = figureDesc;
 		this.adapterFactory = EMFHelper.getAdapterFactory(figureDesc
 				.getEPackages());
 		this.iconsFolder = iconsFolder;
-		this.hideNodeExpressions = hideNodeExpressions == null ? new HashMap<EClass, Constraint>()
-				: hideNodeExpressions;
+		this.filters = filters == null ? new HashMap<EClass, Constraint>()
+				: filters;
 
 		// Diagnostician initialization
 		diagnostician = !addValidationDecorators ? null : new Diagnostician() {
@@ -342,29 +342,29 @@ public class GVSourceAndDependenciesBuilder {
 	/**
 	 * @param eObject
 	 *            the processed eObject.
-	 * @return a boolean indicating if the node must be hidden.
+	 * @return a boolean indicating if the node must be drawn.
 	 */
-	private boolean mustHide(EObject eObject) {
-		boolean mustHide = false;
+	private boolean mustDraw(EObject eObject) {
+		boolean mustShow = true;
 		EClass eClass = eObject.eClass();
 		List<EClass> types = new ArrayList<EClass>();
 		types.add(eClass);
 		types.addAll(eClass.getEAllSuperTypes());
 		for (EClass type : types) {
-			Constraint hideExpression = hideNodeExpressions.get(type);
-			if (hideExpression != null) {
-				mustHide |= getOCL().check(eObject, hideExpression);
+			Constraint filter = filters.get(type);
+			if (filter != null) {
+				mustShow &= getOCL().check(eObject, filter);
 			}
 		}
-		return mustHide;
+		return mustShow;
 	}
-	
+
 	/**
 	 * @return an OCL instance.
 	 */
 	private OCL getOCL() {
 		if (ocl == null) {
-			ocl = OCL.newInstance();
+			ocl = Emf2gvOCLProvider.newOCL();
 		}
 		return ocl;
 	}
@@ -384,7 +384,7 @@ public class GVSourceAndDependenciesBuilder {
 			throws CoreException {
 		String eContentRootId = null;
 		// First, we must check if the node must be hidden
-		if (!mustHide(eContentRoot)) {
+		if (mustDraw(eContentRoot)) {
 			// If not we can process the node normally
 			eContentRootId = eObjectIdsCache.get(eContentRoot);
 			if (eContentRootId == null) {
@@ -398,7 +398,8 @@ public class GVSourceAndDependenciesBuilder {
 					eObjectIdsCache.put(eContentRoot, eContentRootId);
 
 					// EObject icon retrieval
-					String iconPath = findAndSaveEObjectIcon(eContentRoot, monitor);
+					String iconPath = findAndSaveEObjectIcon(eContentRoot,
+							monitor);
 
 					// Node description creation and registration
 					NodeDesc nodeDesc = new NodeDesc();
@@ -429,10 +430,12 @@ public class GVSourceAndDependenciesBuilder {
 						// Simple reference case
 						if (!(referenceFigure instanceof AssociationFigure)) {
 							List<EObject> targetEObjects = getTargetRefEObjects(
-									eContentRoot, referenceFigure.getEReference());
+									eContentRoot,
+									referenceFigure.getEReference());
 							processReferenceTargetEObjects(referenceFigure,
-									eContentRoot, eContentRootId, targetEObjects,
-									null, null, null, null, monitor);
+									eContentRoot, eContentRootId,
+									targetEObjects, null, null, null, null,
+									monitor);
 						}
 						// Association case
 						else {
@@ -443,11 +446,13 @@ public class GVSourceAndDependenciesBuilder {
 									eContentRoot, eReference);
 							for (EObject associationEClassInstance : associationEClassInstances) {
 								// Check if the EObject has to be hidden
-								if (!mustHide(associationEClassInstance)) {
-									// If not, the association instance is processed
+								if (mustDraw(associationEClassInstance)) {
+									// If not, the association instance is
+									// processed
 									List<EObject> targetEObjects = getTargetRefEObjects(
 											associationEClassInstance,
-											associationFigure.getTargetEReference());
+											associationFigure
+													.getTargetEReference());
 									// Labels value retrieval
 									String srcLabel = eGetToString(
 											associationEClassInstance,
@@ -464,10 +469,11 @@ public class GVSourceAndDependenciesBuilder {
 									// Association instance validation
 									String validationDecoratorIconPath = getValidationDecoratorIconPath(
 											associationEClassInstance, monitor);
-									processReferenceTargetEObjects(referenceFigure,
-											eContentRoot, eContentRootId,
-											targetEObjects, srcLabel, stdLabel,
-											targetLabel, validationDecoratorIconPath,
+									processReferenceTargetEObjects(
+											referenceFigure, eContentRoot,
+											eContentRootId, targetEObjects,
+											srcLabel, stdLabel, targetLabel,
+											validationDecoratorIconPath,
 											monitor);
 								}
 							}

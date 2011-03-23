@@ -86,8 +86,8 @@ public class EMF2GvProcessor {
 	 *            to be kept.
 	 * @param gvSourceEnconding
 	 *            the encoding to use for the generated graphviz source file.
-	 * @param hideNodeExpressions
-	 *            the boolean OCL expressions allowing to hide nodes.
+	 * @param filters
+	 *            the boolean OCL expressions allowing to filter the nodes.
 	 * @param monitor
 	 *            a progress monitor.
 	 * 
@@ -100,7 +100,7 @@ public class EMF2GvProcessor {
 			EMF2GvProcessorCallback eMF2GvProcessorCallback, String dotCommand,
 			boolean addValidationDecorators, boolean keepGeneratedGvFile,
 			String gvSourceEnconding,
-			Map<EClass, Constraint> hideNodeExpressions,
+			Map<EClass, Constraint> filters,
 			IProgressMonitor monitor) throws CoreException {
 
 		/**
@@ -158,7 +158,7 @@ public class EMF2GvProcessor {
 		 */
 		GVSourceAndDependenciesBuilder gvSourceBuilder = new GVSourceAndDependenciesBuilder(
 				figureDesc, outputFolder, addValidationDecorators,
-				hideNodeExpressions);
+				filters);
 		if (modelUriFragment == null || "".equals(modelUriFragment.trim())) {
 			gvSourceBuilder.process(modelRes.getContents(), monitor);
 		} else {

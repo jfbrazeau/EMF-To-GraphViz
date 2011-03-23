@@ -89,14 +89,14 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.processor.Activator;
-import org.emftools.emf2gv.processor.ui.util.MultiLineInputDialog;
+import org.emftools.emf2gv.processor.core.Emf2gvOCLProvider;
+import org.emftools.emf2gv.processor.ui.util.OCLInputDialog;
 import org.emftools.emf2gv.util.EMFHelper;
 
 /**
- * Emf2gv launch configuration tab containing options to show/hide conditions.
+ * Emf2gv launch configuration tab containing filter conditions.
  */
-public class EMF2GvLaunchConfigHideNodesTab extends
-		AbstractEMF2GvLaunchConfigTab {
+public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab {
 
 	/** Adapter factory label provider */
 	private AdapterFactoryLabelProvider adapterFactoryLabelProvider = new AdapterFactoryLabelProvider(
@@ -127,7 +127,7 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 	private Button removeButton;
 
 	/** The OCL Helper instance */
-	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHhelper;
+	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper;
 
 	/**
 	 * Default constructor.
@@ -135,7 +135,7 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 	 * @param mainTab
 	 *            the main tab.
 	 */
-	public EMF2GvLaunchConfigHideNodesTab(EMF2GvLaunchConfigMainTab mainTab) {
+	public EMF2GvLaunchConfigFiltersTab(EMF2GvLaunchConfigMainTab mainTab) {
 		this.mainTab = mainTab;
 	}
 
@@ -153,25 +153,26 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 		comp.setFont(parent.getFont());
 
 		// Entry fields creation
-		createHideNodesGroup(comp);
+		createFiltersGroup(comp);
 	}
 
 	/**
-	 * Creates the group allowing to select "Hide" options.
+	 * Creates the group containing the filter options.
 	 * 
 	 * @param parent
 	 *            the parent composite.
 	 */
-	private void createHideNodesGroup(Composite parent) {
-		Group group = createGroup(parent, "Hide Nodes", 2);
+	private void createFiltersGroup(Composite parent) {
+		Group group = createGroup(parent, "Filter definitions", 2,
+				GridData.FILL_BOTH);
 
 		// Table initialization
 		Table table = new Table(group, SWT.FULL_SELECTION | SWT.BORDER);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.verticalSpan = 3;
-		gd.heightHint = 300;
+		gd.heightHint = 150;
 		gd.grabExcessHorizontalSpace = true;
 		gd.grabExcessVerticalSpace = true;
 		table.setLayoutData(gd);
@@ -195,13 +196,12 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 
 		// Columns configuration
 		TableColumn eClassColumn = new TableColumn(table, SWT.LEFT);
-		eClassColumn.setText("EClass");
+		eClassColumn.setText("Filtered EClass");
 		eClassColumn.setWidth(150);
 		TableColumn expressionColumn = new TableColumn(table, SWT.LEFT);
-		expressionColumn.setText("Boolean expression");
+		expressionColumn
+				.setText("Draw if the following OCL condition is checked");
 		expressionColumn.setWidth(290);
-		eClassesTableViewer.setColumnProperties(new String[] { "EClass",
-				"Expression" });
 
 		// Buttons creation
 		newButton = createButton(group, "New...", new SelectionAdapter() {
@@ -241,7 +241,6 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 
 		// Table viewer model initialization
 		eClassesTableViewer.setInput(expressions);
-
 	}
 
 	/**
@@ -275,8 +274,7 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 		if (isValid) {
 			try {
 				authorizedEClasses = getAuthorizedEClasses();
-			}
-			catch (CoreException e) {
+			} catch (CoreException e) {
 				isValid = false;
 				setErrorMessage("The graphical description file does not seem to be valid");
 			}
@@ -319,11 +317,11 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 	 * @return an OCL Helper instance.
 	 */
 	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> getOCLHelper() {
-		if (oclHhelper == null) {
-			OCL ocl = OCL.newInstance();
-			oclHhelper = ocl.createOCLHelper();
+		if (oclHelper == null) {
+			OCL ocl = Emf2gvOCLProvider.newOCL();
+			oclHelper = ocl.createOCLHelper();
 		}
-		return oclHhelper;
+		return oclHelper;
 	}
 
 	/**
@@ -361,10 +359,9 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 				if (!selection.isEmpty()) {
 					EClass eClass = (EClass) selection.getFirstElement();
 					String oldExpression = expressions.get(eClass);
-					MultiLineInputDialog inputDialog = new MultiLineInputDialog(
-							PlatformUI.getWorkbench().getDisplay()
-									.getActiveShell(),
-							"Edit a boolean OCL expression editor",
+					OCLInputDialog inputDialog = new OCLInputDialog(PlatformUI
+							.getWorkbench().getDisplay().getActiveShell(),
+							"Edit a boolean OCL expression editor", eClass,
 							oldExpression, false);
 					if (inputDialog.open() == Window.OK) {
 						String newExpression = inputDialog.getValue();
@@ -418,10 +415,10 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 				labelProvider.dispose();
 				if (result == Window.OK) {
 					EClass eClass = (EClass) dialog.getFirstResult();
-					MultiLineInputDialog inputDialog = new MultiLineInputDialog(
-							PlatformUI.getWorkbench().getDisplay()
-									.getActiveShell(),
-							"New boolean OCL expression editor", "true", true);
+					OCLInputDialog inputDialog = new OCLInputDialog(PlatformUI
+							.getWorkbench().getDisplay().getActiveShell(),
+							"New boolean OCL expression editor", eClass,
+							"true", true);
 					if (inputDialog.open() == Window.OK) {
 						expressions.put(eClass, inputDialog.getValue());
 						eClassesTableViewer.refresh();
@@ -524,13 +521,13 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
 			String[][] cfgExpressions = EMF2GvLaunchConfigHelper
-					.getHideNodeExpressions(configuration);
+					.getFilterExpressions(configuration);
 			expressions.clear();
 			for (int i = 0; i < cfgExpressions.length; i++) {
 				String[] cfgExpression = cfgExpressions[i];
-				String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_EPACKAGE_IDX];
-				String eClassName = cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_ECLASS_IDX];
-				String expression = cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_VALUE_IDX];
+				String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX];
+				String eClassName = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX];
+				String expression = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX];
 				EPackage ePackage = EPackage.Registry.INSTANCE
 						.getEPackage(ePackakeNsUri);
 				EClass eClass = (EClass) ePackage.getEClassifier(eClassName);
@@ -555,14 +552,14 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 		for (int i = 0; i < cfgExpressions.length; i++) {
 			EClass eClass = (EClass) eClassesTableViewer.getElementAt(i);
 			String[] cfgExpression = cfgExpressions[i];
-			cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_EPACKAGE_IDX] = eClass
+			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX] = eClass
 					.getEPackage().getNsURI();
-			cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_ECLASS_IDX] = eClass
+			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX] = eClass
 					.getName();
-			cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_VALUE_IDX] = expressions
+			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX] = expressions
 					.get(eClass);
 		}
-		EMF2GvLaunchConfigHelper.setHideNodeExpressions(configuration,
+		EMF2GvLaunchConfigHelper.setFilterExpressions(configuration,
 				cfgExpressions);
 	}
 
@@ -572,7 +569,7 @@ public class EMF2GvLaunchConfigHideNodesTab extends
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getName()
 	 */
 	public String getName() {
-		return "Hide Nodes";
+		return "Filters";
 	}
 
 	/*

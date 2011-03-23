@@ -55,6 +55,7 @@ import org.eclipse.ui.ide.IDE;
 import org.emftools.emf2gv.processor.Activator;
 import org.emftools.emf2gv.processor.core.EMF2GvProcessor;
 import org.emftools.emf2gv.processor.core.EMF2GvProcessorCallback;
+import org.emftools.emf2gv.processor.core.Emf2gvOCLProvider;
 import org.emftools.emf2gv.processor.ui.preferences.EMF2GvPreferenceConstants;
 
 /**
@@ -100,17 +101,17 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 
 		/* OCL expressions parsing */
 		String[][] cfgExpressions = EMF2GvLaunchConfigHelper
-				.getHideNodeExpressions(cfg);
+				.getFilterExpressions(cfg);
 		Map<EClass, Constraint> parsedExpressions = new HashMap<EClass, Constraint>();
-		OCL ocl = OCL.newInstance();
+		OCL ocl = Emf2gvOCLProvider.newOCL();
 		OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper = ocl
 				.createOCLHelper();
 		try {
 			for (int i = 0; i < cfgExpressions.length; i++) {
 				String[] cfgExpression = cfgExpressions[i];
-				String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_EPACKAGE_IDX];
-				String eClassName = cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_ECLASS_IDX];
-				String expression = cfgExpression[EMF2GvLaunchConfigHelper.HIDE_NODE_EXPRESSION_VALUE_IDX];
+				String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX];
+				String eClassName = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX];
+				String expression = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX];
 				EPackage ePackage = EPackage.Registry.INSTANCE
 						.getEPackage(ePackakeNsUri);
 				EClass eClass = (EClass) ePackage.getEClassifier(eClassName);
@@ -119,8 +120,7 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 				Constraint parsed = oclHelper.createInvariant(expression);
 				parsedExpressions.put(eClass, parsed);
 			}
-		}
-		catch (ParserException e) {
+		} catch (ParserException e) {
 			throw new CoreException(new Status(IStatus.ERROR,
 					Activator.PLUGIN_ID, "OCL Expression parsing error", e));
 		}
