@@ -202,13 +202,16 @@ public class RichReferenceFigureImpl extends ReferenceFigureImpl implements Rich
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void setTargetEReference(EReference newTargetEReference) {
+		String oldName = getName();
 		EReference oldTargetEReference = targetEReference;
 		targetEReference = newTargetEReference;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE, oldTargetEReference, targetEReference));
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__NAME, oldName, getName()));
+		}
 	}
 
 	/**
