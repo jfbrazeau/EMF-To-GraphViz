@@ -30,10 +30,7 @@ package org.emftools.emf2gv.processor.ui;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -57,7 +54,10 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.util.SafeRunnable;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
+import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -66,7 +66,6 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ocl.ParserException;
@@ -109,21 +108,18 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 	private EMF2GvLaunchConfigMainTab mainTab;
 
 	/** ECLasses table viewer */
-	private TableViewer eClassesTableViewer;
+	private CheckboxTableViewer eClassesTableViewer;
 
-	/** Map containing the EClasses and their associated expressions */
-	private Map<EClass, String> expressions = new HashMap<EClass, String>();
+	/** Table content */
+	private List<Expression> expressions = new ArrayList<Expression>();
 
-	/** Map containing the EClasses and their associated parsed expressions */
-	private Map<EClass, Constraint> parsedExpressionsCache = new HashMap<EClass, Constraint>();
-
-	/** Button allowing to add a new expression */
+	/** Button allowing to add a new value */
 	private Button newButton;
 
-	/** Button allowing to edit an expression */
+	/** Button allowing to edit an value */
 	private Button editButton;
 
-	/** Button allowing to remove an expression */
+	/** Button allowing to remove an value */
 	private Button removeButton;
 
 	/** The OCL Helper instance */
@@ -167,7 +163,8 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 				GridData.FILL_BOTH);
 
 		// Table initialization
-		Table table = new Table(group, SWT.FULL_SELECTION | SWT.BORDER);
+		Table table = new Table(group, SWT.FULL_SELECTION | SWT.BORDER
+				| SWT.CHECK);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
 		GridData gd = new GridData(GridData.FILL_BOTH);
@@ -178,10 +175,10 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		table.setLayoutData(gd);
 
 		// Table viewer initialization
-		eClassesTableViewer = new TableViewer(table);
+		eClassesTableViewer = new CheckboxTableViewer(table);
 		eClassesTableViewer.setContentProvider(new TableContentProvider());
 		eClassesTableViewer.setLabelProvider(new TableLabelProvider(
-				expressions, adapterFactoryLabelProvider));
+				adapterFactoryLabelProvider));
 		eClassesTableViewer
 				.addSelectionChangedListener(new ISelectionChangedListener() {
 					public void selectionChanged(SelectionChangedEvent event) {
@@ -191,6 +188,15 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		eClassesTableViewer.addDoubleClickListener(new IDoubleClickListener() {
 			public void doubleClick(DoubleClickEvent event) {
 				handleEditButton();
+			}
+		});
+		eClassesTableViewer.addCheckStateListener(new ICheckStateListener() {
+			public void checkStateChanged(CheckStateChangedEvent event) {
+				Expression expression = (Expression) event.getElement();
+				if (expression.enabled != event.getChecked()) {
+					expression.enabled = event.getChecked();
+					updateLaunchConfigurationDialog();
+				}
 			}
 		});
 
@@ -281,7 +287,8 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		}
 		// Check the EClass list
 		if (isValid) {
-			for (EClass eClass : expressions.keySet()) {
+			for (Expression expression : expressions) {
+				EClass eClass = expression.context;
 				if (!authorizedEClasses.contains(eClass)) {
 					isValid = false;
 					setErrorMessage("The EClass '" + eClass.getName()
@@ -292,19 +299,17 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		}
 		// Check the expressions
 		if (isValid) {
-			for (EClass eClass : expressions.keySet()) {
-				if (parsedExpressionsCache.get(eClass) == null) {
-					String expression = expressions.get(eClass);
-					getOCLHelper().setContext(eClass);
+			for (Expression expression : expressions) {
+				if (expression.parsed == null) {
+					getOCLHelper().setContext(expression.context);
 					try {
 						Constraint parsed = getOCLHelper().createInvariant(
-								expression);
-						parsedExpressionsCache.put(eClass, parsed);
+								expression.value);
+						expression.parsed = parsed;
 					} catch (ParserException e) {
 						isValid = false;
-						setErrorMessage(eClass.getName()
-								+ " : Invalid expression (" + e.getMessage()
-								+ ")");
+						setErrorMessage(expression.context.getName()
+								+ " : Invalid value (" + e.getMessage() + ")");
 						break;
 					}
 				}
@@ -333,13 +338,12 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 				IStructuredSelection selection = (IStructuredSelection) eClassesTableViewer
 						.getSelection();
 				if (!selection.isEmpty()) {
-					EClass eClass = (EClass) selection.getFirstElement();
-					if (MessageDialog
-							.openConfirm(PlatformUI.getWorkbench().getDisplay()
-									.getActiveShell(), "Confirmation",
-									"Are you sure you want to remove this expression ?")) {
-						expressions.remove(eClass);
-						parsedExpressionsCache.remove(eClass); // Cache cleaning
+					Expression expression = (Expression) selection
+							.getFirstElement();
+					if (MessageDialog.openConfirm(PlatformUI.getWorkbench()
+							.getDisplay().getActiveShell(), "Confirmation",
+							"Are you sure you want to remove this value ?")) {
+						expressions.remove(expression);
 						eClassesTableViewer.refresh();
 						updateLaunchConfigurationDialog();
 					}
@@ -357,22 +361,22 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 				IStructuredSelection selection = (IStructuredSelection) eClassesTableViewer
 						.getSelection();
 				if (!selection.isEmpty()) {
-					EClass eClass = (EClass) selection.getFirstElement();
-					String oldExpression = expressions.get(eClass);
+					Expression expression = (Expression) selection
+							.getFirstElement();
+					String oldExpression = expression.value;
 					OCLInputDialog inputDialog = new OCLInputDialog(PlatformUI
 							.getWorkbench().getDisplay().getActiveShell(),
-							"Edit a boolean OCL expression editor", eClass,
-							oldExpression, false);
+							"Edit a boolean OCL value editor",
+							expression.context, oldExpression, false);
 					if (inputDialog.open() == Window.OK) {
 						String newExpression = inputDialog.getValue();
 						if (!newExpression.equals(oldExpression)) {
-							expressions.put(eClass, newExpression);
-							parsedExpressionsCache.remove(eClass); // Cache
-																	// cleaning
+							expression.parsed = null;
+							expression.value = newExpression;
 							eClassesTableViewer.refresh();
 							eClassesTableViewer
 									.setSelection(new StructuredSelection(
-											eClass));
+											expression));
 							updateLaunchConfigurationDialog();
 						}
 					}
@@ -389,8 +393,6 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 			public void run() throws Exception {
 				// EClass hierarchy retrieval
 				List<EClass> eClasses = getAuthorizedEClasses();
-				// Remove the already selected EClasses
-				eClasses.removeAll(expressions.keySet());
 
 				final LabelProvider labelProvider = new LabelProvider() {
 					@Override
@@ -414,16 +416,20 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 				int result = dialog.open();
 				labelProvider.dispose();
 				if (result == Window.OK) {
-					EClass eClass = (EClass) dialog.getFirstResult();
+					Expression expression = new Expression();
+					expression.context = (EClass) dialog.getFirstResult();
 					OCLInputDialog inputDialog = new OCLInputDialog(PlatformUI
 							.getWorkbench().getDisplay().getActiveShell(),
-							"New boolean OCL expression editor", eClass,
+							"New boolean OCL value editor", expression.context,
 							"true", true);
 					if (inputDialog.open() == Window.OK) {
-						expressions.put(eClass, inputDialog.getValue());
+						expression.value = inputDialog.getValue();
+						expressions.add(expression);
 						eClassesTableViewer.refresh();
 						eClassesTableViewer
-								.setSelection(new StructuredSelection(eClass));
+								.setSelection(new StructuredSelection(
+										expression));
+						eClassesTableViewer.setChecked(expression, true);
 						updateLaunchConfigurationDialog();
 					}
 				}
@@ -434,7 +440,7 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 	/**
 	 * Registers the EClass super types in the list.
 	 * 
-	 * @param eClass
+	 * @param context
 	 *            the EClass.
 	 * @param eClasses
 	 *            the EClass list.
@@ -527,13 +533,21 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 				String[] cfgExpression = cfgExpressions[i];
 				String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX];
 				String eClassName = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX];
-				String expression = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX];
+				String expressionValue = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX];
+				boolean enabled = "true".equals(cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ENABLED_IDX]);
 				EPackage ePackage = EPackage.Registry.INSTANCE
 						.getEPackage(ePackakeNsUri);
 				EClass eClass = (EClass) ePackage.getEClassifier(eClassName);
-				expressions.put(eClass, expression);
+				Expression expression = new Expression();
+				expression.context = eClass;
+				expression.value = expressionValue;
+				expression.enabled = enabled;
+				expressions.add(expression);
 			}
 			eClassesTableViewer.refresh();
+			for (Expression expression : expressions) {
+				eClassesTableViewer.setChecked(expression, expression.enabled);
+			}
 		} catch (CoreException e) {
 			Activator.getDefault().logError(
 					"Unexpected error while retreiving run configuration", e);
@@ -548,16 +562,18 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 	 * .debug.core.ILaunchConfigurationWorkingCopy)
 	 */
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		String[][] cfgExpressions = new String[expressions.size()][3];
+		String[][] cfgExpressions = new String[expressions.size()][4];
 		for (int i = 0; i < cfgExpressions.length; i++) {
-			EClass eClass = (EClass) eClassesTableViewer.getElementAt(i);
+			Expression expression = (Expression) eClassesTableViewer
+					.getElementAt(i);
 			String[] cfgExpression = cfgExpressions[i];
-			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX] = eClass
+			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX] = expression.context
 					.getEPackage().getNsURI();
-			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX] = eClass
+			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX] = expression.context
 					.getName();
-			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX] = expressions
-					.get(eClass);
+			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX] = expression.value;
+			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ENABLED_IDX] = String
+					.valueOf(expression.enabled);
 		}
 		EMF2GvLaunchConfigHelper.setFilterExpressions(configuration,
 				cfgExpressions);
@@ -616,16 +632,15 @@ class TableContentProvider implements IStructuredContentProvider {
 	 */
 	public Object[] getElements(Object inputElement) {
 		@SuppressWarnings("unchecked")
-		Map<EClass, String> expressions = (Map<EClass, String>) inputElement;
-		Set<EClass> eClassesSet = expressions.keySet();
-		EClass[] eClassesArray = eClassesSet.toArray(new EClass[eClassesSet
-				.size()]);
-		Arrays.sort(eClassesArray, new Comparator<EClass>() {
-			public int compare(EClass e1, EClass e2) {
-				return e1.getName().compareTo(e2.getName());
+		List<Expression> expressions = (List<Expression>) inputElement;
+		Expression[] expressionArray = expressions
+				.toArray(new Expression[expressions.size()]);
+		Arrays.sort(expressionArray, new Comparator<Expression>() {
+			public int compare(Expression e1, Expression e2) {
+				return e1.context.getName().compareTo(e2.context.getName());
 			}
 		});
-		return eClassesArray;
+		return expressionArray;
 	}
 
 }
@@ -638,20 +653,14 @@ class TableLabelProvider extends LabelProvider implements ITableLabelProvider {
 	/** Adapter factory label provider */
 	private AdapterFactoryLabelProvider adapterFactoryLabelProvider;
 
-	/** Map containing the EClass and their associated expressions */
-	private Map<EClass, String> expressions = new HashMap<EClass, String>();
-
 	/**
 	 * Default constructor.
 	 * 
-	 * @param expressions
-	 *            a map containing the EClass and their associated expressions.
 	 * @param adapterFactoryLabelProvider
 	 *            the adapter factory label provider.
 	 */
-	protected TableLabelProvider(Map<EClass, String> expressions,
+	protected TableLabelProvider(
 			AdapterFactoryLabelProvider adapterFactoryLabelProvider) {
-		this.expressions = expressions;
 		this.adapterFactoryLabelProvider = adapterFactoryLabelProvider;
 	}
 
@@ -663,7 +672,8 @@ class TableLabelProvider extends LabelProvider implements ITableLabelProvider {
 	 * .Object, int)
 	 */
 	public Image getColumnImage(Object element, int columnIndex) {
-		EClass eClass = (EClass) element;
+		Expression expression = (Expression) element;
+		EClass eClass = expression.context;
 		return columnIndex == 0 ? adapterFactoryLabelProvider.getImage(eClass)
 				: null;
 	}
@@ -676,15 +686,25 @@ class TableLabelProvider extends LabelProvider implements ITableLabelProvider {
 	 * .Object, int)
 	 */
 	public String getColumnText(Object element, int columnIndex) {
-		EClass eClass = (EClass) element;
-		String expression = expressions.get(eClass);
+		Expression expression = (Expression) element;
+		EClass eClass = expression.context;
 		switch (columnIndex) {
 		case 0:
 			return adapterFactoryLabelProvider.getText(eClass);
 		case 1:
-			return expression;
+			return expression.value;
 		default:
 			return "Unknown column index : " + columnIndex;
 		}
 	}
+}
+
+/**
+ * POJO used for the table elements.
+ */
+class Expression {
+	EClass context;
+	String value;
+	Constraint parsed;
+	boolean enabled = true;
 }

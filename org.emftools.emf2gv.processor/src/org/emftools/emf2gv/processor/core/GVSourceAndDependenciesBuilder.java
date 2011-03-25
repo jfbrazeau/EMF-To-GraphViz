@@ -60,12 +60,12 @@ import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.ecore.OCL;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
-import org.emftools.emf2gv.graphdesc.AssociationFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.processor.Activator;
 import org.emftools.emf2gv.util.ColorsHelper;
 import org.emftools.emf2gv.util.EMFHelper;
@@ -156,7 +156,7 @@ public class GVSourceAndDependenciesBuilder {
 	private Diagnostician diagnostician;
 
 	/** Boolean OCL expressions allowing to filter the nodes. */
-	private Map<EClass, Constraint> filters;
+	private Map<EClass, List<Constraint>> filters;
 
 	/** The OCL (lazy instantiation) */
 	private OCL ocl;
@@ -176,12 +176,12 @@ public class GVSourceAndDependenciesBuilder {
 	 */
 	public GVSourceAndDependenciesBuilder(GVFigureDescription figureDesc,
 			IFolder iconsFolder, boolean addValidationDecorators,
-			Map<EClass, Constraint> filters) {
+			Map<EClass, List<Constraint>> filters) {
 		this.figureDesc = figureDesc;
 		this.adapterFactory = EMFHelper.getAdapterFactory(figureDesc
 				.getEPackages());
 		this.iconsFolder = iconsFolder;
-		this.filters = filters == null ? new HashMap<EClass, Constraint>()
+		this.filters = filters == null ? new HashMap<EClass, List<Constraint>>()
 				: filters;
 
 		// Diagnostician initialization
@@ -351,9 +351,11 @@ public class GVSourceAndDependenciesBuilder {
 		types.add(eClass);
 		types.addAll(eClass.getEAllSuperTypes());
 		for (EClass type : types) {
-			Constraint filter = filters.get(type);
-			if (filter != null) {
-				mustShow &= getOCL().check(eObject, filter);
+			List<Constraint> filterContraints = filters.get(type);
+			if (filterContraints != null) {
+				for (Constraint constraint : filterContraints) {
+					mustShow &= getOCL().check(eObject, constraint);
+				}
 			}
 		}
 		return mustShow;
@@ -428,7 +430,7 @@ public class GVSourceAndDependenciesBuilder {
 							.getReferenceFigures();
 					for (ReferenceFigure referenceFigure : refFigures) {
 						// Simple reference case
-						if (!(referenceFigure instanceof AssociationFigure)) {
+						if (!(referenceFigure instanceof RichReferenceFigure)) {
 							List<EObject> targetEObjects = getTargetRefEObjects(
 									eContentRoot,
 									referenceFigure.getEReference());
@@ -437,38 +439,38 @@ public class GVSourceAndDependenciesBuilder {
 									targetEObjects, null, null, null, null,
 									monitor);
 						}
-						// Association case
+						// Rich reference case
 						else {
-							AssociationFigure associationFigure = (AssociationFigure) referenceFigure;
-							EReference eReference = associationFigure
+							RichReferenceFigure richReferenceFigure = (RichReferenceFigure) referenceFigure;
+							EReference eReference = richReferenceFigure
 									.getEReference();
-							List<EObject> associationEClassInstances = getTargetRefEObjects(
+							List<EObject> richReferencesEClassInstances = getTargetRefEObjects(
 									eContentRoot, eReference);
-							for (EObject associationEClassInstance : associationEClassInstances) {
+							for (EObject richReferenceEClassInstance : richReferencesEClassInstances) {
 								// Check if the EObject has to be hidden
-								if (mustDraw(associationEClassInstance)) {
-									// If not, the association instance is
+								if (mustDraw(richReferenceEClassInstance)) {
+									// If not, the rich reference instance is
 									// processed
 									List<EObject> targetEObjects = getTargetRefEObjects(
-											associationEClassInstance,
-											associationFigure
+											richReferenceEClassInstance,
+											richReferenceFigure
 													.getTargetEReference());
 									// Labels value retrieval
 									String srcLabel = eGetToString(
-											associationEClassInstance,
-											associationFigure
+											richReferenceEClassInstance,
+											richReferenceFigure
 													.getSourceLabelEAttribute());
 									String stdLabel = eGetToString(
-											associationEClassInstance,
-											associationFigure
+											richReferenceEClassInstance,
+											richReferenceFigure
 													.getStandardLabelEAttribute());
 									String targetLabel = eGetToString(
-											associationEClassInstance,
-											associationFigure
+											richReferenceEClassInstance,
+											richReferenceFigure
 													.getTargetLabelEAttribute());
-									// Association instance validation
+									// Rich reference instance validation
 									String validationDecoratorIconPath = getValidationDecoratorIconPath(
-											associationEClassInstance, monitor);
+											richReferenceEClassInstance, monitor);
 									processReferenceTargetEObjects(
 											referenceFigure, eContentRoot,
 											eContentRootId, targetEObjects,
@@ -807,13 +809,13 @@ public class GVSourceAndDependenciesBuilder {
 		}
 		out.print(", minlen=");
 		out.print(referenceFigure.getMinimumEdgeLength());
-		if (referenceFigure instanceof AssociationFigure) {
-			AssociationFigure associationFigure = (AssociationFigure) referenceFigure;
+		if (referenceFigure instanceof RichReferenceFigure) {
+			RichReferenceFigure richReferenceFigure = (RichReferenceFigure) referenceFigure;
 			out.print(", labeldistance=");
-			out.print(String.valueOf(associationFigure.getLabelDistance())
+			out.print(String.valueOf(richReferenceFigure.getLabelDistance())
 					.replace(',', '.'));
 			out.print(", labelangle=");
-			out.print(String.valueOf(associationFigure.getLabelAngle())
+			out.print(String.valueOf(richReferenceFigure.getLabelAngle())
 					.replace(',', '.'));
 		}
 		out.print(", color=\"");

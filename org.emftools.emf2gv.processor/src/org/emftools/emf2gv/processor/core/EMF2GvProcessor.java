@@ -100,7 +100,7 @@ public class EMF2GvProcessor {
 			EMF2GvProcessorCallback eMF2GvProcessorCallback, String dotCommand,
 			boolean addValidationDecorators, boolean keepGeneratedGvFile,
 			String gvSourceEnconding,
-			Map<EClass, Constraint> filters,
+			Map<EClass, List<Constraint>> filters,
 			IProgressMonitor monitor) throws CoreException {
 
 		/**

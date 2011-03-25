@@ -70,16 +70,16 @@ public class EMF2GvLaunchConfigHelper {
 	 */
 	private static final String ADD_VALIDATION_DECORATORS = "addValidationDecorators";
 
-	/** EPackage associated to an expression that is used to filter the nodes */
+	/** EPackage associated to an value that is used to filter the nodes */
 	private static final String FILTER_EXPRESSION_EPACKAGE = "filterExpressionEPackage";
 
 	/**
-	 * Index of the EPackage attribute associated to an expression that is used
+	 * Index of the EPackage attribute associated to an value that is used
 	 * to filter the nodes
 	 */
 	public static final int FILTER_EXPRESSION_EPACKAGE_IDX = 0;
 
-	/** EClass associated to an expression that is used to filter the nodes */
+	/** EClass associated to an value that is used to filter the nodes */
 	private static final String FILTER_EXPRESSION_ECLASS = "filterExpressionEClass";
 
 	/**
@@ -93,6 +93,12 @@ public class EMF2GvLaunchConfigHelper {
 
 	/** Index of the value attribute of an expression that is used to filter the nodes */
 	public static final int FILTER_EXPRESSION_VALUE_IDX = 2;
+
+	/** Boolean indicating if the expression that is used to filter the nodes is enabled */
+	private static final String FILTER_EXPRESSION_ENABLED = "filterExpressionEnabled";
+
+	/** Index of the boolean indicating if the expression that is used to filter the nodes is enabled */
+	public static final int FILTER_EXPRESSION_ENABLED_IDX = 3;
 
 	/** Number of expressions that are used to filter the nodes */
 	private static final String FILTER_EXPRESSIONS_COUNT = "filterExpressionsCount";
@@ -340,7 +346,7 @@ public class EMF2GvLaunchConfigHelper {
 	public static String[][] getFilterExpressions(ILaunchConfiguration cfg)
 			throws CoreException {
 		int expressionCount = cfg.getAttribute(FILTER_EXPRESSIONS_COUNT, 0);
-		String[][] expressions = new String[expressionCount][3];
+		String[][] expressions = new String[expressionCount][4];
 		for (int i = 0; i < expressionCount; i++) {
 			String[] expression = expressions[i];
 			expression[FILTER_EXPRESSION_EPACKAGE_IDX] = cfg.getAttribute(
@@ -349,6 +355,8 @@ public class EMF2GvLaunchConfigHelper {
 					FILTER_EXPRESSION_ECLASS + "." + i, "");
 			expression[FILTER_EXPRESSION_VALUE_IDX] = cfg.getAttribute(
 					FILTER_EXPRESSION_VALUE + "." + i, "");
+			expression[FILTER_EXPRESSION_ENABLED_IDX] = cfg.getAttribute(
+					FILTER_EXPRESSION_ENABLED + "." + i, "");
 		}
 		return expressions;
 	}
@@ -373,6 +381,8 @@ public class EMF2GvLaunchConfigHelper {
 					expression[FILTER_EXPRESSION_ECLASS_IDX]);
 			cfg.setAttribute(FILTER_EXPRESSION_VALUE + "." + i,
 					expression[FILTER_EXPRESSION_VALUE_IDX]);
+			cfg.setAttribute(FILTER_EXPRESSION_ENABLED + "." + i,
+					expression[FILTER_EXPRESSION_ENABLED_IDX]);
 		}
 	}
 

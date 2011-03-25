@@ -28,6 +28,7 @@
 package org.emftools.emf2gv.processor.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -41,8 +42,10 @@ import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
 import org.eclipse.ocl.ecore.OCL;
+import org.eclipse.ocl.expressions.CollectionKind;
 import org.eclipse.ocl.expressions.ExpressionsFactory;
 import org.eclipse.ocl.expressions.Variable;
+import org.eclipse.ocl.util.TypeUtil;
 
 /**
  * Helper class that builds an OCL evaluation environment with custom operations
@@ -62,6 +65,9 @@ public class Emf2gvOCLProvider {
 	/** "Contains" custom operation name */
 	protected static final String CONTAINS = "contains";
 
+	/** "Split" custom operation name */
+	protected static final String SPLIT = "split";
+
 	/**
 	 * @return a new OCL with additional operations.
 	 */
@@ -80,6 +86,11 @@ public class Emf2gvOCLProvider {
 				.getOCLStandardLibrary().getString();
 		EClassifier booleanClassifier = ocl.getEnvironment()
 				.getOCLStandardLibrary().getBoolean();
+		EClassifier stringCollectionClassifier = TypeUtil
+				.resolveCollectionType(ocl.getEnvironment(),
+						CollectionKind.COLLECTION_LITERAL, stringClassifier);
+
+		// String context operation
 		defineOperation(ocl, STARTS_WITH, stringClassifier, booleanClassifier,
 				buildSingleStringParameterList(ocl, "string"));
 		defineOperation(ocl, ENDS_WITH, stringClassifier, booleanClassifier,
@@ -88,6 +99,9 @@ public class Emf2gvOCLProvider {
 				buildSingleStringParameterList(ocl, "regexp"));
 		defineOperation(ocl, CONTAINS, stringClassifier, booleanClassifier,
 				buildSingleStringParameterList(ocl, "string"));
+		defineOperation(ocl, SPLIT, stringClassifier,
+				stringCollectionClassifier,
+				buildSingleStringParameterList(ocl, "separators"));
 		return ocl;
 	}
 
@@ -127,15 +141,32 @@ public class Emf2gvOCLProvider {
 	 */
 	private static List<Variable<EClassifier, EParameter>> buildSingleStringParameterList(
 			OCL ocl, String variableName) {
+		return buildSingleParameterList(ocl, ocl.getEnvironment()
+				.getOCLStandardLibrary().getString(), variableName);
+	}
+
+	/**
+	 * Builds a variable list containing one only string entry.
+	 * 
+	 * @param ocl
+	 *            the OCL.
+	 * @param parameterType
+	 *            the parameter type.
+	 * @param variableName
+	 *            the variable name.
+	 * @return the variables list.
+	 */
+	private static List<Variable<EClassifier, EParameter>> buildSingleParameterList(
+			OCL ocl, EClassifier parameterType, String variableName) {
 		List<Variable<EClassifier, EParameter>> vars = new ArrayList<Variable<EClassifier, EParameter>>();
 		Variable<EClassifier, EParameter> variable = ExpressionsFactory.eINSTANCE
 				.createVariable();
 		variable.setName(variableName);
-		variable.setType(ocl.getEnvironment().getOCLStandardLibrary()
-				.getString());
+		variable.setType(parameterType);
 		vars.add(variable);
 		return vars;
 	}
+
 }
 
 /**
@@ -185,8 +216,15 @@ class CustomEvaluationEnvironment extends EcoreEvaluationEnvironment {
 			return ((String) source).matches((String) args[0]);
 		} else if (operation.getName().equals(Emf2gvOCLProvider.CONTAINS)) {
 			return ((String) source).contains((String) args[0]);
+		} else if (operation.getName().equals(Emf2gvOCLProvider.SPLIT)) {
+			String[] array = ((String) source).split((String) args[0]);
+			for (int i = 0; i < array.length; i++) {
+				array[i] = array[i].trim();
+			}
+			return Arrays.asList(array);
 		} else {
 			return super.callOperation(operation, opcode, source, args);
 		}
 	}
+
 }

@@ -49,7 +49,7 @@ public class OCLSourceViewer extends SourceViewer {
 	 * Default constructor.
 	 * @param parent the parent composite.
 	 * @param styles the styles of the source viewer.
-	 * @param context the context classifier for the OCL expression.
+	 * @param context the context classifier for the OCL value.
 	 */
 	public OCLSourceViewer(Composite parent, int styles, EClassifier context) {
 		super(parent, null, styles);
@@ -75,12 +75,12 @@ public class OCLSourceViewer extends SourceViewer {
  */
 class OCLConfiguration extends SourceViewerConfiguration {
 
-	/** The context classifier for the OCL expression */
+	/** The context classifier for the OCL value */
 	private EClassifier context;
 
 	/**
 	 * Default constructor.
-	 * @param context the context classifier for the OCL expression.
+	 * @param context the context classifier for the OCL value.
 	 */
 	public OCLConfiguration(EClassifier context) {
 		this.context = context;

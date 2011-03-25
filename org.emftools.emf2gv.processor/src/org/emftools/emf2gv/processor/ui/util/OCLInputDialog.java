@@ -55,7 +55,7 @@ public class OCLInputDialog extends TrayDialog {
 	/** OCL Input */
 	private OCLSourceViewer input;
 
-	/** The context of the OCL expression */
+	/** The context of the OCL value */
 	private EClassifier context;
 
 	/**
@@ -67,7 +67,7 @@ public class OCLInputDialog extends TrayDialog {
 	 * @param title
 	 *            the dialog title
 	 * @param context
-	 *            the context of the OCL expression.
+	 *            the context of the OCL value.
 	 * @param initialValue
 	 *            the dialog initial value.
 	 * @param selectAll

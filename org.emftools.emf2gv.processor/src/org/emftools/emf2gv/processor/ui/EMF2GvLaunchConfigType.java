@@ -27,7 +27,9 @@
  */
 package org.emftools.emf2gv.processor.ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -102,23 +104,34 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 		/* OCL expressions parsing */
 		String[][] cfgExpressions = EMF2GvLaunchConfigHelper
 				.getFilterExpressions(cfg);
-		Map<EClass, Constraint> parsedExpressions = new HashMap<EClass, Constraint>();
+		Map<EClass, List<Constraint>> parsedExpressions = new HashMap<EClass, List<Constraint>>();
 		OCL ocl = Emf2gvOCLProvider.newOCL();
 		OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper = ocl
 				.createOCLHelper();
 		try {
 			for (int i = 0; i < cfgExpressions.length; i++) {
 				String[] cfgExpression = cfgExpressions[i];
-				String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX];
-				String eClassName = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX];
-				String expression = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX];
-				EPackage ePackage = EPackage.Registry.INSTANCE
-						.getEPackage(ePackakeNsUri);
-				EClass eClass = (EClass) ePackage.getEClassifier(eClassName);
-				// Parsing...
-				oclHelper.setContext(eClass);
-				Constraint parsed = oclHelper.createInvariant(expression);
-				parsedExpressions.put(eClass, parsed);
+				boolean enabled = "true"
+						.equals(cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ENABLED_IDX]);
+				if (enabled) {
+					String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX];
+					String eClassName = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX];
+					String expression = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX];
+					EPackage ePackage = EPackage.Registry.INSTANCE
+							.getEPackage(ePackakeNsUri);
+					EClass eClass = (EClass) ePackage
+							.getEClassifier(eClassName);
+					List<Constraint> eClassConstraints = parsedExpressions
+							.get(eClass);
+					if (eClassConstraints == null) {
+						eClassConstraints = new ArrayList<Constraint>();
+						parsedExpressions.put(eClass, eClassConstraints);
+					}
+					// Parsing...
+					oclHelper.setContext(eClass);
+					Constraint parsed = oclHelper.createInvariant(expression);
+					eClassConstraints.add(parsed);
+				}
 			}
 		} catch (ParserException e) {
 			throw new CoreException(new Status(IStatus.ERROR,
