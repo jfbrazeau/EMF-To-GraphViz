@@ -113,7 +113,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimumEdgeLength" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
         defaultValueLiteral="1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AssociationFigure" eSuperTypes="#//ReferenceFigure">
+  <eClassifiers xsi:type="ecore:EClass" name="RichReferenceFigure" eSuperTypes="#//ReferenceFigure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetEReference" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceLabelEAttribute"

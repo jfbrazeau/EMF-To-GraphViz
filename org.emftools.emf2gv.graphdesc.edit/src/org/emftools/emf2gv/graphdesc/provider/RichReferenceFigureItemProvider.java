@@ -48,19 +48,19 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.emftools.emf2gv.graphdesc.AssociationFigure;
+
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
- * This is the item provider adapter for a {@link org.emftools.emf2gv.graphdesc.AssociationFigure} object.
+ * This is the item provider adapter for a {@link org.emftools.emf2gv.graphdesc.RichReferenceFigure} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class AssociationFigureItemProvider
+public class RichReferenceFigureItemProvider
 	extends ReferenceFigureItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -74,7 +74,7 @@ public class AssociationFigureItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AssociationFigureItemProvider(AdapterFactory adapterFactory) {
+	public RichReferenceFigureItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -115,9 +115,9 @@ public class AssociationFigureItemProvider
 			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_AssociationFigure_targetEReference_feature"),
-				 getString("_UI_AssociationFigure_targetEReference_description"),
-				 GraphdescPackage.Literals.ASSOCIATION_FIGURE__TARGET_EREFERENCE,
+				 getString("_UI_RichReferenceFigure_targetEReference_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RichReferenceFigure_targetEReference_feature", "_UI_RichReferenceFigure_type"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE,
 				 true,
 				 false,
 				 true,
@@ -126,12 +126,12 @@ public class AssociationFigureItemProvider
 				 null) {
 				@Override
 				public Collection<?> getChoiceOfValues(Object object) {
-					AssociationFigure figure = (AssociationFigure) object;
+					RichReferenceFigure figure = (RichReferenceFigure) object;
 					EReference eReference = figure.getEReference();
 					if (eReference != null) {
-						EClass associationEClass = eReference.getEReferenceType();
+						EClass richReferenceEClass = eReference.getEReferenceType();
 						ArrayList<EReference> result = new ArrayList<EReference>();
-						result.addAll(associationEClass.getEAllReferences());
+						result.addAll(richReferenceEClass.getEAllReferences());
 						return result;
 					}
 					else {
@@ -152,9 +152,9 @@ public class AssociationFigureItemProvider
 			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_AssociationFigure_sourceLabelEAttribute_feature"),
-				 getString("_UI_AssociationFigure_sourceLabelEAttribute_description"),
-				 GraphdescPackage.Literals.ASSOCIATION_FIGURE__SOURCE_LABEL_EATTRIBUTE,
+				 getString("_UI_RichReferenceFigure_sourceLabelEAttribute_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RichReferenceFigure_sourceLabelEAttribute_feature", "_UI_RichReferenceFigure_type"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE,
 				 true,
 				 false,
 				 true,
@@ -163,22 +163,22 @@ public class AssociationFigureItemProvider
 				 null) {
 				@Override
 				public Collection<?> getChoiceOfValues(Object object) {
-					return getEAllAttributes((AssociationFigure) object);
+					return getEAllAttributes((RichReferenceFigure) object);
 				}
 			});
 	}
-	
+
 	/**
-	 * @param figure the association figure.
-	 * @return the association EClass attributes.
+	 * @param figure the rich reference figure.
+	 * @return the rich reference EClass attributes.
 	 */
-	private Collection<?> getEAllAttributes(AssociationFigure figure) {
+	private Collection<?> getEAllAttributes(RichReferenceFigure figure) {
 		EReference eReference = figure.getEReference();
 		if (eReference != null) {
-			EClass associationEClass = eReference.getEReferenceType();
+			EClass richeReferenceEClass = eReference.getEReferenceType();
 			ArrayList<EAttribute> result = new ArrayList<EAttribute>();
 			result.add(null);
-			result.addAll(associationEClass.getEAllAttributes());
+			result.addAll(richeReferenceEClass.getEAllAttributes());
 			return result;
 		}
 		else {
@@ -197,9 +197,9 @@ public class AssociationFigureItemProvider
 			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_AssociationFigure_standardLabelEAttribute_feature"),
-				 getString("_UI_AssociationFigure_standardLabelEAttribute_description"),
-				 GraphdescPackage.Literals.ASSOCIATION_FIGURE__STANDARD_LABEL_EATTRIBUTE,
+				 getString("_UI_RichReferenceFigure_standardLabelEAttribute_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RichReferenceFigure_standardLabelEAttribute_feature", "_UI_RichReferenceFigure_type"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE,
 				 true,
 				 false,
 				 true,
@@ -208,7 +208,7 @@ public class AssociationFigureItemProvider
 				 null) {
 				@Override
 				public Collection<?> getChoiceOfValues(Object object) {
-					return getEAllAttributes((AssociationFigure) object);
+					return getEAllAttributes((RichReferenceFigure) object);
 				}
 			});
 	}
@@ -224,9 +224,9 @@ public class AssociationFigureItemProvider
 			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_AssociationFigure_targetLabelEAttribute_feature"),
-				 getString("_UI_AssociationFigure_targetLabelEAttribute_description"),
-				 GraphdescPackage.Literals.ASSOCIATION_FIGURE__TARGET_LABEL_EATTRIBUTE,
+				 getString("_UI_RichReferenceFigure_targetLabelEAttribute_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RichReferenceFigure_targetLabelEAttribute_feature", "_UI_RichReferenceFigure_type"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE,
 				 true,
 				 false,
 				 true,
@@ -235,7 +235,7 @@ public class AssociationFigureItemProvider
 				 null) {
 				@Override
 				public Collection<?> getChoiceOfValues(Object object) {
-					return getEAllAttributes((AssociationFigure) object);
+					return getEAllAttributes((RichReferenceFigure) object);
 				}
 			});
 	}
@@ -251,9 +251,9 @@ public class AssociationFigureItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_AssociationFigure_labelDistance_feature"),
-				 getString("_UI_AssociationFigure_labelDistance_description"),
-				 GraphdescPackage.Literals.ASSOCIATION_FIGURE__LABEL_DISTANCE,
+				 getString("_UI_RichReferenceFigure_labelDistance_feature"),
+				 getString("_UI_RichReferenceFigure_labelDistance_description"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__LABEL_DISTANCE,
 				 true,
 				 false,
 				 false,
@@ -273,9 +273,9 @@ public class AssociationFigureItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_AssociationFigure_labelAngle_feature"),
-				 getString("_UI_AssociationFigure_labelAngle_description"),
-				 GraphdescPackage.Literals.ASSOCIATION_FIGURE__LABEL_ANGLE,
+				 getString("_UI_RichReferenceFigure_labelAngle_feature"),
+				 getString("_UI_RichReferenceFigure_labelAngle_description"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__LABEL_ANGLE,
 				 true,
 				 false,
 				 false,
@@ -285,14 +285,14 @@ public class AssociationFigureItemProvider
 	}
 
 	/**
-	 * This returns AssociationFigure.gif.
+	 * This returns RichReferenceFigure.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AssociationFigure"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/RichReferenceFigure"));
 	}
 
 	/**
@@ -313,10 +313,10 @@ public class AssociationFigureItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((AssociationFigure)object).getName();
+		String label = ((RichReferenceFigure)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_AssociationFigure_type") :
-			getString("_UI_AssociationFigure_type") + " " + label;
+			getString("_UI_RichReferenceFigure_type") :
+			getString("_UI_RichReferenceFigure_type") + " " + label;
 	}
 
 	/**
@@ -330,9 +330,9 @@ public class AssociationFigureItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(AssociationFigure.class)) {
-			case GraphdescPackage.ASSOCIATION_FIGURE__LABEL_DISTANCE:
-			case GraphdescPackage.ASSOCIATION_FIGURE__LABEL_ANGLE:
+		switch (notification.getFeatureID(RichReferenceFigure.class)) {
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

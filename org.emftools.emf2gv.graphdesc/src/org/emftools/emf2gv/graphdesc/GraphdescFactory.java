@@ -74,13 +74,13 @@ public interface GraphdescFactory extends EFactory {
 	ReferenceFigure createReferenceFigure();
 
 	/**
-	 * Returns a new object of class '<em>Association Figure</em>'.
+	 * Returns a new object of class '<em>Rich Reference Figure</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Association Figure</em>'.
+	 * @return a new object of class '<em>Rich Reference Figure</em>'.
 	 * @generated
 	 */
-	AssociationFigure createAssociationFigure();
+	RichReferenceFigure createRichReferenceFigure();
 
 	/**
 	 * Returns a new object of class '<em>GV Figure Description</em>'.

@@ -36,13 +36,13 @@ import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
-import org.emftools.emf2gv.graphdesc.AssociationFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.Orientation;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
  * <!-- begin-user-doc -->
@@ -156,8 +156,8 @@ public class GraphdescValidator extends EObjectValidator {
 				return validateAttributeFigure((AttributeFigure)value, diagnostics, context);
 			case GraphdescPackage.REFERENCE_FIGURE:
 				return validateReferenceFigure((ReferenceFigure)value, diagnostics, context);
-			case GraphdescPackage.ASSOCIATION_FIGURE:
-				return validateAssociationFigure((AssociationFigure)value, diagnostics, context);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE:
+				return validateRichReferenceFigure((RichReferenceFigure)value, diagnostics, context);
 			case GraphdescPackage.ABSTRACT_FIGURE:
 				return validateAbstractFigure((AbstractFigure)value, diagnostics, context);
 			case GraphdescPackage.ORIENTATION:
@@ -263,8 +263,18 @@ public class GraphdescValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateAbstractFigure(AbstractFigure abstractFigure, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(abstractFigure, diagnostics, context);
+	public boolean validateRichReferenceFigure(RichReferenceFigure richReferenceFigure, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(richReferenceFigure, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(richReferenceFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(richReferenceFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(richReferenceFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(richReferenceFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(richReferenceFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(richReferenceFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(richReferenceFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(richReferenceFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validateReferenceFigure_validate(richReferenceFigure, diagnostics, context);
+		return result;
 	}
 
 	/**
@@ -272,18 +282,8 @@ public class GraphdescValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateAssociationFigure(AssociationFigure associationFigure, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(associationFigure, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(associationFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(associationFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(associationFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(associationFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(associationFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(associationFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(associationFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(associationFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validateReferenceFigure_validate(associationFigure, diagnostics, context);
-		return result;
+	public boolean validateAbstractFigure(AbstractFigure abstractFigure, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(abstractFigure, diagnostics, context);
 	}
 
 	/**

@@ -568,7 +568,7 @@ public class ClassFigureItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GraphdescPackage.Literals.CLASS_FIGURE__REFERENCE_FIGURES,
-				 GraphdescFactory.eINSTANCE.createAssociationFigure()));
+				 GraphdescFactory.eINSTANCE.createRichReferenceFigure()));
 	}
 
 }

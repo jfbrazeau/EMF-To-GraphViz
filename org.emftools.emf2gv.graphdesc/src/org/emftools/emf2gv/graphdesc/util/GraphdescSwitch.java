@@ -32,12 +32,12 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
-import org.emftools.emf2gv.graphdesc.AssociationFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
  * <!-- begin-user-doc -->
@@ -140,11 +140,11 @@ public class GraphdescSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GraphdescPackage.ASSOCIATION_FIGURE: {
-				AssociationFigure associationFigure = (AssociationFigure)theEObject;
-				T result = caseAssociationFigure(associationFigure);
-				if (result == null) result = caseReferenceFigure(associationFigure);
-				if (result == null) result = caseAbstractFigure(associationFigure);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE: {
+				RichReferenceFigure richReferenceFigure = (RichReferenceFigure)theEObject;
+				T result = caseRichReferenceFigure(richReferenceFigure);
+				if (result == null) result = caseReferenceFigure(richReferenceFigure);
+				if (result == null) result = caseAbstractFigure(richReferenceFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -204,6 +204,21 @@ public class GraphdescSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Rich Reference Figure</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Rich Reference Figure</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRichReferenceFigure(RichReferenceFigure object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Abstract Figure</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -215,21 +230,6 @@ public class GraphdescSwitch<T> {
 	 * @generated
 	 */
 	public T caseAbstractFigure(AbstractFigure object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Association Figure</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Association Figure</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAssociationFigure(AssociationFigure object) {
 		return null;
 	}
 

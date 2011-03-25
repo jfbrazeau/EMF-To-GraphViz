@@ -42,11 +42,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
-import org.emftools.emf2gv.graphdesc.AssociationFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
 import org.emftools.validation.utils.EMFConstraintsHelper;
 
@@ -551,9 +551,9 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 		EMFConstraintsHelper constraintsHelper = EMFConstraintsHelper
 				.getInstance(GraphdescValidator.DIAGNOSTIC_SOURCE);
 		boolean valid = true;
-		// This validation method is also used by the association figure
+		// This validation method is also used by the rich reference figure
 		// Error messages have to be specialized
-		String currentObjectName = (this instanceof AssociationFigure) ? "association"
+		String currentObjectName = (this instanceof RichReferenceFigure) ? "rich reference"
 				: "reference";
 		ClassFigure classFigure = getClassFigure();
 		if (classFigure == null) {
@@ -568,11 +568,11 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 								"The {0} figure must be associated to an EReference", currentObjectName);
 				valid = false;
 			} else {
-				// Check unique (ignoring the association figures)
-				if (!(this instanceof AssociationFigure)) {
+				// Check unique (ignoring the rich reference figures)
+				if (!(this instanceof RichReferenceFigure)) {
 					List<ReferenceFigure> referenceFigures = new ArrayList<ReferenceFigure>();
 					for (ReferenceFigure referenceFigure : classFigure.getReferenceFigures()) {
-						if (!(referenceFigure instanceof AssociationFigure)) {
+						if (!(referenceFigure instanceof RichReferenceFigure)) {
 							if (!referenceFigures.contains(referenceFigure))
 								referenceFigures.add(referenceFigure);
 						}
@@ -621,9 +621,9 @@ public class ReferenceFigureImpl extends AbstractFigureImpl implements
 				}
 
 				// At least on of the EReference target type subclasses must be
-				// declared in the graph description (if the instance is not an
-				// association figure)
-				if (valid && !(this instanceof AssociationFigure)) {
+				// declared in the graph description (if the instance is not a
+				// rich reference figure)
+				if (valid && !(this instanceof RichReferenceFigure)) {
 					if (!targetClassFigureExists()) {
 						constraintsHelper
 								.addError(

@@ -35,7 +35,6 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
-import org.emftools.emf2gv.graphdesc.AssociationFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
@@ -43,6 +42,7 @@ import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.Orientation;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
  * <!-- begin-user-doc -->
@@ -92,7 +92,7 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 			case GraphdescPackage.CLASS_FIGURE: return createClassFigure();
 			case GraphdescPackage.ATTRIBUTE_FIGURE: return createAttributeFigure();
 			case GraphdescPackage.REFERENCE_FIGURE: return createReferenceFigure();
-			case GraphdescPackage.ASSOCIATION_FIGURE: return createAssociationFigure();
+			case GraphdescPackage.RICH_REFERENCE_FIGURE: return createRichReferenceFigure();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -171,9 +171,9 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AssociationFigure createAssociationFigure() {
-		AssociationFigureImpl associationFigure = new AssociationFigureImpl();
-		return associationFigure;
+	public RichReferenceFigure createRichReferenceFigure() {
+		RichReferenceFigureImpl richReferenceFigure = new RichReferenceFigureImpl();
+		return richReferenceFigure;
 	}
 
 	/**

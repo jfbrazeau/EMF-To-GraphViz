@@ -148,10 +148,10 @@ import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetEntry;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetSorter;
-import org.emftools.emf2gv.graphdesc.AssociationFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.graphdesc.presentation.util.GraphdescPropertySourceProvider;
 import org.emftools.emf2gv.graphdesc.provider.GraphdescItemProviderAdapterFactory;
 
@@ -1402,21 +1402,21 @@ public class GraphdescEditor
 			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_EReference().getName());
 			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_TargetEType().getName());
 
-			// Association figure properties order
-			final List<String> associationFigureOrderedPropertyIds = new ArrayList<String>();
-			associationFigureOrderedPropertyIds.addAll(referenceFigureOrderedPropertyIds);
-			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_SourceLabelEAttribute().getName());
-			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_StandardLabelEAttribute().getName());
-			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_TargetLabelEAttribute().getName());
+			// Rich Reference figure properties order
+			final List<String> richReferenceFigureOrderedPropertyIds = new ArrayList<String>();
+			richReferenceFigureOrderedPropertyIds.addAll(referenceFigureOrderedPropertyIds);
+			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_SourceLabelEAttribute().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_StandardLabelEAttribute().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_TargetLabelEAttribute().getName());
 			// Minimum edge length must be removed as it has been added for the reference figure
-			associationFigureOrderedPropertyIds.remove(pkg.getReferenceFigure_MinimumEdgeLength().getName());
-			associationFigureOrderedPropertyIds.add(pkg.getReferenceFigure_MinimumEdgeLength().getName());
-			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_LabelDistance().getName());
-			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_LabelAngle().getName());
-			associationFigureOrderedPropertyIds.add(pkg.getAssociationFigure_TargetEReference().getName());
+			richReferenceFigureOrderedPropertyIds.remove(pkg.getReferenceFigure_MinimumEdgeLength().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_MinimumEdgeLength().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_LabelDistance().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_LabelAngle().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_TargetEReference().getName());
 			// Target eType must be removed as it has been added for the reference figure
-			associationFigureOrderedPropertyIds.remove(pkg.getReferenceFigure_TargetEType().getName());
-			associationFigureOrderedPropertyIds.add(pkg.getReferenceFigure_TargetEType().getName());
+			richReferenceFigureOrderedPropertyIds.remove(pkg.getReferenceFigure_TargetEType().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_TargetEType().getName());
 			
 			propertySheetPage =
 				new ExtendedPropertySheetPage(editingDomain) {
@@ -1439,8 +1439,8 @@ public class GraphdescEditor
 									if (parentValue instanceof ClassFigure) {
 										orderedPropertyIds = classFigureOrderedPropertyIds;
 									}
-									else if (parentValue instanceof AssociationFigure) {
-										orderedPropertyIds = associationFigureOrderedPropertyIds;
+									else if (parentValue instanceof RichReferenceFigure) {
+										orderedPropertyIds = richReferenceFigureOrderedPropertyIds;
 									}
 									else if (parentValue instanceof ReferenceFigure) {
 										orderedPropertyIds = referenceFigureOrderedPropertyIds;

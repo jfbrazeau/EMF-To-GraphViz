@@ -32,12 +32,12 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
-import org.emftools.emf2gv.graphdesc.AssociationFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
  * <!-- begin-user-doc -->
@@ -112,8 +112,8 @@ public class GraphdescAdapterFactory extends AdapterFactoryImpl {
 				return createReferenceFigureAdapter();
 			}
 			@Override
-			public Adapter caseAssociationFigure(AssociationFigure object) {
-				return createAssociationFigureAdapter();
+			public Adapter caseRichReferenceFigure(RichReferenceFigure object) {
+				return createRichReferenceFigureAdapter();
 			}
 			@Override
 			public Adapter caseAbstractFigure(AbstractFigure object) {
@@ -182,6 +182,20 @@ public class GraphdescAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure <em>Rich Reference Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftools.emf2gv.graphdesc.RichReferenceFigure
+	 * @generated
+	 */
+	public Adapter createRichReferenceFigureAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.emftools.emf2gv.graphdesc.AbstractFigure <em>Abstract Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -192,20 +206,6 @@ public class GraphdescAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAbstractFigureAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.emftools.emf2gv.graphdesc.AssociationFigure <em>Association Figure</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftools.emf2gv.graphdesc.AssociationFigure
-	 * @generated
-	 */
-	public Adapter createAssociationFigureAdapter() {
 		return null;
 	}
 

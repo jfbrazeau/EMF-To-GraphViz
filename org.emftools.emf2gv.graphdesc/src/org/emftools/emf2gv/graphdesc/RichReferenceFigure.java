@@ -31,30 +31,28 @@ package org.emftools.emf2gv.graphdesc;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EReference;
 
-
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Association Figure</b></em>'.
+ * A representation of the model object '<em><b>Rich Reference Figure</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getTargetEReference <em>Target EReference</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getSourceLabelEAttribute <em>Source Label EAttribute</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getStandardLabelEAttribute <em>Standard Label EAttribute</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getTargetLabelEAttribute <em>Target Label EAttribute</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getLabelDistance <em>Label Distance</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getLabelAngle <em>Label Angle</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetEReference <em>Target EReference</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelEAttribute <em>Source Label EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelEAttribute <em>Standard Label EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelEAttribute <em>Target Label EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getLabelDistance <em>Label Distance</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getLabelAngle <em>Label Angle</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAssociationFigure()
+ * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure()
  * @model
  * @generated
  */
-public interface AssociationFigure extends ReferenceFigure {
-
+public interface RichReferenceFigure extends ReferenceFigure {
 	/**
 	 * Returns the value of the '<em><b>Target EReference</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -65,14 +63,14 @@ public interface AssociationFigure extends ReferenceFigure {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Target EReference</em>' reference.
 	 * @see #setTargetEReference(EReference)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAssociationFigure_TargetEReference()
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_TargetEReference()
 	 * @model required="true"
 	 * @generated
 	 */
 	EReference getTargetEReference();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getTargetEReference <em>Target EReference</em>}' reference.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetEReference <em>Target EReference</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Target EReference</em>' reference.
@@ -91,14 +89,14 @@ public interface AssociationFigure extends ReferenceFigure {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source Label EAttribute</em>' reference.
 	 * @see #setSourceLabelEAttribute(EAttribute)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAssociationFigure_SourceLabelEAttribute()
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_SourceLabelEAttribute()
 	 * @model
 	 * @generated
 	 */
 	EAttribute getSourceLabelEAttribute();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getSourceLabelEAttribute <em>Source Label EAttribute</em>}' reference.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelEAttribute <em>Source Label EAttribute</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Source Label EAttribute</em>' reference.
@@ -117,14 +115,14 @@ public interface AssociationFigure extends ReferenceFigure {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Standard Label EAttribute</em>' reference.
 	 * @see #setStandardLabelEAttribute(EAttribute)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAssociationFigure_StandardLabelEAttribute()
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_StandardLabelEAttribute()
 	 * @model
 	 * @generated
 	 */
 	EAttribute getStandardLabelEAttribute();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getStandardLabelEAttribute <em>Standard Label EAttribute</em>}' reference.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelEAttribute <em>Standard Label EAttribute</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Standard Label EAttribute</em>' reference.
@@ -143,14 +141,14 @@ public interface AssociationFigure extends ReferenceFigure {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Target Label EAttribute</em>' reference.
 	 * @see #setTargetLabelEAttribute(EAttribute)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAssociationFigure_TargetLabelEAttribute()
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_TargetLabelEAttribute()
 	 * @model
 	 * @generated
 	 */
 	EAttribute getTargetLabelEAttribute();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getTargetLabelEAttribute <em>Target Label EAttribute</em>}' reference.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelEAttribute <em>Target Label EAttribute</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Target Label EAttribute</em>' reference.
@@ -170,14 +168,14 @@ public interface AssociationFigure extends ReferenceFigure {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Label Distance</em>' attribute.
 	 * @see #setLabelDistance(double)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAssociationFigure_LabelDistance()
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_LabelDistance()
 	 * @model default="1"
 	 * @generated
 	 */
 	double getLabelDistance();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getLabelDistance <em>Label Distance</em>}' attribute.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getLabelDistance <em>Label Distance</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Label Distance</em>' attribute.
@@ -197,14 +195,14 @@ public interface AssociationFigure extends ReferenceFigure {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Label Angle</em>' attribute.
 	 * @see #setLabelAngle(double)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAssociationFigure_LabelAngle()
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_LabelAngle()
 	 * @model default="0"
 	 * @generated
 	 */
 	double getLabelAngle();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AssociationFigure#getLabelAngle <em>Label Angle</em>}' attribute.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getLabelAngle <em>Label Angle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Label Angle</em>' attribute.
@@ -212,4 +210,5 @@ public interface AssociationFigure extends ReferenceFigure {
 	 * @generated
 	 */
 	void setLabelAngle(double value);
-} // AssociationFigure
+
+} // RichReferenceFigure

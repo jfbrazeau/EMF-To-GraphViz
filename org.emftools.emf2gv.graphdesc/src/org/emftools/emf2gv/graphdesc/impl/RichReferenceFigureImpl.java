@@ -41,41 +41,42 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
-import org.emftools.emf2gv.graphdesc.AssociationFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
 import org.emftools.validation.utils.EMFConstraintsHelper;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Association Figure</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Rich Reference Figure</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AssociationFigureImpl#getTargetEReference <em>Target EReference</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AssociationFigureImpl#getSourceLabelEAttribute <em>Source Label EAttribute</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AssociationFigureImpl#getStandardLabelEAttribute <em>Standard Label EAttribute</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AssociationFigureImpl#getTargetLabelEAttribute <em>Target Label EAttribute</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AssociationFigureImpl#getLabelDistance <em>Label Distance</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AssociationFigureImpl#getLabelAngle <em>Label Angle</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getTargetEReference <em>Target EReference</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getSourceLabelEAttribute <em>Source Label EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getStandardLabelEAttribute <em>Standard Label EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getTargetLabelEAttribute <em>Target Label EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getLabelDistance <em>Label Distance</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getLabelAngle <em>Label Angle</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AssociationFigureImpl extends ReferenceFigureImpl implements
-		AssociationFigure {
+public class RichReferenceFigureImpl extends ReferenceFigureImpl implements RichReferenceFigure {
 	/**
 	 * The cached value of the '{@link #getTargetEReference() <em>Target EReference</em>}' reference.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getTargetEReference()
 	 * @generated
 	 * @ordered
 	 */
 	protected EReference targetEReference;
+
 	/**
 	 * The cached value of the '{@link #getSourceLabelEAttribute() <em>Source Label EAttribute</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -85,6 +86,7 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	 * @ordered
 	 */
 	protected EAttribute sourceLabelEAttribute;
+
 	/**
 	 * The cached value of the '{@link #getStandardLabelEAttribute() <em>Standard Label EAttribute</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -94,6 +96,7 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	 * @ordered
 	 */
 	protected EAttribute standardLabelEAttribute;
+
 	/**
 	 * The cached value of the '{@link #getTargetLabelEAttribute() <em>Target Label EAttribute</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -113,6 +116,7 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	 * @ordered
 	 */
 	protected static final double LABEL_DISTANCE_EDEFAULT = 1.0;
+
 	/**
 	 * The cached value of the '{@link #getLabelDistance() <em>Label Distance</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -132,6 +136,7 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	 * @ordered
 	 */
 	protected static final double LABEL_ANGLE_EDEFAULT = 0.0;
+
 	/**
 	 * The cached value of the '{@link #getLabelAngle() <em>Label Angle</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -147,11 +152,11 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	protected AssociationFigureImpl() {
+	protected RichReferenceFigureImpl() {
 		super();
-		// Default attribute values for an association figure
+		// Default attribute values for a rich reference figure
 		// (the minimum edge length and label distance must
-		// be adapted as an association figure usually has 
+		// be adapted as a rich reference figure usually has 
 		// labels)
 		setMinimumEdgeLength(3);
 		setLabelDistance(5.0d);
@@ -159,16 +164,18 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GraphdescPackage.Literals.ASSOCIATION_FIGURE;
+		return GraphdescPackage.Literals.RICH_REFERENCE_FIGURE;
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EReference getTargetEReference() {
@@ -177,14 +184,15 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 			targetEReference = (EReference)eResolveProxy(oldTargetEReference);
 			if (targetEReference != oldTargetEReference) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.ASSOCIATION_FIGURE__TARGET_EREFERENCE, oldTargetEReference, targetEReference));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE, oldTargetEReference, targetEReference));
 			}
 		}
 		return targetEReference;
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EReference basicGetTargetEReference() {
@@ -192,28 +200,20 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated NOT
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
 	public void setTargetEReference(EReference newTargetEReference) {
-		String oldName = getName();
-		boolean oldContainment = isContainment();
 		EReference oldTargetEReference = targetEReference;
 		targetEReference = newTargetEReference;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GraphdescPackage.ASSOCIATION_FIGURE__TARGET_EREFERENCE,
-					oldTargetEReference, targetEReference));
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GraphdescPackage.REFERENCE_FIGURE__NAME, oldName, getName()));
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GraphdescPackage.REFERENCE_FIGURE__CONTAINMENT,
-					oldContainment, isContainment()));
-		}
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE, oldTargetEReference, targetEReference));
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EAttribute getSourceLabelEAttribute() {
@@ -222,14 +222,15 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 			sourceLabelEAttribute = (EAttribute)eResolveProxy(oldSourceLabelEAttribute);
 			if (sourceLabelEAttribute != oldSourceLabelEAttribute) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.ASSOCIATION_FIGURE__SOURCE_LABEL_EATTRIBUTE, oldSourceLabelEAttribute, sourceLabelEAttribute));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE, oldSourceLabelEAttribute, sourceLabelEAttribute));
 			}
 		}
 		return sourceLabelEAttribute;
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EAttribute basicGetSourceLabelEAttribute() {
@@ -237,18 +238,20 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setSourceLabelEAttribute(EAttribute newSourceLabelEAttribute) {
 		EAttribute oldSourceLabelEAttribute = sourceLabelEAttribute;
 		sourceLabelEAttribute = newSourceLabelEAttribute;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.ASSOCIATION_FIGURE__SOURCE_LABEL_EATTRIBUTE, oldSourceLabelEAttribute, sourceLabelEAttribute));
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE, oldSourceLabelEAttribute, sourceLabelEAttribute));
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EAttribute getStandardLabelEAttribute() {
@@ -257,14 +260,15 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 			standardLabelEAttribute = (EAttribute)eResolveProxy(oldStandardLabelEAttribute);
 			if (standardLabelEAttribute != oldStandardLabelEAttribute) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.ASSOCIATION_FIGURE__STANDARD_LABEL_EATTRIBUTE, oldStandardLabelEAttribute, standardLabelEAttribute));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE, oldStandardLabelEAttribute, standardLabelEAttribute));
 			}
 		}
 		return standardLabelEAttribute;
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EAttribute basicGetStandardLabelEAttribute() {
@@ -272,18 +276,20 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setStandardLabelEAttribute(EAttribute newStandardLabelEAttribute) {
 		EAttribute oldStandardLabelEAttribute = standardLabelEAttribute;
 		standardLabelEAttribute = newStandardLabelEAttribute;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.ASSOCIATION_FIGURE__STANDARD_LABEL_EATTRIBUTE, oldStandardLabelEAttribute, standardLabelEAttribute));
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE, oldStandardLabelEAttribute, standardLabelEAttribute));
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EAttribute getTargetLabelEAttribute() {
@@ -292,14 +298,15 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 			targetLabelEAttribute = (EAttribute)eResolveProxy(oldTargetLabelEAttribute);
 			if (targetLabelEAttribute != oldTargetLabelEAttribute) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.ASSOCIATION_FIGURE__TARGET_LABEL_EATTRIBUTE, oldTargetLabelEAttribute, targetLabelEAttribute));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE, oldTargetLabelEAttribute, targetLabelEAttribute));
 			}
 		}
 		return targetLabelEAttribute;
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EAttribute basicGetTargetLabelEAttribute() {
@@ -307,14 +314,15 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setTargetLabelEAttribute(EAttribute newTargetLabelEAttribute) {
 		EAttribute oldTargetLabelEAttribute = targetLabelEAttribute;
 		targetLabelEAttribute = newTargetLabelEAttribute;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.ASSOCIATION_FIGURE__TARGET_LABEL_EATTRIBUTE, oldTargetLabelEAttribute, targetLabelEAttribute));
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE, oldTargetLabelEAttribute, targetLabelEAttribute));
 	}
 
 	/**
@@ -335,7 +343,7 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 		double oldLabelDistance = labelDistance;
 		labelDistance = newLabelDistance;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.ASSOCIATION_FIGURE__LABEL_DISTANCE, oldLabelDistance, labelDistance));
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE, oldLabelDistance, labelDistance));
 	}
 
 	/**
@@ -356,59 +364,61 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 		double oldLabelAngle = labelAngle;
 		labelAngle = newLabelAngle;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.ASSOCIATION_FIGURE__LABEL_ANGLE, oldLabelAngle, labelAngle));
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE, oldLabelAngle, labelAngle));
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GraphdescPackage.ASSOCIATION_FIGURE__TARGET_EREFERENCE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE:
 				if (resolve) return getTargetEReference();
 				return basicGetTargetEReference();
-			case GraphdescPackage.ASSOCIATION_FIGURE__SOURCE_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE:
 				if (resolve) return getSourceLabelEAttribute();
 				return basicGetSourceLabelEAttribute();
-			case GraphdescPackage.ASSOCIATION_FIGURE__STANDARD_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE:
 				if (resolve) return getStandardLabelEAttribute();
 				return basicGetStandardLabelEAttribute();
-			case GraphdescPackage.ASSOCIATION_FIGURE__TARGET_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE:
 				if (resolve) return getTargetLabelEAttribute();
 				return basicGetTargetLabelEAttribute();
-			case GraphdescPackage.ASSOCIATION_FIGURE__LABEL_DISTANCE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				return getLabelDistance();
-			case GraphdescPackage.ASSOCIATION_FIGURE__LABEL_ANGLE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE:
 				return getLabelAngle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GraphdescPackage.ASSOCIATION_FIGURE__TARGET_EREFERENCE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE:
 				setTargetEReference((EReference)newValue);
 				return;
-			case GraphdescPackage.ASSOCIATION_FIGURE__SOURCE_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE:
 				setSourceLabelEAttribute((EAttribute)newValue);
 				return;
-			case GraphdescPackage.ASSOCIATION_FIGURE__STANDARD_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE:
 				setStandardLabelEAttribute((EAttribute)newValue);
 				return;
-			case GraphdescPackage.ASSOCIATION_FIGURE__TARGET_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE:
 				setTargetLabelEAttribute((EAttribute)newValue);
 				return;
-			case GraphdescPackage.ASSOCIATION_FIGURE__LABEL_DISTANCE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				setLabelDistance((Double)newValue);
 				return;
-			case GraphdescPackage.ASSOCIATION_FIGURE__LABEL_ANGLE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE:
 				setLabelAngle((Double)newValue);
 				return;
 		}
@@ -416,28 +426,29 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GraphdescPackage.ASSOCIATION_FIGURE__TARGET_EREFERENCE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE:
 				setTargetEReference((EReference)null);
 				return;
-			case GraphdescPackage.ASSOCIATION_FIGURE__SOURCE_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE:
 				setSourceLabelEAttribute((EAttribute)null);
 				return;
-			case GraphdescPackage.ASSOCIATION_FIGURE__STANDARD_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE:
 				setStandardLabelEAttribute((EAttribute)null);
 				return;
-			case GraphdescPackage.ASSOCIATION_FIGURE__TARGET_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE:
 				setTargetLabelEAttribute((EAttribute)null);
 				return;
-			case GraphdescPackage.ASSOCIATION_FIGURE__LABEL_DISTANCE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				setLabelDistance(LABEL_DISTANCE_EDEFAULT);
 				return;
-			case GraphdescPackage.ASSOCIATION_FIGURE__LABEL_ANGLE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE:
 				setLabelAngle(LABEL_ANGLE_EDEFAULT);
 				return;
 		}
@@ -445,28 +456,28 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GraphdescPackage.ASSOCIATION_FIGURE__TARGET_EREFERENCE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE:
 				return targetEReference != null;
-			case GraphdescPackage.ASSOCIATION_FIGURE__SOURCE_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE:
 				return sourceLabelEAttribute != null;
-			case GraphdescPackage.ASSOCIATION_FIGURE__STANDARD_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE:
 				return standardLabelEAttribute != null;
-			case GraphdescPackage.ASSOCIATION_FIGURE__TARGET_LABEL_EATTRIBUTE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE:
 				return targetLabelEAttribute != null;
-			case GraphdescPackage.ASSOCIATION_FIGURE__LABEL_DISTANCE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				return labelDistance != LABEL_DISTANCE_EDEFAULT;
-			case GraphdescPackage.ASSOCIATION_FIGURE__LABEL_ANGLE:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE:
 				return labelAngle != LABEL_ANGLE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
-
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -531,19 +542,19 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 					.getInstance(GraphdescValidator.DIAGNOSTIC_SOURCE);
 			ClassFigure classFigure = getClassFigure();
 			List<ReferenceFigure> referenceFigures = new ArrayList<ReferenceFigure>();
-			List<AssociationFigure> associationFigures = new ArrayList<AssociationFigure>();
+			List<RichReferenceFigure> richReferenceFigures = new ArrayList<RichReferenceFigure>();
 			for (ReferenceFigure referenceFigure : classFigure.getReferenceFigures()) {
-				boolean isAssociation = referenceFigure instanceof AssociationFigure;
-				if (isAssociation) {
-					if (!associationFigures.contains(referenceFigure))
-						associationFigures.add((AssociationFigure) referenceFigure);
+				boolean isRichReference = referenceFigure instanceof RichReferenceFigure;
+				if (isRichReference) {
+					if (!richReferenceFigures.contains(referenceFigure))
+						richReferenceFigures.add((RichReferenceFigure) referenceFigure);
 				}
 				else {
 					if (!referenceFigures.contains(referenceFigure))
 						referenceFigures.add(referenceFigure);
 				}
 			}
-			// The association figure musn't use a reference that is already used
+			// The rich reference figure musn't use a reference that is already used
 			// by a normal reference figure (getEReference cannot be null
 			// as the referenceFigure validation has been processed)
 			for (ReferenceFigure referenceFigure : referenceFigures) {
@@ -553,7 +564,7 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 							diagnostic,
 							this,
 							0,
-							"The association figure is associated to an EReference ({0}) that is already used by a rerence figure.",
+							"The rich reference figure is associated to an EReference ({0}) that is already used by a normal refence figure.",
 							eReference.getName());
 					valid = false;
 					break;
@@ -565,32 +576,32 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 			if (targetEReference == null) {
 				constraintsHelper
 						.addError(diagnostic, this, 0,
-								"The association figure must be associated to a target EReference");
+								"The rich reference figure must be associated to a target EReference");
 				valid = false;
 			}
 			else {
-				// Check unique association
-				for (AssociationFigure associationFigure : associationFigures) {
+				// Check unique rich reference
+				for (RichReferenceFigure richReferenceFigure : richReferenceFigures) {
 					// A test is made in order not to create a marker for
 					// the first occurrence of the same { ref, target ref } couple
-					if (associationFigure == this) {
+					if (richReferenceFigure == this) {
 						break;
 					} else if (getEReference().equals(
-							associationFigure.getEReference())
+							richReferenceFigure.getEReference())
 							&& getTargetEReference().equals(
-									associationFigure.getTargetEReference())) {
+									richReferenceFigure.getTargetEReference())) {
 						constraintsHelper
 								.addError(
 										diagnostic,
 										this,
 										0,
-										"The association uses a [EReference, Target EReference] couple that is already used");
+										"The rich reference uses a [EReference, Target EReference] couple that is already used");
 						valid = false;
 						break;
-
+	
 					}
 				}
-
+	
 				// Labels validation
 				EClass eClass = targetEReference.getEContainingClass();
 				if (eClass != null) {
@@ -601,7 +612,7 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 										diagnostic,
 										this,
 										0,
-										"The source label EAttribute ({0}) of the association figure is not a member of the association EClass ({1})",
+										"The source label EAttribute ({0}) of the rich reference figure is not a member of the EClass ({1})",
 										srcLabelAttr.getName(), eClass.getName());
 						valid = false;
 					}
@@ -612,7 +623,7 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 										diagnostic,
 										this,
 										0,
-										"The standard label EAttribute ({0}) of the association figure is not a member of the association EClass ({1})",
+										"The standard label EAttribute ({0}) of the rich reference figure is not a member of the EClass ({1})",
 										stdLabelAttr.getName(), eClass.getName());
 						valid = false;
 					}
@@ -623,15 +634,15 @@ public class AssociationFigureImpl extends ReferenceFigureImpl implements
 										diagnostic,
 										this,
 										0,
-										"The target label EAttribute ({0}) of the association figure is not a member of the association EClass ({1})",
+										"The target label EAttribute ({0}) of the rich reference figure is not a member of the EClass ({1})",
 										targetLabelAttr.getName(), eClass.getName());
 						valid = false;
 					}
 				}
 			}
-
+	
 		}
 		return valid;
 	}
 
-} // AssociationFigureImpl
+} //RichReferenceFigureImpl
