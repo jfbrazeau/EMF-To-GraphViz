@@ -87,6 +87,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
+import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.processor.Activator;
 import org.emftools.emf2gv.processor.core.Emf2gvOCLProvider;
 import org.emftools.emf2gv.processor.ui.util.OCLInputDialog;
@@ -466,6 +468,17 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		EList<ClassFigure> classFigures = figureDescription.getClassFigures();
 		for (ClassFigure classFigure : classFigures) {
 			registerSuperTypes(classFigure.getEClass(), eClasses);
+			// Retrieve the EClass targeted by the rich references (i.e. 
+			// the association EClasses)
+			EList<ReferenceFigure> referenceFigures = classFigure
+					.getReferenceFigures();
+			for (ReferenceFigure referenceFigure : referenceFigures) {
+				if (referenceFigure instanceof RichReferenceFigure) {
+					RichReferenceFigure richReferenceFigure = (RichReferenceFigure) referenceFigure;
+					registerSuperTypes(richReferenceFigure.getEReference()
+							.getEReferenceType(), eClasses);
+				}
+			}
 		}
 		return eClasses;
 	}
@@ -534,7 +547,8 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 				String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX];
 				String eClassName = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX];
 				String expressionValue = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX];
-				boolean enabled = "true".equals(cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ENABLED_IDX]);
+				boolean enabled = "true"
+						.equals(cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ENABLED_IDX]);
 				EPackage ePackage = EPackage.Registry.INSTANCE
 						.getEPackage(ePackakeNsUri);
 				EClass eClass = (EClass) ePackage.getEClassifier(eClassName);
