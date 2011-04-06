@@ -28,19 +28,14 @@
 package org.emftools.emf2gv.util;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
@@ -96,21 +91,15 @@ public class IOHelper {
 	 * @param monitor
 	 *            the progress monitor.
 	 * @return the saved file.
-	 * @throws CoreException
-	 *             thrown if an unexpected error occurs.
+	 * @throws IOException
+	 *             throw if an I/O error occurs.
 	 */
-	public static IFile save(IPath path, byte[] content,
-			IProgressMonitor monitor) throws CoreException {
+	public static void save(String path, byte[] content,
+			IProgressMonitor monitor) throws IOException {
 		monitor.beginTask("Saving " + path, 1);
-		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		IFile file = root.getFile(path);
-		if (file.exists()) {
-			file.setContents(new ByteArrayInputStream(content), true, true,
-					null);
-		} else {
-			file.create(new ByteArrayInputStream(content), true, null);
-		}
-		return file;
+		FileOutputStream out = new FileOutputStream(path);
+		out.write(content);
+		out.close();
 	}
 
 }
