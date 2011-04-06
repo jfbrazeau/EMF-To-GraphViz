@@ -58,26 +58,36 @@ import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory
  * This class provides several helper methods around EMF.
  */
 public class EMFHelper {
-	
+
 	/**
 	 * @return an Ecore adapter factory.
 	 */
 	public static AdapterFactory getEcoreAdapterFactory() {
-		return getAdapterFactory(Arrays.asList(new EPackage[] { EcorePackage.eINSTANCE }));
+		return getAdapterFactory(Arrays
+				.asList(new EPackage[] { EcorePackage.eINSTANCE }));
 	}
 
 	/**
 	 * Returns an adapter factory for the given EPackages.
-	 * @param ePackages the EPackages.
+	 * 
+	 * @param ePackages
+	 *            the EPackages.
 	 * @return the adapter factory.
 	 */
 	public static AdapterFactory getAdapterFactory(List<EPackage> ePackages) {
-		Registry reg = EMFEditPlugin.getComposedAdapterFactoryDescriptorRegistry();
-		ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
-		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
+		Registry reg = EMFEditPlugin
+				.getComposedAdapterFactoryDescriptorRegistry();
+		ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(
+				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+		adapterFactory
+				.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+		adapterFactory
+				.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 		for (EPackage ePackage : ePackages) {
-			List<Object> list = Arrays.asList(new Object[] { ePackage, org.eclipse.emf.edit.provider.ITreeItemContentProvider.class });
+			List<Object> list = Arrays
+					.asList(new Object[] {
+							ePackage,
+							org.eclipse.emf.edit.provider.ITreeItemContentProvider.class });
 			Descriptor desc = reg.getDescriptor(list);
 			if (desc != null) {
 				AdapterFactory af = desc.createAdapterFactory();
@@ -89,7 +99,10 @@ public class EMFHelper {
 
 	/**
 	 * Resolves an EPackage.
-	 * @param ePackageFake the fake EPackage (that is used to lazily resolve the EPackages).
+	 * 
+	 * @param ePackageFake
+	 *            the fake EPackage (that is used to lazily resolve the
+	 *            EPackages).
 	 * @return the resolved EPackage.
 	 */
 	public static EPackage resolve(EPackageFake ePackageFake) {
@@ -97,7 +110,7 @@ public class EMFHelper {
 		String uri = ePackageFake.getNsURI();
 		return EPackage.Registry.INSTANCE.getEPackage(uri);
 	}
-	
+
 	/**
 	 * @return the registered EPackages list.
 	 */
@@ -133,8 +146,6 @@ public class EMFHelper {
 	 *            the resource set.
 	 * @param path
 	 *            the resource path.
-	 * @param validate
-	 *            a boolean indicating if the resource must be validated.
 	 * @param monitor
 	 *            the progress monitor.
 	 * @return the EMF resource.
@@ -142,20 +153,14 @@ public class EMFHelper {
 	 *             thrown if an unexpected eroor occurs.
 	 */
 	public static Resource loadEMFResource(ResourceSet rs, IPath path,
-			boolean validate, IProgressMonitor monitor) throws CoreException {
+			IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
 			monitor.beginTask("Loading " + path, 2);
 		}
-		URI uri = URI.createPlatformResourceURI(path.toPortableString(), true);
+		URI uri = URI.createURI(path.toString(), true);
 		Resource emfResource = rs.getResource(uri, true);
 		if (monitor != null) {
 			monitor.worked(1);
-		}
-		if (validate) {
-			IStatus status = validate(emfResource);
-			if (!status.isOK()) {
-				throw new CoreException(status);
-			}
 		}
 		if (monitor != null) {
 			monitor.worked(2);
@@ -182,5 +187,5 @@ public class EMFHelper {
 		}
 		return BasicDiagnostic.toIStatus(diagnostic);
 	}
-	
+
 }
