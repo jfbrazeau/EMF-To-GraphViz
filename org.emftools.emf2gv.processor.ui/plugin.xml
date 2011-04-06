@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="org.emftools.emf2gv.processor.ui.EMF2GvLaunchConfigType"
+            id="org.emftools.emf2gv.processor.ui.EMF2GvLaunchConfigType"
+            modes="run"
+            name="EMF To Graphviz">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.emftools.emf2gv.processor.ui.EMF2GvLaunchConfigTabGroup"
+            id="org.emftools.emf2gv.processor.launchConfigurationTabGroup1"
+            type="org.emftools.emf2gv.processor.ui.EMF2GvLaunchConfigType">
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.emftools.emf2gv.processor.ui.EMF2GvLaunchConfigType"
+            icon="icons/EMF2Gv.gif"
+            id="org.emftools.emf2gv.processor.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.emftools.emf2gv.processor.ui.util.XMIPropertyTester"
+            id="org.emftools.emf2gv.processor.ui.EMFPropertyTester"
+            namespace="org.emftools.emf2gv.processor.ui"
+            properties="isEMF"
+            type="org.eclipse.core.resources.IResource">
+      </propertyTester>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            class="org.emftools.emf2gv.processor.ui.EMF2GvProcessorShortcut"
+            icon="icons/EMF2Gv.gif"
+            id="org.emftools.emf2gv.processor.ui.EMF2GvProcessorShortcut"
+            label="Emf To GraphViz Transformation"
+            modes="run">
+         <contextualLaunch>
+            <enablement>
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <test
+                           forcePluginActivation="true"
+                           property="org.emftools.emf2gv.processor.ui.isEMF">
+                     </test>
+                  </iterate>
+               </with>
+            </enablement>
+         </contextualLaunch>
+         <configurationType
+               id="org.emftools.emf2gv.processor.ui.EMF2GvLaunchConfigType">
+         </configurationType>
+         <description
+               description="EMF To GraphViz transformation"
+               mode="run">
+         </description>
+      </shortcut>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.emftools.emf2gv.processor.ui.preferences.EMF2GvPreferencePage"
+            id="org.emftools.emf2gv.processor.ui.preferences.EMF2GvPreferencePage"
+            name="EMF To GraphViz">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.emftools.emf2gv.processor.ui.preferences.EMF2GvPreferenceInitializer">
+      </initializer>
+   </extension>
+
+</plugin>
