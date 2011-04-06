@@ -2,9 +2,9 @@
 <feature
       id="org.emftools.emf2gv"
       label="EMF To GraphViz"
-      version="1.0.3.qualifier"
+      version="1.0.4.qualifier"
       provider-name="EMF Tools Project"
-      plugin="org.emftools.emf2gv.processor">
+      plugin="org.emftools.emf2gv.processor.ui">
 
    <description url="https://sourceforge.net/projects/emf2gv/">
       A set of lightweight plugins allowing to easily generate a graphical representation of an EMF model (using GraphViz utility http://www.graphviz.org/)
@@ -75,7 +75,8 @@ POSSIBILITY OF SUCH DAMAGE.
    </url>
 
    <requires>
-      <import feature="org.emftools.validation" version="1.0.0.qualifier"/>
+      <import feature="org.emftools.validation" version="1.0.2" match="compatible"/>
+      <import feature="org.eclipse.ocl" version="3.0.0" match="compatible"/>
    </requires>
 
    <plugin
@@ -100,14 +101,21 @@ POSSIBILITY OF SUCH DAMAGE.
          unpack="false"/>
 
    <plugin
-         id="org.emftools.emf2gv.processor"
+         id="org.emftools.emf2gv.util"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.emftools.emf2gv.util"
+         id="org.emftools.emf2gv.processor.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.emftools.emf2gv.processor.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
