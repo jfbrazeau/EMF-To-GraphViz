@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.6.0_05"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/lpg.runtime.java_2.0.17.v201004271640.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.core.runtime_3.6.0.v20100505.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.emf.common_2.6.0.v20100914-1218.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.emf.ecore_2.6.1.v20100914-1218.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.emf.ecore.xmi_2.5.0.v20100521-1846.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.emf.edit_2.6.0.v20100914-1218.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.equinox.common_3.6.0.v20100503.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.ocl_3.0.2.R30x_v201101110610.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.ocl.ecore_3.0.2.R30x_v201101110610.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.emftools.emf2gv.graphdesc_1.0.3.201104052217.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.emftools.emf2gv.processor.core_1.0.3.201104052217.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.emftools.emf2gv.util_1.0.3.201104052217.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.emftools.samples.school_1.0.2.201104052217.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.emftools.samples.school.edit_1.0.2.201104052217.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.emftools.validation.utils_1.0.2.201104052217.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>

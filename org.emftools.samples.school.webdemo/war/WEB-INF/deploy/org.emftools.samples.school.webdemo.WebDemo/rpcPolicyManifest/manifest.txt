@@ -1,0 +1,3 @@
+# Module org.emftools.samples.school.webdemo.WebDemo
+# RPC service class, partial path of RPC policy file
+org.emftools.samples.school.webdemo.client.WebDemoService, 94F12DF4D4D07757953CBB34EFB3B713.gwt.rpc
