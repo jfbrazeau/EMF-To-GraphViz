@@ -158,7 +158,6 @@ public class EMFHelper {
 		if (monitor != null) {
 			monitor.beginTask("Loading " + path, 1);
 		}
-		// TODO commiter pb de foichiers distribués
 		URI uri = URI.createFileURI(ResourcesPlugin.getWorkspace().getRoot()
 				.getFile(path).getLocation().toFile().getAbsolutePath());
 		Resource emfResource = rs.getResource(uri, true);
