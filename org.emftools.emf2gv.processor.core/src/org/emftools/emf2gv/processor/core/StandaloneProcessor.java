@@ -80,9 +80,10 @@ public class StandaloneProcessor {
 
 	/**
 	 * Converts a given model into a diagram file.
+	 *
 	 * 
 	 * <p>
-	 * the entry point in the model is given by the <code>modelRoot</code>
+	 * The entry point in the model is given by the <code>modelRoot</code>
 	 * argument.
 	 * </p>
 	 * <p>
@@ -370,13 +371,12 @@ public class StandaloneProcessor {
 			String targetImagePath, ILogger logger, IProgressMonitor monitor)
 			throws CoreException {
 		try {
-			// TODO fix file type and other GraphViz options
 			monitor.beginTask("Running GraphViz dot utility", 1);
 			final Process gvProcess = Runtime.getRuntime().exec(
 					new String[] { dotCommand, "-Tjpg",
-							'"' + gvSourcePath + '"',
-							"-o\"" + targetImagePath + '"' });
-
+							gvSourcePath,
+							"-o" + targetImagePath});
+			
 			// Stdout and stderr capture
 			StreamHandler stderrHandler = new StreamHandler(
 					gvProcess.getErrorStream());
