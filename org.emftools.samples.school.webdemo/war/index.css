@@ -35,6 +35,6 @@ h1 {
 
 .badvalue {
 	border-color: red;
-	font-color : red;
+	color : red;
 	padding: 2px;
 }
