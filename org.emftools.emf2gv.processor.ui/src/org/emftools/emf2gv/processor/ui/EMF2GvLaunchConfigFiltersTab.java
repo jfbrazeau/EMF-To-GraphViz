@@ -507,7 +507,7 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		}
 
 		// Resource load
-		Resource graphDescRes = EMFHelper.loadEMFResource(
+		Resource graphDescRes = EMFHelper.loadFileEMFResource(
 				new ResourceSetImpl(), graphDescPath, null);
 		EList<EObject> contents = graphDescRes.getContents();
 		if (contents == null || contents.size() != 1

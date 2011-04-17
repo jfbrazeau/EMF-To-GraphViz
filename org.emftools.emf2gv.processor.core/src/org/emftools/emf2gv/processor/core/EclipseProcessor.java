@@ -128,7 +128,7 @@ public class EclipseProcessor {
 		/*
 		 * Graphdesc file loading or generation.
 		 */
-		Resource graphDescRes = EMFHelper.loadEMFResource(
+		Resource graphDescRes = EMFHelper.loadFileEMFResource(
 				new ResourceSetImpl(), graphDescPath, monitor);
 		GVFigureDescription figureDesc = (GVFigureDescription) graphDescRes
 				.getContents().get(0);
@@ -138,7 +138,7 @@ public class EclipseProcessor {
 		 */
 		ResourceSet rs = new ResourceSetImpl();
 		rs.setPackageRegistry(EPackage.Registry.INSTANCE);
-		Resource modelRes = EMFHelper.loadEMFResource(rs, modelPath, monitor);
+		Resource modelRes = EMFHelper.loadFileEMFResource(rs, modelPath, monitor);
 		List<EObject> modelRoots = null;
 		if (modelUriFragment == null || "".equals(modelUriFragment.trim())) {
 			modelRoots = modelRes.getContents();
