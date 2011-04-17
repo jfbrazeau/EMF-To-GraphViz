@@ -99,6 +99,7 @@ public class IOHelper {
 		monitor.beginTask("Saving " + path, 1);
 		FileOutputStream out = new FileOutputStream(path);
 		out.write(content);
+		out.flush();
 		out.close();
 	}
 
