@@ -44,7 +44,9 @@ public class StandardLogger implements ILogger {
 	 */
 	public void logError(String error, Throwable throwable) {
 		System.err.println(error);
-		throwable.printStackTrace();
+		if (throwable != null) {
+			throwable.printStackTrace();
+		}
 	}
 
 	/**
