@@ -27,6 +27,8 @@
  */
 package org.emftools.samples.school.webdemo.client;
 
+import org.emftools.samples.school.webdemo.server.Emf2gvServlet;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -41,25 +43,57 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextArea;
 
+/**
+ * Web Demo Entry point.
+ * 
+ * @author jbrazeau
+ */
 public class WebDemoEntryPoint implements EntryPoint {
 
-	private ListBox orientationListBox;
-	private CheckBox alignSameEClassesCheckBox;
-	private Image hiddenDiagramImage;
-	private ScrollPanel diagramScrollPanel;
-	private Image diagramImage;
-	private ListBox zoomListBox;
-	private TextArea classroomOclExpressionTextArea;
-	private TextArea studentOclExpressionTextArea;
+	/** Zoom factors list */
 	private static final int[] zoomFactors = new int[] { 25, 50, 75, 100, 150,
 			200 };
+
+	/** Diagram orientation list box */
+	private ListBox orientationListBox;
+
+	/** Diagram alignment checkbox */
+	private CheckBox alignSameEClassesCheckBox;
+
+	/** Hidden image used to download from the server in background */
+	private Image hiddenDiagramImage;
+
+	/** Scroll pane containing the diagram image */
+	private ScrollPanel diagramScrollPanel;
+
+	/** The diagram image */
+	private Image diagramImage;
+
+	/** Zoom list box */
+	private ListBox zoomListBox;
+
+	/** Classroom OCL text area */
+	private TextArea classroomOclExpressionTextArea;
+
+	/** Classroom OCL expression parsing status label */
+	private Label classroomStatusLabel;
+
+	/** Students OCL text area */
+	private TextArea studentOclExpressionTextArea;
+
+	/** Student OCL expression parsing status label */
+	private Label studentStatusLabel;
+
+	/** Default textara style name */
 	private String defaultTexteAreaStyleName;
 
+	/** GWT Web Demo service */
 	private final WebDemoServiceAsync service = GWT
 			.create(WebDemoService.class);
 
@@ -103,7 +137,8 @@ public class WebDemoEntryPoint implements EntryPoint {
 
 		// Classroom condition
 		classroomOclExpressionTextArea = new TextArea();
-		defaultTexteAreaStyleName = classroomOclExpressionTextArea.getStyleName();
+		defaultTexteAreaStyleName = classroomOclExpressionTextArea
+				.getStyleName();
 		classroomOclExpressionTextArea.setValue("true");
 		RootPanel.get("classroomOclExpressionContainer").add(
 				classroomOclExpressionTextArea);
@@ -113,6 +148,18 @@ public class WebDemoEntryPoint implements EntryPoint {
 		studentOclExpressionTextArea.setValue("true");
 		RootPanel.get("studentOclExpressionContainer").add(
 				studentOclExpressionTextArea);
+
+		// Classroom Status label
+		classroomStatusLabel = new Label();
+		classroomStatusLabel.setText(" ");
+		classroomStatusLabel.setStyleName("badvalue");
+		RootPanel.get("classroomStatusContainer").add(classroomStatusLabel);
+
+		// Student Status label
+		studentStatusLabel = new Label();
+		studentStatusLabel.setText(" ");
+		studentStatusLabel.setStyleName("badvalue");
+		RootPanel.get("studentStatusContainer").add(studentStatusLabel);
 
 		// Change handler
 		orientationListBox.addChangeHandler(new ChangeHandler() {
@@ -133,12 +180,13 @@ public class WebDemoEntryPoint implements EntryPoint {
 		classroomOclExpressionTextArea.addKeyUpHandler(new KeyUpHandler() {
 			public void onKeyUp(KeyUpEvent event) {
 				oclExpressionHasChanged("Classroom",
-						classroomOclExpressionTextArea);
+						classroomOclExpressionTextArea, classroomStatusLabel);
 			}
 		});
 		studentOclExpressionTextArea.addKeyUpHandler(new KeyUpHandler() {
 			public void onKeyUp(KeyUpEvent event) {
-				oclExpressionHasChanged("Student", studentOclExpressionTextArea);
+				oclExpressionHasChanged("Student",
+						studentOclExpressionTextArea, studentStatusLabel);
 			}
 		});
 
@@ -146,9 +194,24 @@ public class WebDemoEntryPoint implements EntryPoint {
 		updateDiagram();
 	}
 
+	/**
+	 * This method is invoked when to the OCL textareas change.
+	 * 
+	 * <p>
+	 * The method's boy invokes the OCL validation service provided by the
+	 * server and reports the errors when required in the specified status
+	 * label.
+	 * 
+	 * @param eClassName
+	 *            the OCL expression context.
+	 * @param oclTextArea
+	 *            The text area containing the OCL expression.
+	 * @param statusLabel
+	 *            The label that accepts the parsing errors.
+	 */
 	private void oclExpressionHasChanged(final String eClassName,
-			final TextArea textArea) {
-		service.validate(eClassName, textArea.getText(),
+			final TextArea oclTextArea, final Label statusLabel) {
+		service.validate(eClassName, oclTextArea.getText(),
 				new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
 						Window.alert("Unexpected error : "
@@ -157,15 +220,21 @@ public class WebDemoEntryPoint implements EntryPoint {
 
 					public void onSuccess(String result) {
 						if (result == null) {
-							textArea.setStyleName(defaultTexteAreaStyleName);
+							oclTextArea.setStyleName(defaultTexteAreaStyleName);
+							statusLabel.setText(" ");
 							updateDiagram();
 						} else {
-							textArea.setStyleName("badvalue");
+							statusLabel.setText(result);
+							oclTextArea.setStyleName("badvalue");
 						}
 					}
 				});
 	}
 
+	/**
+	 * Updates the diagram by invoking the <code>Emf2gvServlet<code>.
+	 * @see Emf2gvServlet
+	 */
 	private void updateDiagram() {
 		diagramImage.setUrl("timer.gif");
 		diagramImage.setPixelSize(48, 48);
@@ -187,4 +256,5 @@ public class WebDemoEntryPoint implements EntryPoint {
 			}
 		});
 	}
+
 }

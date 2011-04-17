@@ -33,6 +33,13 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * The async counterpart of <code>WebDemoService</code>.
  */
 public interface WebDemoServiceAsync {
-	void validate(String eClassName, String oclExpression, AsyncCallback<String> callback)
-			throws IllegalArgumentException;
+
+	/**
+	 * Validates an OCL expression.
+	 * @param eClassName the EClass to which is applied the OCL expression.
+	 * @param oclExpression the OCL expression to parse.
+	 * @param callback the callback.
+	 */
+	void validate(String eClassName, String oclExpression, AsyncCallback<String> callback);
+
 }

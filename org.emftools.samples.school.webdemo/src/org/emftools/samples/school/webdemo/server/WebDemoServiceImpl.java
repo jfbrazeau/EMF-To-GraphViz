@@ -47,17 +47,25 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class WebDemoServiceImpl extends RemoteServiceServlet implements
 		WebDemoService {
 
-	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper = OCLProvider.newOCL()
-		.createOCLHelper();
-	
-	public String validate(String eClassName, String oclExpression) throws IllegalArgumentException {
-		EClass eClass = "Student".equals(eClassName) ? SchoolPackage.eINSTANCE.getStudent() : SchoolPackage.eINSTANCE.getClassroom();
+	/** The OCL Helper that helps to parse the OCL expressions */
+	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper = OCLProvider
+			.newOCL().createOCLHelper();
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.emftools.samples.school.webdemo.client.WebDemoService#validate(java
+	 * .lang.String, java.lang.String)
+	 */
+	public String validate(String eClassName, String oclExpression) {
+		EClass eClass = "Student".equals(eClassName) ? SchoolPackage.eINSTANCE
+				.getStudent() : SchoolPackage.eINSTANCE.getClassroom();
 		oclHelper.setContext(eClass);
 		try {
 			oclHelper.createInvariant(oclExpression);
 			return null;
-		}
-		catch (ParserException e) {
+		} catch (ParserException e) {
 			return e.getMessage();
 		}
 	}

@@ -52,11 +52,22 @@ import org.emftools.emf2gv.processor.core.OCLFilterExpression;
 import org.emftools.emf2gv.processor.core.StandaloneProcessor;
 import org.emftools.samples.school.SchoolPackage;
 
+/**
+ * The servlet that generates and serves the diagram images (using Emf2gv in
+ * standalone mode).
+ * 
+ * @author jbrazeau
+ */
 public class Emf2gvServlet extends HttpServlet {
 
 	/** Default serial version UID */
 	private static final long serialVersionUID = 1L;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
+	 */
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -65,28 +76,34 @@ public class Emf2gvServlet extends HttpServlet {
 		GraphdescPackage.eINSTANCE.eClass();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest
+	 * , javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			// TODO remove the log
-			System.out.println("Emf2gvServlet : " + req.getQueryString());
-			// Load
+			// Load the model resource
 			ResourceSet rs = new ResourceSetImpl();
-			// Register the default resource factory -- only needed for
-			// stand-alone!
 			rs.getResourceFactoryRegistry()
 					.getExtensionToFactoryMap()
 					.put(Resource.Factory.Registry.DEFAULT_EXTENSION,
 							new XMIResourceFactoryImpl());
-
 			Resource modelResource = rs.getResource(URI.createURI(
 					Emf2gvServlet.class.getResource("example.school")
 							.toString(), true), true);
-			System.out.println(modelResource);
+
+			// Load the graphical description
 			Resource graphDescResource = rs.getResource(URI.createURI(
 					Emf2gvServlet.class.getResource("example.graphdesc")
 							.toString(), true), true);
+
+			// Change the orientation and the alignment with the request
+			// parameters
 			GVFigureDescription figureDescription = (GVFigureDescription) graphDescResource
 					.getContents().get(0);
 			figureDescription.setOrientation("1".equals(req
@@ -94,8 +111,9 @@ public class Emf2gvServlet extends HttpServlet {
 					: Orientation.TOP_DOWN);
 			figureDescription.setAlignSameEClasses("true".equals(req
 					.getParameter("alignSameEClasses")));
-			System.out.println(graphDescResource);
 
+			// OCL expressions parsing (allowing to select which students and
+			// classrooms have to de drawn on the diagram)
 			OCLFilterExpression classroomExpression = new OCLFilterExpression();
 			classroomExpression.setEClass(SchoolPackage.eINSTANCE
 					.getClassroom());
@@ -105,15 +123,19 @@ public class Emf2gvServlet extends HttpServlet {
 			studentExpression.setEClass(SchoolPackage.eINSTANCE.getStudent());
 			studentExpression.setExpression(req
 					.getParameter("studentOclExpression"));
-
 			List<OCLFilterExpression> expressions = Arrays
 					.asList(new OCLFilterExpression[] { classroomExpression,
 							studentExpression });
-			System.out.println("Processing...");
+
+			// Work dir and diagram file name build
+			File workDir = new File(System.getProperty("java.io.tmpdir")
+					+ "/emf2gv-" + req.getSession().getId());
+			File diagramFile = new File(System.getProperty("java.io.tmpdir")
+					+ "/diagram-" + req.getSession().getId() + ".jpg");
 			StandaloneProcessor.process(modelResource.getContents(), // model
 					figureDescription, // Figure description
-					new File("out"), // Work directory
-					new File("out.jpg").getAbsolutePath(), // diagram file
+					workDir, // Work directory
+					diagramFile.getAbsolutePath(), // diagram file
 					null, // Callback
 					null, // Icon provider
 					null, // dot command
@@ -123,23 +145,23 @@ public class Emf2gvServlet extends HttpServlet {
 					expressions, // Filters
 					null, // ILogger
 					null); // Progress monitor
-			System.out.println("Send response...");
-			resp.setContentType("image/jpg");
 
-			InputStream in = new FileInputStream("out.jpg");
+			// Send the response
+			resp.setContentType("image/jpg");
+			InputStream in = new FileInputStream(diagramFile);
 			byte[] buf = new byte[1024];
 			int n = -1;
 			while ((n = in.read(buf)) > 0) {
 				resp.getOutputStream().write(buf, 0, n);
 			}
-			System.out.println("Fichier : "
-					+ new File("out.jpg").getAbsolutePath());
 			resp.getOutputStream().flush();
+
+			// Delete the generated diagram file
+			diagramFile.delete();
 		} catch (Throwable t) {
 			t.printStackTrace();
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
 					t.getMessage());
 		}
-		System.out.println("Done");
 	}
 }

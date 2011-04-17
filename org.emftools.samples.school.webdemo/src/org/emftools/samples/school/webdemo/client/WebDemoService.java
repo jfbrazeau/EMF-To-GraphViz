@@ -35,5 +35,15 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("/service")
 public interface WebDemoService extends RemoteService {
-	String validate(String eClassName, String oclExpression) throws IllegalArgumentException;
+
+	/**
+	 * Validates an OCL expression.
+	 * 
+	 * @param eClassName
+	 *            the EClass to which is applied the OCL expression.
+	 * @param oclExpression
+	 *            the OCL expression to parse.
+	 */
+	String validate(String eClassName, String oclExpression);
+
 }
