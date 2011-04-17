@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -150,20 +151,19 @@ public class EMFHelper {
 	 *            the progress monitor.
 	 * @return the EMF resource.
 	 * @throws CoreException
-	 *             thrown if an unexpected eroor occurs.
+	 *             thrown if an unexpected error occurs.
 	 */
-	public static Resource loadEMFResource(ResourceSet rs, IPath path,
+	public static Resource loadFileEMFResource(ResourceSet rs, IPath path,
 			IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
-			monitor.beginTask("Loading " + path, 2);
+			monitor.beginTask("Loading " + path, 1);
 		}
-		URI uri = URI.createURI(path.toString(), true);
+		// TODO commiter pb de foichiers distribués
+		URI uri = URI.createFileURI(ResourcesPlugin.getWorkspace().getRoot()
+				.getFile(path).getLocation().toFile().getAbsolutePath());
 		Resource emfResource = rs.getResource(uri, true);
 		if (monitor != null) {
 			monitor.worked(1);
-		}
-		if (monitor != null) {
-			monitor.worked(2);
 		}
 		return emfResource;
 	}
