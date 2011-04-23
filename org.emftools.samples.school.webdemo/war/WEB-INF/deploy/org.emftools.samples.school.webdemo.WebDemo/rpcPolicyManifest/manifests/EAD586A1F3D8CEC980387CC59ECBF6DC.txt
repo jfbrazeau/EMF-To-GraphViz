@@ -1,0 +1,2 @@
+serviceClass: org.emftools.samples.school.webdemo.client.WebDemoService
+path: A76B9522748BB5A681CE39AA2C8A651A.gwt.rpc
