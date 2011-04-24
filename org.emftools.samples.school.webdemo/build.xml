@@ -1,0 +1,7 @@
+<project name="buildwebdemo" default="default">
+
+	<target name="default">
+		<zip destfile="webdemo.war" basedir="war" excludes="**/.svn" />
+	</target>
+
+</project>
