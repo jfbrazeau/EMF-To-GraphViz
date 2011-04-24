@@ -286,6 +286,14 @@ public class ClassroomImpl extends EObjectImpl implements Classroom {
 								+ getName() + "' has no student.",
 						new Object[] { this }));
 			}
+			if (getRank() < 0) {
+				valid = false;
+				diagnostic.add(new BasicDiagnostic(Diagnostic.ERROR,
+						SchoolValidator.DIAGNOSTIC_SOURCE,
+						SchoolValidator.CLASSROOM__VALIDATE, "The classroom '"
+								+ getName() + "' has a negative rank.",
+						new Object[] { this }));
+			}
 		}
 		return valid;
 	}
