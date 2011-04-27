@@ -27,9 +27,6 @@
  */
 package org.emftools.emf2gv.graphdesc;
 
-import java.util.Map;
-
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -374,13 +371,5 @@ public interface ClassFigure extends AbstractFigure {
 	 * @generated
 	 */
 	ReferenceFigure getReferenceFigure(EReference eReference);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context);
 
 } // ClassFigure

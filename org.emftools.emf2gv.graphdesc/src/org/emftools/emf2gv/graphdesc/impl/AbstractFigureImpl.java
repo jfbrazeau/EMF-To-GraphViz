@@ -27,6 +27,9 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
+import java.util.Map;
+
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
@@ -81,6 +84,13 @@ public abstract class AbstractFigureImpl extends EObjectImpl implements Abstract
 	 * @generated NOT
 	 */
 	public abstract String getName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public abstract boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context);
 
 	/**
 	 * <!-- begin-user-doc -->

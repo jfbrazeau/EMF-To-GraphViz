@@ -71,30 +71,6 @@ public class GraphdescValidator extends EObjectValidator {
 	public static final String DIAGNOSTIC_SOURCE = "org.emftools.emf2gv.graphdesc";
 
 	/**
-	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Validate' of 'Class Figure'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final int CLASS_FIGURE__VALIDATE = 2;
-
-	/**
-	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Validate' of 'Attribute Figure'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final int ATTRIBUTE_FIGURE__VALIDATE = 3;
-
-	/**
-	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Validate' of 'Reference Figure'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final int REFERENCE_FIGURE__VALIDATE = 4;
-
-	/**
 	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Validate' of 'GV Figure Description'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -103,12 +79,20 @@ public class GraphdescValidator extends EObjectValidator {
 	public static final int GV_FIGURE_DESCRIPTION__VALIDATE = 1;
 
 	/**
+	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Validate' of 'Abstract Figure'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final int ABSTRACT_FIGURE__VALIDATE = 2;
+
+	/**
 	 * A constant with a fixed name that can be used as the base value for additional hand written constants.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final int GENERATED_DIAGNOSTIC_CODE_COUNT = 4;
+	private static final int GENERATED_DIAGNOSTIC_CODE_COUNT = 2;
 
 	/**
 	 * A constant with a fixed name that can be used as the base value for additional hand written constants in a derived class.
@@ -186,18 +170,8 @@ public class GraphdescValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_UniqueID(classFigure, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(classFigure, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(classFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validateClassFigure_validate(classFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validateAbstractFigure_validate(classFigure, diagnostics, context);
 		return result;
-	}
-
-	/**
-	 * Validates the validate constraint of '<em>Class Figure</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateClassFigure_validate(ClassFigure classFigure, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return classFigure.validate(diagnostics, context);
 	}
 
 	/**
@@ -215,18 +189,8 @@ public class GraphdescValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_UniqueID(attributeFigure, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(attributeFigure, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(attributeFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validateAttributeFigure_validate(attributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validateAbstractFigure_validate(attributeFigure, diagnostics, context);
 		return result;
-	}
-
-	/**
-	 * Validates the validate constraint of '<em>Attribute Figure</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateAttributeFigure_validate(AttributeFigure attributeFigure, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return attributeFigure.validate(diagnostics, context);
 	}
 
 	/**
@@ -244,18 +208,8 @@ public class GraphdescValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_UniqueID(referenceFigure, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(referenceFigure, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(referenceFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validateReferenceFigure_validate(referenceFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validateAbstractFigure_validate(referenceFigure, diagnostics, context);
 		return result;
-	}
-
-	/**
-	 * Validates the validate constraint of '<em>Reference Figure</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateReferenceFigure_validate(ReferenceFigure referenceFigure, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return referenceFigure.validate(diagnostics, context);
 	}
 
 	/**
@@ -273,7 +227,7 @@ public class GraphdescValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_UniqueID(richReferenceFigure, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(richReferenceFigure, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(richReferenceFigure, diagnostics, context);
-		if (result || diagnostics != null) result &= validateReferenceFigure_validate(richReferenceFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validateAbstractFigure_validate(richReferenceFigure, diagnostics, context);
 		return result;
 	}
 
@@ -283,7 +237,27 @@ public class GraphdescValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAbstractFigure(AbstractFigure abstractFigure, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(abstractFigure, diagnostics, context);
+		if (!validate_NoCircularContainment(abstractFigure, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(abstractFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(abstractFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(abstractFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(abstractFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(abstractFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(abstractFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(abstractFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(abstractFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validateAbstractFigure_validate(abstractFigure, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the validate constraint of '<em>Abstract Figure</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAbstractFigure_validate(AbstractFigure abstractFigure, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return abstractFigure.validate(diagnostics, context);
 	}
 
 	/**

@@ -27,9 +27,6 @@
  */
 package org.emftools.emf2gv.graphdesc;
 
-import java.util.Map;
-
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EAttribute;
 
 /**
@@ -130,13 +127,5 @@ public interface AttributeFigure extends AbstractFigure {
 	 * @generated
 	 */
 	void setEAttribute(EAttribute value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context);
 
 } // AttributeFigure

@@ -27,9 +27,6 @@
  */
 package org.emftools.emf2gv.graphdesc;
 
-import java.util.Map;
-
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 
@@ -338,14 +335,6 @@ public interface ReferenceFigure extends AbstractFigure {
 	 * @generated
 	 */
 	void setMinimumEdgeLength(int value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context);
 
 	/**
 	 * <!-- begin-user-doc -->

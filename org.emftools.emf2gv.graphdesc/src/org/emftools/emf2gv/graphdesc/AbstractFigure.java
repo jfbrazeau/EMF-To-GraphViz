@@ -27,6 +27,9 @@
  */
 package org.emftools.emf2gv.graphdesc;
 
+import java.util.Map;
+
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -60,5 +63,13 @@ public interface AbstractFigure extends EObject {
 	 * @generated
 	 */
 	String getName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context);
 
 } // AbstractFigure
