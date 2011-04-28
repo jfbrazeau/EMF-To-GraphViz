@@ -102,16 +102,6 @@ public interface GraphdescPackage extends EPackage {
 	int ATTRIBUTE_FIGURE = 2;
 
 	/**
-	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl <em>Reference Figure</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl
-	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getReferenceFigure()
-	 * @generated
-	 */
-	int REFERENCE_FIGURE = 3;
-
-	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.GVFigureDescriptionImpl <em>GV Figure Description</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -174,7 +164,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAbstractFigure()
 	 * @generated
 	 */
-	int ABSTRACT_FIGURE = 5;
+	int ABSTRACT_FIGURE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -375,124 +365,6 @@ public interface GraphdescPackage extends EPackage {
 	int ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__NAME = ABSTRACT_FIGURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__CLASS_FIGURE = ABSTRACT_FIGURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>EReference</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__EREFERENCE = ABSTRACT_FIGURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Target Arrow Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__TARGET_ARROW_TYPE = ABSTRACT_FIGURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Source Arrow Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__SOURCE_ARROW_TYPE = ABSTRACT_FIGURE_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Containment</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__CONTAINMENT = ABSTRACT_FIGURE_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Custom Target Arrow</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__CUSTOM_TARGET_ARROW = ABSTRACT_FIGURE_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Custom Source Arrow</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW = ABSTRACT_FIGURE_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Color</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__COLOR = ABSTRACT_FIGURE_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Style</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__STYLE = ABSTRACT_FIGURE_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Target EType</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__TARGET_ETYPE = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Minimum Edge Length</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH = ABSTRACT_FIGURE_FEATURE_COUNT + 10;
-
-	/**
-	 * The number of structural features of the '<em>Reference Figure</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 11;
-
-
-	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl <em>Rich Reference Figure</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -500,7 +372,17 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getRichReferenceFigure()
 	 * @generated
 	 */
-	int RICH_REFERENCE_FIGURE = 4;
+	int RICH_REFERENCE_FIGURE = 3;
+
+	/**
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractReferenceFigureImpl <em>Abstract Reference Figure</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftools.emf2gv.graphdesc.impl.AbstractReferenceFigureImpl
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAbstractReferenceFigure()
+	 * @generated
+	 */
+	int ABSTRACT_REFERENCE_FIGURE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -509,7 +391,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__NAME = REFERENCE_FIGURE__NAME;
+	int ABSTRACT_REFERENCE_FIGURE__NAME = ABSTRACT_FIGURE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
@@ -518,7 +400,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__CLASS_FIGURE = REFERENCE_FIGURE__CLASS_FIGURE;
+	int ABSTRACT_REFERENCE_FIGURE__CLASS_FIGURE = ABSTRACT_FIGURE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>EReference</b></em>' reference.
@@ -527,7 +409,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__EREFERENCE = REFERENCE_FIGURE__EREFERENCE;
+	int ABSTRACT_REFERENCE_FIGURE__EREFERENCE = ABSTRACT_FIGURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Target Arrow Type</b></em>' attribute.
@@ -536,7 +418,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__TARGET_ARROW_TYPE = REFERENCE_FIGURE__TARGET_ARROW_TYPE;
+	int ABSTRACT_REFERENCE_FIGURE__TARGET_ARROW_TYPE = ABSTRACT_FIGURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Source Arrow Type</b></em>' attribute.
@@ -545,7 +427,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__SOURCE_ARROW_TYPE = REFERENCE_FIGURE__SOURCE_ARROW_TYPE;
+	int ABSTRACT_REFERENCE_FIGURE__SOURCE_ARROW_TYPE = ABSTRACT_FIGURE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Containment</b></em>' attribute.
@@ -554,7 +436,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__CONTAINMENT = REFERENCE_FIGURE__CONTAINMENT;
+	int ABSTRACT_REFERENCE_FIGURE__CONTAINMENT = ABSTRACT_FIGURE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Custom Target Arrow</b></em>' attribute.
@@ -563,7 +445,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__CUSTOM_TARGET_ARROW = REFERENCE_FIGURE__CUSTOM_TARGET_ARROW;
+	int ABSTRACT_REFERENCE_FIGURE__CUSTOM_TARGET_ARROW = ABSTRACT_FIGURE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Custom Source Arrow</b></em>' attribute.
@@ -572,7 +454,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW = REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW;
+	int ABSTRACT_REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW = ABSTRACT_FIGURE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Color</b></em>' attribute.
@@ -581,7 +463,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__COLOR = REFERENCE_FIGURE__COLOR;
+	int ABSTRACT_REFERENCE_FIGURE__COLOR = ABSTRACT_FIGURE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Style</b></em>' attribute.
@@ -590,7 +472,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__STYLE = REFERENCE_FIGURE__STYLE;
+	int ABSTRACT_REFERENCE_FIGURE__STYLE = ABSTRACT_FIGURE_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Target EType</b></em>' reference.
@@ -599,7 +481,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__TARGET_ETYPE = REFERENCE_FIGURE__TARGET_ETYPE;
+	int ABSTRACT_REFERENCE_FIGURE__TARGET_ETYPE = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Minimum Edge Length</b></em>' attribute.
@@ -608,7 +490,124 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH = REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH;
+	int ABSTRACT_REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH = ABSTRACT_FIGURE_FEATURE_COUNT + 10;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Reference Figure</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 11;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__NAME = ABSTRACT_REFERENCE_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__CLASS_FIGURE = ABSTRACT_REFERENCE_FIGURE__CLASS_FIGURE;
+
+	/**
+	 * The feature id for the '<em><b>EReference</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__EREFERENCE = ABSTRACT_REFERENCE_FIGURE__EREFERENCE;
+
+	/**
+	 * The feature id for the '<em><b>Target Arrow Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__TARGET_ARROW_TYPE = ABSTRACT_REFERENCE_FIGURE__TARGET_ARROW_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Source Arrow Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__SOURCE_ARROW_TYPE = ABSTRACT_REFERENCE_FIGURE__SOURCE_ARROW_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Containment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__CONTAINMENT = ABSTRACT_REFERENCE_FIGURE__CONTAINMENT;
+
+	/**
+	 * The feature id for the '<em><b>Custom Target Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__CUSTOM_TARGET_ARROW = ABSTRACT_REFERENCE_FIGURE__CUSTOM_TARGET_ARROW;
+
+	/**
+	 * The feature id for the '<em><b>Custom Source Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW = ABSTRACT_REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW;
+
+	/**
+	 * The feature id for the '<em><b>Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__COLOR = ABSTRACT_REFERENCE_FIGURE__COLOR;
+
+	/**
+	 * The feature id for the '<em><b>Style</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__STYLE = ABSTRACT_REFERENCE_FIGURE__STYLE;
+
+	/**
+	 * The feature id for the '<em><b>Target EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__TARGET_ETYPE = ABSTRACT_REFERENCE_FIGURE__TARGET_ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Edge Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH = ABSTRACT_REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH;
 
 	/**
 	 * The feature id for the '<em><b>Target EReference</b></em>' reference.
@@ -617,7 +616,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__TARGET_EREFERENCE = REFERENCE_FIGURE_FEATURE_COUNT + 0;
+	int RICH_REFERENCE_FIGURE__TARGET_EREFERENCE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Source Label EAttribute</b></em>' reference.
@@ -626,7 +625,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE = REFERENCE_FIGURE_FEATURE_COUNT + 1;
+	int RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Standard Label EAttribute</b></em>' reference.
@@ -635,7 +634,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE = REFERENCE_FIGURE_FEATURE_COUNT + 2;
+	int RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Target Label EAttribute</b></em>' reference.
@@ -644,7 +643,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE = REFERENCE_FIGURE_FEATURE_COUNT + 3;
+	int RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Label Distance</b></em>' attribute.
@@ -653,7 +652,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__LABEL_DISTANCE = REFERENCE_FIGURE_FEATURE_COUNT + 4;
+	int RICH_REFERENCE_FIGURE__LABEL_DISTANCE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Label Angle</b></em>' attribute.
@@ -662,7 +661,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__LABEL_ANGLE = REFERENCE_FIGURE_FEATURE_COUNT + 5;
+	int RICH_REFERENCE_FIGURE__LABEL_ANGLE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Rich Reference Figure</em>' class.
@@ -671,7 +670,134 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE_FEATURE_COUNT = REFERENCE_FIGURE_FEATURE_COUNT + 6;
+	int RICH_REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 6;
+
+	/**
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl <em>Reference Figure</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getReferenceFigure()
+	 * @generated
+	 */
+	int REFERENCE_FIGURE = 6;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__NAME = ABSTRACT_REFERENCE_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__CLASS_FIGURE = ABSTRACT_REFERENCE_FIGURE__CLASS_FIGURE;
+
+	/**
+	 * The feature id for the '<em><b>EReference</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__EREFERENCE = ABSTRACT_REFERENCE_FIGURE__EREFERENCE;
+
+	/**
+	 * The feature id for the '<em><b>Target Arrow Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__TARGET_ARROW_TYPE = ABSTRACT_REFERENCE_FIGURE__TARGET_ARROW_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Source Arrow Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__SOURCE_ARROW_TYPE = ABSTRACT_REFERENCE_FIGURE__SOURCE_ARROW_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Containment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__CONTAINMENT = ABSTRACT_REFERENCE_FIGURE__CONTAINMENT;
+
+	/**
+	 * The feature id for the '<em><b>Custom Target Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__CUSTOM_TARGET_ARROW = ABSTRACT_REFERENCE_FIGURE__CUSTOM_TARGET_ARROW;
+
+	/**
+	 * The feature id for the '<em><b>Custom Source Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW = ABSTRACT_REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW;
+
+	/**
+	 * The feature id for the '<em><b>Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__COLOR = ABSTRACT_REFERENCE_FIGURE__COLOR;
+
+	/**
+	 * The feature id for the '<em><b>Style</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__STYLE = ABSTRACT_REFERENCE_FIGURE__STYLE;
+
+	/**
+	 * The feature id for the '<em><b>Target EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__TARGET_ETYPE = ABSTRACT_REFERENCE_FIGURE__TARGET_ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Edge Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH = ABSTRACT_REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH;
+
+	/**
+	 * The number of structural features of the '<em>Reference Figure</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.Orientation <em>Orientation</em>}' enum.
@@ -681,7 +807,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getOrientation()
 	 * @generated
 	 */
-	int ORIENTATION = 6;
+	int ORIENTATION = 7;
 
 
 	/**
@@ -692,7 +818,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowType()
 	 * @generated
 	 */
-	int ARROW_TYPE = 7;
+	int ARROW_TYPE = 8;
 
 
 	/**
@@ -703,7 +829,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowStyle()
 	 * @generated
 	 */
-	int ARROW_STYLE = 8;
+	int ARROW_STYLE = 9;
 
 
 	/**
@@ -903,137 +1029,6 @@ public interface GraphdescPackage extends EPackage {
 	EReference getAttributeFigure_EAttribute();
 
 	/**
-	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure <em>Reference Figure</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Reference Figure</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure
-	 * @generated
-	 */
-	EClass getReferenceFigure();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getEReference <em>EReference</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>EReference</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getEReference()
-	 * @see #getReferenceFigure()
-	 * @generated
-	 */
-	EReference getReferenceFigure_EReference();
-
-	/**
-	 * Returns the meta object for the container reference '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getClassFigure <em>Class Figure</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Class Figure</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getClassFigure()
-	 * @see #getReferenceFigure()
-	 * @generated
-	 */
-	EReference getReferenceFigure_ClassFigure();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getTargetArrowType <em>Target Arrow Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Target Arrow Type</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getTargetArrowType()
-	 * @see #getReferenceFigure()
-	 * @generated
-	 */
-	EAttribute getReferenceFigure_TargetArrowType();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getSourceArrowType <em>Source Arrow Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Source Arrow Type</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getSourceArrowType()
-	 * @see #getReferenceFigure()
-	 * @generated
-	 */
-	EAttribute getReferenceFigure_SourceArrowType();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#isContainment <em>Containment</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Containment</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#isContainment()
-	 * @see #getReferenceFigure()
-	 * @generated
-	 */
-	EAttribute getReferenceFigure_Containment();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomTargetArrow <em>Custom Target Arrow</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Custom Target Arrow</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomTargetArrow()
-	 * @see #getReferenceFigure()
-	 * @generated
-	 */
-	EAttribute getReferenceFigure_CustomTargetArrow();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomSourceArrow <em>Custom Source Arrow</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Custom Source Arrow</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getCustomSourceArrow()
-	 * @see #getReferenceFigure()
-	 * @generated
-	 */
-	EAttribute getReferenceFigure_CustomSourceArrow();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getColor <em>Color</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Color</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getColor()
-	 * @see #getReferenceFigure()
-	 * @generated
-	 */
-	EAttribute getReferenceFigure_Color();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getStyle <em>Style</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Style</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getStyle()
-	 * @see #getReferenceFigure()
-	 * @generated
-	 */
-	EAttribute getReferenceFigure_Style();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getTargetEType <em>Target EType</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target EType</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getTargetEType()
-	 * @see #getReferenceFigure()
-	 * @generated
-	 */
-	EReference getReferenceFigure_TargetEType();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getMinimumEdgeLength <em>Minimum Edge Length</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Minimum Edge Length</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getMinimumEdgeLength()
-	 * @see #getReferenceFigure()
-	 * @generated
-	 */
-	EAttribute getReferenceFigure_MinimumEdgeLength();
-
-	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure <em>Rich Reference Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1129,6 +1124,147 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAbstractFigure_Name();
+
+	/**
+	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure <em>Abstract Reference Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Abstract Reference Figure</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure
+	 * @generated
+	 */
+	EClass getAbstractReferenceFigure();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getClassFigure <em>Class Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Class Figure</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getClassFigure()
+	 * @see #getAbstractReferenceFigure()
+	 * @generated
+	 */
+	EReference getAbstractReferenceFigure_ClassFigure();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getEReference <em>EReference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>EReference</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getEReference()
+	 * @see #getAbstractReferenceFigure()
+	 * @generated
+	 */
+	EReference getAbstractReferenceFigure_EReference();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getTargetArrowType <em>Target Arrow Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Target Arrow Type</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getTargetArrowType()
+	 * @see #getAbstractReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getAbstractReferenceFigure_TargetArrowType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getSourceArrowType <em>Source Arrow Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Source Arrow Type</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getSourceArrowType()
+	 * @see #getAbstractReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getAbstractReferenceFigure_SourceArrowType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#isContainment <em>Containment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Containment</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#isContainment()
+	 * @see #getAbstractReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getAbstractReferenceFigure_Containment();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getCustomTargetArrow <em>Custom Target Arrow</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Custom Target Arrow</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getCustomTargetArrow()
+	 * @see #getAbstractReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getAbstractReferenceFigure_CustomTargetArrow();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getCustomSourceArrow <em>Custom Source Arrow</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Custom Source Arrow</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getCustomSourceArrow()
+	 * @see #getAbstractReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getAbstractReferenceFigure_CustomSourceArrow();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getColor <em>Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Color</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getColor()
+	 * @see #getAbstractReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getAbstractReferenceFigure_Color();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getStyle <em>Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Style</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getStyle()
+	 * @see #getAbstractReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getAbstractReferenceFigure_Style();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getTargetEType <em>Target EType</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target EType</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getTargetEType()
+	 * @see #getAbstractReferenceFigure()
+	 * @generated
+	 */
+	EReference getAbstractReferenceFigure_TargetEType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getMinimumEdgeLength <em>Minimum Edge Length</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Minimum Edge Length</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getMinimumEdgeLength()
+	 * @see #getAbstractReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getAbstractReferenceFigure_MinimumEdgeLength();
+
+	/**
+	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure <em>Reference Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Reference Figure</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure
+	 * @generated
+	 */
+	EClass getReferenceFigure();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.GVFigureDescription <em>GV Figure Description</em>}'.
@@ -1385,104 +1521,6 @@ public interface GraphdescPackage extends EPackage {
 		EReference ATTRIBUTE_FIGURE__EATTRIBUTE = eINSTANCE.getAttributeFigure_EAttribute();
 
 		/**
-		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl <em>Reference Figure</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl
-		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getReferenceFigure()
-		 * @generated
-		 */
-		EClass REFERENCE_FIGURE = eINSTANCE.getReferenceFigure();
-
-		/**
-		 * The meta object literal for the '<em><b>EReference</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference REFERENCE_FIGURE__EREFERENCE = eINSTANCE.getReferenceFigure_EReference();
-
-		/**
-		 * The meta object literal for the '<em><b>Class Figure</b></em>' container reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference REFERENCE_FIGURE__CLASS_FIGURE = eINSTANCE.getReferenceFigure_ClassFigure();
-
-		/**
-		 * The meta object literal for the '<em><b>Target Arrow Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REFERENCE_FIGURE__TARGET_ARROW_TYPE = eINSTANCE.getReferenceFigure_TargetArrowType();
-
-		/**
-		 * The meta object literal for the '<em><b>Source Arrow Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REFERENCE_FIGURE__SOURCE_ARROW_TYPE = eINSTANCE.getReferenceFigure_SourceArrowType();
-
-		/**
-		 * The meta object literal for the '<em><b>Containment</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REFERENCE_FIGURE__CONTAINMENT = eINSTANCE.getReferenceFigure_Containment();
-
-		/**
-		 * The meta object literal for the '<em><b>Custom Target Arrow</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REFERENCE_FIGURE__CUSTOM_TARGET_ARROW = eINSTANCE.getReferenceFigure_CustomTargetArrow();
-
-		/**
-		 * The meta object literal for the '<em><b>Custom Source Arrow</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW = eINSTANCE.getReferenceFigure_CustomSourceArrow();
-
-		/**
-		 * The meta object literal for the '<em><b>Color</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REFERENCE_FIGURE__COLOR = eINSTANCE.getReferenceFigure_Color();
-
-		/**
-		 * The meta object literal for the '<em><b>Style</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REFERENCE_FIGURE__STYLE = eINSTANCE.getReferenceFigure_Style();
-
-		/**
-		 * The meta object literal for the '<em><b>Target EType</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference REFERENCE_FIGURE__TARGET_ETYPE = eINSTANCE.getReferenceFigure_TargetEType();
-
-		/**
-		 * The meta object literal for the '<em><b>Minimum Edge Length</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH = eINSTANCE.getReferenceFigure_MinimumEdgeLength();
-
-		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl <em>Rich Reference Figure</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1557,6 +1595,114 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ABSTRACT_FIGURE__NAME = eINSTANCE.getAbstractFigure_Name();
+
+		/**
+		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractReferenceFigureImpl <em>Abstract Reference Figure</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftools.emf2gv.graphdesc.impl.AbstractReferenceFigureImpl
+		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAbstractReferenceFigure()
+		 * @generated
+		 */
+		EClass ABSTRACT_REFERENCE_FIGURE = eINSTANCE.getAbstractReferenceFigure();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Figure</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_REFERENCE_FIGURE__CLASS_FIGURE = eINSTANCE.getAbstractReferenceFigure_ClassFigure();
+
+		/**
+		 * The meta object literal for the '<em><b>EReference</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_REFERENCE_FIGURE__EREFERENCE = eINSTANCE.getAbstractReferenceFigure_EReference();
+
+		/**
+		 * The meta object literal for the '<em><b>Target Arrow Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_REFERENCE_FIGURE__TARGET_ARROW_TYPE = eINSTANCE.getAbstractReferenceFigure_TargetArrowType();
+
+		/**
+		 * The meta object literal for the '<em><b>Source Arrow Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_REFERENCE_FIGURE__SOURCE_ARROW_TYPE = eINSTANCE.getAbstractReferenceFigure_SourceArrowType();
+
+		/**
+		 * The meta object literal for the '<em><b>Containment</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_REFERENCE_FIGURE__CONTAINMENT = eINSTANCE.getAbstractReferenceFigure_Containment();
+
+		/**
+		 * The meta object literal for the '<em><b>Custom Target Arrow</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_REFERENCE_FIGURE__CUSTOM_TARGET_ARROW = eINSTANCE.getAbstractReferenceFigure_CustomTargetArrow();
+
+		/**
+		 * The meta object literal for the '<em><b>Custom Source Arrow</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW = eINSTANCE.getAbstractReferenceFigure_CustomSourceArrow();
+
+		/**
+		 * The meta object literal for the '<em><b>Color</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_REFERENCE_FIGURE__COLOR = eINSTANCE.getAbstractReferenceFigure_Color();
+
+		/**
+		 * The meta object literal for the '<em><b>Style</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_REFERENCE_FIGURE__STYLE = eINSTANCE.getAbstractReferenceFigure_Style();
+
+		/**
+		 * The meta object literal for the '<em><b>Target EType</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_REFERENCE_FIGURE__TARGET_ETYPE = eINSTANCE.getAbstractReferenceFigure_TargetEType();
+
+		/**
+		 * The meta object literal for the '<em><b>Minimum Edge Length</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH = eINSTANCE.getAbstractReferenceFigure_MinimumEdgeLength();
+
+		/**
+		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl <em>Reference Figure</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl
+		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getReferenceFigure()
+		 * @generated
+		 */
+		EClass REFERENCE_FIGURE = eINSTANCE.getReferenceFigure();
 
 		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.GVFigureDescriptionImpl <em>GV Figure Description</em>}' class.

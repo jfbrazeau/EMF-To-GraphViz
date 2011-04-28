@@ -45,46 +45,6 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum ArrowStyle implements Enumerator {
 	/**
-	 * The '<em><b>Normal</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NORMAL_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	NORMAL(1, "normal", "normal"),
-
-	/**
-	 * The '<em><b>Dashed</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DASHED_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	DASHED(2, "dashed", "dashed"),
-
-	/**
-	 * The '<em><b>Dotted</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DOTTED_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	DOTTED(3, "dotted", "dotted"),
-
-	/**
-	 * The '<em><b>Bold</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BOLD_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	BOLD(0, "bold", "bold"),
-
-	/**
 	 * The '<em><b>Invis</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -92,7 +52,54 @@ public enum ArrowStyle implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INVIS(4, "invis", "invis");
+	INVIS(4, "invis", "invis"), /**
+	 * The '<em><b>Normal</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NORMAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NORMAL(1, "normal", "normal"), /**
+	 * The '<em><b>Dashed</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DASHED_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DASHED(2, "dashed", "dashed"), /**
+	 * The '<em><b>Dotted</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DOTTED_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DOTTED(3, "dotted", "dotted"), /**
+	 * The '<em><b>Bold</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BOLD_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	BOLD(0, "bold", "bold");
+
+	/**
+	 * The '<em><b>Invis</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Invis</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #INVIS
+	 * @model name="invis"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int INVIS_VALUE = 4;
 
 	/**
 	 * The '<em><b>Normal</b></em>' literal value.
@@ -155,21 +162,6 @@ public enum ArrowStyle implements Enumerator {
 	public static final int BOLD_VALUE = 0;
 
 	/**
-	 * The '<em><b>Invis</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Invis</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #INVIS
-	 * @model name="invis"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int INVIS_VALUE = 4;
-
-	/**
 	 * An array of all the '<em><b>Arrow Style</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -177,11 +169,11 @@ public enum ArrowStyle implements Enumerator {
 	 */
 	private static final ArrowStyle[] VALUES_ARRAY =
 		new ArrowStyle[] {
+			INVIS,
 			NORMAL,
 			DASHED,
 			DOTTED,
 			BOLD,
-			INVIS,
 		};
 
 	/**
@@ -232,11 +224,11 @@ public enum ArrowStyle implements Enumerator {
 	 */
 	public static ArrowStyle get(int value) {
 		switch (value) {
+			case INVIS_VALUE: return INVIS;
 			case NORMAL_VALUE: return NORMAL;
 			case DASHED_VALUE: return DASHED;
 			case DOTTED_VALUE: return DOTTED;
 			case BOLD_VALUE: return BOLD;
-			case INVIS_VALUE: return INVIS;
 		}
 		return null;
 	}

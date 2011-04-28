@@ -149,8 +149,8 @@ public interface ClassFigure extends AbstractFigure {
 
 	/**
 	 * Returns the value of the '<em><b>Reference Figures</b></em>' containment reference list.
-	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.ReferenceFigure}.
-	 * It is bidirectional and its opposite is '{@link org.emftools.emf2gv.graphdesc.ReferenceFigure#getClassFigure <em>Class Figure</em>}'.
+	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure}.
+	 * It is bidirectional and its opposite is '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getClassFigure <em>Class Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Reference Figures</em>' containment reference list isn't clear,
@@ -159,11 +159,11 @@ public interface ClassFigure extends AbstractFigure {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Reference Figures</em>' containment reference list.
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getClassFigure_ReferenceFigures()
-	 * @see org.emftools.emf2gv.graphdesc.ReferenceFigure#getClassFigure
+	 * @see org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getClassFigure
 	 * @model opposite="classFigure" containment="true"
 	 * @generated
 	 */
-	EList<ReferenceFigure> getReferenceFigures();
+	EList<AbstractReferenceFigure> getReferenceFigures();
 
 	/**
 	 * Returns the value of the '<em><b>Gv Figure Description</b></em>' container reference.

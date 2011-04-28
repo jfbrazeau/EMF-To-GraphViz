@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
+import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
@@ -84,13 +85,6 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass referenceFigureEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass richReferenceFigureEClass = null;
 
 	/**
@@ -99,6 +93,20 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * @generated
 	 */
 	private EClass abstractFigureEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass abstractReferenceFigureEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass referenceFigureEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -406,114 +414,6 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getReferenceFigure() {
-		return referenceFigureEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getReferenceFigure_ClassFigure() {
-		return (EReference)referenceFigureEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getReferenceFigure_EReference() {
-		return (EReference)referenceFigureEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReferenceFigure_TargetArrowType() {
-		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReferenceFigure_SourceArrowType() {
-		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReferenceFigure_Containment() {
-		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReferenceFigure_CustomTargetArrow() {
-		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReferenceFigure_CustomSourceArrow() {
-		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReferenceFigure_Color() {
-		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReferenceFigure_Style() {
-		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getReferenceFigure_TargetEType() {
-		return (EReference)referenceFigureEClass.getEStructuralFeatures().get(9);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReferenceFigure_MinimumEdgeLength() {
-		return (EAttribute)referenceFigureEClass.getEStructuralFeatures().get(10);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getRichReferenceFigure() {
 		return richReferenceFigureEClass;
 	}
@@ -588,6 +488,123 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 */
 	public EAttribute getAbstractFigure_Name() {
 		return (EAttribute)abstractFigureEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAbstractReferenceFigure() {
+		return abstractReferenceFigureEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractReferenceFigure_ClassFigure() {
+		return (EReference)abstractReferenceFigureEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractReferenceFigure_EReference() {
+		return (EReference)abstractReferenceFigureEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractReferenceFigure_TargetArrowType() {
+		return (EAttribute)abstractReferenceFigureEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractReferenceFigure_SourceArrowType() {
+		return (EAttribute)abstractReferenceFigureEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractReferenceFigure_Containment() {
+		return (EAttribute)abstractReferenceFigureEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractReferenceFigure_CustomTargetArrow() {
+		return (EAttribute)abstractReferenceFigureEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractReferenceFigure_CustomSourceArrow() {
+		return (EAttribute)abstractReferenceFigureEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractReferenceFigure_Color() {
+		return (EAttribute)abstractReferenceFigureEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractReferenceFigure_Style() {
+		return (EAttribute)abstractReferenceFigureEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractReferenceFigure_TargetEType() {
+		return (EReference)abstractReferenceFigureEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractReferenceFigure_MinimumEdgeLength() {
+		return (EAttribute)abstractReferenceFigureEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getReferenceFigure() {
+		return referenceFigureEClass;
 	}
 
 	/**
@@ -671,19 +688,6 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		createEReference(attributeFigureEClass, ATTRIBUTE_FIGURE__CLASS_FIGURE);
 		createEReference(attributeFigureEClass, ATTRIBUTE_FIGURE__EATTRIBUTE);
 
-		referenceFigureEClass = createEClass(REFERENCE_FIGURE);
-		createEReference(referenceFigureEClass, REFERENCE_FIGURE__CLASS_FIGURE);
-		createEReference(referenceFigureEClass, REFERENCE_FIGURE__EREFERENCE);
-		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__TARGET_ARROW_TYPE);
-		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__SOURCE_ARROW_TYPE);
-		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__CONTAINMENT);
-		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__CUSTOM_TARGET_ARROW);
-		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW);
-		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__COLOR);
-		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__STYLE);
-		createEReference(referenceFigureEClass, REFERENCE_FIGURE__TARGET_ETYPE);
-		createEAttribute(referenceFigureEClass, REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH);
-
 		richReferenceFigureEClass = createEClass(RICH_REFERENCE_FIGURE);
 		createEReference(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__TARGET_EREFERENCE);
 		createEReference(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE);
@@ -694,6 +698,21 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		abstractFigureEClass = createEClass(ABSTRACT_FIGURE);
 		createEAttribute(abstractFigureEClass, ABSTRACT_FIGURE__NAME);
+
+		abstractReferenceFigureEClass = createEClass(ABSTRACT_REFERENCE_FIGURE);
+		createEReference(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__CLASS_FIGURE);
+		createEReference(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__EREFERENCE);
+		createEAttribute(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__TARGET_ARROW_TYPE);
+		createEAttribute(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__SOURCE_ARROW_TYPE);
+		createEAttribute(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__CONTAINMENT);
+		createEAttribute(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__CUSTOM_TARGET_ARROW);
+		createEAttribute(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW);
+		createEAttribute(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__COLOR);
+		createEAttribute(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__STYLE);
+		createEReference(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__TARGET_ETYPE);
+		createEAttribute(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH);
+
+		referenceFigureEClass = createEClass(REFERENCE_FIGURE);
 
 		// Create enums
 		orientationEEnum = createEEnum(ORIENTATION);
@@ -734,8 +753,9 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		// Add supertypes to classes
 		classFigureEClass.getESuperTypes().add(this.getAbstractFigure());
 		attributeFigureEClass.getESuperTypes().add(this.getAbstractFigure());
-		referenceFigureEClass.getESuperTypes().add(this.getAbstractFigure());
-		richReferenceFigureEClass.getESuperTypes().add(this.getReferenceFigure());
+		richReferenceFigureEClass.getESuperTypes().add(this.getAbstractReferenceFigure());
+		abstractReferenceFigureEClass.getESuperTypes().add(this.getAbstractFigure());
+		referenceFigureEClass.getESuperTypes().add(this.getAbstractReferenceFigure());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(gvFigureDescriptionEClass, GVFigureDescription.class, "GVFigureDescription", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -761,7 +781,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEReference(getClassFigure_EClass(), theEcorePackage.getEClass(), null, "eClass", null, 1, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassFigure_LabelEAttribute(), theEcorePackage.getEAttribute(), null, "labelEAttribute", null, 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassFigure_AttributeFigures(), this.getAttributeFigure(), this.getAttributeFigure_ClassFigure(), "attributeFigures", null, 0, -1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getClassFigure_ReferenceFigures(), this.getReferenceFigure(), this.getReferenceFigure_ClassFigure(), "referenceFigures", null, 0, -1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClassFigure_ReferenceFigures(), this.getAbstractReferenceFigure(), this.getAbstractReferenceFigure_ClassFigure(), "referenceFigures", null, 0, -1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassFigure_GvFigureDescription(), this.getGVFigureDescription(), this.getGVFigureDescription_ClassFigures(), "gvFigureDescription", null, 1, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClassFigure_HeaderBackgroundColor(), theEcorePackage.getEInt(), "headerBackgroundColor", "10337785", 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClassFigure_BodyBackgroundColor(), theEcorePackage.getEInt(), "bodyBackgroundColor", "15658734", 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -781,21 +801,6 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEAttribute(getAttributeFigure_Label(), theEcorePackage.getEString(), "label", null, 0, 1, AttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAttributeFigure_ClassFigure(), this.getClassFigure(), this.getClassFigure_AttributeFigures(), "classFigure", null, 1, 1, AttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAttributeFigure_EAttribute(), theEcorePackage.getEAttribute(), null, "eAttribute", null, 1, 1, AttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(referenceFigureEClass, ReferenceFigure.class, "ReferenceFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getReferenceFigure_ClassFigure(), this.getClassFigure(), this.getClassFigure_ReferenceFigures(), "classFigure", null, 1, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getReferenceFigure_EReference(), theEcorePackage.getEReference(), null, "eReference", null, 1, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getReferenceFigure_TargetArrowType(), this.getArrowType(), "targetArrowType", "normal", 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getReferenceFigure_SourceArrowType(), this.getArrowType(), "sourceArrowType", "none", 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getReferenceFigure_Containment(), ecorePackage.getEBoolean(), "containment", null, 0, 1, ReferenceFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getReferenceFigure_CustomTargetArrow(), theEcorePackage.getEString(), "customTargetArrow", null, 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getReferenceFigure_CustomSourceArrow(), theEcorePackage.getEString(), "customSourceArrow", null, 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getReferenceFigure_Color(), theEcorePackage.getEInt(), "color", null, 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getReferenceFigure_Style(), this.getArrowStyle(), "style", "normal", 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getReferenceFigure_TargetEType(), theEcorePackage.getEClass(), null, "targetEType", null, 0, 1, ReferenceFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getReferenceFigure_MinimumEdgeLength(), theEcorePackage.getEInt(), "minimumEdgeLength", "1", 0, 1, ReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(referenceFigureEClass, theEcorePackage.getEBoolean(), "targetClassFigureExists", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(richReferenceFigureEClass, RichReferenceFigure.class, "RichReferenceFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRichReferenceFigure_TargetEReference(), theEcorePackage.getEReference(), null, "targetEReference", null, 1, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -817,6 +822,23 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		g1.getETypeArguments().add(g2);
 		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		initEClass(abstractReferenceFigureEClass, AbstractReferenceFigure.class, "AbstractReferenceFigure", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAbstractReferenceFigure_ClassFigure(), this.getClassFigure(), this.getClassFigure_ReferenceFigures(), "classFigure", null, 1, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractReferenceFigure_EReference(), theEcorePackage.getEReference(), null, "eReference", null, 1, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractReferenceFigure_TargetArrowType(), this.getArrowType(), "targetArrowType", "normal", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractReferenceFigure_SourceArrowType(), this.getArrowType(), "sourceArrowType", "none", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractReferenceFigure_Containment(), ecorePackage.getEBoolean(), "containment", null, 0, 1, AbstractReferenceFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractReferenceFigure_CustomTargetArrow(), theEcorePackage.getEString(), "customTargetArrow", null, 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractReferenceFigure_CustomSourceArrow(), theEcorePackage.getEString(), "customSourceArrow", null, 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractReferenceFigure_Color(), theEcorePackage.getEInt(), "color", null, 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractReferenceFigure_Style(), this.getArrowStyle(), "style", "normal", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractReferenceFigure_TargetEType(), theEcorePackage.getEClass(), null, "targetEType", null, 0, 1, AbstractReferenceFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractReferenceFigure_MinimumEdgeLength(), theEcorePackage.getEInt(), "minimumEdgeLength", "1", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(abstractReferenceFigureEClass, theEcorePackage.getEBoolean(), "targetClassFigureExists", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(referenceFigureEClass, ReferenceFigure.class, "ReferenceFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		// Initialize enums and add enum literals
 		initEEnum(orientationEEnum, Orientation.class, "Orientation");
 		addEEnumLiteral(orientationEEnum, Orientation.TOP_DOWN);
@@ -835,11 +857,11 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		addEEnumLiteral(arrowTypeEEnum, ArrowType.CUSTOM);
 
 		initEEnum(arrowStyleEEnum, ArrowStyle.class, "ArrowStyle");
+		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.INVIS);
 		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.NORMAL);
 		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.DASHED);
 		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.DOTTED);
 		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.BOLD);
-		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.INVIS);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
@@ -179,7 +180,7 @@ public class GraphdescGenerator {
 			/*
 			 * Reference figure style
 			 */
-			for (ReferenceFigure refFigure : classFigure.getReferenceFigures()) {
+			for (AbstractReferenceFigure refFigure : classFigure.getReferenceFigures()) {
 				EReference eReference = refFigure.getEReference();
 				if (refFigure.isContainment()) {
 					refFigure.setSourceArrowType(ArrowType.DIAMOND);

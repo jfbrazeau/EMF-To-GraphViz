@@ -311,8 +311,8 @@ public class GraphdescItemProviderAdapterFactory extends GraphdescAdapterFactory
 		if (gvFigureDescriptionItemProvider != null) gvFigureDescriptionItemProvider.dispose();
 		if (classFigureItemProvider != null) classFigureItemProvider.dispose();
 		if (attributeFigureItemProvider != null) attributeFigureItemProvider.dispose();
-		if (referenceFigureItemProvider != null) referenceFigureItemProvider.dispose();
 		if (richReferenceFigureItemProvider != null) richReferenceFigureItemProvider.dispose();
+		if (referenceFigureItemProvider != null) referenceFigureItemProvider.dispose();
 	}
 
 }

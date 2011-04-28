@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
@@ -66,7 +67,7 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  *
  * @generated
  */
-public class RichReferenceFigureImpl extends ReferenceFigureImpl implements RichReferenceFigure {
+public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl implements RichReferenceFigure {
 	/**
 	 * The cached value of the '{@link #getTargetEReference() <em>Target EReference</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -546,7 +547,7 @@ public class RichReferenceFigureImpl extends ReferenceFigureImpl implements Rich
 			ClassFigure classFigure = getClassFigure();
 			List<ReferenceFigure> referenceFigures = new ArrayList<ReferenceFigure>();
 			List<RichReferenceFigure> richReferenceFigures = new ArrayList<RichReferenceFigure>();
-			for (ReferenceFigure referenceFigure : classFigure.getReferenceFigures()) {
+			for (AbstractReferenceFigure referenceFigure : classFigure.getReferenceFigures()) {
 				boolean isRichReference = referenceFigure instanceof RichReferenceFigure;
 				if (isRichReference) {
 					if (!richReferenceFigures.contains(referenceFigure))
@@ -554,7 +555,7 @@ public class RichReferenceFigureImpl extends ReferenceFigureImpl implements Rich
 				}
 				else {
 					if (!referenceFigures.contains(referenceFigure))
-						referenceFigures.add(referenceFigure);
+						referenceFigures.add((ReferenceFigure) referenceFigure);
 				}
 			}
 			// The rich reference figure musn't use a reference that is already used

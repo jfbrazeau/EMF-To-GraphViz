@@ -1392,15 +1392,15 @@ public class GraphdescEditor
 
 			// Reference figure properties order
 			final List<String> referenceFigureOrderedPropertyIds = new ArrayList<String>();
-			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_Color().getName());
-			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_Style().getName());
-			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_SourceArrowType().getName());
-			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_CustomSourceArrow().getName());
-			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_TargetArrowType().getName());
-			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_CustomTargetArrow().getName());
-			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_MinimumEdgeLength().getName());
-			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_EReference().getName());
-			referenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_TargetEType().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_Color().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_Style().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_SourceArrowType().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_CustomSourceArrow().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_TargetArrowType().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_CustomTargetArrow().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_MinimumEdgeLength().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_EReference().getName());
+			referenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_TargetEType().getName());
 
 			// Rich Reference figure properties order
 			final List<String> richReferenceFigureOrderedPropertyIds = new ArrayList<String>();
@@ -1409,14 +1409,14 @@ public class GraphdescEditor
 			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_StandardLabelEAttribute().getName());
 			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_TargetLabelEAttribute().getName());
 			// Minimum edge length must be removed as it has been added for the reference figure
-			richReferenceFigureOrderedPropertyIds.remove(pkg.getReferenceFigure_MinimumEdgeLength().getName());
-			richReferenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_MinimumEdgeLength().getName());
+			richReferenceFigureOrderedPropertyIds.remove(pkg.getAbstractReferenceFigure_MinimumEdgeLength().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_MinimumEdgeLength().getName());
 			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_LabelDistance().getName());
 			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_LabelAngle().getName());
 			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_TargetEReference().getName());
 			// Target eType must be removed as it has been added for the reference figure
-			richReferenceFigureOrderedPropertyIds.remove(pkg.getReferenceFigure_TargetEType().getName());
-			richReferenceFigureOrderedPropertyIds.add(pkg.getReferenceFigure_TargetEType().getName());
+			richReferenceFigureOrderedPropertyIds.remove(pkg.getAbstractReferenceFigure_TargetEType().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_TargetEType().getName());
 			
 			propertySheetPage =
 				new ExtendedPropertySheetPage(editingDomain) {

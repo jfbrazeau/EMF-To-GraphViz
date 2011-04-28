@@ -36,7 +36,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
@@ -49,9 +48,8 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
+import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
-import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
@@ -61,7 +59,7 @@ import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
  * @generated
  */
 public class RichReferenceFigureItemProvider
-	extends ReferenceFigureItemProvider
+	extends AbstractReferenceFigureItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -101,7 +99,7 @@ public class RichReferenceFigureItemProvider
 		}
 		// Filtering of the property descriptors (custom arrow type are hidden 
 		// if not required)
-		return getFilteredPropertyDescriptors((ReferenceFigure) object);
+		return getFilteredPropertyDescriptors((AbstractReferenceFigure) object);
 	}
 
 	/**

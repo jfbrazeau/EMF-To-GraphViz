@@ -52,7 +52,7 @@ import org.eclipse.emf.ecore.EReference;
  * @model
  * @generated
  */
-public interface RichReferenceFigure extends ReferenceFigure {
+public interface RichReferenceFigure extends AbstractReferenceFigure {
 	/**
 	 * Returns the value of the '<em><b>Target EReference</b></em>' reference.
 	 * <!-- begin-user-doc -->

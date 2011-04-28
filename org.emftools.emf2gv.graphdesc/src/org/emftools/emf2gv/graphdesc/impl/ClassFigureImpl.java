@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
@@ -121,7 +122,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ReferenceFigure> referenceFigures;
+	protected EList<AbstractReferenceFigure> referenceFigures;
 
 	/**
 	 * The default value of the '{@link #getHeaderBackgroundColor() <em>Header Background Color</em>}' attribute.
@@ -394,9 +395,9 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ReferenceFigure> getReferenceFigures() {
+	public EList<AbstractReferenceFigure> getReferenceFigures() {
 		if (referenceFigures == null) {
-			referenceFigures = new EObjectContainmentWithInverseEList<ReferenceFigure>(ReferenceFigure.class, this, GraphdescPackage.CLASS_FIGURE__REFERENCE_FIGURES, GraphdescPackage.REFERENCE_FIGURE__CLASS_FIGURE);
+			referenceFigures = new EObjectContainmentWithInverseEList<AbstractReferenceFigure>(AbstractReferenceFigure.class, this, GraphdescPackage.CLASS_FIGURE__REFERENCE_FIGURES, GraphdescPackage.ABSTRACT_REFERENCE_FIGURE__CLASS_FIGURE);
 		}
 		return referenceFigures;
 	}
@@ -594,11 +595,12 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 */
 	public ReferenceFigure getReferenceFigure(EReference eReference) {
 		ReferenceFigure result = null;
-		EList<ReferenceFigure> refFigures = getReferenceFigures();
+		EList<AbstractReferenceFigure> refFigures = getReferenceFigures();
 		for (int i = 0; i < refFigures.size() && result == null; i++) {
-			ReferenceFigure refFigure = refFigures.get(i);
-			if (eReference.equals(refFigure.getEReference())) {
-				result = refFigure;
+			AbstractReferenceFigure refFigure = refFigures.get(i);
+			if (refFigure instanceof ReferenceFigure
+					&& eReference.equals(refFigure.getEReference())) {
+				result = (ReferenceFigure) refFigure;
 			}
 		}
 		return result;
@@ -851,7 +853,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				return;
 			case GraphdescPackage.CLASS_FIGURE__REFERENCE_FIGURES:
 				getReferenceFigures().clear();
-				getReferenceFigures().addAll((Collection<? extends ReferenceFigure>)newValue);
+				getReferenceFigures().addAll((Collection<? extends AbstractReferenceFigure>)newValue);
 				return;
 			case GraphdescPackage.CLASS_FIGURE__GV_FIGURE_DESCRIPTION:
 				setGvFigureDescription((GVFigureDescription)newValue);

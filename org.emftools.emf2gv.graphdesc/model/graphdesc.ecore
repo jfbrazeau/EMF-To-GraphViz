@@ -39,7 +39,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributeFigures" upperBound="-1"
         eType="#//AttributeFigure" containment="true" eOpposite="#//AttributeFigure/classFigure"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referenceFigures" upperBound="-1"
-        eType="#//ReferenceFigure" containment="true" eOpposite="#//ReferenceFigure/classFigure"/>
+        eType="#//AbstractReferenceFigure" containment="true" eOpposite="#//AbstractReferenceFigure/classFigure"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="gvFigureDescription" lowerBound="1"
         eType="#//GVFigureDescription" eOpposite="#//GVFigureDescription/classFigures"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="headerBackgroundColor"
@@ -64,29 +64,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="eAttribute" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReferenceFigure" eSuperTypes="#//AbstractFigure">
-    <eOperations name="targetClassFigureExists" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="classFigure" lowerBound="1"
-        eType="#//ClassFigure" eOpposite="#//ClassFigure/referenceFigures"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="eReference" lowerBound="1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetArrowType" eType="#//ArrowType"
-        defaultValueLiteral="normal"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceArrowType" eType="#//ArrowType"
-        defaultValueLiteral="none"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="containment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        changeable="false" volatile="true" transient="true" derived="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="customTargetArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="customSourceArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="color" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//ArrowStyle"
-        defaultValueLiteral="normal"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targetEType" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"
-        changeable="false" volatile="true" transient="true" derived="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimumEdgeLength" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
-        defaultValueLiteral="1"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RichReferenceFigure" eSuperTypes="#//ReferenceFigure">
+  <eClassifiers xsi:type="ecore:EClass" name="RichReferenceFigure" eSuperTypes="#//AbstractReferenceFigure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetEReference" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceLabelEAttribute"
@@ -130,10 +108,34 @@
         changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ArrowStyle">
+    <eLiterals name="invis" value="4"/>
     <eLiterals name="normal" value="1"/>
     <eLiterals name="dashed" value="2"/>
     <eLiterals name="dotted" value="3"/>
     <eLiterals name="bold"/>
-    <eLiterals name="invis" value="4"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractReferenceFigure" abstract="true"
+      eSuperTypes="#//AbstractFigure">
+    <eOperations name="targetClassFigureExists" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classFigure" lowerBound="1"
+        eType="#//ClassFigure" eOpposite="#//ClassFigure/referenceFigures"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eReference" lowerBound="1"
+        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetArrowType" eType="#//ArrowType"
+        defaultValueLiteral="normal"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceArrowType" eType="#//ArrowType"
+        defaultValueLiteral="none"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="containment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="customTargetArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="customSourceArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="color" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//ArrowStyle"
+        defaultValueLiteral="normal"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetEType" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimumEdgeLength" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
+        defaultValueLiteral="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReferenceFigure" eSuperTypes="#//AbstractReferenceFigure"/>
 </ecore:EPackage>

@@ -53,6 +53,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Tree;
+import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
@@ -125,8 +126,9 @@ public class EReferencesSelectionPage extends AbstractGraphdescWizardPage {
 		// Update checked status
 		for (ClassFigure classFigure : gvFigureDescription.getClassFigures()) {
 			EClass eClass = classFigure.getEClass();
-			for (ReferenceFigure referenceFigure : classFigure
+			for (AbstractReferenceFigure abstractReferenceFigure : classFigure
 					.getReferenceFigures()) {
+				ReferenceFigure referenceFigure = (ReferenceFigure) abstractReferenceFigure;
 				EReference eReference = referenceFigure.getEReference();
 				EReferenceTreeItem eReferenceTreeItem = getEReferenceTreeItem(
 						eClass, eReference);

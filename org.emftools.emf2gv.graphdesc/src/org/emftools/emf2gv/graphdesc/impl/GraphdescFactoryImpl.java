@@ -91,8 +91,8 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION: return createGVFigureDescription();
 			case GraphdescPackage.CLASS_FIGURE: return createClassFigure();
 			case GraphdescPackage.ATTRIBUTE_FIGURE: return createAttributeFigure();
-			case GraphdescPackage.REFERENCE_FIGURE: return createReferenceFigure();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE: return createRichReferenceFigure();
+			case GraphdescPackage.REFERENCE_FIGURE: return createReferenceFigure();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -161,9 +161,9 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ReferenceFigure createReferenceFigure() {
-		ReferenceFigureImpl referenceFigure = new ReferenceFigureImpl();
-		return referenceFigure;
+	public RichReferenceFigure createRichReferenceFigure() {
+		RichReferenceFigureImpl richReferenceFigure = new RichReferenceFigureImpl();
+		return richReferenceFigure;
 	}
 
 	/**
@@ -171,9 +171,9 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RichReferenceFigure createRichReferenceFigure() {
-		RichReferenceFigureImpl richReferenceFigure = new RichReferenceFigureImpl();
-		return richReferenceFigure;
+	public ReferenceFigure createReferenceFigure() {
+		ReferenceFigureImpl referenceFigure = new ReferenceFigureImpl();
+		return referenceFigure;
 	}
 
 	/**

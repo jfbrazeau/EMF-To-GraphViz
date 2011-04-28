@@ -76,12 +76,12 @@ public class GraphdescPropertySource extends PropertySource {
 		GraphdescPackage gdPkg = GraphdescPackage.eINSTANCE;
 		Object feature = itemPropertyDescriptor.getFeature(object);
 		boolean arrowTypeFeature = (feature == gdPkg
-				.getReferenceFigure_SourceArrowType() || feature == gdPkg
-				.getReferenceFigure_TargetArrowType());
+				.getAbstractReferenceFigure_SourceArrowType() || feature == gdPkg
+				.getAbstractReferenceFigure_TargetArrowType());
 		boolean colorFeature = (feature == gdPkg
 				.getClassFigure_HeaderBackgroundColor() || feature == gdPkg
 				.getClassFigure_BodyBackgroundColor())
-				|| feature == gdPkg.getReferenceFigure_Color();
+				|| feature == gdPkg.getAbstractReferenceFigure_Color();
 		if (arrowTypeFeature) {
 			result = new ArrowTypePropertyDescriptor(object,
 					itemPropertyDescriptor);

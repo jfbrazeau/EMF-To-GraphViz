@@ -65,15 +65,6 @@ public interface GraphdescFactory extends EFactory {
 	AttributeFigure createAttributeFigure();
 
 	/**
-	 * Returns a new object of class '<em>Reference Figure</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Reference Figure</em>'.
-	 * @generated
-	 */
-	ReferenceFigure createReferenceFigure();
-
-	/**
 	 * Returns a new object of class '<em>Rich Reference Figure</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -81,6 +72,15 @@ public interface GraphdescFactory extends EFactory {
 	 * @generated
 	 */
 	RichReferenceFigure createRichReferenceFigure();
+
+	/**
+	 * Returns a new object of class '<em>Reference Figure</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Reference Figure</em>'.
+	 * @generated
+	 */
+	ReferenceFigure createReferenceFigure();
 
 	/**
 	 * Returns a new object of class '<em>GV Figure Description</em>'.
