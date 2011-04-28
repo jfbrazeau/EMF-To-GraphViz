@@ -12,7 +12,7 @@
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
-            uri="http://org.emftools.emf2gv.graphdesc/1.0.3"
+            uri="http://org.emftools.emf2gv.graphdesc/1.0.5"
             class="org.emftools.emf2gv.graphdesc.GraphdescPackage"
             genModel="model/graphdesc.genmodel"/>
    </extension>

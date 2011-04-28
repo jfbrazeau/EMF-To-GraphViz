@@ -63,7 +63,7 @@ public interface GraphdescPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://org.emftools.emf2gv.graphdesc/1.0.3";
+	String eNS_URI = "http://org.emftools.emf2gv.graphdesc/1.0.5";
 
 	/**
 	 * The package namespace name.
