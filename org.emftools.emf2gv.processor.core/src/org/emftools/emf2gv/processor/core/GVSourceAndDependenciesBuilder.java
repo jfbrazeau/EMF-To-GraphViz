@@ -54,6 +54,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.ocl.ecore.OCL;
+import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
@@ -431,22 +432,22 @@ final class GVSourceAndDependenciesBuilder {
 					}
 
 					// EReferences browsing
-					List<ReferenceFigure> refFigures = classFigure
+					List<AbstractReferenceFigure> refFigures = classFigure
 							.getReferenceFigures();
-					for (ReferenceFigure referenceFigure : refFigures) {
+					for (AbstractReferenceFigure abstractReferenceFigure : refFigures) {
 						// Simple reference case
-						if (!(referenceFigure instanceof RichReferenceFigure)) {
+						if (abstractReferenceFigure instanceof ReferenceFigure) {
 							List<EObject> targetEObjects = getTargetRefEObjects(
 									eContentRoot,
-									referenceFigure.getEReference());
-							processReferenceTargetEObjects(referenceFigure,
-									eContentRoot, eContentRootId,
-									targetEObjects, null, null, null, null,
-									monitor);
+									abstractReferenceFigure.getEReference());
+							processReferenceTargetEObjects(
+									abstractReferenceFigure, eContentRoot,
+									eContentRootId, targetEObjects, null, null,
+									null, null, monitor);
 						}
 						// Rich reference case
 						else {
-							RichReferenceFigure richReferenceFigure = (RichReferenceFigure) referenceFigure;
+							RichReferenceFigure richReferenceFigure = (RichReferenceFigure) abstractReferenceFigure;
 							EReference eReference = richReferenceFigure
 									.getEReference();
 							List<EObject> richReferencesEClassInstances = getTargetRefEObjects(
@@ -478,7 +479,7 @@ final class GVSourceAndDependenciesBuilder {
 											richReferenceEClassInstance,
 											monitor);
 									processReferenceTargetEObjects(
-											referenceFigure, eContentRoot,
+											richReferenceFigure, eContentRoot,
 											eContentRootId, targetEObjects,
 											srcLabel, stdLabel, targetLabel,
 											validationDecoratorIconPath,
@@ -561,7 +562,7 @@ final class GVSourceAndDependenciesBuilder {
 	 * @throws CoreException
 	 *             thrown if an unexpected error occurs.
 	 */
-	private void processReferenceTargetEObjects(ReferenceFigure figure,
+	private void processReferenceTargetEObjects(AbstractReferenceFigure figure,
 			EObject srcEObject, String srcEObjectId,
 			List<EObject> targetEObjects, String srcLabel, String stdLabel,
 			String targetLabel, String validationDecoratorIconPath,
@@ -775,7 +776,7 @@ final class GVSourceAndDependenciesBuilder {
 	 *            the edge description to flush.
 	 */
 	private void flushEdge(EdgeDesc edgeDesc) {
-		ReferenceFigure referenceFigure = edgeDesc.referenceFigure;
+		AbstractReferenceFigure abstractReferenceFigure = edgeDesc.referenceFigure;
 		ClassFigure srcClassFigure = figureDesc
 				.getClassFigure(edgeDesc.srcEObject.eClass());
 		ClassFigure targetClassFigure = figureDesc
@@ -786,13 +787,15 @@ final class GVSourceAndDependenciesBuilder {
 		out.print(edgeDesc.targetEObjectId);
 		// Arrow style
 		out.print(" [arrowhead = ");
-		out.print(referenceFigure.getTargetArrowType().equals(ArrowType.CUSTOM) ? referenceFigure
-				.getCustomTargetArrow() : referenceFigure.getTargetArrowType()
-				.toString());
+		out.print(abstractReferenceFigure.getTargetArrowType().equals(
+				ArrowType.CUSTOM) ? abstractReferenceFigure
+				.getCustomTargetArrow() : abstractReferenceFigure
+				.getTargetArrowType().toString());
 		out.print(", arrowtail = ");
-		out.print(referenceFigure.getSourceArrowType().equals(ArrowType.CUSTOM) ? referenceFigure
-				.getCustomSourceArrow() : referenceFigure.getSourceArrowType()
-				.toString());
+		out.print(abstractReferenceFigure.getSourceArrowType().equals(
+				ArrowType.CUSTOM) ? abstractReferenceFigure
+				.getCustomSourceArrow() : abstractReferenceFigure
+				.getSourceArrowType().toString());
 		if (edgeDesc.srcLabel != null) {
 			out.print(", taillabel=\"");
 			out.print(toHtmlString(edgeDesc.srcLabel));
@@ -821,9 +824,9 @@ final class GVSourceAndDependenciesBuilder {
 			out.print("\"");
 		}
 		out.print(", minlen=");
-		out.print(referenceFigure.getMinimumEdgeLength());
-		if (referenceFigure instanceof RichReferenceFigure) {
-			RichReferenceFigure richReferenceFigure = (RichReferenceFigure) referenceFigure;
+		out.print(abstractReferenceFigure.getMinimumEdgeLength());
+		if (abstractReferenceFigure instanceof RichReferenceFigure) {
+			RichReferenceFigure richReferenceFigure = (RichReferenceFigure) abstractReferenceFigure;
 			out.print(", labeldistance=");
 			out.print(String.valueOf(richReferenceFigure.getLabelDistance())
 					.replace(',', '.'));
@@ -832,11 +835,11 @@ final class GVSourceAndDependenciesBuilder {
 					.replace(',', '.'));
 		}
 		out.print(", color=\"");
-		out.print(ColorsHelper.toHtmlColor(referenceFigure.getColor()));
+		out.print(ColorsHelper.toHtmlColor(abstractReferenceFigure.getColor()));
 		out.print("\"");
-		if (!ArrowStyle.NORMAL.equals(referenceFigure.getStyle())) {
+		if (!ArrowStyle.NORMAL.equals(abstractReferenceFigure.getStyle())) {
 			out.print(", style=");
-			out.print(referenceFigure.getStyle().toString());
+			out.print(abstractReferenceFigure.getStyle().toString());
 		}
 		// If the source figure is a cluster...
 		if (srcClassFigure.isContainer()) {
@@ -1255,7 +1258,7 @@ class NodeDesc {
 class EdgeDesc {
 
 	/** Reference figure associated to the edge */
-	ReferenceFigure referenceFigure;
+	AbstractReferenceFigure referenceFigure;
 
 	/** Source EObject identifier */
 	String srcEObjectId;

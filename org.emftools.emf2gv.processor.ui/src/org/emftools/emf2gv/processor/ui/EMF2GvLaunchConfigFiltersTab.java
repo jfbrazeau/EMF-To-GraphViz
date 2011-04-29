@@ -85,9 +85,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
-import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.processor.core.OCLProvider;
 import org.emftools.emf2gv.processor.ui.util.OCLInputDialog;
@@ -467,17 +467,18 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		EList<ClassFigure> classFigures = figureDescription.getClassFigures();
 		for (ClassFigure classFigure : classFigures) {
 			registerSuperTypes(classFigure.getEClass(), eClasses);
-			// Retrieve the EClass targeted by the rich references (i.e. 
+			// Retrieve the EClass targeted by the rich references (i.e.
 			// the association EClasses)
-			EList<ReferenceFigure> referenceFigures = classFigure
+			EList<AbstractReferenceFigure> abstractReferenceFigures = classFigure
 					.getReferenceFigures();
-			for (ReferenceFigure referenceFigure : referenceFigures) {
-				if (referenceFigure instanceof RichReferenceFigure) {
-					RichReferenceFigure richReferenceFigure = (RichReferenceFigure) referenceFigure;
+			for (AbstractReferenceFigure abstractReferenceFigure : abstractReferenceFigures) {
+				if (abstractReferenceFigure instanceof RichReferenceFigure) {
+					RichReferenceFigure richReferenceFigure = (RichReferenceFigure) abstractReferenceFigure;
 					registerSuperTypes(richReferenceFigure.getEReference()
 							.getEReferenceType(), eClasses);
 				}
 			}
+			// TODO register rich attribute EClasses
 		}
 		return eClasses;
 	}
