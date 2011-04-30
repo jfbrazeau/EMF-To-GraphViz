@@ -31,6 +31,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
@@ -38,6 +39,7 @@ import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
@@ -123,6 +125,14 @@ public class GraphdescAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseReferenceFigure(ReferenceFigure object) {
 				return createReferenceFigureAdapter();
+			}
+			@Override
+			public Adapter caseAbstractAttributeFigure(AbstractAttributeFigure object) {
+				return createAbstractAttributeFigureAdapter();
+			}
+			@Override
+			public Adapter caseRichAttributeFigure(RichAttributeFigure object) {
+				return createRichAttributeFigureAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -225,6 +235,34 @@ public class GraphdescAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createReferenceFigureAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftools.emf2gv.graphdesc.AbstractAttributeFigure <em>Abstract Attribute Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractAttributeFigure
+	 * @generated
+	 */
+	public Adapter createAbstractAttributeFigureAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure <em>Rich Attribute Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftools.emf2gv.graphdesc.RichAttributeFigure
+	 * @generated
+	 */
+	public Adapter createRichAttributeFigureAdapter() {
 		return null;
 	}
 

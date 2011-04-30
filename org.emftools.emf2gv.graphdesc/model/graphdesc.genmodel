@@ -25,11 +25,11 @@
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowType/custom"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="graphdesc.ecore#//ArrowStyle">
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/invis"/>
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/normal"/>
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/dashed"/>
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/dotted"/>
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/bold"/>
-      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/invis"/>
     </genEnums>
     <genClasses ecoreClass="graphdesc.ecore#//GVFigureDescription">
       <genFeatures createChild="false" propertyCategory="Model" propertyDescription="EPackages list authorized in this figure description"
@@ -81,33 +81,8 @@
     <genClasses ecoreClass="graphdesc.ecore#//AttributeFigure">
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The label to use (to be used when one wants to override the default EAttribute name)"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//AttributeFigure/label"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//AttributeFigure/classFigure"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The EAttribute that this figure will represent on the graph"
           propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//AttributeFigure/eAttribute"/>
-    </genClasses>
-    <genClasses ecoreClass="graphdesc.ecore#//ReferenceFigure">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//ReferenceFigure/classFigure"/>
-      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The EReference that this figure will represent on the graph"
-          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ReferenceFigure/eReference"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The target arrow type"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/targetArrowType"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The source arrow type"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/sourceArrowType"/>
-      <genFeatures property="None" createChild="false" propertyCategory="Model" propertyDescription="Shows if the EReference is a containment reference"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/containment"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The custom target arrow"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/customTargetArrow"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The custom source arrow"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/customSourceArrow"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The edge color"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/color"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The edge style"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/style"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" propertyCategory="Model"
-          propertyDescription="The target type of the EReference" ecoreFeature="ecore:EReference graphdesc.ecore#//ReferenceFigure/targetEType"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Minimum edge length (same as Graphviz minlen property)"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ReferenceFigure/minimumEdgeLength"/>
-      <genOperations ecoreOperation="graphdesc.ecore#//ReferenceFigure/targetClassFigureExists"/>
     </genClasses>
     <genClasses ecoreClass="graphdesc.ecore#//RichReferenceFigure">
       <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The target EReference of the rich reference EClass"
@@ -156,6 +131,16 @@
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Minimum edge length (same as Graphviz minlen property)"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractReferenceFigure/minimumEdgeLength"/>
       <genOperations ecoreOperation="graphdesc.ecore#//AbstractReferenceFigure/targetClassFigureExists"/>
+    </genClasses>
+    <genClasses ecoreClass="graphdesc.ecore#//ReferenceFigure"/>
+    <genClasses image="false" ecoreClass="graphdesc.ecore#//AbstractAttributeFigure">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//AbstractAttributeFigure/classFigure"/>
+    </genClasses>
+    <genClasses ecoreClass="graphdesc.ecore#//RichAttributeFigure">
+      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The EReference that gives the rich attribute(s) EObject(s)"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//RichAttributeFigure/eReference"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The OCL expression to use to convert the  rich attribute(s) EObject(s) to string (to be displayed as an attribute in the graph)"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichAttributeFigure/eReferenceTypeToStringExpression"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

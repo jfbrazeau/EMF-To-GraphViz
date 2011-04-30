@@ -320,51 +320,6 @@ public interface GraphdescPackage extends EPackage {
 	int CLASS_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 13;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_FIGURE__NAME = ABSTRACT_FIGURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Label</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_FIGURE__LABEL = ABSTRACT_FIGURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_FIGURE__CLASS_FIGURE = ABSTRACT_FIGURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>EAttribute</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_FIGURE__EATTRIBUTE = ABSTRACT_FIGURE_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of structural features of the '<em>Attribute Figure</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 3;
-
-	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl <em>Rich Reference Figure</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -383,6 +338,98 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	int ABSTRACT_REFERENCE_FIGURE = 5;
+
+	/**
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl <em>Reference Figure</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getReferenceFigure()
+	 * @generated
+	 */
+	int REFERENCE_FIGURE = 6;
+
+	/**
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractAttributeFigureImpl <em>Abstract Attribute Figure</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftools.emf2gv.graphdesc.impl.AbstractAttributeFigureImpl
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAbstractAttributeFigure()
+	 * @generated
+	 */
+	int ABSTRACT_ATTRIBUTE_FIGURE = 7;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ATTRIBUTE_FIGURE__NAME = ABSTRACT_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE = ABSTRACT_FIGURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Attribute Figure</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_FIGURE__NAME = ABSTRACT_ATTRIBUTE_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_FIGURE__CLASS_FIGURE = ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_FIGURE__LABEL = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>EAttribute</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_FIGURE__EATTRIBUTE = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Attribute Figure</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -673,16 +720,6 @@ public interface GraphdescPackage extends EPackage {
 	int RICH_REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 6;
 
 	/**
-	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl <em>Reference Figure</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl
-	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getReferenceFigure()
-	 * @generated
-	 */
-	int REFERENCE_FIGURE = 6;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -800,6 +837,61 @@ public interface GraphdescPackage extends EPackage {
 	int REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl <em>Rich Attribute Figure</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getRichAttributeFigure()
+	 * @generated
+	 */
+	int RICH_ATTRIBUTE_FIGURE = 8;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE__NAME = ABSTRACT_ATTRIBUTE_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE__CLASS_FIGURE = ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE;
+
+	/**
+	 * The feature id for the '<em><b>EReference</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE__EREFERENCE = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>EReference Type To String Expression</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Rich Attribute Figure</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.Orientation <em>Orientation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -807,7 +899,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getOrientation()
 	 * @generated
 	 */
-	int ORIENTATION = 7;
+	int ORIENTATION = 9;
 
 
 	/**
@@ -818,7 +910,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowType()
 	 * @generated
 	 */
-	int ARROW_TYPE = 8;
+	int ARROW_TYPE = 10;
 
 
 	/**
@@ -829,7 +921,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowStyle()
 	 * @generated
 	 */
-	int ARROW_STYLE = 9;
+	int ARROW_STYLE = 11;
 
 
 	/**
@@ -1005,17 +1097,6 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAttributeFigure_Label();
-
-	/**
-	 * Returns the meta object for the container reference '{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getClassFigure <em>Class Figure</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Class Figure</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.AttributeFigure#getClassFigure()
-	 * @see #getAttributeFigure()
-	 * @generated
-	 */
-	EReference getAttributeFigure_ClassFigure();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getEAttribute <em>EAttribute</em>}'.
@@ -1267,6 +1348,59 @@ public interface GraphdescPackage extends EPackage {
 	EClass getReferenceFigure();
 
 	/**
+	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.AbstractAttributeFigure <em>Abstract Attribute Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Abstract Attribute Figure</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractAttributeFigure
+	 * @generated
+	 */
+	EClass getAbstractAttributeFigure();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.emftools.emf2gv.graphdesc.AbstractAttributeFigure#getClassFigure <em>Class Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Class Figure</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractAttributeFigure#getClassFigure()
+	 * @see #getAbstractAttributeFigure()
+	 * @generated
+	 */
+	EReference getAbstractAttributeFigure_ClassFigure();
+
+	/**
+	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure <em>Rich Attribute Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rich Attribute Figure</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.RichAttributeFigure
+	 * @generated
+	 */
+	EClass getRichAttributeFigure();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReference <em>EReference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>EReference</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReference()
+	 * @see #getRichAttributeFigure()
+	 * @generated
+	 */
+	EReference getRichAttributeFigure_EReference();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReferenceTypeToStringExpression <em>EReference Type To String Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>EReference Type To String Expression</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReferenceTypeToStringExpression()
+	 * @see #getRichAttributeFigure()
+	 * @generated
+	 */
+	EAttribute getRichAttributeFigure_EReferenceTypeToStringExpression();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.GVFigureDescription <em>GV Figure Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1505,14 +1639,6 @@ public interface GraphdescPackage extends EPackage {
 		EAttribute ATTRIBUTE_FIGURE__LABEL = eINSTANCE.getAttributeFigure_Label();
 
 		/**
-		 * The meta object literal for the '<em><b>Class Figure</b></em>' container reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ATTRIBUTE_FIGURE__CLASS_FIGURE = eINSTANCE.getAttributeFigure_ClassFigure();
-
-		/**
 		 * The meta object literal for the '<em><b>EAttribute</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1703,6 +1829,50 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EClass REFERENCE_FIGURE = eINSTANCE.getReferenceFigure();
+
+		/**
+		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractAttributeFigureImpl <em>Abstract Attribute Figure</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftools.emf2gv.graphdesc.impl.AbstractAttributeFigureImpl
+		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAbstractAttributeFigure()
+		 * @generated
+		 */
+		EClass ABSTRACT_ATTRIBUTE_FIGURE = eINSTANCE.getAbstractAttributeFigure();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Figure</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE = eINSTANCE.getAbstractAttributeFigure_ClassFigure();
+
+		/**
+		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl <em>Rich Attribute Figure</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl
+		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getRichAttributeFigure()
+		 * @generated
+		 */
+		EClass RICH_ATTRIBUTE_FIGURE = eINSTANCE.getRichAttributeFigure();
+
+		/**
+		 * The meta object literal for the '<em><b>EReference</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RICH_ATTRIBUTE_FIGURE__EREFERENCE = eINSTANCE.getRichAttributeFigure_EReference();
+
+		/**
+		 * The meta object literal for the '<em><b>EReference Type To String Expression</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION = eINSTANCE.getRichAttributeFigure_EReferenceTypeToStringExpression();
 
 		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.GVFigureDescriptionImpl <em>GV Figure Description</em>}' class.

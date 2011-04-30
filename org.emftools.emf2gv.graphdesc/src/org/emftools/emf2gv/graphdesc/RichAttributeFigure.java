@@ -24,79 +24,80 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
  */
 package org.emftools.emf2gv.graphdesc;
 
-import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EReference;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Attribute Figure</b></em>'.
+ * A representation of the model object '<em><b>Rich Attribute Figure</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getLabel <em>Label</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getEAttribute <em>EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReference <em>EReference</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReferenceTypeToStringExpression <em>EReference Type To String Expression</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAttributeFigure()
+ * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichAttributeFigure()
  * @model
  * @generated
  */
-public interface AttributeFigure extends AbstractAttributeFigure {
+public interface RichAttributeFigure extends AbstractAttributeFigure {
 	/**
-	 * Returns the value of the '<em><b>Label</b></em>' attribute.
+	 * Returns the value of the '<em><b>EReference</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Label</em>' attribute isn't clear,
+	 * If the meaning of the '<em>EReference</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Label</em>' attribute.
-	 * @see #setLabel(String)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAttributeFigure_Label()
-	 * @model
-	 * @generated
-	 */
-	String getLabel();
-
-	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getLabel <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Label</em>' attribute.
-	 * @see #getLabel()
-	 * @generated
-	 */
-	void setLabel(String value);
-
-	/**
-	 * Returns the value of the '<em><b>EAttribute</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>EAttribute</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>EAttribute</em>' reference.
-	 * @see #setEAttribute(EAttribute)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAttributeFigure_EAttribute()
+	 * @return the value of the '<em>EReference</em>' reference.
+	 * @see #setEReference(EReference)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichAttributeFigure_EReference()
 	 * @model required="true"
 	 * @generated
 	 */
-	EAttribute getEAttribute();
+	EReference getEReference();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getEAttribute <em>EAttribute</em>}' reference.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReference <em>EReference</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>EAttribute</em>' reference.
-	 * @see #getEAttribute()
+	 * @param value the new value of the '<em>EReference</em>' reference.
+	 * @see #getEReference()
 	 * @generated
 	 */
-	void setEAttribute(EAttribute value);
+	void setEReference(EReference value);
 
-} // AttributeFigure
+	/**
+	 * Returns the value of the '<em><b>EReference Type To String Expression</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>EReference Type To String Expression</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>EReference Type To String Expression</em>' attribute.
+	 * @see #setEReferenceTypeToStringExpression(String)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichAttributeFigure_EReferenceTypeToStringExpression()
+	 * @model
+	 * @generated
+	 */
+	String getEReferenceTypeToStringExpression();
+
+	/**
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReferenceTypeToStringExpression <em>EReference Type To String Expression</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>EReference Type To String Expression</em>' attribute.
+	 * @see #getEReferenceTypeToStringExpression()
+	 * @generated
+	 */
+	void setEReferenceTypeToStringExpression(String value);
+
+} // RichAttributeFigure

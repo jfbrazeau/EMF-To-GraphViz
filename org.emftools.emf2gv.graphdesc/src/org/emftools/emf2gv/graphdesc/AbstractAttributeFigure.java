@@ -24,79 +24,54 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
  */
 package org.emftools.emf2gv.graphdesc;
 
-import org.eclipse.emf.ecore.EAttribute;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Attribute Figure</b></em>'.
+ * A representation of the model object '<em><b>Abstract Attribute Figure</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getLabel <em>Label</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getEAttribute <em>EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.AbstractAttributeFigure#getClassFigure <em>Class Figure</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAttributeFigure()
- * @model
+ * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAbstractAttributeFigure()
+ * @model abstract="true"
  * @generated
  */
-public interface AttributeFigure extends AbstractAttributeFigure {
+public interface AbstractAttributeFigure extends AbstractFigure {
 	/**
-	 * Returns the value of the '<em><b>Label</b></em>' attribute.
+	 * Returns the value of the '<em><b>Class Figure</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getAttributeFigures <em>Attribute Figures</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Label</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Class Figure</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Label</em>' attribute.
-	 * @see #setLabel(String)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAttributeFigure_Label()
-	 * @model
+	 * @return the value of the '<em>Class Figure</em>' container reference.
+	 * @see #setClassFigure(ClassFigure)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAbstractAttributeFigure_ClassFigure()
+	 * @see org.emftools.emf2gv.graphdesc.ClassFigure#getAttributeFigures
+	 * @model opposite="attributeFigures" required="true" transient="false"
 	 * @generated
 	 */
-	String getLabel();
+	ClassFigure getClassFigure();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getLabel <em>Label</em>}' attribute.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AbstractAttributeFigure#getClassFigure <em>Class Figure</em>}' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Label</em>' attribute.
-	 * @see #getLabel()
+	 * @param value the new value of the '<em>Class Figure</em>' container reference.
+	 * @see #getClassFigure()
 	 * @generated
 	 */
-	void setLabel(String value);
+	void setClassFigure(ClassFigure value);
 
-	/**
-	 * Returns the value of the '<em><b>EAttribute</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>EAttribute</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>EAttribute</em>' reference.
-	 * @see #setEAttribute(EAttribute)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAttributeFigure_EAttribute()
-	 * @model required="true"
-	 * @generated
-	 */
-	EAttribute getEAttribute();
-
-	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getEAttribute <em>EAttribute</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>EAttribute</em>' reference.
-	 * @see #getEAttribute()
-	 * @generated
-	 */
-	void setEAttribute(EAttribute value);
-
-} // AttributeFigure
+} // AbstractAttributeFigure

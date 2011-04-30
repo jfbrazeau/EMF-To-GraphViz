@@ -37,7 +37,7 @@
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labelEAttribute" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributeFigures" upperBound="-1"
-        eType="#//AttributeFigure" containment="true" eOpposite="#//AttributeFigure/classFigure"/>
+        eType="#//AbstractAttributeFigure" containment="true" eOpposite="#//AbstractAttributeFigure/classFigure"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referenceFigures" upperBound="-1"
         eType="#//AbstractReferenceFigure" containment="true" eOpposite="#//AbstractReferenceFigure/classFigure"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="gvFigureDescription" lowerBound="1"
@@ -57,10 +57,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="container" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
         changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AttributeFigure" eSuperTypes="#//AbstractFigure">
+  <eClassifiers xsi:type="ecore:EClass" name="AttributeFigure" eSuperTypes="#//AbstractAttributeFigure">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="classFigure" lowerBound="1"
-        eType="#//ClassFigure" eOpposite="#//ClassFigure/attributeFigures"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="eAttribute" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
   </eClassifiers>
@@ -138,4 +136,15 @@
         defaultValueLiteral="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReferenceFigure" eSuperTypes="#//AbstractReferenceFigure"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractAttributeFigure" abstract="true"
+      eSuperTypes="#//AbstractFigure">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classFigure" lowerBound="1"
+        eType="#//ClassFigure" eOpposite="#//ClassFigure/attributeFigures"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RichAttributeFigure" eSuperTypes="#//AbstractAttributeFigure">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eReference" lowerBound="1"
+        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eReferenceTypeToStringExpression"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

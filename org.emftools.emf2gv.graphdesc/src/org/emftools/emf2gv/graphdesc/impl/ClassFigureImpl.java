@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
@@ -111,7 +112,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AttributeFigure> attributeFigures;
+	protected EList<AbstractAttributeFigure> attributeFigures;
 
 	/**
 	 * The cached value of the '{@link #getReferenceFigures()
@@ -341,9 +342,9 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AttributeFigure> getAttributeFigures() {
+	public EList<AbstractAttributeFigure> getAttributeFigures() {
 		if (attributeFigures == null) {
-			attributeFigures = new EObjectContainmentWithInverseEList<AttributeFigure>(AttributeFigure.class, this, GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES, GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE);
+			attributeFigures = new EObjectContainmentWithInverseEList<AbstractAttributeFigure>(AbstractAttributeFigure.class, this, GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES, GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE);
 		}
 		return attributeFigures;
 	}
@@ -578,11 +579,14 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 */
 	public AttributeFigure getAttributeFigure(EAttribute eAttribute) {
 		AttributeFigure result = null;
-		EList<AttributeFigure> attrFigures = getAttributeFigures();
-		for (int i = 0; i < attrFigures.size() && result == null; i++) {
-			AttributeFigure attrFigure = attrFigures.get(i);
-			if (eAttribute.equals(attrFigure.getEAttribute())) {
-				result = attrFigure;
+		EList<AbstractAttributeFigure> abstractAttrFigures = getAttributeFigures();
+		for (int i = 0; i < abstractAttrFigures.size() && result == null; i++) {
+			AbstractAttributeFigure abstractAttrFigure = abstractAttrFigures.get(i);
+			if (abstractAttrFigure instanceof AttributeFigure) {
+				AttributeFigure attrFigure = (AttributeFigure) abstractAttrFigure;
+				if (eAttribute.equals(attrFigure.getEAttribute())) {
+					result = (AttributeFigure) attrFigure;
+				}
 			}
 		}
 		return result;
@@ -849,7 +853,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				return;
 			case GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES:
 				getAttributeFigures().clear();
-				getAttributeFigures().addAll((Collection<? extends AttributeFigure>)newValue);
+				getAttributeFigures().addAll((Collection<? extends AbstractAttributeFigure>)newValue);
 				return;
 			case GraphdescPackage.CLASS_FIGURE__REFERENCE_FIGURES:
 				getReferenceFigures().clear();

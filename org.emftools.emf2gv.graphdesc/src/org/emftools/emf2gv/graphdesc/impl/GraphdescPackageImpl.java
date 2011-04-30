@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
@@ -49,6 +50,7 @@ import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.Orientation;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
 
@@ -107,6 +109,20 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * @generated
 	 */
 	private EClass referenceFigureEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass abstractAttributeFigureEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass richAttributeFigureEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -396,17 +412,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAttributeFigure_ClassFigure() {
-		return (EReference)attributeFigureEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getAttributeFigure_EAttribute() {
-		return (EReference)attributeFigureEClass.getEStructuralFeatures().get(2);
+		return (EReference)attributeFigureEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -612,6 +619,51 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAbstractAttributeFigure() {
+		return abstractAttributeFigureEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractAttributeFigure_ClassFigure() {
+		return (EReference)abstractAttributeFigureEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRichAttributeFigure() {
+		return richAttributeFigureEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRichAttributeFigure_EReference() {
+		return (EReference)richAttributeFigureEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRichAttributeFigure_EReferenceTypeToStringExpression() {
+		return (EAttribute)richAttributeFigureEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getOrientation() {
 		return orientationEEnum;
 	}
@@ -685,7 +737,6 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		attributeFigureEClass = createEClass(ATTRIBUTE_FIGURE);
 		createEAttribute(attributeFigureEClass, ATTRIBUTE_FIGURE__LABEL);
-		createEReference(attributeFigureEClass, ATTRIBUTE_FIGURE__CLASS_FIGURE);
 		createEReference(attributeFigureEClass, ATTRIBUTE_FIGURE__EATTRIBUTE);
 
 		richReferenceFigureEClass = createEClass(RICH_REFERENCE_FIGURE);
@@ -713,6 +764,13 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		createEAttribute(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH);
 
 		referenceFigureEClass = createEClass(REFERENCE_FIGURE);
+
+		abstractAttributeFigureEClass = createEClass(ABSTRACT_ATTRIBUTE_FIGURE);
+		createEReference(abstractAttributeFigureEClass, ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE);
+
+		richAttributeFigureEClass = createEClass(RICH_ATTRIBUTE_FIGURE);
+		createEReference(richAttributeFigureEClass, RICH_ATTRIBUTE_FIGURE__EREFERENCE);
+		createEAttribute(richAttributeFigureEClass, RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION);
 
 		// Create enums
 		orientationEEnum = createEEnum(ORIENTATION);
@@ -752,10 +810,12 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		// Add supertypes to classes
 		classFigureEClass.getESuperTypes().add(this.getAbstractFigure());
-		attributeFigureEClass.getESuperTypes().add(this.getAbstractFigure());
+		attributeFigureEClass.getESuperTypes().add(this.getAbstractAttributeFigure());
 		richReferenceFigureEClass.getESuperTypes().add(this.getAbstractReferenceFigure());
 		abstractReferenceFigureEClass.getESuperTypes().add(this.getAbstractFigure());
 		referenceFigureEClass.getESuperTypes().add(this.getAbstractReferenceFigure());
+		abstractAttributeFigureEClass.getESuperTypes().add(this.getAbstractFigure());
+		richAttributeFigureEClass.getESuperTypes().add(this.getAbstractAttributeFigure());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(gvFigureDescriptionEClass, GVFigureDescription.class, "GVFigureDescription", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -780,7 +840,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEReference(getClassFigure_EPackage(), theEcorePackage.getEPackage(), null, "ePackage", null, 0, 1, ClassFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getClassFigure_EClass(), theEcorePackage.getEClass(), null, "eClass", null, 1, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassFigure_LabelEAttribute(), theEcorePackage.getEAttribute(), null, "labelEAttribute", null, 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getClassFigure_AttributeFigures(), this.getAttributeFigure(), this.getAttributeFigure_ClassFigure(), "attributeFigures", null, 0, -1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClassFigure_AttributeFigures(), this.getAbstractAttributeFigure(), this.getAbstractAttributeFigure_ClassFigure(), "attributeFigures", null, 0, -1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassFigure_ReferenceFigures(), this.getAbstractReferenceFigure(), this.getAbstractReferenceFigure_ClassFigure(), "referenceFigures", null, 0, -1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassFigure_GvFigureDescription(), this.getGVFigureDescription(), this.getGVFigureDescription_ClassFigures(), "gvFigureDescription", null, 1, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClassFigure_HeaderBackgroundColor(), theEcorePackage.getEInt(), "headerBackgroundColor", "10337785", 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -799,7 +859,6 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		initEClass(attributeFigureEClass, AttributeFigure.class, "AttributeFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAttributeFigure_Label(), theEcorePackage.getEString(), "label", null, 0, 1, AttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAttributeFigure_ClassFigure(), this.getClassFigure(), this.getClassFigure_AttributeFigures(), "classFigure", null, 1, 1, AttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAttributeFigure_EAttribute(), theEcorePackage.getEAttribute(), null, "eAttribute", null, 1, 1, AttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(richReferenceFigureEClass, RichReferenceFigure.class, "RichReferenceFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -838,6 +897,13 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		addEOperation(abstractReferenceFigureEClass, theEcorePackage.getEBoolean(), "targetClassFigureExists", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(referenceFigureEClass, ReferenceFigure.class, "ReferenceFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(abstractAttributeFigureEClass, AbstractAttributeFigure.class, "AbstractAttributeFigure", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAbstractAttributeFigure_ClassFigure(), this.getClassFigure(), this.getClassFigure_AttributeFigures(), "classFigure", null, 1, 1, AbstractAttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(richAttributeFigureEClass, RichAttributeFigure.class, "RichAttributeFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRichAttributeFigure_EReference(), theEcorePackage.getEReference(), null, "eReference", null, 1, 1, RichAttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRichAttributeFigure_EReferenceTypeToStringExpression(), theEcorePackage.getEString(), "eReferenceTypeToStringExpression", null, 0, 1, RichAttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(orientationEEnum, Orientation.class, "Orientation");

@@ -42,6 +42,7 @@ import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.Orientation;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
@@ -93,6 +94,7 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 			case GraphdescPackage.ATTRIBUTE_FIGURE: return createAttributeFigure();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE: return createRichReferenceFigure();
 			case GraphdescPackage.REFERENCE_FIGURE: return createReferenceFigure();
+			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE: return createRichAttributeFigure();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -174,6 +176,16 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 	public ReferenceFigure createReferenceFigure() {
 		ReferenceFigureImpl referenceFigure = new ReferenceFigureImpl();
 		return referenceFigure;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RichAttributeFigure createRichAttributeFigure() {
+		RichAttributeFigureImpl richAttributeFigure = new RichAttributeFigureImpl();
+		return richAttributeFigure;
 	}
 
 	/**

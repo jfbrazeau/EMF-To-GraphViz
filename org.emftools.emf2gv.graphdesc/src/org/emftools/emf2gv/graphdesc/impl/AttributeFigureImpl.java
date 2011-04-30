@@ -30,13 +30,11 @@ package org.emftools.emf2gv.graphdesc.impl;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
@@ -51,14 +49,13 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AttributeFigureImpl#getLabel <em>Label</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AttributeFigureImpl#getClassFigure <em>Class Figure</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AttributeFigureImpl#getEAttribute <em>EAttribute</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AttributeFigureImpl extends AbstractFigureImpl implements AttributeFigure {
+public class AttributeFigureImpl extends AbstractAttributeFigureImpl implements AttributeFigure {
 	/**
 	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -147,47 +144,6 @@ public class AttributeFigureImpl extends AbstractFigureImpl implements Attribute
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ClassFigure getClassFigure() {
-		if (eContainerFeatureID() != GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE) return null;
-		return (ClassFigure)eContainer();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetClassFigure(ClassFigure newClassFigure, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newClassFigure, GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setClassFigure(ClassFigure newClassFigure) {
-		if (newClassFigure != eInternalContainer() || (eContainerFeatureID() != GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE && newClassFigure != null)) {
-			if (EcoreUtil.isAncestor(this, newClassFigure))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newClassFigure != null)
-				msgs = ((InternalEObject)newClassFigure).eInverseAdd(this, GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES, ClassFigure.class, msgs);
-			msgs = basicSetClassFigure(newClassFigure, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE, newClassFigure, newClassFigure));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getEAttribute() {
 		if (eAttribute != null && eAttribute.eIsProxy()) {
 			InternalEObject oldEAttribute = (InternalEObject)eAttribute;
@@ -230,14 +186,10 @@ public class AttributeFigureImpl extends AbstractFigureImpl implements Attribute
 	 * @generated NOT
 	 */
 	public boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context) {
-		EMFConstraintsHelper constraintsHelper = EMFConstraintsHelper.getInstance(GraphdescValidator.DIAGNOSTIC_SOURCE);
-		boolean valid = true;
-		ClassFigure classFigure = getClassFigure();
-		if (classFigure == null) {
-			constraintsHelper.addError(diagnostic, this, 0, "The attribute figure must be contained in a class figure");
-			valid = false;
-		}
-		else {
+		boolean valid = super.validate(diagnostic, context);
+		if (valid) {
+			EMFConstraintsHelper constraintsHelper = EMFConstraintsHelper.getInstance(GraphdescValidator.DIAGNOSTIC_SOURCE);
+			ClassFigure classFigure = getClassFigure();
 			EAttribute eAttribute = getEAttribute();
 			if (eAttribute == null) {
 				constraintsHelper.addError(diagnostic, this, 0, "The attribute figure must be associated to an EAttribute");
@@ -271,56 +223,10 @@ public class AttributeFigureImpl extends AbstractFigureImpl implements Attribute
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetClassFigure((ClassFigure)otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE:
-				return basicSetClassFigure(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID()) {
-			case GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE:
-				return eInternalContainer().eInverseRemove(this, GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES, ClassFigure.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GraphdescPackage.ATTRIBUTE_FIGURE__LABEL:
 				return getLabel();
-			case GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE:
-				return getClassFigure();
 			case GraphdescPackage.ATTRIBUTE_FIGURE__EATTRIBUTE:
 				if (resolve) return getEAttribute();
 				return basicGetEAttribute();
@@ -338,9 +244,6 @@ public class AttributeFigureImpl extends AbstractFigureImpl implements Attribute
 		switch (featureID) {
 			case GraphdescPackage.ATTRIBUTE_FIGURE__LABEL:
 				setLabel((String)newValue);
-				return;
-			case GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE:
-				setClassFigure((ClassFigure)newValue);
 				return;
 			case GraphdescPackage.ATTRIBUTE_FIGURE__EATTRIBUTE:
 				setEAttribute((EAttribute)newValue);
@@ -360,9 +263,6 @@ public class AttributeFigureImpl extends AbstractFigureImpl implements Attribute
 			case GraphdescPackage.ATTRIBUTE_FIGURE__LABEL:
 				setLabel(LABEL_EDEFAULT);
 				return;
-			case GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE:
-				setClassFigure((ClassFigure)null);
-				return;
 			case GraphdescPackage.ATTRIBUTE_FIGURE__EATTRIBUTE:
 				setEAttribute((EAttribute)null);
 				return;
@@ -380,8 +280,6 @@ public class AttributeFigureImpl extends AbstractFigureImpl implements Attribute
 		switch (featureID) {
 			case GraphdescPackage.ATTRIBUTE_FIGURE__LABEL:
 				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-			case GraphdescPackage.ATTRIBUTE_FIGURE__CLASS_FIGURE:
-				return getClassFigure() != null;
 			case GraphdescPackage.ATTRIBUTE_FIGURE__EATTRIBUTE:
 				return eAttribute != null;
 		}

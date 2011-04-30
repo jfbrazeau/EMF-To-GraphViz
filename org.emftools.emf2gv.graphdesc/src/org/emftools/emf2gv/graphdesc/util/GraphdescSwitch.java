@@ -31,6 +31,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
@@ -38,6 +39,7 @@ import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
@@ -130,6 +132,7 @@ public class GraphdescSwitch<T> {
 			case GraphdescPackage.ATTRIBUTE_FIGURE: {
 				AttributeFigure attributeFigure = (AttributeFigure)theEObject;
 				T result = caseAttributeFigure(attributeFigure);
+				if (result == null) result = caseAbstractAttributeFigure(attributeFigure);
 				if (result == null) result = caseAbstractFigure(attributeFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -160,6 +163,21 @@ public class GraphdescSwitch<T> {
 				T result = caseReferenceFigure(referenceFigure);
 				if (result == null) result = caseAbstractReferenceFigure(referenceFigure);
 				if (result == null) result = caseAbstractFigure(referenceFigure);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE: {
+				AbstractAttributeFigure abstractAttributeFigure = (AbstractAttributeFigure)theEObject;
+				T result = caseAbstractAttributeFigure(abstractAttributeFigure);
+				if (result == null) result = caseAbstractFigure(abstractAttributeFigure);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE: {
+				RichAttributeFigure richAttributeFigure = (RichAttributeFigure)theEObject;
+				T result = caseRichAttributeFigure(richAttributeFigure);
+				if (result == null) result = caseAbstractAttributeFigure(richAttributeFigure);
+				if (result == null) result = caseAbstractFigure(richAttributeFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -254,6 +272,36 @@ public class GraphdescSwitch<T> {
 	 * @generated
 	 */
 	public T caseReferenceFigure(ReferenceFigure object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Attribute Figure</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Attribute Figure</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractAttributeFigure(AbstractAttributeFigure object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Rich Attribute Figure</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Rich Attribute Figure</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRichAttributeFigure(RichAttributeFigure object) {
 		return null;
 	}
 

@@ -116,8 +116,8 @@ public interface ClassFigure extends AbstractFigure {
 
 	/**
 	 * Returns the value of the '<em><b>Attribute Figures</b></em>' containment reference list.
-	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.AttributeFigure}.
-	 * It is bidirectional and its opposite is '{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getClassFigure <em>Class Figure</em>}'.
+	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.AbstractAttributeFigure}.
+	 * It is bidirectional and its opposite is '{@link org.emftools.emf2gv.graphdesc.AbstractAttributeFigure#getClassFigure <em>Class Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Attribute Figures</em>' reference list isn't clear,
@@ -126,11 +126,11 @@ public interface ClassFigure extends AbstractFigure {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Attribute Figures</em>' containment reference list.
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getClassFigure_AttributeFigures()
-	 * @see org.emftools.emf2gv.graphdesc.AttributeFigure#getClassFigure
+	 * @see org.emftools.emf2gv.graphdesc.AbstractAttributeFigure#getClassFigure
 	 * @model opposite="classFigure" containment="true"
 	 * @generated
 	 */
-	EList<AttributeFigure> getAttributeFigures();
+	EList<AbstractAttributeFigure> getAttributeFigures();
 
 	/**
 	 * Returns the value of the '<em><b>EPackage</b></em>' reference.

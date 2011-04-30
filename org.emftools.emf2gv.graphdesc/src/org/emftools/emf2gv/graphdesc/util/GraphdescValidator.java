@@ -33,6 +33,7 @@ import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
@@ -43,6 +44,7 @@ import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.Orientation;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
@@ -147,6 +149,10 @@ public class GraphdescValidator extends EObjectValidator {
 				return validateAbstractReferenceFigure((AbstractReferenceFigure)value, diagnostics, context);
 			case GraphdescPackage.REFERENCE_FIGURE:
 				return validateReferenceFigure((ReferenceFigure)value, diagnostics, context);
+			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE:
+				return validateAbstractAttributeFigure((AbstractAttributeFigure)value, diagnostics, context);
+			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE:
+				return validateRichAttributeFigure((RichAttributeFigure)value, diagnostics, context);
 			case GraphdescPackage.ORIENTATION:
 				return validateOrientation((Orientation)value, diagnostics, context);
 			case GraphdescPackage.ARROW_TYPE:
@@ -279,6 +285,44 @@ public class GraphdescValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(referenceFigure, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(referenceFigure, diagnostics, context);
 		if (result || diagnostics != null) result &= validateAbstractFigure_validate(referenceFigure, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAbstractAttributeFigure(AbstractAttributeFigure abstractAttributeFigure, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(abstractAttributeFigure, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(abstractAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(abstractAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(abstractAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(abstractAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(abstractAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(abstractAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(abstractAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(abstractAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validateAbstractFigure_validate(abstractAttributeFigure, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateRichAttributeFigure(RichAttributeFigure richAttributeFigure, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(richAttributeFigure, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(richAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(richAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(richAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(richAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(richAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(richAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(richAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(richAttributeFigure, diagnostics, context);
+		if (result || diagnostics != null) result &= validateAbstractFigure_validate(richAttributeFigure, diagnostics, context);
 		return result;
 	}
 
