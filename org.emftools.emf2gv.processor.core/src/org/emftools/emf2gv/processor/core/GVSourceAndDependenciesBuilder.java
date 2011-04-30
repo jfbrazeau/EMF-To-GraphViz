@@ -48,7 +48,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -428,20 +427,78 @@ final class GVSourceAndDependenciesBuilder {
 							eContentRoot);
 					eObjectIdsCache.put(eContentRoot, eContentRootId);
 
-					// EObject icon retrieval
-					String iconPath = findAndSaveEObjectIcon(eContentRoot,
-							monitor);
-
 					// Node description creation and registration
 					NodeDesc nodeDesc = new NodeDesc();
 					nodeDesc.classFigure = classFigure;
 					nodeDesc.eObject = eContentRoot;
 					nodeDesc.eObjectId = eContentRootId;
-					nodeDesc.iconPath = iconPath;
+					nodeDesc.iconPath = findAndSaveEObjectIcon(eContentRoot,
+							monitor);
 					nodeDesc.validationDecoratorIconPath = getValidationDecoratorIconPath(
 							eContentRoot, monitor);
 					nodes.add(nodeDesc);
 					nodesMap.put(eContentRoot, nodeDesc);
+
+					// Attributes retrieval
+					nodeDesc.attributes = new ArrayList<AttributeDesc>();
+					for (AbstractAttributeFigure abstractAttrFigure : classFigure
+							.getAttributeFigures()) {
+						// Simple attribute figures
+						if (abstractAttrFigure instanceof AttributeFigure) {
+							AttributeDesc attrDesc = new AttributeDesc();
+							nodeDesc.attributes.add(attrDesc);
+							AttributeFigure attrFigure = (AttributeFigure) abstractAttrFigure;
+							EAttribute eAttribute = attrFigure.getEAttribute();
+							String attrLabel = attrFigure.getLabel();
+							if (attrLabel == null
+									|| "".equals(attrLabel.trim())) {
+								attrLabel = eAttribute.getName();
+							}
+							attrDesc.label = attrLabel.trim();
+							attrDesc.value = String.valueOf(nodeDesc.eObject
+									.eGet(eAttribute));
+						}
+						// Rich attribute figures
+						else {
+							RichAttributeFigure attrFigure = (RichAttributeFigure) abstractAttrFigure;
+							List<EObject> richAttrsEObjects = getTargetRefEObjects(
+									nodeDesc.eObject,
+									attrFigure.getEReference());
+							try {
+								getOclHelper().setContext(
+										attrFigure.getEReference().getEType());
+								OCLExpression<EClassifier> expression = getOclHelper()
+										.createQuery(
+												attrFigure
+														.getEReferenceTypeToStringExpression());
+								for (EObject richAttrEObject : richAttrsEObjects) {
+									if (mustDraw(richAttrEObject)) {
+										AttributeDesc attrDesc = new AttributeDesc();
+										nodeDesc.attributes.add(attrDesc);
+										attrDesc.value = String
+												.valueOf(getOCL().evaluate(
+														richAttrEObject,
+														expression));
+										attrDesc.iconPath = findAndSaveEObjectIcon(
+												richAttrEObject, monitor);
+										attrDesc.validationDecoratorIconPath = getValidationDecoratorIconPath(
+												richAttrEObject, monitor);
+									}
+
+								}
+							} catch (ParserException e) {
+								throw new CoreException(
+										new Status(
+												IStatus.ERROR,
+												StandaloneProcessor.PLUGIN_ID,
+												"Unexpected error while parsing OCL expression '"
+														+ attrFigure
+																.getEReferenceTypeToStringExpression()
+														+ "'", e));
+							}
+
+						}
+					}
 
 					// Nested figures EReferences browsing
 					for (EReference eReference : classFigure
@@ -693,6 +750,10 @@ final class GVSourceAndDependenciesBuilder {
 	private String findAndSaveEObjectIcon(EObject eObject,
 			IProgressMonitor monitor) {
 		String iconFullPath = null;
+		System.out.println("findAndSaveEObjectIcon(" + eObject.eClass() + ")");
+		if (eObject.eClass().getName().equals("EOperation")) {
+			System.out.println("ici");
+		}
 		URL url = eObjectIconProvider.getIcon(eObject);
 		if (url != null) {
 			iconFullPath = iconUrlsToPngImagePathsAssociationMap.get(url);
@@ -935,7 +996,6 @@ final class GVSourceAndDependenciesBuilder {
 	 *             thrown if an unexpected error occurs.
 	 */
 	private void flushClusterNode(NodeDesc nodeDesc) throws CoreException {
-		ClassFigure classFigure = nodeDesc.classFigure;
 		/*
 		 * Node generation.
 		 */
@@ -947,7 +1007,7 @@ final class GVSourceAndDependenciesBuilder {
 		flushNodeHeader("\t\t\t", 0, nodeDesc);
 		out.println("\t\t\t</TD></TR>");
 		// Header
-		if (classFigure.getAttributeFigures().size() > 0) {
+		if (nodeDesc.attributes.size() > 0) {
 			out.print("\t\t\t<TR><TD ALIGN=\"LEFT\" BGCOLOR=\"");
 			flushBodyBackgroundColor(nodeDesc);
 			out.println("\">");
@@ -1055,7 +1115,6 @@ final class GVSourceAndDependenciesBuilder {
 	 *             thrown if an unexpected error occurs.
 	 */
 	private void flushStandardNode(NodeDesc nodeDesc) throws CoreException {
-		ClassFigure classFigure = nodeDesc.classFigure;
 		/*
 		 * Node generation.
 		 */
@@ -1074,7 +1133,7 @@ final class GVSourceAndDependenciesBuilder {
 		flushBodyBackgroundColor(nodeDesc);
 		out.println("\">");
 
-		if (classFigure.getAttributeFigures().size() == 0) {
+		if (nodeDesc.attributes.size() == 0) {
 			out.println("\t\t\t\t<TABLE BORDER=\"1\" CELLBORDER=\"0\" CELLSPACING=\"0\"><TR><TD> </TD></TR></TABLE>");
 		} else {
 			flushNodeAttributes(nodeDesc);
@@ -1089,74 +1148,41 @@ final class GVSourceAndDependenciesBuilder {
 	 * 
 	 * @param nodeDesc
 	 *            the node description.
-	 * @throws CoreException
-	 *             thrown if an unexpected error occurs.
 	 */
-	private void flushNodeAttributes(NodeDesc nodeDesc) throws CoreException {
-		ClassFigure classFigure = nodeDesc.classFigure;
-		EList<AbstractAttributeFigure> abstractAttrFigures = classFigure
-				.getAttributeFigures();
+	private void flushNodeAttributes(NodeDesc nodeDesc) {
 		out.println("\t\t\t\t<TABLE BORDER=\"1\" CELLBORDER=\"0\" CELLSPACING=\"0\">");
-		int attributesCount = 0;
-		for (AbstractAttributeFigure abstractAttrFigure : abstractAttrFigures) {
-			// Simple attribute figures
-			if (abstractAttrFigure instanceof AttributeFigure) {
-				AttributeFigure attrFigure = (AttributeFigure) abstractAttrFigure;
-				EAttribute eAttribute = attrFigure.getEAttribute();
-				String attrLabel = attrFigure.getLabel();
-				if (attrLabel == null || "".equals(attrLabel.trim())) {
-					attrLabel = eAttribute.getName();
-				}
-				attrLabel = attrLabel.trim();
-				out.print("\t\t\t\t\t<TR><TD ALIGN=\"LEFT\">");
-				out.print(toHtmlString(attrLabel));
-				out.print(" :</TD><TD ALIGN=\"LEFT\">");
-				String attrValue = String.valueOf(nodeDesc.eObject
-						.eGet(eAttribute));
-				out.print(toHtmlString(attrValue));
-				out.println("</TD></TR>");
-				attributesCount++;
-			}
-			// Rich attribute figures
-			else {
-				RichAttributeFigure attrFigure = (RichAttributeFigure) abstractAttrFigure;
-				List<EObject> richAttrsEObjects = getTargetRefEObjects(
-						nodeDesc.eObject, attrFigure.getEReference());
-				try {
-					getOclHelper().setContext(
-							attrFigure.getEReference().getEType());
-					OCLExpression<EClassifier> expression = getOclHelper()
-							.createQuery(
-									attrFigure
-											.getEReferenceTypeToStringExpression());
-					for (EObject richAttrEObject : richAttrsEObjects) {
-						if (mustDraw(richAttrEObject)) {
-							String text = String.valueOf(getOCL().evaluate(
-									richAttrEObject, expression));
-
-							out.print("\t\t\t\t\t<TR><TD ALIGN=\"LEFT\" COLSPAN=\"2\">");
-							out.print(toHtmlString(text));
-							out.println("</TD></TR>");
-							attributesCount++;
-						}
-
-					}
-				} catch (ParserException e) {
-					throw new CoreException(
-							new Status(
-									IStatus.ERROR,
-									StandaloneProcessor.PLUGIN_ID,
-									"Unexpected error while parsing OCL expression '"
-											+ attrFigure
-													.getEReferenceTypeToStringExpression()
-											+ "'", e));
-				}
-
-			}
-		}
 		// If the node has no attributes, a blank line is inserted
-		if (attributesCount == 0) {
+		if (nodeDesc.attributes.size() == 0) {
 			out.print("\t\t\t\t\t<TR><TD ALIGN=\"LEFT\" COLSPAN=\"2\"> </TD></TR>");
+		} else {
+			for (AttributeDesc attrDesc : nodeDesc.attributes) {
+				out.print("\t\t\t\t\t<TR><TD>");
+				if (attrDesc.iconPath != null) {
+					out.print("<IMG SCALE=\"FALSE\" SRC=\"");
+					out.print(attrDesc.iconPath);
+					out.println("\"/>");
+				} else {
+					out.print(" ");
+				}
+				out.print("</TD>");
+				if (attrDesc.label != null) {
+					out.print("<TD ALIGN=\"LEFT\">");
+					out.print(toHtmlString(attrDesc.label));
+					out.print(" :</TD><TD ALIGN=\"LEFT\">");
+				} else {
+					out.print("<TD ALIGN=\"LEFT\" COLSPAN=\"2\">");
+				}
+				out.print(toHtmlString(attrDesc.value));
+				out.print("</TD><TD>");
+				if (attrDesc.validationDecoratorIconPath != null) {
+					out.print("<IMG SCALE=\"FALSE\" SRC=\"");
+					out.print(attrDesc.validationDecoratorIconPath);
+					out.println("\"/>");
+				} else {
+					out.print(" ");
+				}
+				out.println("</TD></TR>");
+			}
 		}
 		out.println("\t\t\t\t</TABLE>");
 	}
@@ -1222,8 +1248,8 @@ final class GVSourceAndDependenciesBuilder {
 
 		// If we have a label to show
 		if (label != null) {
-			// FIX : when 
-			if (label.length()<4) {
+			// FIX : when
+			if (label.length() < 4) {
 				label += "   ";
 			}
 			out.print(toHtmlString(label));
@@ -1325,6 +1351,28 @@ class NodeDesc {
 
 	/** Nested nodes list */
 	List<NodeDesc> nestedNodes;
+
+	/** Nested nodes list */
+	List<AttributeDesc> attributes;
+
+}
+
+/**
+ * Attribute description.
+ */
+class AttributeDesc {
+
+	/** Icon path */
+	String iconPath;
+
+	/** Text */
+	String label;
+
+	/** Text */
+	String value;
+
+	/** Validation decorator icon path */
+	String validationDecoratorIconPath;
 
 }
 
