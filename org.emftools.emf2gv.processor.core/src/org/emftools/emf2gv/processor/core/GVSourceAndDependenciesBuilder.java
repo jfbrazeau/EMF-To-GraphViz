@@ -44,16 +44,26 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.ecore.OCL;
+import org.eclipse.ocl.ecore.OCL.Helper;
+import org.eclipse.ocl.expressions.OCLExpression;
+import org.eclipse.ocl.helper.OCLHelper;
+import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
@@ -62,6 +72,7 @@ import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.util.ColorsHelper;
 import org.emftools.emf2gv.util.IOHelper;
@@ -158,6 +169,8 @@ final class GVSourceAndDependenciesBuilder {
 
 	/** Logger */
 	private ILogger logger;
+
+	private Helper oclHelper;
 
 	/**
 	 * Default constructor.
@@ -375,6 +388,16 @@ final class GVSourceAndDependenciesBuilder {
 			ocl = OCLProvider.newOCL();
 		}
 		return ocl;
+	}
+
+	/**
+	 * @return an OCL Helper instance.
+	 */
+	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> getOclHelper() {
+		if (oclHelper == null) {
+			oclHelper = getOCL().createOCLHelper();
+		}
+		return oclHelper;
 	}
 
 	/**
@@ -1066,25 +1089,74 @@ final class GVSourceAndDependenciesBuilder {
 	 * 
 	 * @param nodeDesc
 	 *            the node description.
+	 * @throws CoreException
+	 *             thrown if an unexpected error occurs.
 	 */
-	private void flushNodeAttributes(NodeDesc nodeDesc) {
+	private void flushNodeAttributes(NodeDesc nodeDesc) throws CoreException {
 		ClassFigure classFigure = nodeDesc.classFigure;
-		EList<AttributeFigure> attrFigures = classFigure.getAttributeFigures();
+		EList<AbstractAttributeFigure> abstractAttrFigures = classFigure
+				.getAttributeFigures();
 		out.println("\t\t\t\t<TABLE BORDER=\"1\" CELLBORDER=\"0\" CELLSPACING=\"0\">");
-		for (AttributeFigure attrFigure : attrFigures) {
-			EAttribute eAttribute = attrFigure.getEAttribute();
-			String attrLabel = attrFigure.getLabel();
-			if (attrLabel == null || "".equals(attrLabel.trim())) {
-				attrLabel = eAttribute.getName();
+		int attributesCount = 0;
+		for (AbstractAttributeFigure abstractAttrFigure : abstractAttrFigures) {
+			// Simple attribute figures
+			if (abstractAttrFigure instanceof AttributeFigure) {
+				AttributeFigure attrFigure = (AttributeFigure) abstractAttrFigure;
+				EAttribute eAttribute = attrFigure.getEAttribute();
+				String attrLabel = attrFigure.getLabel();
+				if (attrLabel == null || "".equals(attrLabel.trim())) {
+					attrLabel = eAttribute.getName();
+				}
+				attrLabel = attrLabel.trim();
+				out.print("\t\t\t\t\t<TR><TD ALIGN=\"LEFT\">");
+				out.print(toHtmlString(attrLabel));
+				out.print(" :</TD><TD ALIGN=\"LEFT\">");
+				String attrValue = String.valueOf(nodeDesc.eObject
+						.eGet(eAttribute));
+				out.print(toHtmlString(attrValue));
+				out.println("</TD></TR>");
+				attributesCount++;
 			}
-			attrLabel = attrLabel.trim();
-			out.print("\t\t\t\t\t<TR><TD ALIGN=\"LEFT\">");
-			out.print(attrLabel);
-			out.print(" :</TD><TD ALIGN=\"LEFT\">");
-			String attrValue = String
-					.valueOf(nodeDesc.eObject.eGet(eAttribute));
-			out.print(toHtmlString(attrValue));
-			out.println("</TD></TR>");
+			// Rich attribute figures
+			else {
+				RichAttributeFigure attrFigure = (RichAttributeFigure) abstractAttrFigure;
+				List<EObject> richAttrsEObjects = getTargetRefEObjects(
+						nodeDesc.eObject, attrFigure.getEReference());
+				try {
+					getOclHelper().setContext(
+							attrFigure.getEReference().getEType());
+					OCLExpression<EClassifier> expression = getOclHelper()
+							.createQuery(
+									attrFigure
+											.getEReferenceTypeToStringExpression());
+					for (EObject richAttrEObject : richAttrsEObjects) {
+						if (mustDraw(richAttrEObject)) {
+							String text = String.valueOf(getOCL().evaluate(
+									richAttrEObject, expression));
+
+							out.print("\t\t\t\t\t<TR><TD ALIGN=\"LEFT\" COLSPAN=\"2\">");
+							out.print(toHtmlString(text));
+							out.println("</TD></TR>");
+							attributesCount++;
+						}
+
+					}
+				} catch (ParserException e) {
+					throw new CoreException(
+							new Status(
+									IStatus.ERROR,
+									StandaloneProcessor.PLUGIN_ID,
+									"Unexpected error while parsing OCL expression '"
+											+ attrFigure
+													.getEReferenceTypeToStringExpression()
+											+ "'", e));
+				}
+
+			}
+		}
+		// If the node has no attributes, a blank line is inserted
+		if (attributesCount == 0) {
+			out.print("\t\t\t\t\t<TR><TD ALIGN=\"LEFT\" COLSPAN=\"2\"> </TD></TR>");
 		}
 		out.println("\t\t\t\t</TABLE>");
 	}
@@ -1150,6 +1222,10 @@ final class GVSourceAndDependenciesBuilder {
 
 		// If we have a label to show
 		if (label != null) {
+			// FIX : when 
+			if (label.length()<4) {
+				label += "   ";
+			}
 			out.print(toHtmlString(label));
 		}
 
