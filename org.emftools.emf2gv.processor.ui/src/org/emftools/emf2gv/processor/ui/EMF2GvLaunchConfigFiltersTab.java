@@ -295,31 +295,35 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 				// Check the EClass list
 				if (isValid) {
 					for (Expression expression : expressions) {
-						EClass eClass = expression.context;
-						if (!authorizedEClasses.contains(eClass)) {
-							isValid = false;
-							setErrorMessage("The EClass '"
-									+ eClass.getName()
-									+ "' is not used in the graphical description");
-							break;
+						if (eClassesTableViewer.getChecked(expression)) {
+							EClass eClass = expression.context;
+							if (!authorizedEClasses.contains(eClass)) {
+								isValid = false;
+								setErrorMessage("The EClass '"
+										+ eClass.getName()
+										+ "' is not used in the graphical description");
+								break;
+							}
 						}
 					}
 				}
 				// Check the expressions
 				if (isValid) {
 					for (Expression expression : expressions) {
-						if (expression.parsed == null) {
-							getOCLHelper().setContext(expression.context);
-							try {
-								Constraint parsed = getOCLHelper()
-										.createInvariant(expression.value);
-								expression.parsed = parsed;
-							} catch (ParserException e) {
-								isValid = false;
-								setErrorMessage(expression.context.getName()
-										+ " : Invalid value (" + e.getMessage()
-										+ ")");
-								break;
+						if (eClassesTableViewer.getChecked(expression)) {
+							if (expression.parsed == null) {
+								getOCLHelper().setContext(expression.context);
+								try {
+									Constraint parsed = getOCLHelper()
+											.createInvariant(expression.value);
+									expression.parsed = parsed;
+								} catch (ParserException e) {
+									isValid = false;
+									setErrorMessage(expression.context.getName()
+											+ " : Invalid value (" + e.getMessage()
+											+ ")");
+									break;
+								}
 							}
 						}
 					}
