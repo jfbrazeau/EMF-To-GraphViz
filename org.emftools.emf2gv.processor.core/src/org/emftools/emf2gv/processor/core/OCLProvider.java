@@ -68,6 +68,9 @@ public class OCLProvider {
 	/** "Split" custom operation name */
 	protected static final String SPLIT = "split";
 
+	/** "Plus" custom operation name */
+	protected static final String PLUS = "+";
+
 	/**
 	 * @return a new OCL with additional operations.
 	 */
@@ -89,6 +92,8 @@ public class OCLProvider {
 		EClassifier stringCollectionClassifier = TypeUtil
 				.resolveCollectionType(ocl.getEnvironment(),
 						CollectionKind.COLLECTION_LITERAL, stringClassifier);
+		EClassifier oclAnyClassifier = ocl.getEnvironment()
+				.getOCLStandardLibrary().getOclAny();
 
 		// String context operation
 		defineOperation(ocl, STARTS_WITH, stringClassifier, booleanClassifier,
@@ -102,6 +107,8 @@ public class OCLProvider {
 		defineOperation(ocl, SPLIT, stringClassifier,
 				stringCollectionClassifier,
 				buildSingleStringParameterList(ocl, "separators"));
+		defineOperation(ocl, PLUS, oclAnyClassifier, stringClassifier,
+				buildSingleParameterList(ocl, oclAnyClassifier, "tobeadded"));
 		return ocl;
 	}
 
@@ -184,6 +191,14 @@ class CustomEvaluationEnvironment extends EcoreEvaluationEnvironment {
 	@Override
 	public Object callOperation(EOperation operation, int opcode,
 			Object source, Object[] args) throws IllegalArgumentException {
+		if (operation.getName().equals(OCLProvider.PLUS)) {
+			if (source instanceof Number && args[0] instanceof Number) {
+				return ((Number) source).doubleValue()
+						+ ((Number) args[0]).doubleValue();
+			} else {
+				return String.valueOf(source) + String.valueOf(args[0]);
+			}
+		}
 		if (source instanceof String) {
 			return callOperation(operation, opcode, (String) source, args);
 		} else {
