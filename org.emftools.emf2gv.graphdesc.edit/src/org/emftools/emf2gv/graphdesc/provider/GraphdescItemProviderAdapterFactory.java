@@ -164,6 +164,29 @@ public class GraphdescItemProviderAdapterFactory extends GraphdescAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.emftools.emf2gv.graphdesc.RichAttributeFigure} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RichAttributeFigureItemProvider richAttributeFigureItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftools.emf2gv.graphdesc.RichAttributeFigure}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRichAttributeFigureAdapter() {
+		if (richAttributeFigureItemProvider == null) {
+			richAttributeFigureItemProvider = new RichAttributeFigureItemProvider(this);
+		}
+
+		return richAttributeFigureItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.emftools.emf2gv.graphdesc.RichReferenceFigure} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -313,6 +336,7 @@ public class GraphdescItemProviderAdapterFactory extends GraphdescAdapterFactory
 		if (attributeFigureItemProvider != null) attributeFigureItemProvider.dispose();
 		if (richReferenceFigureItemProvider != null) richReferenceFigureItemProvider.dispose();
 		if (referenceFigureItemProvider != null) referenceFigureItemProvider.dispose();
+		if (richAttributeFigureItemProvider != null) richAttributeFigureItemProvider.dispose();
 	}
 
 }
