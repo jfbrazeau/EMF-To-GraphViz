@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.edit.provider.ComposedImage;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.util.EMFHelper;
@@ -198,6 +199,13 @@ public class EclipseProcessor {
 						.adapt(eObject, IItemLabelProvider.class);
 				if (labelProvider != null) {
 					Object image = labelProvider.getImage(eObject);
+					// If we meet a composed image, we get the first image
+					if (image instanceof ComposedImage) {
+						List<Object> images = ((ComposedImage) image).getImages();
+						if (images != null && images.size() > 0) {
+							image = images.get(0);
+						}
+					}
 					if (image instanceof URL) {
 						result = (URL) image;
 					}
