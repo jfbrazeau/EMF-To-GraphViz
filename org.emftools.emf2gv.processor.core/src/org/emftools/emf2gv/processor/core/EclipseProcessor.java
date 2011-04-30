@@ -28,6 +28,7 @@
 package org.emftools.emf2gv.processor.core;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -60,21 +61,28 @@ import org.emftools.emf2gv.util.EMFHelper;
  * </p>
  */
 public class EclipseProcessor {
-	
+
 	/**
 	 * Default logger implementation in an eclipse context.
 	 */
 	private static final ILogger DEFAULT_LOGGER = new ILogger() {
-		
-		/* (non-Javadoc)
-		 * @see org.emftools.emf2gv.processor.core.ILogger#logInfo(java.lang.String)
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.emftools.emf2gv.processor.core.ILogger#logInfo(java.lang.String)
 		 */
 		public void logInfo(String info) {
 			Activator.getDefault().logInfo(info);
 		}
-		
-		/* (non-Javadoc)
-		 * @see org.emftools.emf2gv.processor.core.ILogger#logError(java.lang.String, java.lang.Throwable)
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.emftools.emf2gv.processor.core.ILogger#logError(java.lang.String,
+		 * java.lang.Throwable)
 		 */
 		public void logError(String error, Throwable throwable) {
 			Activator.getDefault().logError(error, throwable);
@@ -128,17 +136,21 @@ public class EclipseProcessor {
 		/*
 		 * Graphdesc file loading or generation.
 		 */
-		Resource graphDescRes = EMFHelper.loadFileEMFResource(
-				new ResourceSetImpl(), graphDescPath, monitor);
-		GVFigureDescription figureDesc = (GVFigureDescription) graphDescRes
-				.getContents().get(0);
+		GVFigureDescription figureDesc = null;
+		if (graphDescPath != null) {
+			Resource graphDescRes = EMFHelper.loadFileEMFResource(
+					new ResourceSetImpl(), graphDescPath, monitor);
+			figureDesc = (GVFigureDescription) graphDescRes.getContents()
+					.get(0);
+		}
 
 		/*
 		 * Model file loading
 		 */
 		ResourceSet rs = new ResourceSetImpl();
 		rs.setPackageRegistry(EPackage.Registry.INSTANCE);
-		Resource modelRes = EMFHelper.loadFileEMFResource(rs, modelPath, monitor);
+		Resource modelRes = EMFHelper.loadFileEMFResource(rs, modelPath,
+				monitor);
 		List<EObject> modelRoots = null;
 		if (modelUriFragment == null || "".equals(modelUriFragment.trim())) {
 			modelRoots = modelRes.getContents();
@@ -165,8 +177,20 @@ public class EclipseProcessor {
 		}
 
 		// Icons provider building
+		List<EPackage> ePackages = null;
+		if (figureDesc != null) {
+			ePackages = figureDesc.getEPackages();
+		} else {
+			ePackages = new ArrayList<EPackage>();
+			for (EObject eObject : modelRoots) {
+				EPackage ePackage = eObject.eClass().getEPackage();
+				if (!ePackages.contains(ePackage)) {
+					ePackages.add(ePackage);
+				}
+			}
+		}
 		final AdapterFactory adapterFactory = EMFHelper
-				.getAdapterFactory(figureDesc.getEPackages());
+				.getAdapterFactory(ePackages);
 		IEObjectIconProvider eObjectIconProvider = new IEObjectIconProvider() {
 			public URL getIcon(EObject eObject) {
 				URL result = null;
