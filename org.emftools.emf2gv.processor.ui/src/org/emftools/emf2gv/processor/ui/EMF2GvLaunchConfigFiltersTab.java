@@ -85,9 +85,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
+import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.processor.core.OCLProvider;
 import org.emftools.emf2gv.processor.ui.util.OCLInputDialog;
@@ -271,47 +273,55 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 	public boolean isValid(ILaunchConfiguration launchConfig) {
 		setErrorMessage(null);
 		boolean isValid = true;
-		if (expressions.size() != 0
-				&& "".equals(mainTab.getGraphDescText().getText())) {
-			isValid = false;
-			setErrorMessage("To enables some expressions, you must select a graphical description at first");
-		}
-		// Load the authorized EClasses
-		List<EClass> authorizedEClasses = null;
-		if (isValid) {
-			try {
-				authorizedEClasses = getAuthorizedEClasses();
-			} catch (CoreException e) {
+		boolean atLeastOneExpressionIsChecked = eClassesTableViewer
+		.getCheckedElements().length > 0;
+		if (atLeastOneExpressionIsChecked) {
+			if (mainTab.isInGraphicalDescriptionGenerationMode()) {
 				isValid = false;
-				setErrorMessage("The graphical description file does not seem to be valid");
+				setErrorMessage("OCL Filters are not allowed if no graphical description is selected in the main tab. You must select a graphical description or uncheck your filter expressions");
 			}
-		}
-		// Check the EClass list
-		if (isValid) {
-			for (Expression expression : expressions) {
-				EClass eClass = expression.context;
-				if (!authorizedEClasses.contains(eClass)) {
-					isValid = false;
-					setErrorMessage("The EClass '" + eClass.getName()
-							+ "' is not used in the graphical description");
-					break;
-				}
-			}
-		}
-		// Check the expressions
-		if (isValid) {
-			for (Expression expression : expressions) {
-				if (expression.parsed == null) {
-					getOCLHelper().setContext(expression.context);
+			// If the main tab is configured with a graphical description
+			if (!mainTab.isInGraphicalDescriptionGenerationMode()) {
+				// Load the authorized EClasses
+				List<EClass> authorizedEClasses = null;
+				if (isValid) {
 					try {
-						Constraint parsed = getOCLHelper().createInvariant(
-								expression.value);
-						expression.parsed = parsed;
-					} catch (ParserException e) {
+						authorizedEClasses = getAuthorizedEClasses();
+					} catch (CoreException e) {
 						isValid = false;
-						setErrorMessage(expression.context.getName()
-								+ " : Invalid value (" + e.getMessage() + ")");
-						break;
+						setErrorMessage("The graphical description file does not seem to be valid");
+					}
+				}
+				// Check the EClass list
+				if (isValid) {
+					for (Expression expression : expressions) {
+						EClass eClass = expression.context;
+						if (!authorizedEClasses.contains(eClass)) {
+							isValid = false;
+							setErrorMessage("The EClass '"
+									+ eClass.getName()
+									+ "' is not used in the graphical description");
+							break;
+						}
+					}
+				}
+				// Check the expressions
+				if (isValid) {
+					for (Expression expression : expressions) {
+						if (expression.parsed == null) {
+							getOCLHelper().setContext(expression.context);
+							try {
+								Constraint parsed = getOCLHelper()
+										.createInvariant(expression.value);
+								expression.parsed = parsed;
+							} catch (ParserException e) {
+								isValid = false;
+								setErrorMessage(expression.context.getName()
+										+ " : Invalid value (" + e.getMessage()
+										+ ")");
+								break;
+							}
+						}
 					}
 				}
 			}
@@ -392,46 +402,56 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 	private void handleNewButton() {
 		SafeRunner.run(new SafeRunnable() {
 			public void run() throws Exception {
-				// EClass hierarchy retrieval
-				List<EClass> eClasses = getAuthorizedEClasses();
+				if (mainTab.isInGraphicalDescriptionGenerationMode()) {
+					MessageDialog
+							.openInformation(
+									PlatformUI.getWorkbench().getDisplay()
+											.getActiveShell(),
+									"Warning",
+									"OCL Filtering is available only when a graphical description is selected. Please select a graphical description in the main tab.");
+				} else {
+					// EClass hierarchy retrieval
+					List<EClass> eClasses = getAuthorizedEClasses();
+					final LabelProvider labelProvider = new LabelProvider() {
+						@Override
+						public String getText(Object element) {
+							return adapterFactoryLabelProvider.getText(element);
+						}
 
-				final LabelProvider labelProvider = new LabelProvider() {
-					@Override
-					public String getText(Object element) {
-						return adapterFactoryLabelProvider.getText(element);
-					}
-
-					@Override
-					public Image getImage(Object element) {
-						return adapterFactoryLabelProvider.getImage(element);
-					}
-				};
-				ElementListSelectionDialog dialog = new ElementListSelectionDialog(
-						PlatformUI.getWorkbench().getDisplay().getActiveShell(),
-						labelProvider);
-				dialog.setElements(eClasses.toArray());
-				dialog.setInitialSelections(new Object[] {});
-				dialog.setTitle("EClass selection");
-				dialog.setMessage("Select an EClass");
-				dialog.setMultipleSelection(false);
-				int result = dialog.open();
-				labelProvider.dispose();
-				if (result == Window.OK) {
-					Expression expression = new Expression();
-					expression.context = (EClass) dialog.getFirstResult();
-					OCLInputDialog inputDialog = new OCLInputDialog(PlatformUI
-							.getWorkbench().getDisplay().getActiveShell(),
-							"New boolean OCL value editor", expression.context,
-							"true", true);
-					if (inputDialog.open() == Window.OK) {
-						expression.value = inputDialog.getValue();
-						expressions.add(expression);
-						eClassesTableViewer.refresh();
-						eClassesTableViewer
-								.setSelection(new StructuredSelection(
-										expression));
-						eClassesTableViewer.setChecked(expression, true);
-						updateLaunchConfigurationDialog();
+						@Override
+						public Image getImage(Object element) {
+							return adapterFactoryLabelProvider
+									.getImage(element);
+						}
+					};
+					ElementListSelectionDialog dialog = new ElementListSelectionDialog(
+							PlatformUI.getWorkbench().getDisplay()
+									.getActiveShell(), labelProvider);
+					dialog.setElements(eClasses.toArray());
+					dialog.setInitialSelections(new Object[] {});
+					dialog.setTitle("EClass selection");
+					dialog.setMessage("Select an EClass");
+					dialog.setMultipleSelection(false);
+					int result = dialog.open();
+					labelProvider.dispose();
+					if (result == Window.OK) {
+						Expression expression = new Expression();
+						expression.context = (EClass) dialog.getFirstResult();
+						OCLInputDialog inputDialog = new OCLInputDialog(
+								PlatformUI.getWorkbench().getDisplay()
+										.getActiveShell(),
+								"New boolean OCL value editor",
+								expression.context, "true", true);
+						if (inputDialog.open() == Window.OK) {
+							expression.value = inputDialog.getValue();
+							expressions.add(expression);
+							eClassesTableViewer.refresh();
+							eClassesTableViewer
+									.setSelection(new StructuredSelection(
+											expression));
+							eClassesTableViewer.setChecked(expression, true);
+							updateLaunchConfigurationDialog();
+						}
 					}
 				}
 			}
@@ -478,7 +498,16 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 							.getEReferenceType(), eClasses);
 				}
 			}
-			// TODO register rich attribute EClasses
+			// Retrieve the EClass targeted by the rich attributes
+			EList<AbstractAttributeFigure> abstractAttributeFigures = classFigure
+					.getAttributeFigures();
+			for (AbstractAttributeFigure abstractAttributeFigure : abstractAttributeFigures) {
+				if (abstractAttributeFigure instanceof RichAttributeFigure) {
+					RichAttributeFigure richAttributeFigure = (RichAttributeFigure) abstractAttributeFigure;
+					registerSuperTypes(richAttributeFigure.getEReference()
+							.getEReferenceType(), eClasses);
+				}
+			}
 		}
 		return eClasses;
 	}

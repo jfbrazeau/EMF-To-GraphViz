@@ -293,6 +293,15 @@ public class EMF2GvLaunchConfigMainTab extends AbstractEMF2GvLaunchConfigTab {
 		return graphDescText;
 	}
 
+	/**
+	 * 
+	 * @return a boolean indicating if the
+	 *         <code>generateGraphDescCheckbox</code> is checked.
+	 */
+	public boolean isInGraphicalDescriptionGenerationMode() {
+		return generateGraphDescCheckbox.getSelection();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
