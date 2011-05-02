@@ -64,7 +64,6 @@ public class OCLPropertyDescriptor extends PropertyDescriptor {
 	public OCLPropertyDescriptor(Object object,
 			IItemPropertyDescriptor itemPropertyDescriptor, EClassifier context) {
 		super(object, itemPropertyDescriptor);
-System.out.println("Can set : " + itemPropertyDescriptor.canSetProperty(object));
 		this.context = context;
 	}
 
