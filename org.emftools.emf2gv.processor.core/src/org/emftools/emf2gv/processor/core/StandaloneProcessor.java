@@ -52,6 +52,7 @@ import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.util.GraphdescGenerator;
 import org.emftools.emf2gv.util.EMFHelper;
 import org.emftools.emf2gv.util.IOHelper;
+import org.emftools.emf2gv.util.OCLProvider;
 
 /**
  * EMF To Graphviz processor intended to be used form any Java environment.

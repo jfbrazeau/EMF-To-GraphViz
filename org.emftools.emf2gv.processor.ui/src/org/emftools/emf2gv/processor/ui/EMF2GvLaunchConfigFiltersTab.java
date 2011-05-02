@@ -91,9 +91,9 @@ import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
-import org.emftools.emf2gv.processor.core.OCLProvider;
-import org.emftools.emf2gv.processor.ui.util.OCLInputDialog;
 import org.emftools.emf2gv.util.EMFHelper;
+import org.emftools.emf2gv.util.OCLProvider;
+import org.emftools.emf2gv.util.ui.OCLInputDialog;
 
 /**
  * Emf2gv launch configuration tab containing filter conditions.

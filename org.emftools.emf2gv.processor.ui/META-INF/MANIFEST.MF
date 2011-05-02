@@ -10,14 +10,12 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.expressions,
  org.eclipse.debug.ui,
  org.eclipse.emf.edit.ui,
- org.eclipse.jface,
- org.eclipse.jface.text,
- org.eclipse.ocl.ecore,
- org.eclipse.swt,
  org.eclipse.ui,
  org.eclipse.ui.ide,
  org.emftools.emf2gv.graphdesc,
  org.emftools.emf2gv.processor.core,
- org.emftools.emf2gv.util
+ org.emftools.emf2gv.util,
+ org.emftools.emf2gv.util.ui,
+ org.eclipse.ocl.ecore
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName

@@ -25,7 +25,7 @@
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.emftools.emf2gv.processor.core;
+package org.emftools.emf2gv.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;

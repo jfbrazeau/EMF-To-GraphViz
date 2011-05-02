@@ -75,6 +75,7 @@ import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.util.ColorsHelper;
 import org.emftools.emf2gv.util.IOHelper;
+import org.emftools.emf2gv.util.OCLProvider;
 
 /**
  * Graphviz source builder.
