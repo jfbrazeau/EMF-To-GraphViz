@@ -45,16 +45,39 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.emftools.emf2gv.util.ColorsHelper;
 
+/**
+ * A color property descriptor.
+ * 
+ * This property descriptor allows to open a <code>ColorDialog</code> from the
+ * properties view.
+ * 
+ * @author jbrazeau
+ * 
+ */
 public class ColorPropertyDescriptor extends PropertyDescriptor {
 
+	/** The color icons map */
 	private Map<Integer, Image> colorIcons;
 
+	/** The label provider */
 	private LabelProvider labelProvider = new LabelProvider() {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
+		 */
 		@Override
 		public String getText(Object element) {
 			return ColorsHelper.toHtmlColor((Integer) element);
 		}
 
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.eclipse.jface.viewers.LabelProvider#getImage(java.lang.Object)
+		 */
 		@Override
 		public Image getImage(Object element) {
 			Integer colorValue = (Integer) element;
@@ -76,6 +99,17 @@ public class ColorPropertyDescriptor extends PropertyDescriptor {
 		}
 	};
 
+	/**
+	 * Default constructor.
+	 * 
+	 * @param object
+	 *            the underlying object.
+	 * @param itemPropertyDescriptor
+	 *            the item property descriptor.
+	 * @param colorIcons
+	 *            the color icons map (that used to dispose them when they are
+	 *            no longer required).
+	 */
 	public ColorPropertyDescriptor(Object object,
 			IItemPropertyDescriptor itemPropertyDescriptor,
 			Map<Integer, Image> colorIcons) {
@@ -83,11 +117,24 @@ public class ColorPropertyDescriptor extends PropertyDescriptor {
 		this.colorIcons = colorIcons;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.emf.edit.ui.provider.PropertyDescriptor#getLabelProvider()
+	 */
 	@Override
 	public ILabelProvider getLabelProvider() {
 		return labelProvider;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.emf.edit.ui.provider.PropertyDescriptor#createPropertyEditor
+	 * (org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	public CellEditor createPropertyEditor(Composite composite) {
 		return new ExtendedDialogCellEditor(composite, getLabelProvider()) {
@@ -97,9 +144,8 @@ public class ColorPropertyDescriptor extends PropertyDescriptor {
 						.getActiveShell());
 				dialog.setText("Select a color");
 				Integer colorValue = (Integer) getValue();
-				dialog.setRGB(new RGB(
-						(colorValue >> 16) & 255, // RED
-						(colorValue >> 8) & 255,  // GREEN
+				dialog.setRGB(new RGB((colorValue >> 16) & 255, // RED
+						(colorValue >> 8) & 255, // GREEN
 						colorValue & 255)); // BLUE
 				RGB rgb = dialog.open();
 				labelProvider.dispose();
