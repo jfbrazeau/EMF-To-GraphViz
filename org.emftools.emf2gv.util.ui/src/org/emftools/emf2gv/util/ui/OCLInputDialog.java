@@ -202,6 +202,7 @@ public class OCLInputDialog extends TrayDialog {
 	@Override
 	public boolean close() {
 		errorIcon.dispose();
+		validIcon.dispose();
 		return super.close();
 	}
 
