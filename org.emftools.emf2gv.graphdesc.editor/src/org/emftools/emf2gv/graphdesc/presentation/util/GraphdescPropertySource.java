@@ -35,6 +35,7 @@ import org.eclipse.emf.edit.ui.provider.PropertySource;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
+import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 
 /**
  * The graphical description property source.
@@ -82,12 +83,20 @@ public class GraphdescPropertySource extends PropertySource {
 				.getClassFigure_HeaderBackgroundColor() || feature == gdPkg
 				.getClassFigure_BodyBackgroundColor())
 				|| feature == gdPkg.getAbstractReferenceFigure_Color();
+		boolean oclFeature = (feature == gdPkg
+				.getRichAttributeFigure_EReferenceTypeToStringExpression());
 		if (arrowTypeFeature) {
 			result = new ArrowTypePropertyDescriptor(object,
 					itemPropertyDescriptor);
 		} else if (colorFeature) {
 			result = new ColorPropertyDescriptor(object,
 					itemPropertyDescriptor, colorIcons);
+		} else if (oclFeature) {
+			// OCL expression are only used in RichAttributeFigures
+			RichAttributeFigure figure = (RichAttributeFigure) object;
+			result = new OCLPropertyDescriptor(object, itemPropertyDescriptor,
+					figure.getEReference() != null ? figure.getEReference()
+							.getEType() : null);
 		} else {
 			result = super.createPropertyDescriptor(itemPropertyDescriptor);
 		}
