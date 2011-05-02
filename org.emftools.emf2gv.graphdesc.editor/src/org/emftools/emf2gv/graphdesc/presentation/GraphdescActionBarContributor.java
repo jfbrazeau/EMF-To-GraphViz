@@ -29,6 +29,9 @@ package org.emftools.emf2gv.graphdesc.presentation;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -311,31 +314,56 @@ public class GraphdescActionBarContributor
 	 * and returns the collection of these actions.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected Collection<IAction> generateCreateChildActions(Collection<?> descriptors, ISelection selection) {
-		Collection<IAction> actions = new ArrayList<IAction>();
+		List<IAction> actions = new ArrayList<IAction>();
 		if (descriptors != null) {
 			for (Object descriptor : descriptors) {
 				actions.add(new CreateChildAction(activeEditorPart, selection, descriptor));
 			}
+			sort(actions);
 		}
 		return actions;
 	}
 
 	/**
+	 * Sorts the actions to be sure that rich elements (rich attribute figure
+	 * and rich reference figure) come after normal ones.
+	 * 
+	 * @param actions
+	 *            the actions to sort.
+	 */
+	private void sort(List<IAction> actions) {
+		Collections.sort(actions, new Comparator<IAction>() {
+			public int compare(IAction action0, IAction action1) {
+				boolean isRich0 = action0.getText().startsWith("Rich");
+				boolean isRich1 = action1.getText().startsWith("Rich");
+				int compare = 0;
+				if (isRich0 == isRich1) {
+					compare = action0.getText().compareTo(action1.getText());
+				} else {
+					compare = isRich0 ? 1 : -1;
+				}
+				return compare;
+			}
+		});
+	}
+	
+	/**
 	 * This generates a {@link org.eclipse.emf.edit.ui.action.CreateSiblingAction} for each object in <code>descriptors</code>,
 	 * and returns the collection of these actions.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected Collection<IAction> generateCreateSiblingActions(Collection<?> descriptors, ISelection selection) {
-		Collection<IAction> actions = new ArrayList<IAction>();
+		List<IAction> actions = new ArrayList<IAction>();
 		if (descriptors != null) {
 			for (Object descriptor : descriptors) {
 				actions.add(new CreateSiblingAction(activeEditorPart, selection, descriptor));
 			}
+			sort(actions);
 		}
 		return actions;
 	}
