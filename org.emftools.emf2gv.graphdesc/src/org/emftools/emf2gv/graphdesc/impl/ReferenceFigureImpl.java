@@ -70,6 +70,10 @@ public class ReferenceFigureImpl extends AbstractReferenceFigureImpl implements 
 		return GraphdescPackage.Literals.REFERENCE_FIGURE;
 	}
 
+	/** (non-Javadoc)
+	 * @see org.emftools.emf2gv.graphdesc.impl.AbstractReferenceFigureImpl#validate(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated NOT
+	 */
 	@Override
 	public boolean validate(DiagnosticChain diagnostic,
 			Map<Object, Object> context) {
