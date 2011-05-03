@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -76,18 +77,45 @@ public class OCLPropertyDescriptor extends PropertyDescriptor {
 	 */
 	@Override
 	public CellEditor createPropertyEditor(Composite composite) {
-		return new ExtendedDialogCellEditor(composite, getLabelProvider()) {
-			@Override
-			protected Object openDialogBox(Control cellEditorWindow) {
-				OCLInputDialog dialog = new OCLInputDialog(Display.getCurrent()
-						.getActiveShell(), "Enter the OCL expression", context,
-						(String) getValue(), true);
-				if (dialog.open() == Dialog.OK) {
-					return dialog.getValue();
+		if (!itemPropertyDescriptor.canSetProperty(object)) {
+			return null;
+		} else if (context == null) {
+			return new ExtendedDialogCellEditor(composite, getLabelProvider()) {
+				@Override
+				protected Object openDialogBox(Control cellEditorWindow) {
+					MessageDialog.openInformation(Display.getCurrent()
+							.getActiveShell(), "Information", getMissingContextMessage());
+					return null;
 				}
-				return null;
-			}
-		};
+			};
+		} else {
+			return new ExtendedDialogCellEditor(composite, getLabelProvider()) {
+				@Override
+				protected Object openDialogBox(Control cellEditorWindow) {
+					OCLInputDialog dialog = new OCLInputDialog(Display
+							.getCurrent().getActiveShell(),
+							"Enter the OCL expression", context,
+							(String) getValue(), true);
+					if (dialog.open() == Dialog.OK) {
+						return dialog.getValue();
+					}
+					return null;
+				}
+			};
+		}
+	}
+
+	/**
+	 * Returns the message to show if no context has been defined.
+	 * 
+	 * <p>
+	 * This is intended to be subclassed.
+	 * </p>
+	 * 
+	 * @return the message to show if no context has been defined.
+	 */
+	protected String getMissingContextMessage() {
+		return "It is not possible to edit an OCL expression if no context has been defined";
 	}
 
 }
