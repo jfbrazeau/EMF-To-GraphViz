@@ -137,24 +137,28 @@ public class ColorPropertyDescriptor extends PropertyDescriptor {
 	 */
 	@Override
 	public CellEditor createPropertyEditor(Composite composite) {
-		return new ExtendedDialogCellEditor(composite, getLabelProvider()) {
-			@Override
-			protected Object openDialogBox(Control cellEditorWindow) {
-				ColorDialog dialog = new ColorDialog(Display.getCurrent()
-						.getActiveShell());
-				dialog.setText("Select a color");
-				Integer colorValue = (Integer) getValue();
-				dialog.setRGB(new RGB((colorValue >> 16) & 255, // RED
-						(colorValue >> 8) & 255, // GREEN
-						colorValue & 255)); // BLUE
-				RGB rgb = dialog.open();
-				labelProvider.dispose();
-				if (rgb != null) {
-					return (rgb.red << 16) + (rgb.green << 8) + (rgb.blue);
+		if (!itemPropertyDescriptor.canSetProperty(object)) {
+			return null;
+		} else {
+			return new ExtendedDialogCellEditor(composite, getLabelProvider()) {
+				@Override
+				protected Object openDialogBox(Control cellEditorWindow) {
+					ColorDialog dialog = new ColorDialog(Display.getCurrent()
+							.getActiveShell());
+					dialog.setText("Select a color");
+					Integer colorValue = (Integer) getValue();
+					dialog.setRGB(new RGB((colorValue >> 16) & 255, // RED
+							(colorValue >> 8) & 255, // GREEN
+							colorValue & 255)); // BLUE
+					RGB rgb = dialog.open();
+					labelProvider.dispose();
+					if (rgb != null) {
+						return (rgb.red << 16) + (rgb.green << 8) + (rgb.blue);
+					}
+					return null;
 				}
-				return null;
-			}
-		};
+			};
+		}
 	}
 
 }

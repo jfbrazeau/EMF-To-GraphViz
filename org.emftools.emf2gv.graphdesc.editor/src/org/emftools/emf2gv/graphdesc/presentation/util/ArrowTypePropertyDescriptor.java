@@ -66,25 +66,30 @@ public class ArrowTypePropertyDescriptor extends PropertyDescriptor {
 	 * (org.eclipse.swt.widgets.Composite)
 	 */
 	public CellEditor createPropertyEditor(Composite composite) {
-		return new ExtendedDialogCellEditor(composite, getLabelProvider()) {
-			@Override
-			protected Object openDialogBox(Control cellEditorWindow) {
-				ElementListSelectionDialog dialog = new ElementListSelectionDialog(
-						PlatformUI.getWorkbench().getDisplay().getActiveShell(),
-						getLabelProvider());
-				dialog.setElements(ArrowType.VALUES.toArray());
-				dialog.setInitialSelections(new Object[] { getValue() });
-				dialog.setTitle("Arrow types");
-				dialog.setMessage("Select an arrow type");
-				dialog.setMultipleSelection(false);
-				int result = dialog.open();
-				labelProvider.dispose();
-				if (result == Window.OK) {
-					return dialog.getFirstResult();
+	    if (!itemPropertyDescriptor.canSetProperty(object)) {
+	    	return null;
+	    }
+	    else {
+			return new ExtendedDialogCellEditor(composite, getLabelProvider()) {
+				@Override
+				protected Object openDialogBox(Control cellEditorWindow) {
+					ElementListSelectionDialog dialog = new ElementListSelectionDialog(
+							PlatformUI.getWorkbench().getDisplay().getActiveShell(),
+							getLabelProvider());
+					dialog.setElements(ArrowType.VALUES.toArray());
+					dialog.setInitialSelections(new Object[] { getValue() });
+					dialog.setTitle("Arrow types");
+					dialog.setMessage("Select an arrow type");
+					dialog.setMultipleSelection(false);
+					int result = dialog.open();
+					labelProvider.dispose();
+					if (result == Window.OK) {
+						return dialog.getFirstResult();
+					}
+					return null;
 				}
-				return null;
-			}
-		};
+			};
+	    }
 	}
 
 }
