@@ -28,13 +28,26 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
+import java.util.Map;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.helper.OCLHelper;
+import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
+import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
+import org.emftools.emf2gv.util.OCLProvider;
+import org.emftools.validation.utils.EMFConstraintsHelper;
 
 /**
  * <!-- begin-user-doc -->
@@ -81,6 +94,11 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 	 */
 	protected String eReferenceTypeToStringExpression = EREFERENCE_TYPE_TO_STRING_EXPRESSION_EDEFAULT;
 
+	/**
+	 * OCL Helper that is used to validate the OCL Expressions.
+	 */
+	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper;
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -255,6 +273,64 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 			result = getEReference().getEType().getName();
 		}
 		return result;
+	}
+
+	/** (non-Javadoc)
+	 * @see org.emftools.emf2gv.graphdesc.impl.AbstractReferenceFigureImpl#validate(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated NOT
+	 */
+	@Override
+	public boolean validate(DiagnosticChain diagnostic,
+			Map<Object, Object> context) {
+		boolean valid = super.validate(diagnostic, context);
+		if (valid) {
+			ClassFigure classFigure = getClassFigure();
+			EMFConstraintsHelper constraintsHelper = EMFConstraintsHelper
+					.getInstance(GraphdescValidator.DIAGNOSTIC_SOURCE);
+			EReference eReference = getEReference();
+			if (eReference == null) {
+				constraintsHelper
+						.addError(diagnostic, this, 0,
+								"The rich attribute figure must be associated to an EReference");
+				valid = false;
+			}
+			else {
+				EClass eClass = classFigure.getEClass();
+				if (eClass != null) {
+					if (!eClass.getEAllReferences().contains(eReference)) {
+						constraintsHelper
+								.addError(
+										diagnostic,
+										this,
+										0,
+										"The rich attribute figure is associated to an EReference ({0}) that is not a member of the parent class figure''s EClass ({1})",
+										eReference.getName(),
+										eClass.getName());
+						valid = false;
+					}
+				}
+				if (valid) {
+					// TODO eReference must not be used by a reference figure (refactor reference figures checks at the same time)
+				}
+				if (valid) {
+					// Lazy instanciation of the OCL Helper
+					if (oclHelper == null) {
+						oclHelper = OCLProvider.newOCL().createOCLHelper();
+					}
+					oclHelper.setContext(eReference.getEType());
+					try {
+						oclHelper
+								.createQuery(getEReferenceTypeToStringExpression());
+					} catch (ParserException ex) {
+						constraintsHelper.addError(diagnostic, this, 0,
+								"The OCL expression is invalid : {0}",
+								ex.getMessage());
+						valid = false;
+					}
+				}
+			}
+		}
+		return valid;
 	}
 
 } //RichAttributeFigureImpl

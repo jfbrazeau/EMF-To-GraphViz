@@ -8,7 +8,8 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.emftools.validation.utils,
- org.emftools.emf2gv.util
+ org.emftools.emf2gv.util,
+ org.eclipse.ocl.ecore
 Bundle-ActivationPolicy: lazy
 Export-Package: org.emftools.emf2gv.graphdesc,
  org.emftools.emf2gv.graphdesc.impl,
