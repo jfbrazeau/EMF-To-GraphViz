@@ -96,7 +96,16 @@ public class GraphdescPropertySource extends PropertySource {
 			RichAttributeFigure figure = (RichAttributeFigure) object;
 			result = new OCLPropertyDescriptor(object, itemPropertyDescriptor,
 					figure.getEReference() != null ? figure.getEReference()
-							.getEType() : null);
+							.getEType() : null) {
+				/* (non-Javadoc)
+				 * @see org.emftools.emf2gv.graphdesc.presentation.util.OCLPropertyDescriptor#getMissingContextMessage()
+				 */
+				protected String getMissingContextMessage() {
+					// This is the message to show if no context is defined
+					// (ie. is no EReference si selected)
+					return "Please select an EReference at first.";
+				};
+			};
 		} else {
 			result = super.createPropertyDescriptor(itemPropertyDescriptor);
 		}
