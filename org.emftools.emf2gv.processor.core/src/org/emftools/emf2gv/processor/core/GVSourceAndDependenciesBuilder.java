@@ -751,10 +751,6 @@ final class GVSourceAndDependenciesBuilder {
 	private String findAndSaveEObjectIcon(EObject eObject,
 			IProgressMonitor monitor) {
 		String iconFullPath = null;
-		System.out.println("findAndSaveEObjectIcon(" + eObject.eClass() + ")");
-		if (eObject.eClass().getName().equals("EOperation")) {
-			System.out.println("ici");
-		}
 		URL url = eObjectIconProvider.getIcon(eObject);
 		if (url != null) {
 			iconFullPath = iconUrlsToPngImagePathsAssociationMap.get(url);
