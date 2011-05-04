@@ -27,8 +27,10 @@
  */
 package org.emftools.emf2gv.util;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -37,6 +39,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.ocl.EvaluationEnvironment;
 import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
@@ -45,6 +48,7 @@ import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.ocl.expressions.CollectionKind;
 import org.eclipse.ocl.expressions.ExpressionsFactory;
 import org.eclipse.ocl.expressions.Variable;
+import org.eclipse.ocl.types.OCLStandardLibrary;
 import org.eclipse.ocl.util.TypeUtil;
 
 /**
@@ -71,6 +75,15 @@ public class OCLProvider {
 	/** "Plus" custom operation name */
 	protected static final String PLUS = "+";
 
+	/** "toString" custom operation name */
+	protected static final String TO_STRING = "toString";
+
+	/** "toEcoreDiagString" custom operation name */
+	protected static final String TO_ECORE_DIAG_STRING = "toEcoreDiagString";
+
+	/** Empty parameters list constant */
+	private static final List<Variable<EClassifier, EParameter>> EMPTY_PARAMETERS = new ArrayList<Variable<EClassifier, EParameter>>();
+
 	/**
 	 * @return a new OCL with additional operations.
 	 */
@@ -83,32 +96,34 @@ public class OCLProvider {
 			}
 		};
 		OCL ocl = OCL.newInstance(environmentFactory);
+		OCLStandardLibrary<EClassifier> stdlib = ocl.getEnvironment()
+				.getOCLStandardLibrary();
 
 		// Custom operation declaration
-		EClassifier stringClassifier = ocl.getEnvironment()
-				.getOCLStandardLibrary().getString();
-		EClassifier booleanClassifier = ocl.getEnvironment()
-				.getOCLStandardLibrary().getBoolean();
 		EClassifier stringCollectionClassifier = TypeUtil
 				.resolveCollectionType(ocl.getEnvironment(),
-						CollectionKind.COLLECTION_LITERAL, stringClassifier);
-		EClassifier oclAnyClassifier = ocl.getEnvironment()
-				.getOCLStandardLibrary().getOclAny();
-
+						CollectionKind.COLLECTION_LITERAL, stdlib.getString());
 		// String context operation
-		defineOperation(ocl, STARTS_WITH, stringClassifier, booleanClassifier,
+		defineOperation(ocl, STARTS_WITH, stdlib.getString(),
+				stdlib.getBoolean(),
 				buildSingleStringParameterList(ocl, "string"));
-		defineOperation(ocl, ENDS_WITH, stringClassifier, booleanClassifier,
+		defineOperation(ocl, ENDS_WITH, stdlib.getString(),
+				stdlib.getBoolean(),
 				buildSingleStringParameterList(ocl, "string"));
-		defineOperation(ocl, MATCHES, stringClassifier, booleanClassifier,
+		defineOperation(ocl, MATCHES, stdlib.getString(), stdlib.getBoolean(),
 				buildSingleStringParameterList(ocl, "regexp"));
-		defineOperation(ocl, CONTAINS, stringClassifier, booleanClassifier,
+		defineOperation(ocl, CONTAINS, stdlib.getString(), stdlib.getBoolean(),
 				buildSingleStringParameterList(ocl, "string"));
-		defineOperation(ocl, SPLIT, stringClassifier,
+		defineOperation(ocl, SPLIT, stdlib.getString(),
 				stringCollectionClassifier,
 				buildSingleStringParameterList(ocl, "separators"));
-		defineOperation(ocl, PLUS, oclAnyClassifier, stringClassifier,
-				buildSingleParameterList(ocl, oclAnyClassifier, "tobeadded"));
+		defineOperation(ocl, PLUS, stdlib.getOclAny(), stdlib.getString(),
+				buildSingleParameterList(ocl, stdlib.getOclAny(), "tobeadded"));
+		defineOperation(ocl, TO_STRING, stdlib.getCollection(),
+				stdlib.getString(), EMPTY_PARAMETERS);
+		defineOperation(ocl, TO_ECORE_DIAG_STRING,
+				EcorePackage.eINSTANCE.getEOperation(), stdlib.getString(),
+				EMPTY_PARAMETERS);
 		return ocl;
 	}
 
@@ -198,9 +213,25 @@ class CustomEvaluationEnvironment extends EcoreEvaluationEnvironment {
 			} else {
 				return String.valueOf(source) + String.valueOf(args[0]);
 			}
-		}
-		if (source instanceof String) {
+		} else if (operation.getName().equals(OCLProvider.TO_STRING)
+				&& source instanceof Collection<?>) {
+			Collection<?> collection = (Collection<?>) source;
+			StringWriter w = new StringWriter();
+			boolean first = true;
+			for (Object object : collection) {
+				if (!first) {
+					w.append(", ");
+				} else {
+					first = false;
+				}
+				w.append(String.valueOf(object));
+			}
+			return w.toString();
+		} else if (source instanceof String) {
 			return callOperation(operation, opcode, (String) source, args);
+		} else if (source instanceof EOperation
+				&& OCLProvider.TO_ECORE_DIAG_STRING.equals(operation.getName())) {
+			return EMFHelper.toEcoreDiagString((EOperation) source);
 		} else {
 			return super.callOperation(operation, opcode, source, args);
 		}

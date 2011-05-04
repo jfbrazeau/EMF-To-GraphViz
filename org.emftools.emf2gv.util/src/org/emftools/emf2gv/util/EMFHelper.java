@@ -27,6 +27,7 @@
  */
 package org.emftools.emf2gv.util;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,8 +42,11 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -187,4 +191,31 @@ public class EMFHelper {
 		return BasicDiagnostic.toIStatus(diagnostic);
 	}
 
+	/**
+	 * Converts the EOperation to the same string as what one meet in an Ecore
+	 * Diagram file.
+	 * 
+	 * @param eOperation
+	 *            the EOperation to convert to String.
+	 * @return the converted String.
+	 */
+	public static String toEcoreDiagString(EOperation eOperation) {
+		StringWriter buf = new StringWriter();
+		buf.append(eOperation.getName()).append('(');
+		boolean first = true;
+		for (EParameter parameter : eOperation.getEParameters()) {
+			if (!first) {
+				buf.append(", ");
+			}
+			buf.append(parameter.getEType().getName());
+			first = false;
+		}
+		buf.append(')');
+		EClassifier eType = eOperation.getEType();
+		if (eType != null) {
+			buf.append(" : ");
+			buf.append(eType.getName());
+		}
+		return buf.toString();
+	}
 }
