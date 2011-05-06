@@ -114,7 +114,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractReferenceFigure" abstract="true"
       eSuperTypes="#//AbstractFigure">
-    <eOperations name="targetClassFigureExists" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classFigure" lowerBound="1"
         eType="#//ClassFigure" eOpposite="#//ClassFigure/referenceFigures"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="eReference" lowerBound="1"
@@ -135,7 +134,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimumEdgeLength" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
         defaultValueLiteral="1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReferenceFigure" eSuperTypes="#//AbstractReferenceFigure"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ReferenceFigure" eSuperTypes="#//AbstractReferenceFigure">
+    <eOperations name="targetClassFigureExists" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractAttributeFigure" abstract="true"
       eSuperTypes="#//AbstractFigure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="classFigure" lowerBound="1"

@@ -337,12 +337,4 @@ public interface AbstractReferenceFigure extends AbstractFigure {
 	 */
 	void setMinimumEdgeLength(int value);
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	boolean targetClassFigureExists();
-
 } // AbstractReferenceFigure

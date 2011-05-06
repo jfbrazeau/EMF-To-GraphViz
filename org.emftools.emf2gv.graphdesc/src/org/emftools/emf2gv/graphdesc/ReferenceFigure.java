@@ -40,4 +40,12 @@ package org.emftools.emf2gv.graphdesc;
  * @generated
  */
 public interface ReferenceFigure extends AbstractReferenceFigure {
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean targetClassFigureExists();
 } // ReferenceFigure

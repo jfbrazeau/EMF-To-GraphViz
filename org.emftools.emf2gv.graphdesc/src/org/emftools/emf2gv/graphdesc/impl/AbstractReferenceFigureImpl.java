@@ -28,7 +28,6 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -44,7 +43,6 @@ import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
-import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
@@ -587,8 +585,19 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 								"The {0} figure must be associated to an EReference", currentObjectName);
 				valid = false;
 			} else {
-				// Check eReference eClass
+				// Checks that the EReference is not already used
+				if (GraphdescValidator.eReferenceIsUsedTwiceOrMore(this)) {
+					constraintsHelper
+							.addError(
+									diagnostic,
+									this,
+									0,
+									"The rich reference figure is associated to an EReference ({0}) that is already used by another figure.",
+									eReference.getName());
+					valid = false;
+				}
 				if (valid) {
+					// Check eReference eClass
 					EClass eClass = classFigure.getEClass();
 					if (eClass != null) {
 						if (!eClass.getEAllReferences().contains(eReference)) {
@@ -605,42 +614,24 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 						}
 						// Check that the reference is not already declared
 						// in the nested figure EReferences
-						else {
-							if (classFigure.getNestedFiguresEReferences()
+						else if (classFigure.getNestedFiguresEReferences()
 									.contains(eReference)) {
-								constraintsHelper
-										.addError(
-												diagnostic,
-												this,
-												0,
-												"The {0} figure is associated to an EReference ({1}) that is already declared as a nested figure in the parent class figure",
-												currentObjectName,
-												eReference.getName());
-								valid = false;
-							}
+							constraintsHelper
+									.addError(
+											diagnostic,
+											this,
+											0,
+											"The {0} figure is associated to an EReference ({1}) that is already declared as a nested figure in the parent class figure",
+											currentObjectName,
+											eReference.getName());
+							valid = false;
 						}
 					}
 				}
 
-				// At least on of the EReference target type subclasses must be
-				// declared in the graph description (if the instance is not a
-				// rich reference figure)
-				if (valid && !(this instanceof RichReferenceFigure)) {
-					if (!targetClassFigureExists()) {
-						constraintsHelper
-								.addError(
-										diagnostic,
-										this,
-										0,
-										"There is no class figure associated to the reference type ({0}) or one of its sub-EClass",
-										eReference.getEReferenceType()
-												.getName());
-						valid = false;
-					}
-				}
-				String regexp = "(o?[lr]?(box|crow|diamond|dot|inv|none|normal|tee|vee))+";
-
 				// Custom source arrow check
+				//TODO constant
+				String regexp = "(o?[lr]?(box|crow|diamond|dot|inv|none|normal|tee|vee))+";
 				if (ArrowType.CUSTOM.equals(getSourceArrowType())) {
 					boolean notEmpty = constraintsHelper
 							.addErrorIfEmpty(
@@ -685,47 +676,6 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 			}
 		}
 		return valid;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated NOT
-	 */
-	public boolean targetClassFigureExists() {
-		boolean refTypeEClassOrSubEClassFigureFound = false;
-		EClass targetEType = getTargetEType();
-		if (targetEType != null) {
-			ClassFigure classFigure = getClassFigure();
-			if (classFigure != null) {
-				GVFigureDescription gvFigureDescription = classFigure
-						.getGvFigureDescription();
-
-				if (gvFigureDescription != null) {
-					// If the ref type has a ClassFigure, that's OK !
-					if (gvFigureDescription.getClassFigure(targetEType) != null) {
-						refTypeEClassOrSubEClassFigureFound = true;
-					}
-					// Else let's see if there is a ClassFigure that is
-					// associated
-					// to an EClass that derives from the targetEType
-					else {
-						List<ClassFigure> classFigures = gvFigureDescription
-								.getClassFigures();
-						for (int i = 0; i < classFigures.size()
-								&& !refTypeEClassOrSubEClassFigureFound; i++) {
-							ClassFigure classFigureCursor = classFigures.get(i);
-							EClass eClass = classFigureCursor.getEClass();
-							if (eClass != null) {
-								refTypeEClassOrSubEClassFigureFound = targetEType
-										.isSuperTypeOf(eClass);
-							}
-						}
-					}
-				}
-			}
-		}
-		return refTypeEClassOrSubEClassFigureFound;
 	}
 
 	/**

@@ -536,7 +536,10 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 		}
 		return result;
 	}
-	
+
+	/**
+	 * @generated NOT
+	 */
 	@Override
 	public boolean validate(DiagnosticChain diagnostic,
 			Map<Object, Object> context) {
@@ -547,34 +550,19 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 			ClassFigure classFigure = getClassFigure();
 			List<ReferenceFigure> referenceFigures = new ArrayList<ReferenceFigure>();
 			List<RichReferenceFigure> richReferenceFigures = new ArrayList<RichReferenceFigure>();
-			for (AbstractReferenceFigure referenceFigure : classFigure.getReferenceFigures()) {
+			for (AbstractReferenceFigure referenceFigure : classFigure
+					.getReferenceFigures()) {
 				boolean isRichReference = referenceFigure instanceof RichReferenceFigure;
 				if (isRichReference) {
 					if (!richReferenceFigures.contains(referenceFigure))
-						richReferenceFigures.add((RichReferenceFigure) referenceFigure);
-				}
-				else {
+						richReferenceFigures
+								.add((RichReferenceFigure) referenceFigure);
+				} else {
 					if (!referenceFigures.contains(referenceFigure))
 						referenceFigures.add((ReferenceFigure) referenceFigure);
 				}
 			}
-			// The rich reference figure musn't use a reference that is already used
-			// by a normal reference figure (getEReference cannot be null
-			// as the referenceFigure validation has been processed)
-			for (ReferenceFigure referenceFigure : referenceFigures) {
-				if (getEReference().equals(referenceFigure.getEReference())) {
-					constraintsHelper
-					.addError(
-							diagnostic,
-							this,
-							0,
-							"The rich reference figure is associated to an EReference ({0}) that is already used by a normal refence figure.",
-							eReference.getName());
-					valid = false;
-					break;
-				}
-			}
-			
+
 			// Target EReference Check
 			EReference targetEReference = getTargetEReference();
 			if (targetEReference == null) {
@@ -582,12 +570,12 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 						.addError(diagnostic, this, 0,
 								"The rich reference figure must be associated to a target EReference");
 				valid = false;
-			}
-			else {
+			} else {
 				// Check unique rich reference
 				for (RichReferenceFigure richReferenceFigure : richReferenceFigures) {
 					// A test is made in order not to create a marker for
-					// the first occurrence of the same { ref, target ref } couple
+					// the first occurrence of the same { ref, target ref }
+					// couple
 					if (richReferenceFigure == this) {
 						break;
 					} else if (getEReference().equals(
@@ -602,49 +590,58 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 										"The rich reference uses a [EReference, Target EReference] couple that is already used");
 						valid = false;
 						break;
-	
+
 					}
 				}
-	
+
 				// Labels validation
 				EClass eClass = targetEReference.getEContainingClass();
 				if (eClass != null) {
 					EAttribute srcLabelAttr = getSourceLabelEAttribute();
-					if (srcLabelAttr != null && !eClass.getEAllAttributes().contains(srcLabelAttr)) {
+					if (srcLabelAttr != null
+							&& !eClass.getEAllAttributes().contains(
+									srcLabelAttr)) {
 						constraintsHelper
 								.addError(
 										diagnostic,
 										this,
 										0,
 										"The source label EAttribute ({0}) of the rich reference figure is not a member of the EClass ({1})",
-										srcLabelAttr.getName(), eClass.getName());
+										srcLabelAttr.getName(),
+										eClass.getName());
 						valid = false;
 					}
 					EAttribute stdLabelAttr = getStandardLabelEAttribute();
-					if (stdLabelAttr != null && !eClass.getEAllAttributes().contains(stdLabelAttr)) {
+					if (stdLabelAttr != null
+							&& !eClass.getEAllAttributes().contains(
+									stdLabelAttr)) {
 						constraintsHelper
 								.addError(
 										diagnostic,
 										this,
 										0,
 										"The standard label EAttribute ({0}) of the rich reference figure is not a member of the EClass ({1})",
-										stdLabelAttr.getName(), eClass.getName());
+										stdLabelAttr.getName(),
+										eClass.getName());
 						valid = false;
 					}
 					EAttribute targetLabelAttr = getStandardLabelEAttribute();
-					if (targetLabelAttr != null && !eClass.getEAllAttributes().contains(targetLabelAttr)) {
+					if (targetLabelAttr != null
+							&& !eClass.getEAllAttributes().contains(
+									targetLabelAttr)) {
 						constraintsHelper
 								.addError(
 										diagnostic,
 										this,
 										0,
 										"The target label EAttribute ({0}) of the rich reference figure is not a member of the EClass ({1})",
-										targetLabelAttr.getName(), eClass.getName());
+										targetLabelAttr.getName(),
+										eClass.getName());
 						valid = false;
 					}
 				}
 			}
-	
+
 		}
 		return valid;
 	}

@@ -894,9 +894,9 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEReference(getAbstractReferenceFigure_TargetEType(), theEcorePackage.getEClass(), null, "targetEType", null, 0, 1, AbstractReferenceFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAbstractReferenceFigure_MinimumEdgeLength(), theEcorePackage.getEInt(), "minimumEdgeLength", "1", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(abstractReferenceFigureEClass, theEcorePackage.getEBoolean(), "targetClassFigureExists", 0, 1, IS_UNIQUE, IS_ORDERED);
-
 		initEClass(referenceFigureEClass, ReferenceFigure.class, "ReferenceFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		addEOperation(referenceFigureEClass, theEcorePackage.getEBoolean(), "targetClassFigureExists", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(abstractAttributeFigureEClass, AbstractAttributeFigure.class, "AbstractAttributeFigure", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAbstractAttributeFigure_ClassFigure(), this.getClassFigure(), this.getClassFigure_AttributeFigures(), "classFigure", null, 1, 1, AbstractAttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

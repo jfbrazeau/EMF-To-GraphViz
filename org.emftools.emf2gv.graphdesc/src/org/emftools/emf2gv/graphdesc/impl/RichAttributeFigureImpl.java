@@ -310,7 +310,17 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 					}
 				}
 				if (valid) {
-					// TODO eReference must not be used by a reference figure (refactor reference figures checks at the same time)
+					// Checks that the EReference is not already used
+					if (GraphdescValidator.eReferenceIsUsedTwiceOrMore(this)) {
+						constraintsHelper
+								.addError(
+										diagnostic,
+										this,
+										0,
+										"The rich attribute figure is associated to an EReference ({0}) that is already used by another figure.",
+										eReference.getName());
+						valid = false;
+					}
 				}
 				if (valid) {
 					// Lazy instanciation of the OCL Helper

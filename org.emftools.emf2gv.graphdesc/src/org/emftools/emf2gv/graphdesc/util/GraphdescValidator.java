@@ -27,11 +27,14 @@
  */
 package org.emftools.emf2gv.graphdesc.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
@@ -394,6 +397,83 @@ public class GraphdescValidator extends EObjectValidator {
 		// Specialize this to return a resource locator for messages specific to this validator.
 		// Ensure that you remove @generated or mark it @generated NOT
 		return super.getResourceLocator();
+	}
+	
+	
+	/**
+	 * Utility method used to check that an <code>EReference</code> is not used
+	 * twice or more.
+	 * 
+	 * @param figure
+	 *            the figure.
+	 * @return a boolean indicating if the <code>EReference</code> is used twice
+	 *         or more.
+	 */
+	public static boolean eReferenceIsUsedTwiceOrMore(AbstractFigure figure) {
+		ClassFigure classFigure = null;
+		EReference eReference = getFigureEReference(figure);
+		if (figure instanceof AbstractReferenceFigure) {
+			AbstractReferenceFigure referenceFigure = (AbstractReferenceFigure) figure;
+			classFigure = referenceFigure.getClassFigure();
+		} else if (figure instanceof RichAttributeFigure) {
+			RichAttributeFigure richAttrFigure = (RichAttributeFigure) figure;
+			classFigure = richAttrFigure.getClassFigure();
+		}
+		boolean result = false;
+		if (classFigure != null && eReference != null) {
+			List<AbstractFigure> figures = new ArrayList<AbstractFigure>();
+			figures.addAll(classFigure.getReferenceFigures());
+			figures.remove(figure);
+			result = containsEReference(figures, eReference);
+			if (!result) {
+				figures.clear();
+				figures.addAll(classFigure.getAttributeFigures());
+				figures.remove(figure);
+				result = containsEReference(figures, eReference);
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Checks if an <code>EReference</code> is used by any of the specified
+	 * figure list.
+	 * 
+	 * @param figures
+	 *            the figures to check.
+	 * @param eReference
+	 *            the <code>EReference</code>
+	 * @return a boolean indicating if an <code>EReference</code> is used by any
+	 *         of the specified figure list.
+	 */
+	private static boolean containsEReference(List<AbstractFigure> figures,
+			EReference eReference) {
+		for (AbstractFigure figure : figures) {
+			EReference figureEReference = getFigureEReference(figure);
+			if (eReference == figureEReference) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Return the <code>EReference</code> used by the specified figure.
+	 * 
+	 * @param figure
+	 *            the figure.
+	 * @return the <code>EReference</code>
+	 */
+	private static EReference getFigureEReference(AbstractFigure figure) {
+		EReference eReference = null;
+		if (figure instanceof AbstractReferenceFigure) {
+			AbstractReferenceFigure referenceFigure = (AbstractReferenceFigure) figure;
+			eReference = referenceFigure.getEReference();
+		} else if (figure instanceof RichAttributeFigure) {
+			RichAttributeFigure richAttrFigure = (RichAttributeFigure) figure;
+			eReference = richAttrFigure.getEReference();
+		}
+		return eReference;
 	}
 
 } //GraphdescValidator

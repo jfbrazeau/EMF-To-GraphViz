@@ -28,14 +28,13 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
-import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
@@ -79,26 +78,65 @@ public class ReferenceFigureImpl extends AbstractReferenceFigureImpl implements 
 			Map<Object, Object> context) {
 		boolean valid = super.validate(diagnostic, context);
 		if (valid) {
-			ClassFigure classFigure = getClassFigure();
 			EMFConstraintsHelper constraintsHelper = EMFConstraintsHelper
 					.getInstance(GraphdescValidator.DIAGNOSTIC_SOURCE);
-			// Check unique (ignoring the rich reference figures)
-			List<ReferenceFigure> referenceFigures = new ArrayList<ReferenceFigure>();
-			for (AbstractReferenceFigure referenceFigure : classFigure.getReferenceFigures()) {
-				if (referenceFigure instanceof ReferenceFigure) {
-					if (!referenceFigures.contains(referenceFigure))
-						referenceFigures.add((ReferenceFigure) referenceFigure);
-				}
+			// At least on of the EReference target type subclasses must be
+			// declared in the graph description (if the instance is not a
+			// rich reference figure)
+			if (!targetClassFigureExists()) {
+				constraintsHelper
+						.addError(
+								diagnostic,
+								this,
+								0,
+								"There is no class figure associated to the reference type ({0}) or one of its sub-EClass",
+								eReference.getEReferenceType()
+										.getName());
+				valid = false;
 			}
-			valid = constraintsHelper.addErrorIfNotUnique(referenceFigures,
-					GraphdescPackage.eINSTANCE
-							.getAbstractReferenceFigure_EReference(), diagnostic,
-					this, 0,
-					"The EReference ''{0}'' is referenced twice or more",
-					eReference.getName());
-
 		}
 		return valid;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public boolean targetClassFigureExists() {
+		boolean refTypeEClassOrSubEClassFigureFound = false;
+		EClass targetEType = getTargetEType();
+		if (targetEType != null) {
+			ClassFigure classFigure = getClassFigure();
+			if (classFigure != null) {
+				GVFigureDescription gvFigureDescription = classFigure
+						.getGvFigureDescription();
+
+				if (gvFigureDescription != null) {
+					// If the ref type has a ClassFigure, that's OK !
+					if (gvFigureDescription.getClassFigure(targetEType) != null) {
+						refTypeEClassOrSubEClassFigureFound = true;
+					}
+					// Else let's see if there is a ClassFigure that is
+					// associated
+					// to an EClass that derives from the targetEType
+					else {
+						List<ClassFigure> classFigures = gvFigureDescription
+								.getClassFigures();
+						for (int i = 0; i < classFigures.size()
+								&& !refTypeEClassOrSubEClassFigureFound; i++) {
+							ClassFigure classFigureCursor = classFigures.get(i);
+							EClass eClass = classFigureCursor.getEClass();
+							if (eClass != null) {
+								refTypeEClassOrSubEClassFigureFound = targetEType
+										.isSuperTypeOf(eClass);
+							}
+						}
+					}
+				}
+			}
+		}
+		return refTypeEClassOrSubEClassFigureFound;
 	}
 
 } //ReferenceFigureImpl
