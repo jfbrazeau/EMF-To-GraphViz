@@ -32,11 +32,17 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
@@ -78,46 +84,72 @@ public class GraphdescGenerator {
 	 */
 	public static GVFigureDescription createGVFigureDescription(
 			List<EPackage> ePackages) {
-		GVFigureDescription gvFigDesc = GraphdescFactory.eINSTANCE
-				.createGVFigureDescription();
-		gvFigDesc.getEPackages().addAll(ePackages);
-		List<EClass> eClasses = new ArrayList<EClass>();
-		// Class figures creation
-		// int predefinedColorIdx = 0;
-		for (EPackage ePackage : ePackages) {
-			for (EClassifier eClassifier : ePackage.getEClassifiers()) {
-				if (eClassifier instanceof EClass) {
-					EClass eClass = (EClass) eClassifier;
-					eClasses.add(eClass);
-					ClassFigure classFigure = GraphdescFactory.eINSTANCE
-							.createClassFigure();
-					classFigure.setEClass(eClass);
-					gvFigDesc.getClassFigures().add(classFigure);
-
-				}
+		GVFigureDescription gvFigDesc = null;
+		// If the EPackage list only contains on EPackage and if that
+		// package is the Ecore one, the default graphical description
+		// that is used is the one
+		if (ePackages.size() == 1) {
+			if (ePackages.get(0).equals(EcorePackage.eINSTANCE)) {
+				// Load the model resource
+				ResourceSet rs = new ResourceSetImpl();
+				rs.getResourceFactoryRegistry()
+						.getExtensionToFactoryMap()
+						.put(Resource.Factory.Registry.DEFAULT_EXTENSION,
+								new XMIResourceFactoryImpl());
+				// Load the graphical description
+				Resource graphDescResource = rs.getResource(
+						URI.createURI(
+								GraphdescGenerator.class.getResource(
+										"ecore.graphdesc").toString(), true),
+						true);
+				gvFigDesc = (GVFigureDescription) graphDescResource
+						.getContents().get(0);
 			}
 		}
-		// Reference figures creation
-		for (EClass eClass : eClasses) {
-			ClassFigure classFigure = gvFigDesc.getClassFigure(eClass);
-			for (EReference eReference : eClass.getEAllReferences()) {
-				// The reference is processed only if the target EClass
-				// belongs to the authorized EPackage list
-				if (ePackages.contains(eReference.getEReferenceType()
-						.getEPackage())) {
-					// The reference is processed only when it is a containment
-					// reference
-					if (eReference.isContainment()) {
-						ReferenceFigure refFigure = GraphdescFactory.eINSTANCE
-								.createReferenceFigure();
-						refFigure.setEReference(eReference);
-						classFigure.getReferenceFigures().add(refFigure);
+		// Else a default graphical description is generated
+		else {
+			gvFigDesc = GraphdescFactory.eINSTANCE.createGVFigureDescription();
+			gvFigDesc.getEPackages().addAll(ePackages);
+			List<EClass> eClasses = new ArrayList<EClass>();
+			// Class figures creation
+			// int predefinedColorIdx = 0;
+			for (EPackage ePackage : ePackages) {
+				for (EClassifier eClassifier : ePackage.getEClassifiers()) {
+					if (eClassifier instanceof EClass) {
+						EClass eClass = (EClass) eClassifier;
+						eClasses.add(eClass);
+						ClassFigure classFigure = GraphdescFactory.eINSTANCE
+								.createClassFigure();
+						classFigure.setEClass(eClass);
+						gvFigDesc.getClassFigures().add(classFigure);
+
 					}
 				}
 			}
+			// Reference figures creation
+			for (EClass eClass : eClasses) {
+				ClassFigure classFigure = gvFigDesc.getClassFigure(eClass);
+				for (EReference eReference : eClass.getEAllReferences()) {
+					// The reference is processed only if the target EClass
+					// belongs to the authorized EPackage list
+					if (ePackages.contains(eReference.getEReferenceType()
+							.getEPackage())) {
+						// The reference is processed only when it is a
+						// containment
+						// reference
+						if (eReference.isContainment()) {
+							ReferenceFigure refFigure = GraphdescFactory.eINSTANCE
+									.createReferenceFigure();
+							refFigure.setEReference(eReference);
+							classFigure.getReferenceFigures().add(refFigure);
+						}
+					}
+				}
+			}
+			// Add Eattributes and appearance data
+			addEAttributesAndAppearanceStyleData(gvFigDesc);
 		}
-		// Add Eattributes and appearance data
-		addEAttributesAndAppearanceStyleData(gvFigDesc);
+
 		return gvFigDesc;
 	}
 
@@ -154,7 +186,8 @@ public class GraphdescGenerator {
 				for (Iterator<EAttribute> iterator = eAttributes.iterator(); iterator
 						.hasNext();) {
 					EAttribute eAttribute = iterator.next();
-					if (String.class.equals(eAttribute.getEAttributeType().getInstanceClass())) {
+					if (String.class.equals(eAttribute.getEAttributeType()
+							.getInstanceClass())) {
 						labelEAttribute = eAttribute;
 						break;
 					}
@@ -180,7 +213,8 @@ public class GraphdescGenerator {
 			/*
 			 * Reference figure style
 			 */
-			for (AbstractReferenceFigure refFigure : classFigure.getReferenceFigures()) {
+			for (AbstractReferenceFigure refFigure : classFigure
+					.getReferenceFigures()) {
 				EReference eReference = refFigure.getEReference();
 				if (refFigure.isContainment()) {
 					refFigure.setSourceArrowType(ArrowType.DIAMOND);

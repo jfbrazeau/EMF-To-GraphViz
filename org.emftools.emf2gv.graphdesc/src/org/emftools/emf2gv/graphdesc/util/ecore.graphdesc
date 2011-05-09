@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphdesc:GVFigureDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:graphdesc="http://org.emftools.emf2gv.graphdesc/1.0.5" orientation="TopDown">
+  <ePackages href="http://www.eclipse.org/emf/2002/Ecore#/"/>
+  <classFigures headerBackgroundColor="16576444" bodyBackgroundColor="16709854">
+    <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
+    <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
+    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" eReferenceTypeToStringExpression="name.concat(' : ').concat(eAttributeType.name)">
+      <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eAttributes"/>
+    </attributeFigures>
+    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" eReferenceTypeToStringExpression="self.toEcoreDiagString()">
+      <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eOperations"/>
+    </attributeFigures>
+    <referenceFigures xsi:type="graphdesc:ReferenceFigure" targetArrowType="custom" customTargetArrow="onormal">
+      <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eSuperTypes"/>
+    </referenceFigures>
+    <referenceFigures xsi:type="graphdesc:RichReferenceFigure" style="dashed" minimumEdgeLength="3" labelDistance="3.0">
+      <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eReferences"/>
+      <targetEReference href="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement/eType"/>
+      <sourceLabelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
+      <targetLabelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement/upperBound"/>
+    </referenceFigures>
+  </classFigures>
+  <classFigures headerBackgroundColor="14548167" bodyBackgroundColor="15924969">
+    <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EEnum"/>
+    <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
+    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" eReferenceTypeToStringExpression="name">
+      <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EEnum/eLiterals"/>
+    </attributeFigures>
+  </classFigures>
+  <classFigures headerBackgroundColor="16053492">
+    <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
+    <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
+    <nestedFiguresEReferences href="http://www.eclipse.org/emf/2002/Ecore#//EPackage/eClassifiers"/>
+    <nestedFiguresEReferences href="http://www.eclipse.org/emf/2002/Ecore#//EModelElement/eAnnotations"/>
+    <nestedFiguresEReferences href="http://www.eclipse.org/emf/2002/Ecore#//EPackage/eSubpackages"/>
+  </classFigures>
+  <classFigures headerBackgroundColor="15390696" bodyBackgroundColor="16248565">
+    <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation"/>
+    <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation/source"/>
+    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" eReferenceTypeToStringExpression="self.key">
+      <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation/details"/>
+    </attributeFigures>
+    <referenceFigures xsi:type="graphdesc:ReferenceFigure" targetArrowType="none">
+      <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation/references"/>
+    </referenceFigures>
+  </classFigures>
+  <classFigures>
+    <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </classFigures>
+</graphdesc:GVFigureDescription>
