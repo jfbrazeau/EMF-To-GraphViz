@@ -135,7 +135,7 @@ public class EclipseProcessor {
 			IProgressMonitor monitor) throws CoreException {
 
 		/*
-		 * Graphdesc file loading or generation.
+		 * Graphdesc file loading.
 		 */
 		GVFigureDescription figureDesc = null;
 		if (graphDescPath != null) {
