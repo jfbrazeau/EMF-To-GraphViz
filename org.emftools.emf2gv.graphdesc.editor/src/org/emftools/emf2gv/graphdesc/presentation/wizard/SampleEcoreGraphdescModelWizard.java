@@ -30,34 +30,22 @@ package org.emftools.emf2gv.graphdesc.presentation.wizard;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
-import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.util.GraphdescGenerator;
 
 /**
- * The graphical description model creation wizard.
+ * A wizard allowing to import in the workspace the sample graphical description
+ * for ecore models.
  * 
  * @author jbrazeau
+ * 
  */
-public class GraphdescModelWizard extends AbstractGraphdescModelWizard {
-
-	/** The edited graphical description */
-	private GVFigureDescription gvFigureDescription;
-
-	/** The EPackage selection page */
-	private EPackagesSelectionPage ePackageSelectionPage;
-
-	/** The EClass selection page */
-	private EClassesSelectionPage eClassesSelectionPage;
-
-	/** The EReference selection page */
-	private EReferencesSelectionPage eReferencesSelectionPage;
+public class SampleEcoreGraphdescModelWizard extends
+		AbstractGraphdescModelWizard {
 
 	/**
 	 * Default constructor.
 	 */
-	public GraphdescModelWizard() {
-		gvFigureDescription = GraphdescFactory.eINSTANCE
-				.createGVFigureDescription();
+	public SampleEcoreGraphdescModelWizard() {
 	}
 
 	/*
@@ -68,7 +56,7 @@ public class GraphdescModelWizard extends AbstractGraphdescModelWizard {
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		super.init(workbench, selection);
-		setWindowTitle("EMF To GraphViz transformation model");
+		setWindowTitle("Sample EMF To GraphViz transformation model for Ecore resources");
 	}
 
 	/*
@@ -79,39 +67,7 @@ public class GraphdescModelWizard extends AbstractGraphdescModelWizard {
 	 */
 	@Override
 	protected GVFigureDescription getGraphicalDescriptionToSave() {
-		// Add Eattributes & colors & arrow styles
-		GraphdescGenerator
-				.addEAttributesAndAppearanceStyleData(gvFigureDescription);
-		return gvFigureDescription;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.wizard.Wizard#addPages()
-	 */
-	@Override
-	public void addPages() {
-		super.addPages();
-		ePackageSelectionPage = new EPackagesSelectionPage(
-				"ePackageSelectionPage", gvFigureDescription);
-		ePackageSelectionPage.setTitle("EMF To GraphViz transformation model");
-		ePackageSelectionPage
-				.setDescription("Select the EPackages to include in the graph");
-		addPage(ePackageSelectionPage);
-		eClassesSelectionPage = new EClassesSelectionPage(
-				"eClassesSelectionPage", gvFigureDescription);
-		eClassesSelectionPage.setTitle("EMF To GraphViz transformation model");
-		eClassesSelectionPage
-				.setDescription("Select the EClasses to include in the graph");
-		addPage(eClassesSelectionPage);
-		eReferencesSelectionPage = new EReferencesSelectionPage(
-				"eReferencesSelectionPage", gvFigureDescription);
-		eReferencesSelectionPage
-				.setTitle("EMF To GraphViz transformation model");
-		eReferencesSelectionPage
-				.setDescription("Select the EReferences to include in the graph");
-		addPage(eReferencesSelectionPage);
+		return GraphdescGenerator.getSampleGraphdescForEcoreModels();
 	}
 
 	/*
@@ -131,7 +87,8 @@ public class GraphdescModelWizard extends AbstractGraphdescModelWizard {
 				.setTitle("EMF To GraphViz transformation model");
 		wizardNewFileCreationPage
 				.setDescription("Create a new Graphdesc model");
-		wizardNewFileCreationPage.setFileName("My.graphdesc");
+		wizardNewFileCreationPage.setFileName("ecore.graphdesc");
 		return wizardNewFileCreationPage;
 	}
+
 }

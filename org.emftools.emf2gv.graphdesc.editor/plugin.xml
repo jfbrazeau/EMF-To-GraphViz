@@ -45,6 +45,18 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
+      <wizard
+            canFinishEarly="false"
+            category="org.eclipse.emftools.Wizard.category.ID"
+            class="org.emftools.emf2gv.graphdesc.presentation.wizard.SampleEcoreGraphdescModelWizard"
+            hasPages="true"
+            icon="icons/full/obj16/GraphdescModelFile.gif"
+            id="org.emftools.emf2gv.graphdesc.presentation.SampleEcoreGraphdescModelWizard"
+            name="%_UI_SampleEcoreGraphdescModelWizard_label">
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
    </extension>
 
 </plugin>

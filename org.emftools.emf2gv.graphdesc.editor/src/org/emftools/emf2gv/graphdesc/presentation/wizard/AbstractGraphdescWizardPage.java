@@ -102,14 +102,23 @@ public abstract class AbstractGraphdescWizardPage extends WizardPage {
 	 */
 	protected abstract boolean validatePage();
 
+	/**
+	 * @return the graphical description.
+	 */
 	protected GVFigureDescription getGvFigureDescription() {
 		return gvFigureDescription;
 	}
 
+	/**
+	 * @return the ECore adapter factory.
+	 */
 	protected AdapterFactory getEcoreAdapterFactory() {
 		return adapterFactory;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+	 */
 	@Override
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
@@ -119,6 +128,9 @@ public abstract class AbstractGraphdescWizardPage extends WizardPage {
 		}
 	}
 
+	/**
+	 * Initializes the page content.
+	 */
 	protected abstract void initPageContent();
 
 }
