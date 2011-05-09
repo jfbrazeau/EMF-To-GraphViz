@@ -90,20 +90,7 @@ public class GraphdescGenerator {
 		// that is used is the one
 		if (ePackages.size() == 1) {
 			if (ePackages.get(0).equals(EcorePackage.eINSTANCE)) {
-				// Load the model resource
-				ResourceSet rs = new ResourceSetImpl();
-				rs.getResourceFactoryRegistry()
-						.getExtensionToFactoryMap()
-						.put(Resource.Factory.Registry.DEFAULT_EXTENSION,
-								new XMIResourceFactoryImpl());
-				// Load the graphical description
-				Resource graphDescResource = rs.getResource(
-						URI.createURI(
-								GraphdescGenerator.class.getResource(
-										"ecore.graphdesc").toString(), true),
-						true);
-				gvFigDesc = (GVFigureDescription) graphDescResource
-						.getContents().get(0);
+				gvFigDesc = getSampleGraphdescForEcoreModels();
 			}
 		}
 		// Else a default graphical description is generated
@@ -153,6 +140,26 @@ public class GraphdescGenerator {
 		return gvFigDesc;
 	}
 
+	/**
+	 * @return a sample graphical description for ecore models.
+	 */
+	public static GVFigureDescription getSampleGraphdescForEcoreModels() {
+		// Load the model resource
+		ResourceSet rs = new ResourceSetImpl();
+		rs.getResourceFactoryRegistry()
+				.getExtensionToFactoryMap()
+				.put(Resource.Factory.Registry.DEFAULT_EXTENSION,
+						new XMIResourceFactoryImpl());
+		// Load the graphical description
+		Resource graphDescResource = rs.getResource(
+				URI.createURI(
+						GraphdescGenerator.class.getResource(
+								"ecore.graphdesc").toString(), true),
+				true);
+		return (GVFigureDescription) graphDescResource
+				.getContents().get(0);
+	}
+	
 	/**
 	 * Add to a graphical description the attribute figures and several
 	 * appearance information (colors, ...).
