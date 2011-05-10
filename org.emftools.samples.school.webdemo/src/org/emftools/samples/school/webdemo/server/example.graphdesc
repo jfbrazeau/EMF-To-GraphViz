@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<graphdesc:GVFigureDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:graphdesc="http://org.emftools.emf2gv.graphdesc/1.0.3">
+<graphdesc:GVFigureDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:graphdesc="http://org.emftools.emf2gv.graphdesc/1.0.5" alignSameEClasses="true">
   <ePackages href="http://org.emftools.samples.school/1.0#/"/>
   <classFigures headerBackgroundColor="13679870" bodyBackgroundColor="15722750">
     <eClass href="http://org.emftools.samples.school/1.0#//Classroom"/>
     <labelEAttribute href="http://org.emftools.samples.school/1.0#//Classroom/name"/>
-    <attributeFigures>
+    <attributeFigures xsi:type="graphdesc:AttributeFigure">
       <eAttribute href="http://org.emftools.samples.school/1.0#//Classroom/teacher"/>
     </attributeFigures>
-    <attributeFigures>
+    <attributeFigures xsi:type="graphdesc:AttributeFigure">
       <eAttribute href="http://org.emftools.samples.school/1.0#//Classroom/rank"/>
     </attributeFigures>
-    <attributeFigures>
+    <attributeFigures xsi:type="graphdesc:AttributeFigure">
       <eAttribute href="http://org.emftools.samples.school/1.0#//Classroom/capacity"/>
     </attributeFigures>
-    <referenceFigures sourceArrowType="diamond">
+    <referenceFigures xsi:type="graphdesc:ReferenceFigure" sourceArrowType="diamond">
       <eReference href="http://org.emftools.samples.school/1.0#//Classroom/students"/>
     </referenceFigures>
   </classFigures>
   <classFigures headerBackgroundColor="10025880" bodyBackgroundColor="14482908">
     <eClass href="http://org.emftools.samples.school/1.0#//School"/>
     <labelEAttribute href="http://org.emftools.samples.school/1.0#//School/name"/>
-    <attributeFigures>
+    <attributeFigures xsi:type="graphdesc:AttributeFigure">
       <eAttribute href="http://org.emftools.samples.school/1.0#//School/director"/>
     </attributeFigures>
-    <attributeFigures>
+    <attributeFigures xsi:type="graphdesc:AttributeFigure">
       <eAttribute href="http://org.emftools.samples.school/1.0#//School/zipCode"/>
     </attributeFigures>
-    <attributeFigures>
+    <attributeFigures xsi:type="graphdesc:AttributeFigure">
       <eAttribute href="http://org.emftools.samples.school/1.0#//School/city"/>
     </attributeFigures>
-    <referenceFigures sourceArrowType="diamond">
+    <referenceFigures xsi:type="graphdesc:ReferenceFigure" sourceArrowType="diamond">
       <eReference href="http://org.emftools.samples.school/1.0#//School/classrooms"/>
     </referenceFigures>
   </classFigures>
   <classFigures headerBackgroundColor="16774517" bodyBackgroundColor="16776145">
     <eClass href="http://org.emftools.samples.school/1.0#//Student"/>
     <labelEAttribute href="http://org.emftools.samples.school/1.0#//Student/name"/>
-    <attributeFigures>
+    <attributeFigures xsi:type="graphdesc:AttributeFigure">
       <eAttribute href="http://org.emftools.samples.school/1.0#//Student/nickname"/>
     </attributeFigures>
-    <attributeFigures>
+    <attributeFigures xsi:type="graphdesc:AttributeFigure">
       <eAttribute href="http://org.emftools.samples.school/1.0#//Student/age"/>
     </attributeFigures>
-    <referenceFigures>
+    <referenceFigures xsi:type="graphdesc:ReferenceFigure">
       <eReference href="http://org.emftools.samples.school/1.0#//Student/friends"/>
     </referenceFigures>
   </classFigures>

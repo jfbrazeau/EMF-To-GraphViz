@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.ocl.ParserException;
 import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.helper.OCLHelper;
-import org.emftools.emf2gv.processor.core.OCLProvider;
+import org.emftools.emf2gv.util.OCLProvider;
 import org.emftools.samples.school.SchoolPackage;
 import org.emftools.samples.school.webdemo.client.WebDemoService;
 
