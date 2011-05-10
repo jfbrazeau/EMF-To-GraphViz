@@ -88,10 +88,9 @@ public class GraphdescGenerator {
 		// If the EPackage list only contains on EPackage and if that
 		// package is the Ecore one, the default graphical description
 		// that is used is the one
-		if (ePackages.size() == 1) {
-			if (ePackages.get(0).equals(EcorePackage.eINSTANCE)) {
-				gvFigDesc = getSampleGraphdescForEcoreModels();
-			}
+		if (ePackages.size() == 1
+				&& ePackages.get(0).equals(EcorePackage.eINSTANCE)) {
+			gvFigDesc = getSampleGraphdescForEcoreModels();
 		}
 		// Else a default graphical description is generated
 		else {
@@ -151,15 +150,12 @@ public class GraphdescGenerator {
 				.put(Resource.Factory.Registry.DEFAULT_EXTENSION,
 						new XMIResourceFactoryImpl());
 		// Load the graphical description
-		Resource graphDescResource = rs.getResource(
-				URI.createURI(
-						GraphdescGenerator.class.getResource(
-								"ecore.graphdesc").toString(), true),
-				true);
-		return (GVFigureDescription) graphDescResource
-				.getContents().get(0);
+		Resource graphDescResource = rs.getResource(URI.createURI(
+				GraphdescGenerator.class.getResource("ecore.graphdesc")
+						.toString(), true), true);
+		return (GVFigureDescription) graphDescResource.getContents().get(0);
 	}
-	
+
 	/**
 	 * Add to a graphical description the attribute figures and several
 	 * appearance information (colors, ...).
