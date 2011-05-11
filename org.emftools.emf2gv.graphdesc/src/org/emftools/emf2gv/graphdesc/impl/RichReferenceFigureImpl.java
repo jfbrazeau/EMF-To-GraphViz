@@ -41,7 +41,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
-import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
@@ -116,7 +115,7 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double LABEL_DISTANCE_EDEFAULT = 1.0;
+	protected static final double LABEL_DISTANCE_EDEFAULT = 5.0;
 
 	/**
 	 * The cached value of the '{@link #getLabelDistance() <em>Label Distance</em>}' attribute.
@@ -151,17 +150,10 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	protected RichReferenceFigureImpl() {
 		super();
-		// Default attribute values for a rich reference figure
-		// (the minimum edge length and label distance must
-		// be adapted as a rich reference figure usually has 
-		// labels)
-		setMinimumEdgeLength(3);
-		setLabelDistance(5.0d);
-		setStyle(ArrowStyle.DASHED);
 	}
 
 	/**

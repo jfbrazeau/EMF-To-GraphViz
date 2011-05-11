@@ -72,7 +72,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetLabelEAttribute"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelDistance" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-        defaultValueLiteral="1"/>
+        defaultValueLiteral="5.0"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelAngle" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDouble"
         defaultValueLiteral="0"/>
   </eClassifiers>

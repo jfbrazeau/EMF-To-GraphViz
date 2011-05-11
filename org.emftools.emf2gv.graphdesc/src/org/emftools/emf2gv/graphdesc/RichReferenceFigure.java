@@ -159,7 +159,7 @@ public interface RichReferenceFigure extends AbstractReferenceFigure {
 
 	/**
 	 * Returns the value of the '<em><b>Label Distance</b></em>' attribute.
-	 * The default value is <code>"1"</code>.
+	 * The default value is <code>"5.0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Label Distance</em>' attribute isn't clear,
@@ -169,7 +169,7 @@ public interface RichReferenceFigure extends AbstractReferenceFigure {
 	 * @return the value of the '<em>Label Distance</em>' attribute.
 	 * @see #setLabelDistance(double)
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_LabelDistance()
-	 * @model default="1"
+	 * @model default="5.0"
 	 * @generated
 	 */
 	double getLabelDistance();

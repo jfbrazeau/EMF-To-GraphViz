@@ -44,6 +44,7 @@ import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
+import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
 import org.emftools.validation.utils.EMFConstraintsHelper;
@@ -197,10 +198,11 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getStyle()
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	protected static final ArrowStyle STYLE_EDEFAULT = ArrowStyle.NORMAL;
+	protected final ArrowStyle STYLE_EDEFAULT = this instanceof ReferenceFigure ? ArrowStyle.NORMAL
+			: ArrowStyle.DASHED;
 
 	/**
 	 * The cached value of the '{@link #getStyle() <em>Style</em>}' attribute.
@@ -217,10 +219,11 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getMinimumEdgeLength()
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	protected static final int MINIMUM_EDGE_LENGTH_EDEFAULT = 1;
+	protected final int MINIMUM_EDGE_LENGTH_EDEFAULT = this instanceof ReferenceFigure ? 1
+			: 3;
 
 	/**
 	 * The cached value of the '{@link #getMinimumEdgeLength() <em>Minimum Edge Length</em>}' attribute.
