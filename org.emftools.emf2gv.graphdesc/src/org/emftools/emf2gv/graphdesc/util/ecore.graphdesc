@@ -13,7 +13,7 @@
     <referenceFigures xsi:type="graphdesc:ReferenceFigure" targetArrowType="custom" customTargetArrow="onormal">
       <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eSuperTypes"/>
     </referenceFigures>
-    <referenceFigures xsi:type="graphdesc:RichReferenceFigure" style="dashed" minimumEdgeLength="3" labelDistance="3.0">
+    <referenceFigures xsi:type="graphdesc:RichReferenceFigure" style="normal" labelDistance="3.0">
       <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eReferences"/>
       <targetEReference href="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement/eType"/>
       <sourceLabelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
