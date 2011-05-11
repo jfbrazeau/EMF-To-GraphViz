@@ -36,7 +36,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
@@ -88,9 +87,9 @@ public class RichReferenceFigureItemProvider
 			super.getPropertyDescriptors(object);
 
 			// Appearance properties
-			addSourceLabelEAttributePropertyDescriptor(object);
-			addStandardLabelEAttributePropertyDescriptor(object);
-			addTargetLabelEAttributePropertyDescriptor(object);
+			addSourceLabelExpressionPropertyDescriptor(object);
+			addStandardLabelExpressionPropertyDescriptor(object);
+			addTargetLabelExpressionPropertyDescriptor(object);
 			addLabelDistancePropertyDescriptor(object);
 			addLabelAnglePropertyDescriptor(object);
 
@@ -140,102 +139,69 @@ public class RichReferenceFigureItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Source Label EAttribute feature.
+	 * This adds a property descriptor for the Source Label Expression feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	protected void addSourceLabelEAttributePropertyDescriptor(Object object) {
+	protected void addSourceLabelExpressionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_RichReferenceFigure_sourceLabelEAttribute_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RichReferenceFigure_sourceLabelEAttribute_feature", "_UI_RichReferenceFigure_type"),
-				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE,
+				 getString("_UI_RichReferenceFigure_sourceLabelExpression_feature"),
+				 getString("_UI_RichReferenceFigure_sourceLabelExpression_description"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION,
 				 true,
 				 false,
-				 true,
-				 null,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 getString("_UI_AppearancePropertyCategory"),
-				 null) {
-				@Override
-				public Collection<?> getChoiceOfValues(Object object) {
-					return getEAllAttributes((RichReferenceFigure) object);
-				}
-			});
+				 null));
 	}
 
 	/**
-	 * @param figure the rich reference figure.
-	 * @return the rich reference EClass attributes.
+	 * This adds a property descriptor for the Standard Label Expression feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	private Collection<?> getEAllAttributes(RichReferenceFigure figure) {
-		EReference eReference = figure.getEReference();
-		if (eReference != null) {
-			EClass richeReferenceEClass = eReference.getEReferenceType();
-			ArrayList<EAttribute> result = new ArrayList<EAttribute>();
-			result.add(null);
-			result.addAll(richeReferenceEClass.getEAllAttributes());
-			return result;
-		}
-		else {
-			return Collections.EMPTY_LIST;
-		}
+	protected void addStandardLabelExpressionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RichReferenceFigure_standardLabelExpression_feature"),
+				 getString("_UI_RichReferenceFigure_standardLabelExpression_description"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Standard Label EAttribute feature.
+	 * This adds a property descriptor for the Target Label Expression feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	protected void addStandardLabelEAttributePropertyDescriptor(Object object) {
+	protected void addTargetLabelExpressionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_RichReferenceFigure_standardLabelEAttribute_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RichReferenceFigure_standardLabelEAttribute_feature", "_UI_RichReferenceFigure_type"),
-				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE,
+				 getString("_UI_RichReferenceFigure_targetLabelExpression_feature"),
+				 getString("_UI_RichReferenceFigure_targetLabelExpression_description"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION,
 				 true,
 				 false,
-				 true,
-				 null,
-				 getString("_UI_AppearancePropertyCategory"),
-				 null) {
-				@Override
-				public Collection<?> getChoiceOfValues(Object object) {
-					return getEAllAttributes((RichReferenceFigure) object);
-				}
-			});
-	}
-
-	/**
-	 * This adds a property descriptor for the Target Label EAttribute feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	protected void addTargetLabelEAttributePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_RichReferenceFigure_targetLabelEAttribute_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RichReferenceFigure_targetLabelEAttribute_feature", "_UI_RichReferenceFigure_type"),
-				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE,
-				 true,
 				 false,
-				 true,
-				 null,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 getString("_UI_AppearancePropertyCategory"),
-				 null) {
-				@Override
-				public Collection<?> getChoiceOfValues(Object object) {
-					return getEAllAttributes((RichReferenceFigure) object);
-				}
-			});
+				 null));
 	}
 
 	/**
@@ -329,6 +295,9 @@ public class RichReferenceFigureItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(RichReferenceFigure.class)) {
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION:
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

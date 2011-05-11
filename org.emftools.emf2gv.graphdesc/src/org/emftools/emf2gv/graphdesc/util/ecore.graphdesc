@@ -13,11 +13,9 @@
     <referenceFigures xsi:type="graphdesc:ReferenceFigure" targetArrowType="custom" customTargetArrow="onormal">
       <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eSuperTypes"/>
     </referenceFigures>
-    <referenceFigures xsi:type="graphdesc:RichReferenceFigure" style="normal" labelDistance="3.0">
+    <referenceFigures xsi:type="graphdesc:RichReferenceFigure" style="normal" sourceLabelExpression="" standardLabelExpression="name" targetLabelExpression="if (lowerBound = upperBound) &#xD;&#xA;then &#xD;&#xA;  lowerBound &#xD;&#xA;else &#xD;&#xA;  ''  + lowerBound + '...' + (if (upperBound &lt;> -1) then upperBound else '*' endif) &#xD;&#xA;endif" labelDistance="3.0">
       <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eReferences"/>
       <targetEReference href="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement/eType"/>
-      <sourceLabelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
-      <targetLabelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement/upperBound"/>
     </referenceFigures>
   </classFigures>
   <classFigures headerBackgroundColor="14548167" bodyBackgroundColor="15924969">

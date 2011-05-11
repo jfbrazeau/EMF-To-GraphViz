@@ -35,17 +35,23 @@ import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.helper.OCLHelper;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
+import org.emftools.emf2gv.util.OCLProvider;
 import org.emftools.validation.utils.EMFConstraintsHelper;
 
 /**
@@ -56,9 +62,9 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getTargetEReference <em>Target EReference</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getSourceLabelEAttribute <em>Source Label EAttribute</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getStandardLabelEAttribute <em>Standard Label EAttribute</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getTargetLabelEAttribute <em>Target Label EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getSourceLabelExpression <em>Source Label Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getStandardLabelExpression <em>Standard Label Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getTargetLabelExpression <em>Target Label Expression</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getLabelDistance <em>Label Distance</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getLabelAngle <em>Label Angle</em>}</li>
  * </ul>
@@ -67,6 +73,12 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  * @generated
  */
 public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl implements RichReferenceFigure {
+
+	/**
+	 * OCL Helper that is used to validate the OCL Expressions.
+	 */
+	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper;
+	
 	/**
 	 * The cached value of the '{@link #getTargetEReference() <em>Target EReference</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -78,34 +90,64 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	protected EReference targetEReference;
 
 	/**
-	 * The cached value of the '{@link #getSourceLabelEAttribute() <em>Source Label EAttribute</em>}' reference.
+	 * The default value of the '{@link #getSourceLabelExpression() <em>Source Label Expression</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSourceLabelEAttribute()
+	 * @see #getSourceLabelExpression()
 	 * @generated
 	 * @ordered
 	 */
-	protected EAttribute sourceLabelEAttribute;
+	protected static final String SOURCE_LABEL_EXPRESSION_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStandardLabelEAttribute() <em>Standard Label EAttribute</em>}' reference.
+	 * The cached value of the '{@link #getSourceLabelExpression() <em>Source Label Expression</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStandardLabelEAttribute()
+	 * @see #getSourceLabelExpression()
 	 * @generated
 	 * @ordered
 	 */
-	protected EAttribute standardLabelEAttribute;
+	protected String sourceLabelExpression = SOURCE_LABEL_EXPRESSION_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTargetLabelEAttribute() <em>Target Label EAttribute</em>}' reference.
+	 * The default value of the '{@link #getStandardLabelExpression() <em>Standard Label Expression</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTargetLabelEAttribute()
+	 * @see #getStandardLabelExpression()
 	 * @generated
 	 * @ordered
 	 */
-	protected EAttribute targetLabelEAttribute;
+	protected static final String STANDARD_LABEL_EXPRESSION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getStandardLabelExpression() <em>Standard Label Expression</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStandardLabelExpression()
+	 * @generated
+	 * @ordered
+	 */
+	protected String standardLabelExpression = STANDARD_LABEL_EXPRESSION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTargetLabelExpression() <em>Target Label Expression</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetLabelExpression()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TARGET_LABEL_EXPRESSION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTargetLabelExpression() <em>Target Label Expression</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetLabelExpression()
+	 * @generated
+	 * @ordered
+	 */
+	protected String targetLabelExpression = TARGET_LABEL_EXPRESSION_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getLabelDistance() <em>Label Distance</em>}' attribute.
@@ -212,16 +254,8 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSourceLabelEAttribute() {
-		if (sourceLabelEAttribute != null && sourceLabelEAttribute.eIsProxy()) {
-			InternalEObject oldSourceLabelEAttribute = (InternalEObject)sourceLabelEAttribute;
-			sourceLabelEAttribute = (EAttribute)eResolveProxy(oldSourceLabelEAttribute);
-			if (sourceLabelEAttribute != oldSourceLabelEAttribute) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE, oldSourceLabelEAttribute, sourceLabelEAttribute));
-			}
-		}
-		return sourceLabelEAttribute;
+	public String getSourceLabelExpression() {
+		return sourceLabelExpression;
 	}
 
 	/**
@@ -229,20 +263,11 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute basicGetSourceLabelEAttribute() {
-		return sourceLabelEAttribute;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSourceLabelEAttribute(EAttribute newSourceLabelEAttribute) {
-		EAttribute oldSourceLabelEAttribute = sourceLabelEAttribute;
-		sourceLabelEAttribute = newSourceLabelEAttribute;
+	public void setSourceLabelExpression(String newSourceLabelExpression) {
+		String oldSourceLabelExpression = sourceLabelExpression;
+		sourceLabelExpression = newSourceLabelExpression;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE, oldSourceLabelEAttribute, sourceLabelEAttribute));
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION, oldSourceLabelExpression, sourceLabelExpression));
 	}
 
 	/**
@@ -250,16 +275,8 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getStandardLabelEAttribute() {
-		if (standardLabelEAttribute != null && standardLabelEAttribute.eIsProxy()) {
-			InternalEObject oldStandardLabelEAttribute = (InternalEObject)standardLabelEAttribute;
-			standardLabelEAttribute = (EAttribute)eResolveProxy(oldStandardLabelEAttribute);
-			if (standardLabelEAttribute != oldStandardLabelEAttribute) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE, oldStandardLabelEAttribute, standardLabelEAttribute));
-			}
-		}
-		return standardLabelEAttribute;
+	public String getStandardLabelExpression() {
+		return standardLabelExpression;
 	}
 
 	/**
@@ -267,20 +284,11 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute basicGetStandardLabelEAttribute() {
-		return standardLabelEAttribute;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setStandardLabelEAttribute(EAttribute newStandardLabelEAttribute) {
-		EAttribute oldStandardLabelEAttribute = standardLabelEAttribute;
-		standardLabelEAttribute = newStandardLabelEAttribute;
+	public void setStandardLabelExpression(String newStandardLabelExpression) {
+		String oldStandardLabelExpression = standardLabelExpression;
+		standardLabelExpression = newStandardLabelExpression;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE, oldStandardLabelEAttribute, standardLabelEAttribute));
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION, oldStandardLabelExpression, standardLabelExpression));
 	}
 
 	/**
@@ -288,16 +296,8 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTargetLabelEAttribute() {
-		if (targetLabelEAttribute != null && targetLabelEAttribute.eIsProxy()) {
-			InternalEObject oldTargetLabelEAttribute = (InternalEObject)targetLabelEAttribute;
-			targetLabelEAttribute = (EAttribute)eResolveProxy(oldTargetLabelEAttribute);
-			if (targetLabelEAttribute != oldTargetLabelEAttribute) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE, oldTargetLabelEAttribute, targetLabelEAttribute));
-			}
-		}
-		return targetLabelEAttribute;
+	public String getTargetLabelExpression() {
+		return targetLabelExpression;
 	}
 
 	/**
@@ -305,20 +305,11 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute basicGetTargetLabelEAttribute() {
-		return targetLabelEAttribute;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTargetLabelEAttribute(EAttribute newTargetLabelEAttribute) {
-		EAttribute oldTargetLabelEAttribute = targetLabelEAttribute;
-		targetLabelEAttribute = newTargetLabelEAttribute;
+	public void setTargetLabelExpression(String newTargetLabelExpression) {
+		String oldTargetLabelExpression = targetLabelExpression;
+		targetLabelExpression = newTargetLabelExpression;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE, oldTargetLabelEAttribute, targetLabelEAttribute));
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION, oldTargetLabelExpression, targetLabelExpression));
 	}
 
 	/**
@@ -374,15 +365,12 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE:
 				if (resolve) return getTargetEReference();
 				return basicGetTargetEReference();
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE:
-				if (resolve) return getSourceLabelEAttribute();
-				return basicGetSourceLabelEAttribute();
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE:
-				if (resolve) return getStandardLabelEAttribute();
-				return basicGetStandardLabelEAttribute();
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE:
-				if (resolve) return getTargetLabelEAttribute();
-				return basicGetTargetLabelEAttribute();
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION:
+				return getSourceLabelExpression();
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION:
+				return getStandardLabelExpression();
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION:
+				return getTargetLabelExpression();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				return getLabelDistance();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE:
@@ -402,14 +390,14 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE:
 				setTargetEReference((EReference)newValue);
 				return;
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE:
-				setSourceLabelEAttribute((EAttribute)newValue);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION:
+				setSourceLabelExpression((String)newValue);
 				return;
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE:
-				setStandardLabelEAttribute((EAttribute)newValue);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION:
+				setStandardLabelExpression((String)newValue);
 				return;
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE:
-				setTargetLabelEAttribute((EAttribute)newValue);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION:
+				setTargetLabelExpression((String)newValue);
 				return;
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				setLabelDistance((Double)newValue);
@@ -432,14 +420,14 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE:
 				setTargetEReference((EReference)null);
 				return;
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE:
-				setSourceLabelEAttribute((EAttribute)null);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION:
+				setSourceLabelExpression(SOURCE_LABEL_EXPRESSION_EDEFAULT);
 				return;
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE:
-				setStandardLabelEAttribute((EAttribute)null);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION:
+				setStandardLabelExpression(STANDARD_LABEL_EXPRESSION_EDEFAULT);
 				return;
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE:
-				setTargetLabelEAttribute((EAttribute)null);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION:
+				setTargetLabelExpression(TARGET_LABEL_EXPRESSION_EDEFAULT);
 				return;
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				setLabelDistance(LABEL_DISTANCE_EDEFAULT);
@@ -461,12 +449,12 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 		switch (featureID) {
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_EREFERENCE:
 				return targetEReference != null;
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE:
-				return sourceLabelEAttribute != null;
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE:
-				return standardLabelEAttribute != null;
-			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE:
-				return targetLabelEAttribute != null;
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION:
+				return SOURCE_LABEL_EXPRESSION_EDEFAULT == null ? sourceLabelExpression != null : !SOURCE_LABEL_EXPRESSION_EDEFAULT.equals(sourceLabelExpression);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION:
+				return STANDARD_LABEL_EXPRESSION_EDEFAULT == null ? standardLabelExpression != null : !STANDARD_LABEL_EXPRESSION_EDEFAULT.equals(standardLabelExpression);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION:
+				return TARGET_LABEL_EXPRESSION_EDEFAULT == null ? targetLabelExpression != null : !TARGET_LABEL_EXPRESSION_EDEFAULT.equals(targetLabelExpression);
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				return labelDistance != LABEL_DISTANCE_EDEFAULT;
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE:
@@ -485,7 +473,13 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (labelDistance: ");
+		result.append(" (sourceLabelExpression: ");
+		result.append(sourceLabelExpression);
+		result.append(", standardLabelExpression: ");
+		result.append(standardLabelExpression);
+		result.append(", targetLabelExpression: ");
+		result.append(targetLabelExpression);
+		result.append(", labelDistance: ");
 		result.append(labelDistance);
 		result.append(", labelAngle: ");
 		result.append(labelAngle);
@@ -586,49 +580,37 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 					}
 				}
 
-				// Labels validation
-				EClass eClass = targetEReference.getEContainingClass();
-				if (eClass != null) {
-					EAttribute srcLabelAttr = getSourceLabelEAttribute();
-					if (srcLabelAttr != null
-							&& !eClass.getEAllAttributes().contains(
-									srcLabelAttr)) {
-						constraintsHelper
-								.addError(
-										diagnostic,
-										this,
-										0,
-										"The source label EAttribute ({0}) of the rich reference figure is not a member of the EClass ({1})",
-										srcLabelAttr.getName(),
-										eClass.getName());
+				if (valid) {
+					// Lazy instanciation of the OCL Helper
+					if (oclHelper == null) {
+						oclHelper = OCLProvider.newOCL().createOCLHelper();
+					}
+					oclHelper.setContext(getEReference().getEReferenceType());
+					try {
+						oclHelper
+								.createQuery(getSourceLabelExpression());
+					} catch (ParserException ex) {
+						constraintsHelper.addError(diagnostic, this, 0,
+								"The OCL expression of the source label is invalid : {0}",
+								ex.getMessage());
 						valid = false;
 					}
-					EAttribute stdLabelAttr = getStandardLabelEAttribute();
-					if (stdLabelAttr != null
-							&& !eClass.getEAllAttributes().contains(
-									stdLabelAttr)) {
-						constraintsHelper
-								.addError(
-										diagnostic,
-										this,
-										0,
-										"The standard label EAttribute ({0}) of the rich reference figure is not a member of the EClass ({1})",
-										stdLabelAttr.getName(),
-										eClass.getName());
+					try {
+						oclHelper
+								.createQuery(getStandardLabelExpression());
+					} catch (ParserException ex) {
+						constraintsHelper.addError(diagnostic, this, 0,
+								"The OCL expression of the standard label is invalid : {0}",
+								ex.getMessage());
 						valid = false;
 					}
-					EAttribute targetLabelAttr = getStandardLabelEAttribute();
-					if (targetLabelAttr != null
-							&& !eClass.getEAllAttributes().contains(
-									targetLabelAttr)) {
-						constraintsHelper
-								.addError(
-										diagnostic,
-										this,
-										0,
-										"The target label EAttribute ({0}) of the rich reference figure is not a member of the EClass ({1})",
-										targetLabelAttr.getName(),
-										eClass.getName());
+					try {
+						oclHelper
+								.createQuery(getTargetLabelExpression());
+					} catch (ParserException ex) {
+						constraintsHelper.addError(diagnostic, this, 0,
+								"The OCL expression of the target label is invalid : {0}",
+								ex.getMessage());
 						valid = false;
 					}
 				}

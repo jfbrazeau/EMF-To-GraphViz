@@ -141,24 +141,16 @@ final class GVSourceAndDependenciesBuilder {
 	 */
 	private Map<URL, String> iconUrlsToPngImagePathsAssociationMap = new HashMap<URL, String>();
 
-	/**
-	 * the folder receiving the PNG icons.
-	 */
+	/** The folder receiving the PNG icons. */
 	private File workDir;
 
-	/**
-	 * The nodes count.
-	 */
+	/** The nodes count. */
 	private int nodesCount = 0;
 
-	/**
-	 * The edges count.
-	 */
+	/** The edges count. */
 	private int edgesCount = 0;
 
-	/**
-	 * The diagnostician used to validate the EObjects.
-	 */
+	/** The diagnostician used to validate the EObjects. */
 	private Diagnostician diagnostician;
 
 	/** Boolean OCL expressions allowing to filter the nodes. */
@@ -170,7 +162,14 @@ final class GVSourceAndDependenciesBuilder {
 	/** Logger */
 	private ILogger logger;
 
+	/** OCL Helper */
 	private Helper oclHelper;
+
+	/**
+	 * A map containing the associations between icons URL and generated PNG
+	 * files.
+	 */
+	private Map<String, OCLExpression<EClassifier>> parsedOCLExpressionCache = new HashMap<String, OCLExpression<EClassifier>>();
 
 	/**
 	 * Default constructor.
@@ -465,35 +464,22 @@ final class GVSourceAndDependenciesBuilder {
 							List<EObject> richAttrsEObjects = getTargetRefEObjects(
 									nodeDesc.eObject,
 									attrFigure.getEReference());
-							try {
-								getOclHelper().setContext(
-										attrFigure.getEReference().getEType());
-								OCLExpression<EClassifier> expression = getOclHelper()
-										.createQuery(
-												attrFigure.getLabelExpression());
-								for (EObject richAttrEObject : richAttrsEObjects) {
-									if (mustDraw(richAttrEObject)) {
-										AttributeDesc attrDesc = new AttributeDesc();
-										nodeDesc.attributes.add(attrDesc);
-										attrDesc.value = String
-												.valueOf(getOCL().evaluate(
-														richAttrEObject,
-														expression));
-										attrDesc.iconPath = findAndSaveEObjectIcon(
-												richAttrEObject, monitor);
-										attrDesc.validationDecoratorIconPath = getValidationDecoratorIconPath(
-												richAttrEObject, monitor);
-									}
-
+							OCLExpression<EClassifier> expression = parseOCLExpression(
+									attrFigure.getEReference().getEType(),
+									attrFigure.getLabelExpression());
+							for (EObject richAttrEObject : richAttrsEObjects) {
+								if (mustDraw(richAttrEObject)) {
+									AttributeDesc attrDesc = new AttributeDesc();
+									nodeDesc.attributes.add(attrDesc);
+									attrDesc.value = String.valueOf(getOCL()
+											.evaluate(richAttrEObject,
+													expression));
+									attrDesc.iconPath = findAndSaveEObjectIcon(
+											richAttrEObject, monitor);
+									attrDesc.validationDecoratorIconPath = getValidationDecoratorIconPath(
+											richAttrEObject, monitor);
 								}
-							} catch (ParserException e) {
-								throw new CoreException(new Status(
-										IStatus.ERROR,
-										StandaloneProcessor.PLUGIN_ID,
-										"Unexpected error while parsing OCL expression '"
-												+ attrFigure
-														.getLabelExpression()
-												+ "'", e));
+
 							}
 
 						}
@@ -541,18 +527,21 @@ final class GVSourceAndDependenciesBuilder {
 											richReferenceFigure
 													.getTargetEReference());
 									// Labels value retrieval
-									String srcLabel = eGetToString(
-											richReferenceEClassInstance,
-											richReferenceFigure
-													.getSourceLabelEAttribute());
-									String stdLabel = eGetToString(
-											richReferenceEClassInstance,
-											richReferenceFigure
-													.getStandardLabelEAttribute());
-									String targetLabel = eGetToString(
-											richReferenceEClassInstance,
-											richReferenceFigure
-													.getTargetLabelEAttribute());
+									String srcLabel = String
+											.valueOf(evaluateOCLExpression(
+													richReferenceEClassInstance,
+													richReferenceFigure
+															.getSourceLabelExpression()));
+									String stdLabel = String
+											.valueOf(evaluateOCLExpression(
+													richReferenceEClassInstance,
+													richReferenceFigure
+															.getStandardLabelExpression()));
+									String targetLabel = String
+											.valueOf(evaluateOCLExpression(
+													richReferenceEClassInstance,
+													richReferenceFigure
+															.getTargetLabelExpression()));
 									// Rich reference instance validation
 									String validationDecoratorIconPath = getValidationDecoratorIconPath(
 											richReferenceEClassInstance,
@@ -571,6 +560,59 @@ final class GVSourceAndDependenciesBuilder {
 			}
 		}
 		return eContentRootId;
+	}
+
+	/**
+	 * Parses an OCL expression.
+	 * 
+	 * @param context
+	 *            the context to use.
+	 * @param oclExpression
+	 *            the OCL expression.
+	 * @return the parsed expression.
+	 * @throws CoreException
+	 *             thrown if a parser exception occurs.
+	 */
+	private OCLExpression<EClassifier> parseOCLExpression(EClassifier context,
+			String oclExpression) throws CoreException {
+		try {
+			OCLExpression<EClassifier> result = parsedOCLExpressionCache
+					.get(oclExpression);
+			if (result == null) {
+				getOclHelper().setContext(context);
+				result = getOclHelper().createQuery(oclExpression);
+				parsedOCLExpressionCache.put(oclExpression, result);
+			}
+			return result;
+		} catch (ParserException e) {
+			throw new CoreException(new Status(IStatus.ERROR,
+					StandaloneProcessor.PLUGIN_ID,
+					"Unexpected error while parsing OCL expression '"
+							+ oclExpression + "'", e));
+		}
+	}
+
+	/**
+	 * Evaluates an OCL expression on a given context.
+	 * 
+	 * @param context
+	 *            the context to use.
+	 * @param oclExpression
+	 *            the OCL expression.
+	 * @return the expression evaluation result.
+	 * @throws CoreException
+	 *             thrown if a parser exception occurs.
+	 */
+	private Object evaluateOCLExpression(EObject context, String oclExpression)
+			throws CoreException {
+		if (oclExpression == null || "".equals(oclExpression)) {
+			return "";
+		}
+		else {
+			OCLExpression<EClassifier> expression = parseOCLExpression(
+					context.eClass(), oclExpression);
+			return getOCL().evaluate(context, expression);
+		}
 	}
 
 	/**
@@ -598,25 +640,6 @@ final class GVSourceAndDependenciesBuilder {
 			}
 		}
 		return validationDecoratorIconPath;
-	}
-
-	/**
-	 * @param eObject
-	 *            the eObject to read the feature from.
-	 * @param feature
-	 *            the feature to read.
-	 * @return the eObject's feature value turned into string.
-	 */
-	private static String eGetToString(EObject eObject,
-			EStructuralFeature feature) {
-		String result = null;
-		if (eObject != null && feature != null) {
-			Object objectResult = eObject.eGet(feature);
-			if (objectResult != null) {
-				result = String.valueOf(objectResult);
-			}
-		}
-		return result;
 	}
 
 	/**

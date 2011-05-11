@@ -838,31 +838,31 @@ public interface GraphdescPackage extends EPackage {
 	int RICH_REFERENCE_FIGURE__TARGET_EREFERENCE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Source Label EAttribute</b></em>' reference.
+	 * The feature id for the '<em><b>Source Label Expression</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 1;
+	int RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Standard Label EAttribute</b></em>' reference.
+	 * The feature id for the '<em><b>Standard Label Expression</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 2;
+	int RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Target Label EAttribute</b></em>' reference.
+	 * The feature id for the '<em><b>Target Label Expression</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 3;
+	int RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Label Distance</b></em>' attribute.
@@ -1131,37 +1131,37 @@ public interface GraphdescPackage extends EPackage {
 	EReference getRichReferenceFigure_TargetEReference();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelEAttribute <em>Source Label EAttribute</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelExpression <em>Source Label Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source Label EAttribute</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelEAttribute()
+	 * @return the meta object for the attribute '<em>Source Label Expression</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelExpression()
 	 * @see #getRichReferenceFigure()
 	 * @generated
 	 */
-	EReference getRichReferenceFigure_SourceLabelEAttribute();
+	EAttribute getRichReferenceFigure_SourceLabelExpression();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelEAttribute <em>Standard Label EAttribute</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelExpression <em>Standard Label Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Standard Label EAttribute</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelEAttribute()
+	 * @return the meta object for the attribute '<em>Standard Label Expression</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelExpression()
 	 * @see #getRichReferenceFigure()
 	 * @generated
 	 */
-	EReference getRichReferenceFigure_StandardLabelEAttribute();
+	EAttribute getRichReferenceFigure_StandardLabelExpression();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelEAttribute <em>Target Label EAttribute</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelExpression <em>Target Label Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target Label EAttribute</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelEAttribute()
+	 * @return the meta object for the attribute '<em>Target Label Expression</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelExpression()
 	 * @see #getRichReferenceFigure()
 	 * @generated
 	 */
-	EReference getRichReferenceFigure_TargetLabelEAttribute();
+	EAttribute getRichReferenceFigure_TargetLabelExpression();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getLabelDistance <em>Label Distance</em>}'.
@@ -1665,28 +1665,28 @@ public interface GraphdescPackage extends EPackage {
 		EReference RICH_REFERENCE_FIGURE__TARGET_EREFERENCE = eINSTANCE.getRichReferenceFigure_TargetEReference();
 
 		/**
-		 * The meta object literal for the '<em><b>Source Label EAttribute</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Source Label Expression</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE = eINSTANCE.getRichReferenceFigure_SourceLabelEAttribute();
+		EAttribute RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION = eINSTANCE.getRichReferenceFigure_SourceLabelExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Standard Label EAttribute</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Standard Label Expression</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE = eINSTANCE.getRichReferenceFigure_StandardLabelEAttribute();
+		EAttribute RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION = eINSTANCE.getRichReferenceFigure_StandardLabelExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Target Label EAttribute</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Target Label Expression</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE = eINSTANCE.getRichReferenceFigure_TargetLabelEAttribute();
+		EAttribute RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION = eINSTANCE.getRichReferenceFigure_TargetLabelExpression();
 
 		/**
 		 * The meta object literal for the '<em><b>Label Distance</b></em>' attribute feature.

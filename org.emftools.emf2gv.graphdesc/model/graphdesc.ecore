@@ -114,12 +114,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="RichReferenceFigure" eSuperTypes="#//AbstractReferenceFigure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetEReference" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceLabelEAttribute"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="standardLabelEAttribute"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targetLabelEAttribute"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceLabelExpression"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="standardLabelExpression"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetLabelExpression"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelDistance" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
         defaultValueLiteral="5.0"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelAngle" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDouble"

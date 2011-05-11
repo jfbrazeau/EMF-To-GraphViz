@@ -28,7 +28,6 @@
  */
 package org.emftools.emf2gv.graphdesc;
 
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EReference;
 
 /**
@@ -40,9 +39,9 @@ import org.eclipse.emf.ecore.EReference;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetEReference <em>Target EReference</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelEAttribute <em>Source Label EAttribute</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelEAttribute <em>Standard Label EAttribute</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelEAttribute <em>Target Label EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelExpression <em>Source Label Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelExpression <em>Standard Label Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelExpression <em>Target Label Expression</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getLabelDistance <em>Label Distance</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getLabelAngle <em>Label Angle</em>}</li>
  * </ul>
@@ -80,82 +79,82 @@ public interface RichReferenceFigure extends AbstractReferenceFigure {
 	void setTargetEReference(EReference value);
 
 	/**
-	 * Returns the value of the '<em><b>Source Label EAttribute</b></em>' reference.
+	 * Returns the value of the '<em><b>Source Label Expression</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Source Label EAttribute</em>' reference isn't clear,
+	 * If the meaning of the '<em>Source Label Expression</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source Label EAttribute</em>' reference.
-	 * @see #setSourceLabelEAttribute(EAttribute)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_SourceLabelEAttribute()
+	 * @return the value of the '<em>Source Label Expression</em>' attribute.
+	 * @see #setSourceLabelExpression(String)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_SourceLabelExpression()
 	 * @model
 	 * @generated
 	 */
-	EAttribute getSourceLabelEAttribute();
+	String getSourceLabelExpression();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelEAttribute <em>Source Label EAttribute</em>}' reference.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelExpression <em>Source Label Expression</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source Label EAttribute</em>' reference.
-	 * @see #getSourceLabelEAttribute()
+	 * @param value the new value of the '<em>Source Label Expression</em>' attribute.
+	 * @see #getSourceLabelExpression()
 	 * @generated
 	 */
-	void setSourceLabelEAttribute(EAttribute value);
+	void setSourceLabelExpression(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Standard Label EAttribute</b></em>' reference.
+	 * Returns the value of the '<em><b>Standard Label Expression</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Standard Label EAttribute</em>' reference isn't clear,
+	 * If the meaning of the '<em>Standard Label Expression</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Standard Label EAttribute</em>' reference.
-	 * @see #setStandardLabelEAttribute(EAttribute)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_StandardLabelEAttribute()
+	 * @return the value of the '<em>Standard Label Expression</em>' attribute.
+	 * @see #setStandardLabelExpression(String)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_StandardLabelExpression()
 	 * @model
 	 * @generated
 	 */
-	EAttribute getStandardLabelEAttribute();
+	String getStandardLabelExpression();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelEAttribute <em>Standard Label EAttribute</em>}' reference.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelExpression <em>Standard Label Expression</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Standard Label EAttribute</em>' reference.
-	 * @see #getStandardLabelEAttribute()
+	 * @param value the new value of the '<em>Standard Label Expression</em>' attribute.
+	 * @see #getStandardLabelExpression()
 	 * @generated
 	 */
-	void setStandardLabelEAttribute(EAttribute value);
+	void setStandardLabelExpression(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Target Label EAttribute</b></em>' reference.
+	 * Returns the value of the '<em><b>Target Label Expression</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Target Label EAttribute</em>' reference isn't clear,
+	 * If the meaning of the '<em>Target Label Expression</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target Label EAttribute</em>' reference.
-	 * @see #setTargetLabelEAttribute(EAttribute)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_TargetLabelEAttribute()
+	 * @return the value of the '<em>Target Label Expression</em>' attribute.
+	 * @see #setTargetLabelExpression(String)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_TargetLabelExpression()
 	 * @model
 	 * @generated
 	 */
-	EAttribute getTargetLabelEAttribute();
+	String getTargetLabelExpression();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelEAttribute <em>Target Label EAttribute</em>}' reference.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelExpression <em>Target Label Expression</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target Label EAttribute</em>' reference.
-	 * @see #getTargetLabelEAttribute()
+	 * @param value the new value of the '<em>Target Label Expression</em>' attribute.
+	 * @see #getTargetLabelExpression()
 	 * @generated
 	 */
-	void setTargetLabelEAttribute(EAttribute value);
+	void setTargetLabelExpression(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Label Distance</b></em>' attribute.

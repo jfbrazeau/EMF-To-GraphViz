@@ -29,6 +29,9 @@ package org.emftools.emf2gv.graphdesc.presentation.util;
 
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.ui.provider.PropertySource;
@@ -84,7 +87,12 @@ public class GraphdescPropertySource extends PropertySource {
 				.getClassFigure_BodyBackgroundColor())
 				|| feature == gdPkg.getAbstractReferenceFigure_Color();
 		boolean oclFeature = (feature == gdPkg
-				.getRichAttributeFigure_LabelExpression());
+				.getRichAttributeFigure_LabelExpression()
+				|| feature == gdPkg
+						.getRichReferenceFigure_SourceLabelExpression()
+				|| feature == gdPkg
+						.getRichReferenceFigure_StandardLabelExpression() || feature == gdPkg
+				.getRichReferenceFigure_TargetLabelExpression());
 		if (arrowTypeFeature) {
 			result = new ArrowTypePropertyDescriptor(object,
 					itemPropertyDescriptor);
@@ -92,13 +100,20 @@ public class GraphdescPropertySource extends PropertySource {
 			result = new ColorPropertyDescriptor(object,
 					itemPropertyDescriptor, colorIcons);
 		} else if (oclFeature) {
+			EReference eReference = (EReference) ((EObject) object)
+					.eGet(object instanceof RichAttributeFigure ? gdPkg
+							.getRichAttributeFigure_EReference() : gdPkg
+							.getAbstractReferenceFigure_EReference());
+			EClassifier eType = eReference != null ? eReference.getEType()
+					: null;
 			// OCL expression are only used in RichAttributeFigures
-			RichAttributeFigure figure = (RichAttributeFigure) object;
 			result = new OCLPropertyDescriptor(object, itemPropertyDescriptor,
-					figure.getEReference() != null ? figure.getEReference()
-							.getEType() : null) {
-				/* (non-Javadoc)
-				 * @see org.emftools.emf2gv.graphdesc.presentation.util.OCLPropertyDescriptor#getMissingContextMessage()
+					eType) {
+				/*
+				 * (non-Javadoc)
+				 * 
+				 * @see org.emftools.emf2gv.graphdesc.presentation.util.
+				 * OCLPropertyDescriptor#getMissingContextMessage()
 				 */
 				protected String getMissingContextMessage() {
 					// This is the message to show if no context is defined

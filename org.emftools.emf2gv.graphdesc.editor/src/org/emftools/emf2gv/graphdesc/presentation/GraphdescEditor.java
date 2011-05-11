@@ -1405,9 +1405,9 @@ public class GraphdescEditor
 			// Rich Reference figure properties order
 			final List<String> richReferenceFigureOrderedPropertyIds = new ArrayList<String>();
 			richReferenceFigureOrderedPropertyIds.addAll(referenceFigureOrderedPropertyIds);
-			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_SourceLabelEAttribute().getName());
-			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_StandardLabelEAttribute().getName());
-			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_TargetLabelEAttribute().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_SourceLabelExpression().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_StandardLabelExpression().getName());
+			richReferenceFigureOrderedPropertyIds.add(pkg.getRichReferenceFigure_TargetLabelExpression().getName());
 			// Minimum edge length must be removed as it has been added for the reference figure
 			richReferenceFigureOrderedPropertyIds.remove(pkg.getAbstractReferenceFigure_MinimumEdgeLength().getName());
 			richReferenceFigureOrderedPropertyIds.add(pkg.getAbstractReferenceFigure_MinimumEdgeLength().getName());

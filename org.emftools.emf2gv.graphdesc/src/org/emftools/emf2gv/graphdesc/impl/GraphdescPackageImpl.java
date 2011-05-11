@@ -439,8 +439,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRichReferenceFigure_SourceLabelEAttribute() {
-		return (EReference)richReferenceFigureEClass.getEStructuralFeatures().get(1);
+	public EAttribute getRichReferenceFigure_SourceLabelExpression() {
+		return (EAttribute)richReferenceFigureEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -448,8 +448,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRichReferenceFigure_StandardLabelEAttribute() {
-		return (EReference)richReferenceFigureEClass.getEStructuralFeatures().get(2);
+	public EAttribute getRichReferenceFigure_StandardLabelExpression() {
+		return (EAttribute)richReferenceFigureEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -457,8 +457,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRichReferenceFigure_TargetLabelEAttribute() {
-		return (EReference)richReferenceFigureEClass.getEStructuralFeatures().get(3);
+	public EAttribute getRichReferenceFigure_TargetLabelExpression() {
+		return (EAttribute)richReferenceFigureEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -766,9 +766,9 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		richReferenceFigureEClass = createEClass(RICH_REFERENCE_FIGURE);
 		createEReference(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__TARGET_EREFERENCE);
-		createEReference(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__SOURCE_LABEL_EATTRIBUTE);
-		createEReference(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__STANDARD_LABEL_EATTRIBUTE);
-		createEReference(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__TARGET_LABEL_EATTRIBUTE);
+		createEAttribute(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION);
+		createEAttribute(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION);
+		createEAttribute(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION);
 		createEAttribute(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__LABEL_DISTANCE);
 		createEAttribute(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__LABEL_ANGLE);
 
@@ -899,9 +899,9 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		initEClass(richReferenceFigureEClass, RichReferenceFigure.class, "RichReferenceFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRichReferenceFigure_TargetEReference(), theEcorePackage.getEReference(), null, "targetEReference", null, 1, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRichReferenceFigure_SourceLabelEAttribute(), theEcorePackage.getEAttribute(), null, "sourceLabelEAttribute", null, 0, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRichReferenceFigure_StandardLabelEAttribute(), theEcorePackage.getEAttribute(), null, "standardLabelEAttribute", null, 0, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRichReferenceFigure_TargetLabelEAttribute(), theEcorePackage.getEAttribute(), null, "targetLabelEAttribute", null, 0, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRichReferenceFigure_SourceLabelExpression(), ecorePackage.getEString(), "sourceLabelExpression", null, 0, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRichReferenceFigure_StandardLabelExpression(), ecorePackage.getEString(), "standardLabelExpression", null, 0, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRichReferenceFigure_TargetLabelExpression(), ecorePackage.getEString(), "targetLabelExpression", null, 0, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRichReferenceFigure_LabelDistance(), ecorePackage.getEDouble(), "labelDistance", "5.0", 0, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRichReferenceFigure_LabelAngle(), theEcorePackage.getEDouble(), "labelAngle", "0", 0, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
