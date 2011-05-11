@@ -92,9 +92,9 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION: return createGVFigureDescription();
 			case GraphdescPackage.CLASS_FIGURE: return createClassFigure();
 			case GraphdescPackage.ATTRIBUTE_FIGURE: return createAttributeFigure();
-			case GraphdescPackage.RICH_REFERENCE_FIGURE: return createRichReferenceFigure();
-			case GraphdescPackage.REFERENCE_FIGURE: return createReferenceFigure();
 			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE: return createRichAttributeFigure();
+			case GraphdescPackage.REFERENCE_FIGURE: return createReferenceFigure();
+			case GraphdescPackage.RICH_REFERENCE_FIGURE: return createRichReferenceFigure();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}

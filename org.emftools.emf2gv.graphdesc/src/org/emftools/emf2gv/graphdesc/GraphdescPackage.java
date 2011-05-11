@@ -89,7 +89,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getClassFigure()
 	 * @generated
 	 */
-	int CLASS_FIGURE = 1;
+	int CLASS_FIGURE = 2;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.AttributeFigureImpl <em>Attribute Figure</em>}' class.
@@ -99,7 +99,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAttributeFigure()
 	 * @generated
 	 */
-	int ATTRIBUTE_FIGURE = 2;
+	int ATTRIBUTE_FIGURE = 4;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.GVFigureDescriptionImpl <em>GV Figure Description</em>}' class.
@@ -164,7 +164,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAbstractFigure()
 	 * @generated
 	 */
-	int ABSTRACT_FIGURE = 4;
+	int ABSTRACT_FIGURE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -327,7 +327,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getRichReferenceFigure()
 	 * @generated
 	 */
-	int RICH_REFERENCE_FIGURE = 3;
+	int RICH_REFERENCE_FIGURE = 8;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractReferenceFigureImpl <em>Abstract Reference Figure</em>}' class.
@@ -337,7 +337,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAbstractReferenceFigure()
 	 * @generated
 	 */
-	int ABSTRACT_REFERENCE_FIGURE = 5;
+	int ABSTRACT_REFERENCE_FIGURE = 6;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.ReferenceFigureImpl <em>Reference Figure</em>}' class.
@@ -347,7 +347,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getReferenceFigure()
 	 * @generated
 	 */
-	int REFERENCE_FIGURE = 6;
+	int REFERENCE_FIGURE = 7;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractAttributeFigureImpl <em>Abstract Attribute Figure</em>}' class.
@@ -357,7 +357,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getAbstractAttributeFigure()
 	 * @generated
 	 */
-	int ABSTRACT_ATTRIBUTE_FIGURE = 7;
+	int ABSTRACT_ATTRIBUTE_FIGURE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -430,6 +430,61 @@ public interface GraphdescPackage extends EPackage {
 	 * @ordered
 	 */
 	int ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl <em>Rich Attribute Figure</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getRichAttributeFigure()
+	 * @generated
+	 */
+	int RICH_ATTRIBUTE_FIGURE = 5;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE__NAME = ABSTRACT_ATTRIBUTE_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE__CLASS_FIGURE = ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE;
+
+	/**
+	 * The feature id for the '<em><b>EReference</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE__EREFERENCE = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>EReference Type To String Expression</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Rich Attribute Figure</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -547,6 +602,123 @@ public interface GraphdescPackage extends EPackage {
 	 * @ordered
 	 */
 	int ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 11;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__NAME = ABSTRACT_REFERENCE_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__CLASS_FIGURE = ABSTRACT_REFERENCE_FIGURE__CLASS_FIGURE;
+
+	/**
+	 * The feature id for the '<em><b>EReference</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__EREFERENCE = ABSTRACT_REFERENCE_FIGURE__EREFERENCE;
+
+	/**
+	 * The feature id for the '<em><b>Target Arrow Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__TARGET_ARROW_TYPE = ABSTRACT_REFERENCE_FIGURE__TARGET_ARROW_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Source Arrow Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__SOURCE_ARROW_TYPE = ABSTRACT_REFERENCE_FIGURE__SOURCE_ARROW_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Containment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__CONTAINMENT = ABSTRACT_REFERENCE_FIGURE__CONTAINMENT;
+
+	/**
+	 * The feature id for the '<em><b>Custom Target Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__CUSTOM_TARGET_ARROW = ABSTRACT_REFERENCE_FIGURE__CUSTOM_TARGET_ARROW;
+
+	/**
+	 * The feature id for the '<em><b>Custom Source Arrow</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW = ABSTRACT_REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW;
+
+	/**
+	 * The feature id for the '<em><b>Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__COLOR = ABSTRACT_REFERENCE_FIGURE__COLOR;
+
+	/**
+	 * The feature id for the '<em><b>Style</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__STYLE = ABSTRACT_REFERENCE_FIGURE__STYLE;
+
+	/**
+	 * The feature id for the '<em><b>Target EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__TARGET_ETYPE = ABSTRACT_REFERENCE_FIGURE__TARGET_ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Edge Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH = ABSTRACT_REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH;
+
+	/**
+	 * The number of structural features of the '<em>Reference Figure</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -718,178 +890,6 @@ public interface GraphdescPackage extends EPackage {
 	 * @ordered
 	 */
 	int RICH_REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__NAME = ABSTRACT_REFERENCE_FIGURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__CLASS_FIGURE = ABSTRACT_REFERENCE_FIGURE__CLASS_FIGURE;
-
-	/**
-	 * The feature id for the '<em><b>EReference</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__EREFERENCE = ABSTRACT_REFERENCE_FIGURE__EREFERENCE;
-
-	/**
-	 * The feature id for the '<em><b>Target Arrow Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__TARGET_ARROW_TYPE = ABSTRACT_REFERENCE_FIGURE__TARGET_ARROW_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Source Arrow Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__SOURCE_ARROW_TYPE = ABSTRACT_REFERENCE_FIGURE__SOURCE_ARROW_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Containment</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__CONTAINMENT = ABSTRACT_REFERENCE_FIGURE__CONTAINMENT;
-
-	/**
-	 * The feature id for the '<em><b>Custom Target Arrow</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__CUSTOM_TARGET_ARROW = ABSTRACT_REFERENCE_FIGURE__CUSTOM_TARGET_ARROW;
-
-	/**
-	 * The feature id for the '<em><b>Custom Source Arrow</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW = ABSTRACT_REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW;
-
-	/**
-	 * The feature id for the '<em><b>Color</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__COLOR = ABSTRACT_REFERENCE_FIGURE__COLOR;
-
-	/**
-	 * The feature id for the '<em><b>Style</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__STYLE = ABSTRACT_REFERENCE_FIGURE__STYLE;
-
-	/**
-	 * The feature id for the '<em><b>Target EType</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__TARGET_ETYPE = ABSTRACT_REFERENCE_FIGURE__TARGET_ETYPE;
-
-	/**
-	 * The feature id for the '<em><b>Minimum Edge Length</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH = ABSTRACT_REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH;
-
-	/**
-	 * The number of structural features of the '<em>Reference Figure</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl <em>Rich Attribute Figure</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl
-	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getRichAttributeFigure()
-	 * @generated
-	 */
-	int RICH_ATTRIBUTE_FIGURE = 8;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RICH_ATTRIBUTE_FIGURE__NAME = ABSTRACT_ATTRIBUTE_FIGURE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RICH_ATTRIBUTE_FIGURE__CLASS_FIGURE = ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE;
-
-	/**
-	 * The feature id for the '<em><b>EReference</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RICH_ATTRIBUTE_FIGURE__EREFERENCE = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>EReference Type To String Expression</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Rich Attribute Figure</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RICH_ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.Orientation <em>Orientation</em>}' enum.

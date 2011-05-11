@@ -140,22 +140,22 @@ public class GraphdescValidator extends EObjectValidator {
 		switch (classifierID) {
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION:
 				return validateGVFigureDescription((GVFigureDescription)value, diagnostics, context);
-			case GraphdescPackage.CLASS_FIGURE:
-				return validateClassFigure((ClassFigure)value, diagnostics, context);
-			case GraphdescPackage.ATTRIBUTE_FIGURE:
-				return validateAttributeFigure((AttributeFigure)value, diagnostics, context);
-			case GraphdescPackage.RICH_REFERENCE_FIGURE:
-				return validateRichReferenceFigure((RichReferenceFigure)value, diagnostics, context);
 			case GraphdescPackage.ABSTRACT_FIGURE:
 				return validateAbstractFigure((AbstractFigure)value, diagnostics, context);
+			case GraphdescPackage.CLASS_FIGURE:
+				return validateClassFigure((ClassFigure)value, diagnostics, context);
+			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE:
+				return validateAbstractAttributeFigure((AbstractAttributeFigure)value, diagnostics, context);
+			case GraphdescPackage.ATTRIBUTE_FIGURE:
+				return validateAttributeFigure((AttributeFigure)value, diagnostics, context);
+			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE:
+				return validateRichAttributeFigure((RichAttributeFigure)value, diagnostics, context);
 			case GraphdescPackage.ABSTRACT_REFERENCE_FIGURE:
 				return validateAbstractReferenceFigure((AbstractReferenceFigure)value, diagnostics, context);
 			case GraphdescPackage.REFERENCE_FIGURE:
 				return validateReferenceFigure((ReferenceFigure)value, diagnostics, context);
-			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE:
-				return validateAbstractAttributeFigure((AbstractAttributeFigure)value, diagnostics, context);
-			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE:
-				return validateRichAttributeFigure((RichAttributeFigure)value, diagnostics, context);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE:
+				return validateRichReferenceFigure((RichReferenceFigure)value, diagnostics, context);
 			case GraphdescPackage.ORIENTATION:
 				return validateOrientation((Orientation)value, diagnostics, context);
 			case GraphdescPackage.ARROW_TYPE:

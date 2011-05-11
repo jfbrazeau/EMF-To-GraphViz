@@ -121,41 +121,40 @@ public class RichAttributeFigureItemProvider extends
 	}
 
 	/**
-	 * This adds a property descriptor for the EReference Type To String
-	 * Expression feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * This adds a property descriptor for the EReference Type To String Expression feature.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected void addEReferenceTypeToStringExpressionPropertyDescriptor(
 			Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_RichAttributeFigure_eReferenceTypeToStringExpression_feature"),
-						getString("_UI_RichAttributeFigure_eReferenceTypeToStringExpression_description"),
-						GraphdescPackage.Literals.RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION,
-						true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						getString("_UI_AppearancePropertyCategory"), null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RichAttributeFigure_eReferenceTypeToStringExpression_feature"),
+				 getString("_UI_RichAttributeFigure_eReferenceTypeToStringExpression_description"),
+				 GraphdescPackage.Literals.RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null));
 	}
 
 	/**
-	 * This returns RichAttributeFigure.gif. <!-- begin-user-doc --> <!--
+	 * This returns RichAttributeFigure.gif.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/RichAttributeFigure"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/RichAttributeFigure"));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -164,24 +163,24 @@ public class RichAttributeFigureItemProvider extends
 	}
 
 	/**
-	 * This returns the label text for the adapted class. <!-- begin-user-doc
+	 * This returns the label text for the adapted class.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((RichAttributeFigure) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_RichAttributeFigure_type")
-				: getString("_UI_RichAttributeFigure_type") + " " + label;
+		String label = ((RichAttributeFigure)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_RichAttributeFigure_type") :
+			getString("_UI_RichAttributeFigure_type") + " " + label;
 	}
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to
-	 * update any cached children and by creating a viewer notification, which
-	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -189,10 +188,9 @@ public class RichAttributeFigureItemProvider extends
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(RichAttributeFigure.class)) {
-		case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
-			return;
+			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 		}
 		super.notifyChanged(notification);
 	}

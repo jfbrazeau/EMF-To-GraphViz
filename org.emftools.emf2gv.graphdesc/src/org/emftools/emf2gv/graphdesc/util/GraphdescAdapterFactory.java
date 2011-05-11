@@ -103,20 +103,24 @@ public class GraphdescAdapterFactory extends AdapterFactoryImpl {
 				return createGVFigureDescriptionAdapter();
 			}
 			@Override
+			public Adapter caseAbstractFigure(AbstractFigure object) {
+				return createAbstractFigureAdapter();
+			}
+			@Override
 			public Adapter caseClassFigure(ClassFigure object) {
 				return createClassFigureAdapter();
+			}
+			@Override
+			public Adapter caseAbstractAttributeFigure(AbstractAttributeFigure object) {
+				return createAbstractAttributeFigureAdapter();
 			}
 			@Override
 			public Adapter caseAttributeFigure(AttributeFigure object) {
 				return createAttributeFigureAdapter();
 			}
 			@Override
-			public Adapter caseRichReferenceFigure(RichReferenceFigure object) {
-				return createRichReferenceFigureAdapter();
-			}
-			@Override
-			public Adapter caseAbstractFigure(AbstractFigure object) {
-				return createAbstractFigureAdapter();
+			public Adapter caseRichAttributeFigure(RichAttributeFigure object) {
+				return createRichAttributeFigureAdapter();
 			}
 			@Override
 			public Adapter caseAbstractReferenceFigure(AbstractReferenceFigure object) {
@@ -127,12 +131,8 @@ public class GraphdescAdapterFactory extends AdapterFactoryImpl {
 				return createReferenceFigureAdapter();
 			}
 			@Override
-			public Adapter caseAbstractAttributeFigure(AbstractAttributeFigure object) {
-				return createAbstractAttributeFigureAdapter();
-			}
-			@Override
-			public Adapter caseRichAttributeFigure(RichAttributeFigure object) {
-				return createRichAttributeFigureAdapter();
+			public Adapter caseRichReferenceFigure(RichReferenceFigure object) {
+				return createRichReferenceFigureAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {

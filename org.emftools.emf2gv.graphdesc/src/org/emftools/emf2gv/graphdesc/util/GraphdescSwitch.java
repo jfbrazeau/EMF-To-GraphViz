@@ -122,10 +122,23 @@ public class GraphdescSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GraphdescPackage.ABSTRACT_FIGURE: {
+				AbstractFigure abstractFigure = (AbstractFigure)theEObject;
+				T result = caseAbstractFigure(abstractFigure);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GraphdescPackage.CLASS_FIGURE: {
 				ClassFigure classFigure = (ClassFigure)theEObject;
 				T result = caseClassFigure(classFigure);
 				if (result == null) result = caseAbstractFigure(classFigure);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE: {
+				AbstractAttributeFigure abstractAttributeFigure = (AbstractAttributeFigure)theEObject;
+				T result = caseAbstractAttributeFigure(abstractAttributeFigure);
+				if (result == null) result = caseAbstractFigure(abstractAttributeFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -137,17 +150,11 @@ public class GraphdescSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GraphdescPackage.RICH_REFERENCE_FIGURE: {
-				RichReferenceFigure richReferenceFigure = (RichReferenceFigure)theEObject;
-				T result = caseRichReferenceFigure(richReferenceFigure);
-				if (result == null) result = caseAbstractReferenceFigure(richReferenceFigure);
-				if (result == null) result = caseAbstractFigure(richReferenceFigure);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GraphdescPackage.ABSTRACT_FIGURE: {
-				AbstractFigure abstractFigure = (AbstractFigure)theEObject;
-				T result = caseAbstractFigure(abstractFigure);
+			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE: {
+				RichAttributeFigure richAttributeFigure = (RichAttributeFigure)theEObject;
+				T result = caseRichAttributeFigure(richAttributeFigure);
+				if (result == null) result = caseAbstractAttributeFigure(richAttributeFigure);
+				if (result == null) result = caseAbstractFigure(richAttributeFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -166,18 +173,11 @@ public class GraphdescSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE: {
-				AbstractAttributeFigure abstractAttributeFigure = (AbstractAttributeFigure)theEObject;
-				T result = caseAbstractAttributeFigure(abstractAttributeFigure);
-				if (result == null) result = caseAbstractFigure(abstractAttributeFigure);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE: {
-				RichAttributeFigure richAttributeFigure = (RichAttributeFigure)theEObject;
-				T result = caseRichAttributeFigure(richAttributeFigure);
-				if (result == null) result = caseAbstractAttributeFigure(richAttributeFigure);
-				if (result == null) result = caseAbstractFigure(richAttributeFigure);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE: {
+				RichReferenceFigure richReferenceFigure = (RichReferenceFigure)theEObject;
+				T result = caseRichReferenceFigure(richReferenceFigure);
+				if (result == null) result = caseAbstractReferenceFigure(richReferenceFigure);
+				if (result == null) result = caseAbstractFigure(richReferenceFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
