@@ -470,8 +470,7 @@ final class GVSourceAndDependenciesBuilder {
 										attrFigure.getEReference().getEType());
 								OCLExpression<EClassifier> expression = getOclHelper()
 										.createQuery(
-												attrFigure
-														.getEReferenceTypeToStringExpression());
+												attrFigure.getLabelExpression());
 								for (EObject richAttrEObject : richAttrsEObjects) {
 									if (mustDraw(richAttrEObject)) {
 										AttributeDesc attrDesc = new AttributeDesc();
@@ -488,14 +487,13 @@ final class GVSourceAndDependenciesBuilder {
 
 								}
 							} catch (ParserException e) {
-								throw new CoreException(
-										new Status(
-												IStatus.ERROR,
-												StandaloneProcessor.PLUGIN_ID,
-												"Unexpected error while parsing OCL expression '"
-														+ attrFigure
-																.getEReferenceTypeToStringExpression()
-														+ "'", e));
+								throw new CoreException(new Status(
+										IStatus.ERROR,
+										StandaloneProcessor.PLUGIN_ID,
+										"Unexpected error while parsing OCL expression '"
+												+ attrFigure
+														.getLabelExpression()
+												+ "'", e));
 							}
 
 						}

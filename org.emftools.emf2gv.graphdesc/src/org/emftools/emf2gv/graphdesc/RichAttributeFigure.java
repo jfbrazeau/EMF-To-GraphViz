@@ -39,7 +39,7 @@ import org.eclipse.emf.ecore.EReference;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReference <em>EReference</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReferenceTypeToStringExpression <em>EReference Type To String Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getLabelExpression <em>Label Expression</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,29 +75,29 @@ public interface RichAttributeFigure extends AbstractAttributeFigure {
 	void setEReference(EReference value);
 
 	/**
-	 * Returns the value of the '<em><b>EReference Type To String Expression</b></em>' attribute.
+	 * Returns the value of the '<em><b>Label Expression</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>EReference Type To String Expression</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Label Expression</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>EReference Type To String Expression</em>' attribute.
-	 * @see #setEReferenceTypeToStringExpression(String)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichAttributeFigure_EReferenceTypeToStringExpression()
+	 * @return the value of the '<em>Label Expression</em>' attribute.
+	 * @see #setLabelExpression(String)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichAttributeFigure_LabelExpression()
 	 * @model
 	 * @generated
 	 */
-	String getEReferenceTypeToStringExpression();
+	String getLabelExpression();
 
 	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReferenceTypeToStringExpression <em>EReference Type To String Expression</em>}' attribute.
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getLabelExpression <em>Label Expression</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>EReference Type To String Expression</em>' attribute.
-	 * @see #getEReferenceTypeToStringExpression()
+	 * @param value the new value of the '<em>Label Expression</em>' attribute.
+	 * @see #getLabelExpression()
 	 * @generated
 	 */
-	void setEReferenceTypeToStringExpression(String value);
+	void setLabelExpression(String value);
 
 } // RichAttributeFigure

@@ -83,7 +83,7 @@ public class RichAttributeFigureItemProvider extends
 			super.getPropertyDescriptors(object);
 
 			addEReferencePropertyDescriptor(object);
-			addEReferenceTypeToStringExpressionPropertyDescriptor(object);
+			addLabelExpressionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -121,19 +121,19 @@ public class RichAttributeFigureItemProvider extends
 	}
 
 	/**
-	 * This adds a property descriptor for the EReference Type To String Expression feature.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * This adds a property descriptor for the Label Expression feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addEReferenceTypeToStringExpressionPropertyDescriptor(
-			Object object) {
+	protected void addLabelExpressionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_RichAttributeFigure_eReferenceTypeToStringExpression_feature"),
-				 getString("_UI_RichAttributeFigure_eReferenceTypeToStringExpression_description"),
-				 GraphdescPackage.Literals.RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION,
+				 getString("_UI_RichAttributeFigure_labelExpression_feature"),
+				 getString("_UI_RichAttributeFigure_labelExpression_description"),
+				 GraphdescPackage.Literals.RICH_ATTRIBUTE_FIGURE__LABEL_EXPRESSION,
 				 true,
 				 false,
 				 false,
@@ -188,7 +188,7 @@ public class RichAttributeFigureItemProvider extends
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(RichAttributeFigure.class)) {
-			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION:
+			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__LABEL_EXPRESSION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

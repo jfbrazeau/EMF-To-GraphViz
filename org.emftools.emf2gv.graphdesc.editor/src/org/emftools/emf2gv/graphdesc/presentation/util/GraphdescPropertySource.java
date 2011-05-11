@@ -84,7 +84,7 @@ public class GraphdescPropertySource extends PropertySource {
 				.getClassFigure_BodyBackgroundColor())
 				|| feature == gdPkg.getAbstractReferenceFigure_Color();
 		boolean oclFeature = (feature == gdPkg
-				.getRichAttributeFigure_EReferenceTypeToStringExpression());
+				.getRichAttributeFigure_LabelExpression());
 		if (arrowTypeFeature) {
 			result = new ArrowTypePropertyDescriptor(object,
 					itemPropertyDescriptor);

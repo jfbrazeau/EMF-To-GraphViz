@@ -469,13 +469,13 @@ public interface GraphdescPackage extends EPackage {
 	int RICH_ATTRIBUTE_FIGURE__EREFERENCE = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>EReference Type To String Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Label Expression</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 1;
+	int RICH_ATTRIBUTE_FIGURE__LABEL_EXPRESSION = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Rich Attribute Figure</em>' class.
@@ -1390,15 +1390,15 @@ public interface GraphdescPackage extends EPackage {
 	EReference getRichAttributeFigure_EReference();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReferenceTypeToStringExpression <em>EReference Type To String Expression</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure#getLabelExpression <em>Label Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>EReference Type To String Expression</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.RichAttributeFigure#getEReferenceTypeToStringExpression()
+	 * @return the meta object for the attribute '<em>Label Expression</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.RichAttributeFigure#getLabelExpression()
 	 * @see #getRichAttributeFigure()
 	 * @generated
 	 */
-	EAttribute getRichAttributeFigure_EReferenceTypeToStringExpression();
+	EAttribute getRichAttributeFigure_LabelExpression();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.GVFigureDescription <em>GV Figure Description</em>}'.
@@ -1867,12 +1867,12 @@ public interface GraphdescPackage extends EPackage {
 		EReference RICH_ATTRIBUTE_FIGURE__EREFERENCE = eINSTANCE.getRichAttributeFigure_EReference();
 
 		/**
-		 * The meta object literal for the '<em><b>EReference Type To String Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Label Expression</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION = eINSTANCE.getRichAttributeFigure_EReferenceTypeToStringExpression();
+		EAttribute RICH_ATTRIBUTE_FIGURE__LABEL_EXPRESSION = eINSTANCE.getRichAttributeFigure_LabelExpression();
 
 		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.GVFigureDescriptionImpl <em>GV Figure Description</em>}' class.

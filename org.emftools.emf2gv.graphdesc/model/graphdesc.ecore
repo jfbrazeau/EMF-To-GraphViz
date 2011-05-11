@@ -3,6 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="graphdesc"
     nsURI="http://org.emftools.emf2gv.graphdesc/1.0.5" nsPrefix="graphdesc">
+  <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
   <eClassifiers xsi:type="ecore:EClass" name="GVFigureDescription">
     <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="diagnostic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>
@@ -83,8 +84,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="RichAttributeFigure" eSuperTypes="#//AbstractAttributeFigure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="eReference" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eReferenceTypeToStringExpression"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelExpression" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractReferenceFigure" abstract="true"
       eSuperTypes="#//AbstractFigure">

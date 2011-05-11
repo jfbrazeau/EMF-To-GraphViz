@@ -57,7 +57,7 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl#getEReference <em>EReference</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl#getEReferenceTypeToStringExpression <em>EReference Type To String Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl#getLabelExpression <em>Label Expression</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,24 +75,24 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 	protected EReference eReference;
 
 	/**
-	 * The default value of the '{@link #getEReferenceTypeToStringExpression() <em>EReference Type To String Expression</em>}' attribute.
+	 * The default value of the '{@link #getLabelExpression() <em>Label Expression</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEReferenceTypeToStringExpression()
+	 * @see #getLabelExpression()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String EREFERENCE_TYPE_TO_STRING_EXPRESSION_EDEFAULT = null;
+	protected static final String LABEL_EXPRESSION_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEReferenceTypeToStringExpression() <em>EReference Type To String Expression</em>}' attribute.
+	 * The cached value of the '{@link #getLabelExpression() <em>Label Expression</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEReferenceTypeToStringExpression()
+	 * @see #getLabelExpression()
 	 * @generated
 	 * @ordered
 	 */
-	protected String eReferenceTypeToStringExpression = EREFERENCE_TYPE_TO_STRING_EXPRESSION_EDEFAULT;
+	protected String labelExpression = LABEL_EXPRESSION_EDEFAULT;
 
 	/**
 	 * OCL Helper that is used to validate the OCL Expressions.
@@ -161,8 +161,8 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getEReferenceTypeToStringExpression() {
-		return eReferenceTypeToStringExpression;
+	public String getLabelExpression() {
+		return labelExpression;
 	}
 
 	/**
@@ -170,11 +170,11 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setEReferenceTypeToStringExpression(String newEReferenceTypeToStringExpression) {
-		String oldEReferenceTypeToStringExpression = eReferenceTypeToStringExpression;
-		eReferenceTypeToStringExpression = newEReferenceTypeToStringExpression;
+	public void setLabelExpression(String newLabelExpression) {
+		String oldLabelExpression = labelExpression;
+		labelExpression = newLabelExpression;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION, oldEReferenceTypeToStringExpression, eReferenceTypeToStringExpression));
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_ATTRIBUTE_FIGURE__LABEL_EXPRESSION, oldLabelExpression, labelExpression));
 	}
 
 	/**
@@ -188,8 +188,8 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE:
 				if (resolve) return getEReference();
 				return basicGetEReference();
-			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION:
-				return getEReferenceTypeToStringExpression();
+			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__LABEL_EXPRESSION:
+				return getLabelExpression();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -205,8 +205,8 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE:
 				setEReference((EReference)newValue);
 				return;
-			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION:
-				setEReferenceTypeToStringExpression((String)newValue);
+			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__LABEL_EXPRESSION:
+				setLabelExpression((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -223,8 +223,8 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE:
 				setEReference((EReference)null);
 				return;
-			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION:
-				setEReferenceTypeToStringExpression(EREFERENCE_TYPE_TO_STRING_EXPRESSION_EDEFAULT);
+			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__LABEL_EXPRESSION:
+				setLabelExpression(LABEL_EXPRESSION_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -240,8 +240,8 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 		switch (featureID) {
 			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE:
 				return eReference != null;
-			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION:
-				return EREFERENCE_TYPE_TO_STRING_EXPRESSION_EDEFAULT == null ? eReferenceTypeToStringExpression != null : !EREFERENCE_TYPE_TO_STRING_EXPRESSION_EDEFAULT.equals(eReferenceTypeToStringExpression);
+			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE__LABEL_EXPRESSION:
+				return LABEL_EXPRESSION_EDEFAULT == null ? labelExpression != null : !LABEL_EXPRESSION_EDEFAULT.equals(labelExpression);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -256,8 +256,8 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (eReferenceTypeToStringExpression: ");
-		result.append(eReferenceTypeToStringExpression);
+		result.append(" (labelExpression: ");
+		result.append(labelExpression);
 		result.append(')');
 		return result.toString();
 	}
@@ -330,7 +330,7 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 					oclHelper.setContext(eReference.getEType());
 					try {
 						oclHelper
-								.createQuery(getEReferenceTypeToStringExpression());
+								.createQuery(getLabelExpression());
 					} catch (ParserException ex) {
 						constraintsHelper.addError(diagnostic, this, 0,
 								"The OCL expression is invalid : {0}",

@@ -4,10 +4,10 @@
   <classFigures headerBackgroundColor="16576444" bodyBackgroundColor="16709854">
     <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
-    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" eReferenceTypeToStringExpression="name.concat(' : ').concat(eAttributeType.name)">
+    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" labelExpression="name.concat(' : ').concat(eAttributeType.name)">
       <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eAttributes"/>
     </attributeFigures>
-    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" eReferenceTypeToStringExpression="self.toEcoreDiagString()">
+    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" labelExpression="self.toEcoreDiagString()">
       <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eOperations"/>
     </attributeFigures>
     <referenceFigures xsi:type="graphdesc:ReferenceFigure" targetArrowType="custom" customTargetArrow="onormal">
@@ -23,7 +23,7 @@
   <classFigures headerBackgroundColor="14548167" bodyBackgroundColor="15924969">
     <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EEnum"/>
     <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
-    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" eReferenceTypeToStringExpression="name">
+    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" labelExpression="name">
       <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EEnum/eLiterals"/>
     </attributeFigures>
   </classFigures>
@@ -37,7 +37,7 @@
   <classFigures headerBackgroundColor="15390696" bodyBackgroundColor="16248565">
     <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation"/>
     <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation/source"/>
-    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" eReferenceTypeToStringExpression="self.key">
+    <attributeFigures xsi:type="graphdesc:RichAttributeFigure" labelExpression="self.key">
       <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation/details"/>
     </attributeFigures>
     <referenceFigures xsi:type="graphdesc:ReferenceFigure" targetArrowType="none">

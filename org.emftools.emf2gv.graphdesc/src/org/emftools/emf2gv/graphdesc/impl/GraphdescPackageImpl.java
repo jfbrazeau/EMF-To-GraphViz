@@ -655,7 +655,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRichAttributeFigure_EReferenceTypeToStringExpression() {
+	public EAttribute getRichAttributeFigure_LabelExpression() {
 		return (EAttribute)richAttributeFigureEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -747,7 +747,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		richAttributeFigureEClass = createEClass(RICH_ATTRIBUTE_FIGURE);
 		createEReference(richAttributeFigureEClass, RICH_ATTRIBUTE_FIGURE__EREFERENCE);
-		createEAttribute(richAttributeFigureEClass, RICH_ATTRIBUTE_FIGURE__EREFERENCE_TYPE_TO_STRING_EXPRESSION);
+		createEAttribute(richAttributeFigureEClass, RICH_ATTRIBUTE_FIGURE__LABEL_EXPRESSION);
 
 		abstractReferenceFigureEClass = createEClass(ABSTRACT_REFERENCE_FIGURE);
 		createEReference(abstractReferenceFigureEClass, ABSTRACT_REFERENCE_FIGURE__CLASS_FIGURE);
@@ -878,7 +878,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		initEClass(richAttributeFigureEClass, RichAttributeFigure.class, "RichAttributeFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRichAttributeFigure_EReference(), theEcorePackage.getEReference(), null, "eReference", null, 1, 1, RichAttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRichAttributeFigure_EReferenceTypeToStringExpression(), theEcorePackage.getEString(), "eReferenceTypeToStringExpression", null, 0, 1, RichAttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRichAttributeFigure_LabelExpression(), theEcorePackage.getEString(), "labelExpression", null, 0, 1, RichAttributeFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abstractReferenceFigureEClass, AbstractReferenceFigure.class, "AbstractReferenceFigure", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAbstractReferenceFigure_ClassFigure(), this.getClassFigure(), this.getClassFigure_ReferenceFigures(), "classFigure", null, 1, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -931,6 +931,25 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// http://org.emftools.emf2gv.graphdesc/OverridableProperty
+		createOverridablePropertyAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>http://org.emftools.emf2gv.graphdesc/OverridableProperty</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createOverridablePropertyAnnotations() {
+		String source = "http://org.emftools.emf2gv.graphdesc/OverridableProperty";		
+		addAnnotation
+		  (this, 
+		   source, 
+		   new String[] {
+		   });
 	}
 
 } //GraphdescPackageImpl

@@ -47,6 +47,13 @@
         <genParameters ecoreParameter="graphdesc.ecore#//GVFigureDescription/getClassFigure/eClass"/>
       </genOperations>
     </genClasses>
+    <genClasses ecoreClass="graphdesc.ecore#//AbstractFigure">
+      <genFeatures property="None" createChild="false" propertyCategory="" ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractFigure/name"/>
+      <genOperations ecoreOperation="graphdesc.ecore#//AbstractFigure/validate">
+        <genParameters ecoreParameter="graphdesc.ecore#//AbstractFigure/validate/diagnostic"/>
+        <genParameters ecoreParameter="graphdesc.ecore#//AbstractFigure/validate/context"/>
+      </genOperations>
+    </genClasses>
     <genClasses ecoreClass="graphdesc.ecore#//ClassFigure">
       <genFeatures property="Readonly" notify="false" createChild="false" propertyCategory="Model"
           propertyDescription="The EPackage to which the EClass belongs." ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/ePackage"/>
@@ -78,35 +85,20 @@
         <genParameters ecoreParameter="graphdesc.ecore#//ClassFigure/getReferenceFigure/eReference"/>
       </genOperations>
     </genClasses>
+    <genClasses image="false" ecoreClass="graphdesc.ecore#//AbstractAttributeFigure">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//AbstractAttributeFigure/classFigure"/>
+    </genClasses>
     <genClasses ecoreClass="graphdesc.ecore#//AttributeFigure">
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The label to use (to be used when one wants to override the default EAttribute name)"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//AttributeFigure/label"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The EAttribute that this figure will represent on the graph"
           propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//AttributeFigure/eAttribute"/>
     </genClasses>
-    <genClasses ecoreClass="graphdesc.ecore#//RichReferenceFigure">
-      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The target EReference of the rich reference EClass"
-          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//RichReferenceFigure/targetEReference"/>
-      <genFeatures notify="false" createChild="false" propertyCategory="Appearance"
-          propertyDescription="The EAttribute to display in the source label" propertySortChoices="true"
-          ecoreFeature="ecore:EReference graphdesc.ecore#//RichReferenceFigure/sourceLabelEAttribute"/>
-      <genFeatures notify="false" createChild="false" propertyCategory="Appearance"
-          propertyDescription="The EAttribute to display in the standard label (centered)"
-          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//RichReferenceFigure/standardLabelEAttribute"/>
-      <genFeatures notify="false" createChild="false" propertyCategory="Appearance"
-          propertyDescription="The EAttribute to display in the target label" propertySortChoices="true"
-          ecoreFeature="ecore:EReference graphdesc.ecore#//RichReferenceFigure/targetLabelEAttribute"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Multiplicative scaling factor adjusting the distance that the headlabel(taillabel) is from the head(tail) node (same as Graphviz labeldistance property)"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/labelDistance"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="This, along with labeldistance, determine where the headlabel (taillabel) are placed with respect to the head (tail) in polar coordinates. The origin in the coordinate system is the point where the edge touches the node. The ray of 0 degrees goes from the origin back along the edge, parallel to the edge at the origin. (same as Graphviz labelangle property)"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/labelAngle"/>
-    </genClasses>
-    <genClasses ecoreClass="graphdesc.ecore#//AbstractFigure">
-      <genFeatures property="None" createChild="false" propertyCategory="" ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractFigure/name"/>
-      <genOperations ecoreOperation="graphdesc.ecore#//AbstractFigure/validate">
-        <genParameters ecoreParameter="graphdesc.ecore#//AbstractFigure/validate/diagnostic"/>
-        <genParameters ecoreParameter="graphdesc.ecore#//AbstractFigure/validate/context"/>
-      </genOperations>
+    <genClasses ecoreClass="graphdesc.ecore#//RichAttributeFigure">
+      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The EReference that gives the rich attribute(s) EObject(s)"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//RichAttributeFigure/eReference"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The OCL expression to use to build the string representation for the EObject that is targeted by the EReference"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichAttributeFigure/labelExpression"/>
     </genClasses>
     <genClasses image="false" ecoreClass="graphdesc.ecore#//AbstractReferenceFigure">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//AbstractReferenceFigure/classFigure"/>
@@ -130,17 +122,26 @@
           propertyDescription="The target type of the EReference" ecoreFeature="ecore:EReference graphdesc.ecore#//AbstractReferenceFigure/targetEType"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Minimum edge length (same as Graphviz minlen property)"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractReferenceFigure/minimumEdgeLength"/>
-      <genOperations ecoreOperation="graphdesc.ecore#//AbstractReferenceFigure/targetClassFigureExists"/>
     </genClasses>
-    <genClasses ecoreClass="graphdesc.ecore#//ReferenceFigure"/>
-    <genClasses image="false" ecoreClass="graphdesc.ecore#//AbstractAttributeFigure">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//AbstractAttributeFigure/classFigure"/>
+    <genClasses ecoreClass="graphdesc.ecore#//ReferenceFigure">
+      <genOperations ecoreOperation="graphdesc.ecore#//ReferenceFigure/targetClassFigureExists"/>
     </genClasses>
-    <genClasses ecoreClass="graphdesc.ecore#//RichAttributeFigure">
-      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The EReference that gives the rich attribute(s) EObject(s)"
-          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//RichAttributeFigure/eReference"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The OCL expression to use to convert the  rich attribute(s) EObject(s) to string (to be displayed as an attribute in the graph)"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichAttributeFigure/eReferenceTypeToStringExpression"/>
+    <genClasses ecoreClass="graphdesc.ecore#//RichReferenceFigure">
+      <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The target EReference of the rich reference EClass"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//RichReferenceFigure/targetEReference"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Appearance"
+          propertyDescription="The EAttribute to display in the source label" propertySortChoices="true"
+          ecoreFeature="ecore:EReference graphdesc.ecore#//RichReferenceFigure/sourceLabelEAttribute"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Appearance"
+          propertyDescription="The EAttribute to display in the standard label (centered)"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//RichReferenceFigure/standardLabelEAttribute"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Appearance"
+          propertyDescription="The EAttribute to display in the target label" propertySortChoices="true"
+          ecoreFeature="ecore:EReference graphdesc.ecore#//RichReferenceFigure/targetLabelEAttribute"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Multiplicative scaling factor adjusting the distance that the headlabel(taillabel) is from the head(tail) node (same as Graphviz labeldistance property)"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/labelDistance"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="This, along with labeldistance, determine where the headlabel (taillabel) are placed with respect to the head (tail) in polar coordinates. The origin in the coordinate system is the point where the edge touches the node. The ray of 0 degrees goes from the origin back along the edge, parallel to the edge at the origin. (same as Graphviz labelangle property)"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/labelAngle"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
