@@ -147,13 +147,16 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void setEReference(EReference newEReference) {
+		String oldName = getName();
 		EReference oldEReference = eReference;
 		eReference = newEReference;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_ATTRIBUTE_FIGURE__EREFERENCE, oldEReference, eReference));
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_ATTRIBUTE_FIGURE__NAME, oldName, getName()));
+		}
 	}
 
 	/**

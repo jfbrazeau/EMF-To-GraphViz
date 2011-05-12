@@ -27,6 +27,7 @@
  */
 package org.emftools.emf2gv.graphdesc.util;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -62,16 +63,16 @@ import org.emftools.emf2gv.util.ColorsHelper;
 public class GraphdescGenerator {
 
 	/** Predefined colors tu use in the class figures */
-	private static List<Integer> predefinedColors = Arrays
-			.asList(new Integer[] { // Predefined colors
-			0xD0BCFE, // Blue violet
-					0x9DBDF9, // Blue
-					0x98FB98, // Pale green
-					0xFFF575, // Yellow
-					0xE3D6AA, // Brown
-					0xFFC895, // Orange
-					0xFA8072, // Salmon
-					0xFFC8C8 // Red
+	private static List<Color> predefinedColors = Arrays.asList(new Color[] { // Predefined
+																				// colors
+					new Color(0xD0BCFE), // Blue violet
+					new Color(0x9DBDF9), // Blue
+					new Color(0x98FB98), // Pale green
+					new Color(0xFFF575), // Yellow
+					new Color(0xE3D6AA), // Brown
+					new Color(0xFFC895), // Orange
+					new Color(0xFA8072), // Salmon
+					new Color(0xFFC8C8) // Red
 
 			});
 
@@ -174,12 +175,12 @@ public class GraphdescGenerator {
 			if (predefinedColorIdx >= predefinedColors.size()) {
 				predefinedColorIdx = 0;
 			}
-			int baseColor = predefinedColors.get(predefinedColorIdx);
+			Color baseColor = predefinedColors.get(predefinedColorIdx);
 			predefinedColorIdx++;
 			// ClassFigure colors setting
+			;
 			classFigure.setHeaderBackgroundColor(baseColor);
-			classFigure.setBodyBackgroundColor(ColorsHelper
-					.makeColorBrighter(baseColor));
+			classFigure.setBodyBackgroundColor(ColorsHelper.makeColorBrighter(baseColor));
 			/*
 			 * Label attribute selection
 			 */

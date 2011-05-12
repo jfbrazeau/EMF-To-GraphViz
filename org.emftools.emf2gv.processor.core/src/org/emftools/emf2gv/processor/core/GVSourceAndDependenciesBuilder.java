@@ -1090,17 +1090,14 @@ final class GVSourceAndDependenciesBuilder {
 		ClassFigure classFigure = nodeDesc.classFigure;
 		String colorAccessorName = (String) classFigure
 				.eGet(colorAccessorEAttribute);
-		int bgColor = (Integer) classFigure.eGet(defaultColorEAttribute);
+		Color bgColor = (Color) classFigure.eGet(defaultColorEAttribute);
 		if (classFigure.isDynamicAppearance() && colorAccessorName != null) {
 			Exception exception = null;
 			EObject eObject = nodeDesc.eObject;
 			try {
 				Method method = eObject.getClass().getMethod(colorAccessorName,
 						new Class<?>[] {});
-				Color result = (Color) method.invoke(eObject, new Object[] {});
-				if (result != null) {
-					bgColor = ColorsHelper.toInt(result);
-				}
+				bgColor = (Color) method.invoke(eObject, new Object[] {});
 			} catch (SecurityException e) {
 				exception = e;
 			} catch (NoSuchMethodException e) {

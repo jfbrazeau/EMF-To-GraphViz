@@ -27,6 +27,7 @@
  */
 package org.emftools.emf2gv.graphdesc.util;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -184,6 +185,8 @@ public class GraphdescValidator extends EObjectValidator {
 				return validateArrowType((ArrowType)value, diagnostics, context);
 			case GraphdescPackage.ARROW_STYLE:
 				return validateArrowStyle((ArrowStyle)value, diagnostics, context);
+			case GraphdescPackage.COLOR:
+				return validateColor((Color)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -462,6 +465,15 @@ public class GraphdescValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateArrowStyle(ArrowStyle arrowStyle, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateColor(Color color, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

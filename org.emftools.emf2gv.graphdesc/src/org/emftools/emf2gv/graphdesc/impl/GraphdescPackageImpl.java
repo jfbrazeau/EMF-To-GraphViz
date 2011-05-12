@@ -28,8 +28,11 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
+import java.awt.Color;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EOperation;
@@ -160,6 +163,13 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * @generated
 	 */
 	private EEnum arrowStyleEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType colorEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -797,6 +807,15 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getColor() {
+		return colorEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GraphdescFactory getGraphdescFactory() {
 		return (GraphdescFactory)getEFactoryInstance();
 	}
@@ -894,6 +913,9 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		orientationEEnum = createEEnum(ORIENTATION);
 		arrowTypeEEnum = createEEnum(ARROW_TYPE);
 		arrowStyleEEnum = createEEnum(ARROW_STYLE);
+
+		// Create data types
+		colorEDataType = createEDataType(COLOR);
 	}
 
 	/**
@@ -975,8 +997,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEReference(getClassFigure_AttributeFigures(), this.getAbstractAttributeFigure(), this.getAbstractAttributeFigure_ClassFigure(), "attributeFigures", null, 0, -1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassFigure_ReferenceFigures(), this.getAbstractReferenceFigure(), this.getAbstractReferenceFigure_ClassFigure(), "referenceFigures", null, 0, -1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassFigure_GvFigureDescription(), this.getGVFigureDescription(), this.getGVFigureDescription_ClassFigures(), "gvFigureDescription", null, 1, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getClassFigure_HeaderBackgroundColor(), theEcorePackage.getEInt(), "headerBackgroundColor", "10337785", 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getClassFigure_BodyBackgroundColor(), theEcorePackage.getEInt(), "bodyBackgroundColor", "15658734", 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getClassFigure_HeaderBackgroundColor(), this.getColor(), "headerBackgroundColor", "#9DBDF9", 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getClassFigure_BodyBackgroundColor(), this.getColor(), "bodyBackgroundColor", "#EEEEEE", 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassFigure_NestedFiguresEReferences(), theEcorePackage.getEReference(), null, "nestedFiguresEReferences", null, 0, -1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClassFigure_DynamicAppearance(), theEcorePackage.getEBoolean(), "dynamicAppearance", null, 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClassFigure_HeaderBackgroundColorAccessor(), theEcorePackage.getEString(), "headerBackgroundColorAccessor", null, 0, 1, ClassFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1008,7 +1030,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEAttribute(getAbstractReferenceFigure_Containment(), ecorePackage.getEBoolean(), "containment", null, 0, 1, AbstractReferenceFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAbstractReferenceFigure_CustomTargetArrow(), theEcorePackage.getEString(), "customTargetArrow", null, 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAbstractReferenceFigure_CustomSourceArrow(), theEcorePackage.getEString(), "customSourceArrow", null, 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAbstractReferenceFigure_Color(), theEcorePackage.getEInt(), "color", null, 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractReferenceFigure_Color(), this.getColor(), "color", "#000000", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAbstractReferenceFigure_Style(), this.getArrowStyle(), "style", "normal", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbstractReferenceFigure_TargetEType(), theEcorePackage.getEClass(), null, "targetEType", null, 0, 1, AbstractReferenceFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAbstractReferenceFigure_MinimumEdgeLength(), theEcorePackage.getEInt(), "minimumEdgeLength", "1", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1077,6 +1099,9 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.DOTTED);
 		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.BOLD);
 
+		// Initialize data types
+		initEDataType(colorEDataType, Color.class, "Color", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+
 		// Create resource
 		createResource(eNS_URI);
 
@@ -1095,6 +1120,11 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		String source = "http://org.emftools.emf2gv.graphdesc/OverridableProperty";		
 		addAnnotation
 		  (this, 
+		   source, 
+		   new String[] {
+		   });		
+		addAnnotation
+		  (getClassFigure_LabelEAttribute(), 
 		   source, 
 		   new String[] {
 		   });

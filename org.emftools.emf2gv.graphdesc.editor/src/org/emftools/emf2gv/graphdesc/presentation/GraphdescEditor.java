@@ -1378,7 +1378,7 @@ public class GraphdescEditor
 	 */
 	public IPropertySheetPage getPropertySheetPage() {
 		if (propertySheetPage == null) {
-			final Map<Integer, Image> colorIcons = new HashMap<Integer, Image>();
+			final Map<String, Image> colorIcons = new HashMap<String, Image>();
 			GraphdescPackage pkg = GraphdescPackage.eINSTANCE;
 
 			// Class figure properties order

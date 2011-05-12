@@ -29,6 +29,7 @@ package org.emftools.emf2gv.graphdesc;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -1098,6 +1099,17 @@ public interface GraphdescPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '<em>Color</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.awt.Color
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getColor()
+	 * @generated
+	 */
+	int COLOR = 14;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.ClassFigure <em>Class Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1755,6 +1767,17 @@ public interface GraphdescPackage extends EPackage {
 	EEnum getArrowStyle();
 
 	/**
+	 * Returns the meta object for data type '{@link java.awt.Color <em>Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Color</em>'.
+	 * @see java.awt.Color
+	 * @model instanceClass="java.awt.Color"
+	 * @generated
+	 */
+	EDataType getColor();
+
+	/**
 	 * Returns the meta object for the reference list '{@link org.emftools.emf2gv.graphdesc.GVFigureDescription#getEPackages <em>EPackages</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2302,6 +2325,16 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum ARROW_STYLE = eINSTANCE.getArrowStyle();
+
+		/**
+		 * The meta object literal for the '<em>Color</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.awt.Color
+		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getColor()
+		 * @generated
+		 */
+		EDataType COLOR = eINSTANCE.getColor();
 
 		/**
 		 * The meta object literal for the '<em><b>EPackages</b></em>' reference list feature.

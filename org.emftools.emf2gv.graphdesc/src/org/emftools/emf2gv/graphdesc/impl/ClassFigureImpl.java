@@ -27,6 +27,7 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
+import java.awt.Color;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
+import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
@@ -133,7 +135,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int HEADER_BACKGROUND_COLOR_EDEFAULT = 10337785;
+	protected static final Color HEADER_BACKGROUND_COLOR_EDEFAULT = (Color)GraphdescFactory.eINSTANCE.createFromString(GraphdescPackage.eINSTANCE.getColor(), "#9DBDF9");
 
 	/**
 	 * The cached value of the '{@link #getHeaderBackgroundColor() <em>Header Background Color</em>}' attribute.
@@ -143,7 +145,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * @generated
 	 * @ordered
 	 */
-	protected int headerBackgroundColor = HEADER_BACKGROUND_COLOR_EDEFAULT;
+	protected Color headerBackgroundColor = HEADER_BACKGROUND_COLOR_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getBodyBackgroundColor() <em>Body Background Color</em>}' attribute.
@@ -153,7 +155,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int BODY_BACKGROUND_COLOR_EDEFAULT = 15658734;
+	protected static final Color BODY_BACKGROUND_COLOR_EDEFAULT = (Color)GraphdescFactory.eINSTANCE.createFromString(GraphdescPackage.eINSTANCE.getColor(), "#EEEEEE");
 
 	/**
 	 * The cached value of the '{@link #getBodyBackgroundColor() <em>Body Background Color</em>}' attribute.
@@ -163,7 +165,7 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * @generated
 	 * @ordered
 	 */
-	protected int bodyBackgroundColor = BODY_BACKGROUND_COLOR_EDEFAULT;
+	protected Color bodyBackgroundColor = BODY_BACKGROUND_COLOR_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getNestedFiguresEReferences() <em>Nested Figures EReferences</em>}' reference list.
@@ -447,16 +449,17 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getHeaderBackgroundColor() {
+	public Color getHeaderBackgroundColor() {
 		return headerBackgroundColor;
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setHeaderBackgroundColor(int newHeaderBackgroundColor) {
-		int oldHeaderBackgroundColor = headerBackgroundColor;
+	public void setHeaderBackgroundColor(Color newHeaderBackgroundColor) {
+		Color oldHeaderBackgroundColor = headerBackgroundColor;
 		headerBackgroundColor = newHeaderBackgroundColor;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR, oldHeaderBackgroundColor, headerBackgroundColor));
@@ -466,16 +469,17 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getBodyBackgroundColor() {
+	public Color getBodyBackgroundColor() {
 		return bodyBackgroundColor;
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBodyBackgroundColor(int newBodyBackgroundColor) {
-		int oldBodyBackgroundColor = bodyBackgroundColor;
+	public void setBodyBackgroundColor(Color newBodyBackgroundColor) {
+		Color oldBodyBackgroundColor = bodyBackgroundColor;
 		bodyBackgroundColor = newBodyBackgroundColor;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR, oldBodyBackgroundColor, bodyBackgroundColor));
@@ -863,10 +867,10 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				setGvFigureDescription((GVFigureDescription)newValue);
 				return;
 			case GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR:
-				setHeaderBackgroundColor((Integer)newValue);
+				setHeaderBackgroundColor((Color)newValue);
 				return;
 			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR:
-				setBodyBackgroundColor((Integer)newValue);
+				setBodyBackgroundColor((Color)newValue);
 				return;
 			case GraphdescPackage.CLASS_FIGURE__NESTED_FIGURES_EREFERENCES:
 				getNestedFiguresEReferences().clear();
@@ -949,9 +953,9 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 			case GraphdescPackage.CLASS_FIGURE__GV_FIGURE_DESCRIPTION:
 				return getGvFigureDescription() != null;
 			case GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR:
-				return headerBackgroundColor != HEADER_BACKGROUND_COLOR_EDEFAULT;
+				return HEADER_BACKGROUND_COLOR_EDEFAULT == null ? headerBackgroundColor != null : !HEADER_BACKGROUND_COLOR_EDEFAULT.equals(headerBackgroundColor);
 			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR:
-				return bodyBackgroundColor != BODY_BACKGROUND_COLOR_EDEFAULT;
+				return BODY_BACKGROUND_COLOR_EDEFAULT == null ? bodyBackgroundColor != null : !BODY_BACKGROUND_COLOR_EDEFAULT.equals(bodyBackgroundColor);
 			case GraphdescPackage.CLASS_FIGURE__NESTED_FIGURES_EREFERENCES:
 				return nestedFiguresEReferences != null && !nestedFiguresEReferences.isEmpty();
 			case GraphdescPackage.CLASS_FIGURE__DYNAMIC_APPEARANCE:

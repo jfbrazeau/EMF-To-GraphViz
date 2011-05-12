@@ -27,6 +27,7 @@
  */
 package org.emftools.emf2gv.graphdesc.presentation.util;
 
+import java.awt.Color;
 import java.util.Map;
 
 import org.eclipse.emf.common.ui.celleditor.ExtendedDialogCellEditor;
@@ -35,7 +36,6 @@ import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
@@ -57,7 +57,7 @@ import org.emftools.emf2gv.util.ColorsHelper;
 public class ColorPropertyDescriptor extends PropertyDescriptor {
 
 	/** The color icons map */
-	private Map<Integer, Image> colorIcons;
+	private Map<String, Image> colorIcons;
 
 	/** The label provider */
 	private LabelProvider labelProvider = new LabelProvider() {
@@ -69,7 +69,7 @@ public class ColorPropertyDescriptor extends PropertyDescriptor {
 		 */
 		@Override
 		public String getText(Object element) {
-			return ColorsHelper.toHtmlColor((Integer) element);
+			return ColorsHelper.toHtmlColor((Color) element);
 		}
 
 		/*
@@ -80,16 +80,17 @@ public class ColorPropertyDescriptor extends PropertyDescriptor {
 		 */
 		@Override
 		public Image getImage(Object element) {
-			Integer colorValue = (Integer) element;
-			Image colorIcon = colorIcons.get(colorValue);
+			Color colorValue = (Color) element;
+			String htmlColor = ColorsHelper.toHtmlColor(colorValue);
+			Image colorIcon = colorIcons.get(htmlColor);
 			if (colorIcon == null) {
 				colorIcon = new Image(Display.getCurrent(), 16, 16);
-				colorIcons.put(colorValue, colorIcon);
+				colorIcons.put(htmlColor, colorIcon);
 				GC gc = new GC(colorIcon);
-				Color color = new Color(Display.getCurrent(),
-						(colorValue >> 16) & 255, // RED
-						(colorValue >> 8) & 255, // GREEN
-						colorValue & 255); // BLUE
+				org.eclipse.swt.graphics.Color color = new org.eclipse.swt.graphics.Color(
+						Display.getCurrent(), colorValue.getRed(), // RED
+						colorValue.getGreen(), // GREEN
+						colorValue.getBlue()); // BLUE
 				gc.setBackground(color);
 				gc.fillRectangle(2, 2, 12, 12);
 				color.dispose();
@@ -112,7 +113,7 @@ public class ColorPropertyDescriptor extends PropertyDescriptor {
 	 */
 	public ColorPropertyDescriptor(Object object,
 			IItemPropertyDescriptor itemPropertyDescriptor,
-			Map<Integer, Image> colorIcons) {
+			Map<String, Image> colorIcons) {
 		super(object, itemPropertyDescriptor);
 		this.colorIcons = colorIcons;
 	}
@@ -146,14 +147,14 @@ public class ColorPropertyDescriptor extends PropertyDescriptor {
 					ColorDialog dialog = new ColorDialog(Display.getCurrent()
 							.getActiveShell());
 					dialog.setText("Select a color");
-					Integer colorValue = (Integer) getValue();
-					dialog.setRGB(new RGB((colorValue >> 16) & 255, // RED
-							(colorValue >> 8) & 255, // GREEN
-							colorValue & 255)); // BLUE
+					Color colorValue = (Color) getValue();
+					dialog.setRGB(new RGB(colorValue.getRed(), // RED
+							colorValue.getGreen(), // GREEN
+							colorValue.getBlue())); // BLUE
 					RGB rgb = dialog.open();
 					labelProvider.dispose();
 					if (rgb != null) {
-						return (rgb.red << 16) + (rgb.green << 8) + (rgb.blue);
+						return new Color(rgb.red, rgb.green, rgb.blue);
 					}
 					return null;
 				}

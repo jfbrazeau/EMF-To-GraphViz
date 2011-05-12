@@ -63,10 +63,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="gvFigureDescription" lowerBound="1"
         eType="#//GVFigureDescription" eOpposite="#//GVFigureDescription/classFigures"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="headerBackgroundColor"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
-        defaultValueLiteral="10337785"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bodyBackgroundColor" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
-        defaultValueLiteral="15658734"/>
+        eType="#//Color" defaultValueLiteral="#9DBDF9"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bodyBackgroundColor" eType="#//Color"
+        defaultValueLiteral="#EEEEEE"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nestedFiguresEReferences"
         upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dynamicAppearance" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
@@ -106,7 +105,8 @@
         changeable="false" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="customTargetArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="customSourceArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="color" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="color" eType="#//Color"
+        defaultValueLiteral="#000000"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//ArrowStyle"
         defaultValueLiteral="normal"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetEType" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"

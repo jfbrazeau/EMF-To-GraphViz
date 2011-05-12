@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <graphdesc:GVFigureDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:graphdesc="http://org.emftools.emf2gv.graphdesc/1.0.5" orientation="TopDown">
   <ePackages href="http://www.eclipse.org/emf/2002/Ecore#/"/>
-  <classFigures headerBackgroundColor="16576444" bodyBackgroundColor="16709854">
+  <classFigures headerBackgroundColor="#FCEFBC" bodyBackgroundColor="#FEF8DE">
     <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
     <attributeFigures xsi:type="graphdesc:RichAttributeFigure" labelExpression="name.concat(' : ').concat(eAttributeType.name)">
@@ -18,21 +18,21 @@
       <targetEReference href="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement/eType"/>
     </referenceFigures>
   </classFigures>
-  <classFigures headerBackgroundColor="14548167" bodyBackgroundColor="15924969">
+  <classFigures headerBackgroundColor="#DDFCC7" bodyBackgroundColor="#F2FEE9">
     <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EEnum"/>
     <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
     <attributeFigures xsi:type="graphdesc:RichAttributeFigure" labelExpression="name">
       <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EEnum/eLiterals"/>
     </attributeFigures>
   </classFigures>
-  <classFigures headerBackgroundColor="16053492">
+  <classFigures headerBackgroundColor="#F4F4F4">
     <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
     <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
     <nestedFiguresEReferences href="http://www.eclipse.org/emf/2002/Ecore#//EPackage/eClassifiers"/>
     <nestedFiguresEReferences href="http://www.eclipse.org/emf/2002/Ecore#//EModelElement/eAnnotations"/>
     <nestedFiguresEReferences href="http://www.eclipse.org/emf/2002/Ecore#//EPackage/eSubpackages"/>
   </classFigures>
-  <classFigures headerBackgroundColor="15390696" bodyBackgroundColor="16248565">
+  <classFigures headerBackgroundColor="#EAD7E8" bodyBackgroundColor="#F7EEF5">
     <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation"/>
     <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//EAnnotation/source"/>
     <attributeFigures xsi:type="graphdesc:RichAttributeFigure" labelExpression="self.key">

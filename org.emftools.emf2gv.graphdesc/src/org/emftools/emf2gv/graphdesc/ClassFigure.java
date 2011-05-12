@@ -27,6 +27,8 @@
  */
 package org.emftools.emf2gv.graphdesc;
 
+import java.awt.Color;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -195,7 +197,7 @@ public interface ClassFigure extends AbstractFigure {
 
 	/**
 	 * Returns the value of the '<em><b>Header Background Color</b></em>' attribute.
-	 * The default value is <code>"10337785"</code>.
+	 * The default value is <code>"#9DBDF9"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Header Background Color</em>' attribute isn't clear,
@@ -203,12 +205,12 @@ public interface ClassFigure extends AbstractFigure {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Header Background Color</em>' attribute.
-	 * @see #setHeaderBackgroundColor(int)
+	 * @see #setHeaderBackgroundColor(Color)
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getClassFigure_HeaderBackgroundColor()
-	 * @model default="10337785"
+	 * @model default="#9DBDF9" dataType="org.emftools.emf2gv.graphdesc.Color"
 	 * @generated
 	 */
-	int getHeaderBackgroundColor();
+	Color getHeaderBackgroundColor();
 
 	/**
 	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getHeaderBackgroundColor <em>Header Background Color</em>}' attribute.
@@ -218,11 +220,11 @@ public interface ClassFigure extends AbstractFigure {
 	 * @see #getHeaderBackgroundColor()
 	 * @generated
 	 */
-	void setHeaderBackgroundColor(int value);
+	void setHeaderBackgroundColor(Color value);
 
 	/**
 	 * Returns the value of the '<em><b>Body Background Color</b></em>' attribute.
-	 * The default value is <code>"15658734"</code>.
+	 * The default value is <code>"#EEEEEE"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Body Background Color</em>' attribute isn't clear,
@@ -230,12 +232,12 @@ public interface ClassFigure extends AbstractFigure {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Body Background Color</em>' attribute.
-	 * @see #setBodyBackgroundColor(int)
+	 * @see #setBodyBackgroundColor(Color)
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getClassFigure_BodyBackgroundColor()
-	 * @model default="15658734"
+	 * @model default="#EEEEEE" dataType="org.emftools.emf2gv.graphdesc.Color"
 	 * @generated
 	 */
-	int getBodyBackgroundColor();
+	Color getBodyBackgroundColor();
 
 	/**
 	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getBodyBackgroundColor <em>Body Background Color</em>}' attribute.
@@ -245,7 +247,7 @@ public interface ClassFigure extends AbstractFigure {
 	 * @see #getBodyBackgroundColor()
 	 * @generated
 	 */
-	void setBodyBackgroundColor(int value);
+	void setBodyBackgroundColor(Color value);
 
 	/**
 	 * Returns the value of the '<em><b>Nested Figures EReferences</b></em>' reference list.

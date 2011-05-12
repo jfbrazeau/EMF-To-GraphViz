@@ -27,6 +27,8 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
+import java.awt.Color;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -46,6 +48,7 @@ import org.emftools.emf2gv.graphdesc.Orientation;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
+import org.emftools.emf2gv.util.ColorsHelper;
 
 /**
  * <!-- begin-user-doc -->
@@ -118,6 +121,8 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 				return createArrowTypeFromString(eDataType, initialValue);
 			case GraphdescPackage.ARROW_STYLE:
 				return createArrowStyleFromString(eDataType, initialValue);
+			case GraphdescPackage.COLOR:
+				return createColorFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -137,6 +142,8 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 				return convertArrowTypeToString(eDataType, instanceValue);
 			case GraphdescPackage.ARROW_STYLE:
 				return convertArrowStyleToString(eDataType, instanceValue);
+			case GraphdescPackage.COLOR:
+				return convertColorToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -280,6 +287,24 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 	 */
 	public String convertArrowStyleToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Color createColorFromString(EDataType eDataType, String initialValue) {
+		return ColorsHelper.parseHtmlColor(initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String convertColorToString(EDataType eDataType, Object instanceValue) {
+		return ColorsHelper.toHtmlColor((Color) instanceValue);
 	}
 
 	/**

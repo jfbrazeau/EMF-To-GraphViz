@@ -28,6 +28,8 @@
  */
 package org.emftools.emf2gv.graphdesc;
 
+import java.awt.Color;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 
@@ -241,6 +243,7 @@ public interface AbstractReferenceFigure extends AbstractFigure {
 
 	/**
 	 * Returns the value of the '<em><b>Color</b></em>' attribute.
+	 * The default value is <code>"#000000"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Color</em>' attribute isn't clear,
@@ -248,12 +251,12 @@ public interface AbstractReferenceFigure extends AbstractFigure {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Color</em>' attribute.
-	 * @see #setColor(int)
+	 * @see #setColor(Color)
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAbstractReferenceFigure_Color()
-	 * @model
+	 * @model default="#000000" dataType="org.emftools.emf2gv.graphdesc.Color"
 	 * @generated
 	 */
-	int getColor();
+	Color getColor();
 
 	/**
 	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getColor <em>Color</em>}' attribute.
@@ -263,7 +266,7 @@ public interface AbstractReferenceFigure extends AbstractFigure {
 	 * @see #getColor()
 	 * @generated
 	 */
-	void setColor(int value);
+	void setColor(Color value);
 
 	/**
 	 * Returns the value of the '<em><b>Style</b></em>' attribute.

@@ -48,7 +48,7 @@ import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 public class GraphdescPropertySource extends PropertySource {
 
 	/** The color icons map */
-	private Map<Integer, Image> colorIcons;
+	private Map<String, Image> colorIcons;
 
 	/**
 	 * Default constructor.
@@ -62,7 +62,7 @@ public class GraphdescPropertySource extends PropertySource {
 	 */
 	public GraphdescPropertySource(Object object,
 			IItemPropertySource itemPropertySource,
-			Map<Integer, Image> colorIcons) {
+			Map<String, Image> colorIcons) {
 		super(object, itemPropertySource);
 		this.colorIcons = colorIcons;
 	}

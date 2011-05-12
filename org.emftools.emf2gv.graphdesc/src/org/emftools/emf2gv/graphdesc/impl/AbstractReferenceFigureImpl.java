@@ -28,6 +28,7 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
+import java.awt.Color;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -43,6 +44,7 @@ import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
@@ -188,7 +190,7 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int COLOR_EDEFAULT = 0;
+	protected static final Color COLOR_EDEFAULT = (Color)GraphdescFactory.eINSTANCE.createFromString(GraphdescPackage.eINSTANCE.getColor(), "#000000");
 
 	/**
 	 * The cached value of the '{@link #getColor() <em>Color</em>}' attribute.
@@ -198,7 +200,7 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 	 * @generated
 	 * @ordered
 	 */
-	protected int color = COLOR_EDEFAULT;
+	protected Color color = COLOR_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getStyle() <em>Style</em>}' attribute.
@@ -487,7 +489,7 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getColor() {
+	public Color getColor() {
 		return color;
 	}
 
@@ -496,8 +498,8 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setColor(int newColor) {
-		int oldColor = color;
+	public void setColor(Color newColor) {
+		Color oldColor = color;
 		color = newColor;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.ABSTRACT_REFERENCE_FIGURE__COLOR, oldColor, color));
@@ -793,7 +795,7 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 				setCustomSourceArrow((String)newValue);
 				return;
 			case GraphdescPackage.ABSTRACT_REFERENCE_FIGURE__COLOR:
-				setColor((Integer)newValue);
+				setColor((Color)newValue);
 				return;
 			case GraphdescPackage.ABSTRACT_REFERENCE_FIGURE__STYLE:
 				setStyle((ArrowStyle)newValue);
@@ -867,7 +869,7 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 			case GraphdescPackage.ABSTRACT_REFERENCE_FIGURE__CUSTOM_SOURCE_ARROW:
 				return CUSTOM_SOURCE_ARROW_EDEFAULT == null ? customSourceArrow != null : !CUSTOM_SOURCE_ARROW_EDEFAULT.equals(customSourceArrow);
 			case GraphdescPackage.ABSTRACT_REFERENCE_FIGURE__COLOR:
-				return color != COLOR_EDEFAULT;
+				return COLOR_EDEFAULT == null ? color != null : !COLOR_EDEFAULT.equals(color);
 			case GraphdescPackage.ABSTRACT_REFERENCE_FIGURE__STYLE:
 				return style != STYLE_EDEFAULT;
 			case GraphdescPackage.ABSTRACT_REFERENCE_FIGURE__TARGET_ETYPE:

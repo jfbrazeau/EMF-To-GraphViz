@@ -47,24 +47,50 @@ public class ColorsHelper {
 	 *            the color to convert.
 	 * @return the converted string.
 	 */
-	public static String toHtmlColor(int color) {
-		char[] result = new char[7];
-		result[0] = '#';
-		toHex((byte) getRed(color), result, 1); // RED
-		toHex((byte) getGreen(color), result, 3); // GREEN
-		toHex((byte) getBlue(color), result, 5); // BLUE
-		return new String(result);
+	public static String toHtmlColor(Color color) {
+		// TODO remove the following code
+		String result = null;
+		if (color != null) {
+			char[] cars = new char[7];
+			cars[0] = '#';
+			toHex((byte) color.getRed(), cars, 1); // RED
+			toHex((byte) color.getGreen(), cars, 3); // GREEN
+			toHex((byte) color.getBlue(), cars, 5); // BLUE
+			return new String(cars);
+		}
+		else {
+			result = "#000000";
+		}
+		return result;
 	}
 
 	/**
-	 * Converts a color to an integer value.
-	 * @param color the color to convert.
-	 * @return the converted color.
+	 * Parses an html color.
+	 * 
+	 * @param htmlColor
+	 *            the html color to parse.
+	 * @return the color.
 	 */
-	public static int toInt(Color color) {
-		return getColor(color.getRed(), color.getGreen(), color.getBlue());
+	public static Color parseHtmlColor(String htmlColor) {
+		Color result = null;
+		if (htmlColor != null) {
+			if (htmlColor.length() == 7 && htmlColor.startsWith("#")) {
+				htmlColor = htmlColor.substring(1);
+				int r = Integer.parseInt(htmlColor.substring(0, 2), 16);
+				int g = Integer.parseInt(htmlColor.substring(2, 4), 16);
+				int b = Integer.parseInt(htmlColor.substring(4, 6), 16);
+				result = new Color(r, g, b);
+			} else {
+				// TODO remove the following code
+				int intColor = Integer.parseInt(htmlColor);
+				result = new Color((intColor >> 16) & 255,
+						(intColor >> 8) & 255, (intColor) & 255);
+
+			}
+		}
+		return result;
 	}
-	
+
 	/**
 	 * Converts a byte value to hexadecimal and put the result in an array.
 	 * 
@@ -81,59 +107,17 @@ public class ColorsHelper {
 	}
 
 	/**
-	 * @param color
-	 *            the color.
-	 * @return the red component of the given color.
-	 */
-	public static int getRed(int color) {
-		return (color >> 16) & 255;
-	}
-
-	/**
-	 * @param color
-	 *            the color.
-	 * @return the green component of the given color.
-	 */
-	public static int getGreen(int color) {
-		return (color >> 8) & 255;
-	}
-
-	/**
-	 * @param color
-	 *            the color.
-	 * @return the blue component of the given color.
-	 */
-	public static int getBlue(int color) {
-		return color & 255;
-	}
-
-	/**
-	 * Computes a color from its red, green, blue components.
-	 * 
-	 * @param red
-	 *            the red component.
-	 * @param green
-	 *            the green component.
-	 * @param blue
-	 *            the blue component.
-	 * @return the computed color value.
-	 */
-	public static int getColor(int red, int green, int blue) {
-		return (blue & 255) + ((green & 255) << 8) + ((red & 255) << 16);
-	}
-
-	/**
 	 * Makes a color get brighter.
 	 * 
 	 * @param color
 	 *            the color to change.
 	 * @return the brighter color.
 	 */
-	public static int makeColorBrighter(int color) {
-		int r = makeBaseColorBrighter(getRed(color));
-		int g = makeBaseColorBrighter(getGreen(color));
-		int b = makeBaseColorBrighter(getBlue(color));
-		return getColor((int) r, (int) g, (int) b);
+	public static Color makeColorBrighter(Color color) {
+		int r = makeBaseColorBrighter(color.getRed());
+		int g = makeBaseColorBrighter(color.getGreen());
+		int b = makeBaseColorBrighter(color.getBlue());
+		return new Color((int) r, (int) g, (int) b);
 	}
 
 	/**

@@ -45,7 +45,7 @@ public class GraphdescPropertySourceProvider implements IPropertySourceProvider 
 	private AdapterFactory adapterFactory;
 	
 	/** The icons cache */
-	private Map<Integer, Image> colorIcons;
+	private Map<String, Image> colorIcons;
 
 	/**
 	 * Default constructor.
@@ -53,7 +53,7 @@ public class GraphdescPropertySourceProvider implements IPropertySourceProvider 
 	 * @param colorIcons the icons cache.
 	 */
 	public GraphdescPropertySourceProvider(AdapterFactory adapterFactory,
-			Map<Integer, Image> colorIcons) {
+			Map<String, Image> colorIcons) {
 		this.adapterFactory = adapterFactory;
 		this.colorIcons = colorIcons;
 	}
