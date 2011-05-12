@@ -74,6 +74,24 @@ public interface GraphdescFactory extends EFactory {
 	RichReferenceFigure createRichReferenceFigure();
 
 	/**
+	 * Returns a new object of class '<em>Dynamic Property Overrider</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dynamic Property Overrider</em>'.
+	 * @generated
+	 */
+	DynamicPropertyOverrider createDynamicPropertyOverrider();
+
+	/**
+	 * Returns a new object of class '<em>Filter</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Filter</em>'.
+	 * @generated
+	 */
+	Filter createFilter();
+
+	/**
 	 * Returns a new object of class '<em>Reference Figure</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -215,6 +215,7 @@ public class GVFigureDescriptionItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GraphdescPackage.Literals.GV_FIGURE_DESCRIPTION__FILTERS);
 			childrenFeatures.add(GraphdescPackage.Literals.GV_FIGURE_DESCRIPTION__CLASS_FIGURES);
 		}
 		return childrenFeatures;
@@ -286,6 +287,7 @@ public class GVFigureDescriptionItemProvider
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION__ALIGN_SAME_ECLASSES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS:
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION__CLASS_FIGURES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -303,6 +305,11 @@ public class GVFigureDescriptionItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GraphdescPackage.Literals.GV_FIGURE_DESCRIPTION__FILTERS,
+				 GraphdescFactory.eINSTANCE.createFilter()));
 
 		newChildDescriptors.add
 			(createChildParameter

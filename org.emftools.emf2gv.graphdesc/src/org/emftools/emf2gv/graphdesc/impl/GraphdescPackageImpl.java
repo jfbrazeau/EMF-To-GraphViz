@@ -45,6 +45,8 @@ import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
+import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
@@ -88,6 +90,20 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * @generated
 	 */
 	private EClass richReferenceFigureEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass dynamicPropertyOverriderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass filterEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -233,15 +249,6 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * @generated
 	 */
 	public EReference getGVFigureDescription_EPackages() {
-		return (EReference)gvFigureDescriptionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGVFigureDescription_ClassFigures() {
 		return (EReference)gvFigureDescriptionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -250,8 +257,17 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGVFigureDescription_ClassFigures() {
+		return (EReference)gvFigureDescriptionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getGVFigureDescription_Orientation() {
-		return (EAttribute)gvFigureDescriptionEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)gvFigureDescriptionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -260,7 +276,16 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * @generated
 	 */
 	public EAttribute getGVFigureDescription_AlignSameEClasses() {
-		return (EAttribute)gvFigureDescriptionEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)gvFigureDescriptionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGVFigureDescription_Filters() {
+		return (EReference)gvFigureDescriptionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -484,6 +509,78 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDynamicPropertyOverrider() {
+		return dynamicPropertyOverriderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDynamicPropertyOverrider_Name() {
+		return (EAttribute)dynamicPropertyOverriderEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDynamicPropertyOverrider_PropertyToOverride() {
+		return (EReference)dynamicPropertyOverriderEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDynamicPropertyOverrider_OverridingExpression() {
+		return (EAttribute)dynamicPropertyOverriderEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFilter() {
+		return filterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFilter_Name() {
+		return (EAttribute)filterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFilter_FilteredType() {
+		return (EReference)filterEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFilter_FilterExpression() {
+		return (EAttribute)filterEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAbstractFigure() {
 		return abstractFigureEClass;
 	}
@@ -495,6 +592,15 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 */
 	public EAttribute getAbstractFigure_Name() {
 		return (EAttribute)abstractFigureEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractFigure_DynamicProperties() {
+		return (EReference)abstractFigureEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -715,6 +821,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		// Create classes and their features
 		gvFigureDescriptionEClass = createEClass(GV_FIGURE_DESCRIPTION);
+		createEReference(gvFigureDescriptionEClass, GV_FIGURE_DESCRIPTION__FILTERS);
 		createEReference(gvFigureDescriptionEClass, GV_FIGURE_DESCRIPTION__EPACKAGES);
 		createEReference(gvFigureDescriptionEClass, GV_FIGURE_DESCRIPTION__CLASS_FIGURES);
 		createEAttribute(gvFigureDescriptionEClass, GV_FIGURE_DESCRIPTION__ORIENTATION);
@@ -722,6 +829,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		abstractFigureEClass = createEClass(ABSTRACT_FIGURE);
 		createEAttribute(abstractFigureEClass, ABSTRACT_FIGURE__NAME);
+		createEReference(abstractFigureEClass, ABSTRACT_FIGURE__DYNAMIC_PROPERTIES);
 
 		classFigureEClass = createEClass(CLASS_FIGURE);
 		createEReference(classFigureEClass, CLASS_FIGURE__EPACKAGE);
@@ -772,6 +880,16 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		createEAttribute(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__LABEL_DISTANCE);
 		createEAttribute(richReferenceFigureEClass, RICH_REFERENCE_FIGURE__LABEL_ANGLE);
 
+		dynamicPropertyOverriderEClass = createEClass(DYNAMIC_PROPERTY_OVERRIDER);
+		createEAttribute(dynamicPropertyOverriderEClass, DYNAMIC_PROPERTY_OVERRIDER__NAME);
+		createEReference(dynamicPropertyOverriderEClass, DYNAMIC_PROPERTY_OVERRIDER__PROPERTY_TO_OVERRIDE);
+		createEAttribute(dynamicPropertyOverriderEClass, DYNAMIC_PROPERTY_OVERRIDER__OVERRIDING_EXPRESSION);
+
+		filterEClass = createEClass(FILTER);
+		createEAttribute(filterEClass, FILTER__NAME);
+		createEReference(filterEClass, FILTER__FILTERED_TYPE);
+		createEAttribute(filterEClass, FILTER__FILTER_EXPRESSION);
+
 		// Create enums
 		orientationEEnum = createEEnum(ORIENTATION);
 		arrowTypeEEnum = createEEnum(ARROW_TYPE);
@@ -819,6 +937,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(gvFigureDescriptionEClass, GVFigureDescription.class, "GVFigureDescription", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGVFigureDescription_Filters(), this.getFilter(), null, "filters", null, 0, -1, GVFigureDescription.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGVFigureDescription_EPackages(), theEcorePackage.getEPackage(), null, "ePackages", null, 0, -1, GVFigureDescription.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGVFigureDescription_ClassFigures(), this.getClassFigure(), this.getClassFigure_GvFigureDescription(), "classFigures", null, 0, -1, GVFigureDescription.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGVFigureDescription_Orientation(), this.getOrientation(), "orientation", "LeftToRight", 0, 1, GVFigureDescription.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -838,6 +957,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 
 		initEClass(abstractFigureEClass, AbstractFigure.class, "AbstractFigure", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAbstractFigure_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AbstractFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractFigure_DynamicProperties(), this.getDynamicPropertyOverrider(), null, "dynamicProperties", null, 0, -1, AbstractFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(abstractFigureEClass, ecorePackage.getEBoolean(), "validate", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostic", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -904,6 +1024,34 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEAttribute(getRichReferenceFigure_TargetLabelExpression(), ecorePackage.getEString(), "targetLabelExpression", null, 0, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRichReferenceFigure_LabelDistance(), ecorePackage.getEDouble(), "labelDistance", "5.0", 0, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRichReferenceFigure_LabelAngle(), theEcorePackage.getEDouble(), "labelAngle", "0", 0, 1, RichReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(dynamicPropertyOverriderEClass, DynamicPropertyOverrider.class, "DynamicPropertyOverrider", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDynamicPropertyOverrider_Name(), ecorePackage.getEString(), "name", null, 0, 1, DynamicPropertyOverrider.class, !IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getDynamicPropertyOverrider_PropertyToOverride(), theEcorePackage.getEAttribute(), null, "propertyToOverride", null, 0, 1, DynamicPropertyOverrider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDynamicPropertyOverrider_OverridingExpression(), ecorePackage.getEString(), "overridingExpression", null, 0, 1, DynamicPropertyOverrider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(dynamicPropertyOverriderEClass, ecorePackage.getEBoolean(), "validate", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostic", 0, 1, IS_UNIQUE, IS_ORDERED);
+		g1 = createEGenericType(ecorePackage.getEMap());
+		g2 = createEGenericType(ecorePackage.getEJavaObject());
+		g1.getETypeArguments().add(g2);
+		g2 = createEGenericType(ecorePackage.getEJavaObject());
+		g1.getETypeArguments().add(g2);
+		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(filterEClass, Filter.class, "Filter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFilter_Name(), ecorePackage.getEString(), "name", null, 0, 1, Filter.class, !IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getFilter_FilteredType(), theEcorePackage.getEClass(), null, "filteredType", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFilter_FilterExpression(), ecorePackage.getEString(), "filterExpression", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(filterEClass, ecorePackage.getEBoolean(), "validate", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostic", 0, 1, IS_UNIQUE, IS_ORDERED);
+		g1 = createEGenericType(ecorePackage.getEMap());
+		g2 = createEGenericType(ecorePackage.getEJavaObject());
+		g1.getETypeArguments().add(g2);
+		g2 = createEGenericType(ecorePackage.getEJavaObject());
+		g1.getETypeArguments().add(g2);
+		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(orientationEEnum, Orientation.class, "Orientation");

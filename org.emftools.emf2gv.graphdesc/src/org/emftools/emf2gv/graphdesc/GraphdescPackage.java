@@ -112,13 +112,22 @@ public interface GraphdescPackage extends EPackage {
 	int GV_FIGURE_DESCRIPTION = 0;
 
 	/**
+	 * The feature id for the '<em><b>Filters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GV_FIGURE_DESCRIPTION__FILTERS = 0;
+
+	/**
 	 * The feature id for the '<em><b>EPackages</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GV_FIGURE_DESCRIPTION__EPACKAGES = 0;
+	int GV_FIGURE_DESCRIPTION__EPACKAGES = 1;
 
 	/**
 	 * The feature id for the '<em><b>Class Figures</b></em>' containment reference list.
@@ -127,7 +136,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GV_FIGURE_DESCRIPTION__CLASS_FIGURES = 1;
+	int GV_FIGURE_DESCRIPTION__CLASS_FIGURES = 2;
 
 	/**
 	 * The feature id for the '<em><b>Orientation</b></em>' attribute.
@@ -136,7 +145,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GV_FIGURE_DESCRIPTION__ORIENTATION = 2;
+	int GV_FIGURE_DESCRIPTION__ORIENTATION = 3;
 
 	/**
 	 * The feature id for the '<em><b>Align Same EClasses</b></em>' attribute.
@@ -145,7 +154,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GV_FIGURE_DESCRIPTION__ALIGN_SAME_ECLASSES = 3;
+	int GV_FIGURE_DESCRIPTION__ALIGN_SAME_ECLASSES = 4;
 
 	/**
 	 * The number of structural features of the '<em>GV Figure Description</em>' class.
@@ -154,7 +163,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GV_FIGURE_DESCRIPTION_FEATURE_COUNT = 4;
+	int GV_FIGURE_DESCRIPTION_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl <em>Abstract Figure</em>}' class.
@@ -176,13 +185,22 @@ public interface GraphdescPackage extends EPackage {
 	int ABSTRACT_FIGURE__NAME = 0;
 
 	/**
+	 * The feature id for the '<em><b>Dynamic Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FIGURE__DYNAMIC_PROPERTIES = 1;
+
+	/**
 	 * The number of structural features of the '<em>Abstract Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_FIGURE_FEATURE_COUNT = 1;
+	int ABSTRACT_FIGURE_FEATURE_COUNT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -192,6 +210,15 @@ public interface GraphdescPackage extends EPackage {
 	 * @ordered
 	 */
 	int CLASS_FIGURE__NAME = ABSTRACT_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Dynamic Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_FIGURE__DYNAMIC_PROPERTIES = ABSTRACT_FIGURE__DYNAMIC_PROPERTIES;
 
 	/**
 	 * The feature id for the '<em><b>EPackage</b></em>' reference.
@@ -369,6 +396,15 @@ public interface GraphdescPackage extends EPackage {
 	int ABSTRACT_ATTRIBUTE_FIGURE__NAME = ABSTRACT_FIGURE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Dynamic Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ATTRIBUTE_FIGURE__DYNAMIC_PROPERTIES = ABSTRACT_FIGURE__DYNAMIC_PROPERTIES;
+
+	/**
 	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -394,6 +430,15 @@ public interface GraphdescPackage extends EPackage {
 	 * @ordered
 	 */
 	int ATTRIBUTE_FIGURE__NAME = ABSTRACT_ATTRIBUTE_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Dynamic Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_FIGURE__DYNAMIC_PROPERTIES = ABSTRACT_ATTRIBUTE_FIGURE__DYNAMIC_PROPERTIES;
 
 	/**
 	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
@@ -451,6 +496,15 @@ public interface GraphdescPackage extends EPackage {
 	int RICH_ATTRIBUTE_FIGURE__NAME = ABSTRACT_ATTRIBUTE_FIGURE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Dynamic Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE__DYNAMIC_PROPERTIES = ABSTRACT_ATTRIBUTE_FIGURE__DYNAMIC_PROPERTIES;
+
+	/**
 	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -494,6 +548,15 @@ public interface GraphdescPackage extends EPackage {
 	 * @ordered
 	 */
 	int ABSTRACT_REFERENCE_FIGURE__NAME = ABSTRACT_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Dynamic Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_REFERENCE_FIGURE__DYNAMIC_PROPERTIES = ABSTRACT_FIGURE__DYNAMIC_PROPERTIES;
 
 	/**
 	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
@@ -613,6 +676,15 @@ public interface GraphdescPackage extends EPackage {
 	int REFERENCE_FIGURE__NAME = ABSTRACT_REFERENCE_FIGURE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Dynamic Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_FIGURE__DYNAMIC_PROPERTIES = ABSTRACT_REFERENCE_FIGURE__DYNAMIC_PROPERTIES;
+
+	/**
 	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -728,6 +800,15 @@ public interface GraphdescPackage extends EPackage {
 	 * @ordered
 	 */
 	int RICH_REFERENCE_FIGURE__NAME = ABSTRACT_REFERENCE_FIGURE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Dynamic Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__DYNAMIC_PROPERTIES = ABSTRACT_REFERENCE_FIGURE__DYNAMIC_PROPERTIES;
 
 	/**
 	 * The feature id for the '<em><b>Class Figure</b></em>' container reference.
@@ -892,6 +973,98 @@ public interface GraphdescPackage extends EPackage {
 	int RICH_REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 6;
 
 	/**
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl <em>Dynamic Property Overrider</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getDynamicPropertyOverrider()
+	 * @generated
+	 */
+	int DYNAMIC_PROPERTY_OVERRIDER = 9;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DYNAMIC_PROPERTY_OVERRIDER__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Property To Override</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DYNAMIC_PROPERTY_OVERRIDER__PROPERTY_TO_OVERRIDE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Overriding Expression</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DYNAMIC_PROPERTY_OVERRIDER__OVERRIDING_EXPRESSION = 2;
+
+	/**
+	 * The number of structural features of the '<em>Dynamic Property Overrider</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DYNAMIC_PROPERTY_OVERRIDER_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl <em>Filter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftools.emf2gv.graphdesc.impl.FilterImpl
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getFilter()
+	 * @generated
+	 */
+	int FILTER = 10;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILTER__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Filtered Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILTER__FILTERED_TYPE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Filter Expression</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILTER__FILTER_EXPRESSION = 2;
+
+	/**
+	 * The number of structural features of the '<em>Filter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILTER_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.Orientation <em>Orientation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -899,7 +1072,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getOrientation()
 	 * @generated
 	 */
-	int ORIENTATION = 9;
+	int ORIENTATION = 11;
 
 
 	/**
@@ -910,7 +1083,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowType()
 	 * @generated
 	 */
-	int ARROW_TYPE = 10;
+	int ARROW_TYPE = 12;
 
 
 	/**
@@ -921,7 +1094,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowStyle()
 	 * @generated
 	 */
-	int ARROW_STYLE = 11;
+	int ARROW_STYLE = 13;
 
 
 	/**
@@ -1186,6 +1359,92 @@ public interface GraphdescPackage extends EPackage {
 	EAttribute getRichReferenceFigure_LabelAngle();
 
 	/**
+	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider <em>Dynamic Property Overrider</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Dynamic Property Overrider</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider
+	 * @generated
+	 */
+	EClass getDynamicPropertyOverrider();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getName()
+	 * @see #getDynamicPropertyOverrider()
+	 * @generated
+	 */
+	EAttribute getDynamicPropertyOverrider_Name();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getPropertyToOverride <em>Property To Override</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Property To Override</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getPropertyToOverride()
+	 * @see #getDynamicPropertyOverrider()
+	 * @generated
+	 */
+	EReference getDynamicPropertyOverrider_PropertyToOverride();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getOverridingExpression <em>Overriding Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Overriding Expression</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getOverridingExpression()
+	 * @see #getDynamicPropertyOverrider()
+	 * @generated
+	 */
+	EAttribute getDynamicPropertyOverrider_OverridingExpression();
+
+	/**
+	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.Filter <em>Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Filter</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.Filter
+	 * @generated
+	 */
+	EClass getFilter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.Filter#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.Filter#getName()
+	 * @see #getFilter()
+	 * @generated
+	 */
+	EAttribute getFilter_Name();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.Filter#getFilteredType <em>Filtered Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Filtered Type</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.Filter#getFilteredType()
+	 * @see #getFilter()
+	 * @generated
+	 */
+	EReference getFilter_FilteredType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.Filter#getFilterExpression <em>Filter Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Filter Expression</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.Filter#getFilterExpression()
+	 * @see #getFilter()
+	 * @generated
+	 */
+	EAttribute getFilter_FilterExpression();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.AbstractFigure <em>Abstract Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1205,6 +1464,17 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAbstractFigure_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.emftools.emf2gv.graphdesc.AbstractFigure#getDynamicProperties <em>Dynamic Properties</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Dynamic Properties</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractFigure#getDynamicProperties()
+	 * @see #getAbstractFigure()
+	 * @generated
+	 */
+	EReference getAbstractFigure_DynamicProperties();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure <em>Abstract Reference Figure</em>}'.
@@ -1442,6 +1712,17 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGVFigureDescription_AlignSameEClasses();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.emftools.emf2gv.graphdesc.GVFigureDescription#getFilters <em>Filters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Filters</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.GVFigureDescription#getFilters()
+	 * @see #getGVFigureDescription()
+	 * @generated
+	 */
+	EReference getGVFigureDescription_Filters();
 
 	/**
 	 * Returns the meta object for enum '{@link org.emftools.emf2gv.graphdesc.Orientation <em>Orientation</em>}'.
@@ -1705,6 +1986,74 @@ public interface GraphdescPackage extends EPackage {
 		EAttribute RICH_REFERENCE_FIGURE__LABEL_ANGLE = eINSTANCE.getRichReferenceFigure_LabelAngle();
 
 		/**
+		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl <em>Dynamic Property Overrider</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl
+		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getDynamicPropertyOverrider()
+		 * @generated
+		 */
+		EClass DYNAMIC_PROPERTY_OVERRIDER = eINSTANCE.getDynamicPropertyOverrider();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DYNAMIC_PROPERTY_OVERRIDER__NAME = eINSTANCE.getDynamicPropertyOverrider_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Property To Override</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DYNAMIC_PROPERTY_OVERRIDER__PROPERTY_TO_OVERRIDE = eINSTANCE.getDynamicPropertyOverrider_PropertyToOverride();
+
+		/**
+		 * The meta object literal for the '<em><b>Overriding Expression</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DYNAMIC_PROPERTY_OVERRIDER__OVERRIDING_EXPRESSION = eINSTANCE.getDynamicPropertyOverrider_OverridingExpression();
+
+		/**
+		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl <em>Filter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftools.emf2gv.graphdesc.impl.FilterImpl
+		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getFilter()
+		 * @generated
+		 */
+		EClass FILTER = eINSTANCE.getFilter();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILTER__NAME = eINSTANCE.getFilter_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Filtered Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FILTER__FILTERED_TYPE = eINSTANCE.getFilter_FilteredType();
+
+		/**
+		 * The meta object literal for the '<em><b>Filter Expression</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILTER__FILTER_EXPRESSION = eINSTANCE.getFilter_FilterExpression();
+
+		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl <em>Abstract Figure</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1721,6 +2070,14 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ABSTRACT_FIGURE__NAME = eINSTANCE.getAbstractFigure_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Dynamic Properties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_FIGURE__DYNAMIC_PROPERTIES = eINSTANCE.getAbstractFigure_DynamicProperties();
 
 		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractReferenceFigureImpl <em>Abstract Reference Figure</em>}' class.
@@ -1907,6 +2264,14 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GV_FIGURE_DESCRIPTION__ALIGN_SAME_ECLASSES = eINSTANCE.getGVFigureDescription_AlignSameEClasses();
+
+		/**
+		 * The meta object literal for the '<em><b>Filters</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GV_FIGURE_DESCRIPTION__FILTERS = eINSTANCE.getGVFigureDescription_Filters();
 
 		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.Orientation <em>Orientation</em>}' enum.

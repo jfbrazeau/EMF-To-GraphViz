@@ -36,6 +36,8 @@ import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
+import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
@@ -135,6 +137,14 @@ public class GraphdescAdapterFactory extends AdapterFactoryImpl {
 				return createRichReferenceFigureAdapter();
 			}
 			@Override
+			public Adapter caseDynamicPropertyOverrider(DynamicPropertyOverrider object) {
+				return createDynamicPropertyOverriderAdapter();
+			}
+			@Override
+			public Adapter caseFilter(Filter object) {
+				return createFilterAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -193,6 +203,34 @@ public class GraphdescAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRichReferenceFigureAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider <em>Dynamic Property Overrider</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider
+	 * @generated
+	 */
+	public Adapter createDynamicPropertyOverriderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftools.emf2gv.graphdesc.Filter <em>Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftools.emf2gv.graphdesc.Filter
+	 * @generated
+	 */
+	public Adapter createFilterAdapter() {
 		return null;
 	}
 

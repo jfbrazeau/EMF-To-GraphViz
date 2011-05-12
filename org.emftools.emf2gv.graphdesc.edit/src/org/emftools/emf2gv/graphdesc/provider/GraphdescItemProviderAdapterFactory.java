@@ -210,6 +210,52 @@ public class GraphdescItemProviderAdapterFactory extends GraphdescAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DynamicPropertyOverriderItemProvider dynamicPropertyOverriderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDynamicPropertyOverriderAdapter() {
+		if (dynamicPropertyOverriderItemProvider == null) {
+			dynamicPropertyOverriderItemProvider = new DynamicPropertyOverriderItemProvider(this);
+		}
+
+		return dynamicPropertyOverriderItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.emftools.emf2gv.graphdesc.Filter} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FilterItemProvider filterItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftools.emf2gv.graphdesc.Filter}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFilterAdapter() {
+		if (filterItemProvider == null) {
+			filterItemProvider = new FilterItemProvider(this);
+		}
+
+		return filterItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.emftools.emf2gv.graphdesc.GVFigureDescription} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -337,6 +383,8 @@ public class GraphdescItemProviderAdapterFactory extends GraphdescAdapterFactory
 		if (richAttributeFigureItemProvider != null) richAttributeFigureItemProvider.dispose();
 		if (referenceFigureItemProvider != null) referenceFigureItemProvider.dispose();
 		if (richReferenceFigureItemProvider != null) richReferenceFigureItemProvider.dispose();
+		if (dynamicPropertyOverriderItemProvider != null) dynamicPropertyOverriderItemProvider.dispose();
+		if (filterItemProvider != null) filterItemProvider.dispose();
 	}
 
 }

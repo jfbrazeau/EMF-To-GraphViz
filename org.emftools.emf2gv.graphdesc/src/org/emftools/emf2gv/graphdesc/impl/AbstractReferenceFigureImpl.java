@@ -73,6 +73,13 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  * @generated
  */
 public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl implements AbstractReferenceFigure {
+
+	/**
+	 * Regular expression that is used to check the custom arrow types
+	 * @generated NOT
+	 */ 
+	private static final String CUSTOM_AROW_TYPE_REGEXP = "(o?[lr]?(box|crow|diamond|dot|inv|none|normal|tee|vee))+";
+	
 	/**
 	 * The cached value of the '{@link #getEReference() <em>EReference</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -633,8 +640,6 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 				}
 
 				// Custom source arrow check
-				//TODO constant
-				String regexp = "(o?[lr]?(box|crow|diamond|dot|inv|none|normal|tee|vee))+";
 				if (ArrowType.CUSTOM.equals(getSourceArrowType())) {
 					boolean notEmpty = constraintsHelper
 							.addErrorIfEmpty(
@@ -644,14 +649,14 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 									0,
 									"The source arrow type is set to custom, you have to define it manually through the 'Custom Arrow' property");
 					if (notEmpty
-							&& !Pattern.matches(regexp, getCustomSourceArrow())) {
+							&& !Pattern.matches(CUSTOM_AROW_TYPE_REGEXP, getCustomSourceArrow())) {
 						constraintsHelper
 								.addError(
 										diagnostic,
 										this,
 										0,
 										"The custom source arrow does not seem to be valid (it doesn't matches the regular expression '"
-												+ regexp + "')");
+												+ CUSTOM_AROW_TYPE_REGEXP + "')");
 					}
 				}
 
@@ -665,14 +670,14 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 									0,
 									"The target arrow type is set to custom, you have to define it manually through the 'Custom Arrow' property");
 					if (notEmpty
-							&& !Pattern.matches(regexp, getCustomTargetArrow())) {
+							&& !Pattern.matches(CUSTOM_AROW_TYPE_REGEXP, getCustomTargetArrow())) {
 						constraintsHelper
 								.addError(
 										diagnostic,
 										this,
 										0,
 										"The custom target arrow does not seem to be valid (it doesn't matches the regular expression '"
-												+ regexp + "')");
+												+ CUSTOM_AROW_TYPE_REGEXP + "')");
 					}
 				}
 

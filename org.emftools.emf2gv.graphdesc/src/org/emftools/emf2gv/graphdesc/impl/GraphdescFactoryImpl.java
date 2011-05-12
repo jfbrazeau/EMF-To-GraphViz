@@ -37,6 +37,8 @@ import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
+import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
@@ -95,6 +97,8 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 			case GraphdescPackage.RICH_ATTRIBUTE_FIGURE: return createRichAttributeFigure();
 			case GraphdescPackage.REFERENCE_FIGURE: return createReferenceFigure();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE: return createRichReferenceFigure();
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER: return createDynamicPropertyOverrider();
+			case GraphdescPackage.FILTER: return createFilter();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -166,6 +170,26 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 	public RichReferenceFigure createRichReferenceFigure() {
 		RichReferenceFigureImpl richReferenceFigure = new RichReferenceFigureImpl();
 		return richReferenceFigure;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DynamicPropertyOverrider createDynamicPropertyOverrider() {
+		DynamicPropertyOverriderImpl dynamicPropertyOverrider = new DynamicPropertyOverriderImpl();
+		return dynamicPropertyOverrider;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Filter createFilter() {
+		FilterImpl filter = new FilterImpl();
+		return filter;
 	}
 
 	/**

@@ -39,10 +39,12 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.Orientation;
@@ -56,6 +58,7 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.GVFigureDescriptionImpl#getFilters <em>Filters</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.GVFigureDescriptionImpl#getEPackages <em>EPackages</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.GVFigureDescriptionImpl#getClassFigures <em>Class Figures</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.GVFigureDescriptionImpl#getOrientation <em>Orientation</em>}</li>
@@ -66,6 +69,16 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  * @generated
  */
 public class GVFigureDescriptionImpl extends EObjectImpl implements GVFigureDescription {
+	/**
+	 * The cached value of the '{@link #getFilters() <em>Filters</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFilters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Filter> filters;
+
 	/**
 	 * The cached value of the '{@link #getEPackages() <em>EPackages</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -202,6 +215,18 @@ public class GVFigureDescriptionImpl extends EObjectImpl implements GVFigureDesc
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Filter> getFilters() {
+		if (filters == null) {
+			filters = new EObjectContainmentEList<Filter>(Filter.class, this, GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS);
+		}
+		return filters;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context) {
@@ -266,6 +291,8 @@ public class GVFigureDescriptionImpl extends EObjectImpl implements GVFigureDesc
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS:
+				return ((InternalEList<?>)getFilters()).basicRemove(otherEnd, msgs);
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION__CLASS_FIGURES:
 				return ((InternalEList<?>)getClassFigures()).basicRemove(otherEnd, msgs);
 		}
@@ -280,6 +307,8 @@ public class GVFigureDescriptionImpl extends EObjectImpl implements GVFigureDesc
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS:
+				return getFilters();
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION__EPACKAGES:
 				return getEPackages();
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION__CLASS_FIGURES:
@@ -301,6 +330,10 @@ public class GVFigureDescriptionImpl extends EObjectImpl implements GVFigureDesc
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS:
+				getFilters().clear();
+				getFilters().addAll((Collection<? extends Filter>)newValue);
+				return;
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION__EPACKAGES:
 				getEPackages().clear();
 				getEPackages().addAll((Collection<? extends EPackage>)newValue);
@@ -327,6 +360,9 @@ public class GVFigureDescriptionImpl extends EObjectImpl implements GVFigureDesc
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS:
+				getFilters().clear();
+				return;
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION__EPACKAGES:
 				getEPackages().clear();
 				return;
@@ -351,6 +387,8 @@ public class GVFigureDescriptionImpl extends EObjectImpl implements GVFigureDesc
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS:
+				return filters != null && !filters.isEmpty();
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION__EPACKAGES:
 				return ePackages != null && !ePackages.isEmpty();
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION__CLASS_FIGURES:

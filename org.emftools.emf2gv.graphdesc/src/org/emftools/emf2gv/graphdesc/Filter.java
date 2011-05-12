@@ -24,33 +24,35 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
  */
 package org.emftools.emf2gv.graphdesc;
 
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Abstract Figure</b></em>'.
+ * A representation of the model object '<em><b>Filter</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AbstractFigure#getName <em>Name</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AbstractFigure#getDynamicProperties <em>Dynamic Properties</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.Filter#getName <em>Name</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.Filter#getFilteredType <em>Filtered Type</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.Filter#getFilterExpression <em>Filter Expression</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAbstractFigure()
- * @model abstract="true"
+ * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getFilter()
+ * @model
  * @generated
  */
-public interface AbstractFigure extends EObject {
+public interface Filter extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -60,27 +62,63 @@ public interface AbstractFigure extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAbstractFigure_Name()
-	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getFilter_Name()
+	 * @model changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Returns the value of the '<em><b>Dynamic Properties</b></em>' containment reference list.
-	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider}.
+	 * Returns the value of the '<em><b>Filtered Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Dynamic Properties</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Filtered Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Dynamic Properties</em>' containment reference list.
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAbstractFigure_DynamicProperties()
-	 * @model containment="true"
+	 * @return the value of the '<em>Filtered Type</em>' reference.
+	 * @see #setFilteredType(EClass)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getFilter_FilteredType()
+	 * @model
 	 * @generated
 	 */
-	EList<DynamicPropertyOverrider> getDynamicProperties();
+	EClass getFilteredType();
+
+	/**
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.Filter#getFilteredType <em>Filtered Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Filtered Type</em>' reference.
+	 * @see #getFilteredType()
+	 * @generated
+	 */
+	void setFilteredType(EClass value);
+
+	/**
+	 * Returns the value of the '<em><b>Filter Expression</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Filter Expression</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Filter Expression</em>' attribute.
+	 * @see #setFilterExpression(String)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getFilter_FilterExpression()
+	 * @model
+	 * @generated
+	 */
+	String getFilterExpression();
+
+	/**
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.Filter#getFilterExpression <em>Filter Expression</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Filter Expression</em>' attribute.
+	 * @see #getFilterExpression()
+	 * @generated
+	 */
+	void setFilterExpression(String value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -90,4 +128,4 @@ public interface AbstractFigure extends EObject {
 	 */
 	boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context);
 
-} // AbstractFigure
+} // Filter

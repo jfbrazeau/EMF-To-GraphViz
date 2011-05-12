@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.EPackage;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.GVFigureDescription#getFilters <em>Filters</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.GVFigureDescription#getEPackages <em>EPackages</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.GVFigureDescription#getClassFigures <em>Class Figures</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.GVFigureDescription#getOrientation <em>Orientation</em>}</li>
@@ -128,6 +129,22 @@ public interface GVFigureDescription extends EObject {
 	 * @generated
 	 */
 	void setAlignSameEClasses(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Filters</b></em>' containment reference list.
+	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.Filter}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Filters</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Filters</em>' containment reference list.
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getGVFigureDescription_Filters()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Filter> getFilters();
 
 	/**
 	 * <!-- begin-user-doc -->

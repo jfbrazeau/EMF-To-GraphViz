@@ -43,6 +43,8 @@ import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
+import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.Orientation;
@@ -93,12 +95,28 @@ public class GraphdescValidator extends EObjectValidator {
 	public static final int ABSTRACT_FIGURE__VALIDATE = 2;
 
 	/**
+	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Validate' of 'Dynamic Property Overrider'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final int DYNAMIC_PROPERTY_OVERRIDER__VALIDATE = 3;
+
+	/**
+	 * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Validate' of 'Filter'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final int FILTER__VALIDATE = 4;
+
+	/**
 	 * A constant with a fixed name that can be used as the base value for additional hand written constants.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final int GENERATED_DIAGNOSTIC_CODE_COUNT = 2;
+	private static final int GENERATED_DIAGNOSTIC_CODE_COUNT = 4;
 
 	/**
 	 * A constant with a fixed name that can be used as the base value for additional hand written constants in a derived class.
@@ -156,6 +174,10 @@ public class GraphdescValidator extends EObjectValidator {
 				return validateReferenceFigure((ReferenceFigure)value, diagnostics, context);
 			case GraphdescPackage.RICH_REFERENCE_FIGURE:
 				return validateRichReferenceFigure((RichReferenceFigure)value, diagnostics, context);
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER:
+				return validateDynamicPropertyOverrider((DynamicPropertyOverrider)value, diagnostics, context);
+			case GraphdescPackage.FILTER:
+				return validateFilter((Filter)value, diagnostics, context);
 			case GraphdescPackage.ORIENTATION:
 				return validateOrientation((Orientation)value, diagnostics, context);
 			case GraphdescPackage.ARROW_TYPE:
@@ -222,6 +244,64 @@ public class GraphdescValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(richReferenceFigure, diagnostics, context);
 		if (result || diagnostics != null) result &= validateAbstractFigure_validate(richReferenceFigure, diagnostics, context);
 		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDynamicPropertyOverrider(DynamicPropertyOverrider dynamicPropertyOverrider, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(dynamicPropertyOverrider, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(dynamicPropertyOverrider, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(dynamicPropertyOverrider, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(dynamicPropertyOverrider, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(dynamicPropertyOverrider, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(dynamicPropertyOverrider, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(dynamicPropertyOverrider, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(dynamicPropertyOverrider, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(dynamicPropertyOverrider, diagnostics, context);
+		if (result || diagnostics != null) result &= validateDynamicPropertyOverrider_validate(dynamicPropertyOverrider, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the validate constraint of '<em>Dynamic Property Overrider</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDynamicPropertyOverrider_validate(DynamicPropertyOverrider dynamicPropertyOverrider, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return dynamicPropertyOverrider.validate(diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateFilter(Filter filter, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(filter, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(filter, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(filter, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(filter, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(filter, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(filter, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(filter, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(filter, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(filter, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFilter_validate(filter, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the validate constraint of '<em>Filter</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateFilter_validate(Filter filter, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return filter.validate(diagnostics, context);
 	}
 
 	/**

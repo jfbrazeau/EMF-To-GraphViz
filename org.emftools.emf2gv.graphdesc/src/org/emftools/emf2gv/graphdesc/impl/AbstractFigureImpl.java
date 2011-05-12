@@ -27,12 +27,19 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
+import java.util.Collection;
 import java.util.Map;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
+import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 
 /**
@@ -43,6 +50,7 @@ import org.emftools.emf2gv.graphdesc.GraphdescPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl#getDynamicProperties <em>Dynamic Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,6 +66,16 @@ public abstract class AbstractFigureImpl extends EObjectImpl implements Abstract
 	 * @ordered
 	 */
 	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDynamicProperties() <em>Dynamic Properties</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDynamicProperties()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DynamicPropertyOverrider> dynamicProperties;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -88,9 +106,35 @@ public abstract class AbstractFigureImpl extends EObjectImpl implements Abstract
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<DynamicPropertyOverrider> getDynamicProperties() {
+		if (dynamicProperties == null) {
+			dynamicProperties = new EObjectContainmentEList<DynamicPropertyOverrider>(DynamicPropertyOverrider.class, this, GraphdescPackage.ABSTRACT_FIGURE__DYNAMIC_PROPERTIES);
+		}
+		return dynamicProperties;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public abstract boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GraphdescPackage.ABSTRACT_FIGURE__DYNAMIC_PROPERTIES:
+				return ((InternalEList<?>)getDynamicProperties()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -102,8 +146,42 @@ public abstract class AbstractFigureImpl extends EObjectImpl implements Abstract
 		switch (featureID) {
 			case GraphdescPackage.ABSTRACT_FIGURE__NAME:
 				return getName();
+			case GraphdescPackage.ABSTRACT_FIGURE__DYNAMIC_PROPERTIES:
+				return getDynamicProperties();
 		}
 		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case GraphdescPackage.ABSTRACT_FIGURE__DYNAMIC_PROPERTIES:
+				getDynamicProperties().clear();
+				getDynamicProperties().addAll((Collection<? extends DynamicPropertyOverrider>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case GraphdescPackage.ABSTRACT_FIGURE__DYNAMIC_PROPERTIES:
+				getDynamicProperties().clear();
+				return;
+		}
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -116,6 +194,8 @@ public abstract class AbstractFigureImpl extends EObjectImpl implements Abstract
 		switch (featureID) {
 			case GraphdescPackage.ABSTRACT_FIGURE__NAME:
 				return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
+			case GraphdescPackage.ABSTRACT_FIGURE__DYNAMIC_PROPERTIES:
+				return dynamicProperties != null && !dynamicProperties.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

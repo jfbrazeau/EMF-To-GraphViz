@@ -32,6 +32,7 @@
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/bold"/>
     </genEnums>
     <genClasses ecoreClass="graphdesc.ecore#//GVFigureDescription">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphdesc.ecore#//GVFigureDescription/filters"/>
       <genFeatures createChild="false" propertyCategory="Model" propertyDescription="EPackages list authorized in this figure description"
           propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//GVFigureDescription/ePackages"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphdesc.ecore#//GVFigureDescription/classFigures"/>
@@ -49,6 +50,7 @@
     </genClasses>
     <genClasses ecoreClass="graphdesc.ecore#//AbstractFigure">
       <genFeatures property="None" createChild="false" propertyCategory="" ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractFigure/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphdesc.ecore#//AbstractFigure/dynamicProperties"/>
       <genOperations ecoreOperation="graphdesc.ecore#//AbstractFigure/validate">
         <genParameters ecoreParameter="graphdesc.ecore#//AbstractFigure/validate/diagnostic"/>
         <genParameters ecoreParameter="graphdesc.ecore#//AbstractFigure/validate/context"/>
@@ -139,6 +141,28 @@
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/labelDistance"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="This, along with labeldistance, determine where the headlabel (taillabel) are placed with respect to the head (tail) in polar coordinates. The origin in the coordinate system is the point where the edge touches the node. The ray of 0 degrees goes from the origin back along the edge, parallel to the edge at the origin. (same as Graphviz labelangle property)"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/labelAngle"/>
+    </genClasses>
+    <genClasses ecoreClass="graphdesc.ecore#//DynamicPropertyOverrider">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute graphdesc.ecore#//DynamicPropertyOverrider/name"/>
+      <genFeatures notify="false" createChild="false" propertyDescription="The figure's appearance property to override"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//DynamicPropertyOverrider/propertyToOverride"/>
+      <genFeatures createChild="false" propertyDescription="The OCL expression to be used to retrieve the overriding property value"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//DynamicPropertyOverrider/overridingExpression"/>
+      <genOperations ecoreOperation="graphdesc.ecore#//DynamicPropertyOverrider/validate">
+        <genParameters ecoreParameter="graphdesc.ecore#//DynamicPropertyOverrider/validate/diagnostic"/>
+        <genParameters ecoreParameter="graphdesc.ecore#//DynamicPropertyOverrider/validate/context"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="graphdesc.ecore#//Filter">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute graphdesc.ecore#//Filter/name"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="" propertyDescription="The type (EClass) to which this filter will be applied"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//Filter/filteredType"/>
+      <genFeatures createChild="false" propertyDescription="The OCL expression that is used to evaluate if the EObjects of the specified filter type (EClass) are to be shown in the diagram (the expression must return a boolean value)"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//Filter/filterExpression"/>
+      <genOperations ecoreOperation="graphdesc.ecore#//Filter/validate">
+        <genParameters ecoreParameter="graphdesc.ecore#//Filter/validate/diagnostic"/>
+        <genParameters ecoreParameter="graphdesc.ecore#//Filter/validate/context"/>
+      </genOperations>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
