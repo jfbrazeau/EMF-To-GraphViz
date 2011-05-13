@@ -32,8 +32,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1055,9 +1053,7 @@ final class GVSourceAndDependenciesBuilder {
 	private void flushHeaderBackgroundColor(NodeDesc nodeDesc) {
 		flushColor(nodeDesc,
 				GraphdescPackage.eINSTANCE
-						.getClassFigure_HeaderBackgroundColor(),
-				GraphdescPackage.eINSTANCE
-						.getClassFigure_HeaderBackgroundColorAccessor());
+						.getClassFigure_HeaderBackgroundColor());
 	}
 
 	/**
@@ -1068,9 +1064,7 @@ final class GVSourceAndDependenciesBuilder {
 	 */
 	private void flushBodyBackgroundColor(NodeDesc nodeDesc) {
 		flushColor(nodeDesc, GraphdescPackage.eINSTANCE
-				.getClassFigure_BodyBackgroundColor(),
-				GraphdescPackage.eINSTANCE
-						.getClassFigure_BodyBackgroundColorAccessor());
+				.getClassFigure_BodyBackgroundColor());
 	}
 
 	/**
@@ -1078,46 +1072,14 @@ final class GVSourceAndDependenciesBuilder {
 	 * 
 	 * @param nodeDesc
 	 *            the node description.
-	 * @param defaultColorEAttribute
-	 *            the default color attribute of the classfigure (header /
+	 * @param colorEAttribute
+	 *            the color attribute of the classfigure (header /
 	 *            body).
-	 * @param colorAccessorEAttribute
-	 *            the classfigure attribute giving the color provider to use.
 	 */
 	private void flushColor(NodeDesc nodeDesc,
-			EAttribute defaultColorEAttribute,
-			EAttribute colorAccessorEAttribute) {
+			EAttribute colorEAttribute) {
 		ClassFigure classFigure = nodeDesc.classFigure;
-		String colorAccessorName = (String) classFigure
-				.eGet(colorAccessorEAttribute);
-		Color bgColor = (Color) classFigure.eGet(defaultColorEAttribute);
-		if (classFigure.isDynamicAppearance() && colorAccessorName != null) {
-			Exception exception = null;
-			EObject eObject = nodeDesc.eObject;
-			try {
-				Method method = eObject.getClass().getMethod(colorAccessorName,
-						new Class<?>[] {});
-				bgColor = (Color) method.invoke(eObject, new Object[] {});
-			} catch (SecurityException e) {
-				exception = e;
-			} catch (NoSuchMethodException e) {
-				exception = e;
-			} catch (IllegalArgumentException e) {
-				exception = e;
-			} catch (IllegalAccessException e) {
-				exception = e;
-			} catch (InvocationTargetException e) {
-				exception = e;
-			}
-			if (exception != null) {
-				// If an error occurs, we only log it
-				// If the editor's icon is not displayable,
-				// it is not critical
-				logger.logError(
-						"Unexpected error while invoking the custom color provider ("
-								+ colorAccessorName + ")", exception);
-			}
-		}
+		Color bgColor = (Color) classFigure.eGet(colorEAttribute);
 		out.print(ColorsHelper.toHtmlColor(bgColor));
 	}
 
