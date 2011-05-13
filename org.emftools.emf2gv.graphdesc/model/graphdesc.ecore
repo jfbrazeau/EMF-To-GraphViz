@@ -3,7 +3,6 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="graphdesc"
     nsURI="http://org.emftools.emf2gv.graphdesc/1.0.5" nsPrefix="graphdesc">
-  <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
   <eClassifiers xsi:type="ecore:EClass" name="GVFigureDescription">
     <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="diagnostic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>
@@ -18,7 +17,7 @@
       <eParameters name="eClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="filters" upperBound="-1"
-        eType="#//Filter" containment="true"/>
+        eType="#//Filter" containment="true" eOpposite="#//Filter/figureDescription"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ePackages" upperBound="-1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classFigures" upperBound="-1"
@@ -40,7 +39,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
         changeable="false" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dynamicProperties" upperBound="-1"
-        eType="#//DynamicPropertyOverrider" containment="true"/>
+        eType="#//DynamicPropertyOverrider" containment="true" eOpposite="#//DynamicPropertyOverrider/figure"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClassFigure" eSuperTypes="#//AbstractFigure">
     <eOperations name="getAttributeFigure" eType="#//AttributeFigure">
@@ -53,9 +52,7 @@
         changeable="false" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="eClass" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="labelEAttribute" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute">
-      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="labelEAttribute" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributeFigures" upperBound="-1"
         eType="#//AbstractAttributeFigure" containment="true" eOpposite="#//AbstractAttributeFigure/classFigure"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referenceFigures" upperBound="-1"
@@ -63,16 +60,15 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="gvFigureDescription" lowerBound="1"
         eType="#//GVFigureDescription" eOpposite="#//GVFigureDescription/classFigures"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="headerBackgroundColor"
-        eType="#//Color" defaultValueLiteral="#9DBDF9"/>
+        eType="#//Color" defaultValueLiteral="#9DBDF9">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bodyBackgroundColor" eType="#//Color"
-        defaultValueLiteral="#EEEEEE"/>
+        defaultValueLiteral="#EEEEEE">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nestedFiguresEReferences"
         upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dynamicAppearance" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="headerBackgroundColorAccessor"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bodyBackgroundColorAccessor"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="container" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
         changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
@@ -98,21 +94,35 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="eReference" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetArrowType" eType="#//ArrowType"
-        defaultValueLiteral="normal"/>
+        defaultValueLiteral="normal">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceArrowType" eType="#//ArrowType"
-        defaultValueLiteral="none"/>
+        defaultValueLiteral="none">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="containment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         changeable="false" volatile="true" transient="true" derived="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="customTargetArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="customSourceArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="customTargetArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="customSourceArrow" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="color" eType="#//Color"
-        defaultValueLiteral="#000000"/>
+        defaultValueLiteral="#000000">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//ArrowStyle"
-        defaultValueLiteral="normal"/>
+        defaultValueLiteral="normal">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetEType" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"
         changeable="false" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimumEdgeLength" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
-        defaultValueLiteral="1"/>
+        defaultValueLiteral="1">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReferenceFigure" eSuperTypes="#//AbstractReferenceFigure">
     <eOperations name="targetClassFigureExists" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
@@ -127,9 +137,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetLabelExpression"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelDistance" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-        defaultValueLiteral="5.0"/>
+        defaultValueLiteral="5.0">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelAngle" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDouble"
-        defaultValueLiteral="0"/>
+        defaultValueLiteral="0">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DynamicPropertyOverrider">
     <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -142,9 +156,11 @@
       </eParameters>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        changeable="false" volatile="true" derived="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyToOverride" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyToOverride" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EStructuralFeature"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="overridingExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="figure" eType="#//AbstractFigure"
+        eOpposite="#//AbstractFigure/dynamicProperties"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Filter">
     <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -157,9 +173,11 @@
       </eParameters>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        changeable="false" volatile="true" derived="true"/>
+        changeable="false" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="filteredType" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="filterExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="figureDescription" eType="#//GVFigureDescription"
+        eOpposite="#//GVFigureDescription/filters"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Orientation">
     <eLiterals name="TopDown"/>
