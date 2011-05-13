@@ -103,13 +103,8 @@ public class ClassFigureItemProvider
 
 			// Appearance properties
 			addLabelEAttributePropertyDescriptor(object);
-			addDynamicAppearancePropertyDescriptor(object);
 			addHeaderBackgroundColorPropertyDescriptor(object);
-			addDefaultHeaderBackgroundColorPropertyDescriptor(object);
-			addHeaderBackgroundColorAccessorPropertyDescriptor(object);
 			addBodyBackgroundColorPropertyDescriptor(object);
-			addDefaultBodyBackgroundColorPropertyDescriptor(object);
-			addBodyBackgroundColorAccessorPropertyDescriptor(object);
 
 			// Container properties
 			addNestedFiguresEReferencesPropertyDescriptor(object);
@@ -118,21 +113,7 @@ public class ClassFigureItemProvider
 			addEClassPropertyDescriptor(object);
 			addEPackagePropertyDescriptor(object);
 		}
-		// Dynamic color fields management 
-		List<IItemPropertyDescriptor> result = new ArrayList<IItemPropertyDescriptor>();
-		result.addAll(itemPropertyDescriptors);
-		ClassFigure figure = (ClassFigure) object;
-		if (figure.isDynamicAppearance()) {
-			result.remove(headerBgColor);
-			result.remove(bodyBgColor);
-		}
-		else {
-			result.remove(defaultHeaderBgColor);
-			result.remove(headerBgColorAccessor);
-			result.remove(defaultBodyBgColor);
-			result.remove(bodyBgColorAccessor);
-		}
-		return result;
+		return itemPropertyDescriptors;
 	}
 
 	/**
@@ -232,22 +213,6 @@ public class ClassFigureItemProvider
 				getString("_UI_AppearancePropertyCategory"), null);
 		itemPropertyDescriptors.add(headerBgColor);
 	}
-	protected void addDefaultHeaderBackgroundColorPropertyDescriptor(Object object) {
-		// The default header bg color is mapped to the same attribute
-		// but a different property in a different category is more comprehensive
-		// for the user
-		defaultHeaderBgColor = new ItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ClassFigure_defaultHeaderBackgroundColor_feature"),
-				getString("_UI_ClassFigure_defaultHeaderBackgroundColor_description"),
-				GraphdescPackage.Literals.CLASS_FIGURE__HEADER_BACKGROUND_COLOR,
-				true, false, false,
-				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				getString("_UI_AppearancePropertyCategory"), null);
-		itemPropertyDescriptors.add(defaultHeaderBgColor);
-	}
 
 	/**
 	 * This adds a property descriptor for the Body Background Color feature.
@@ -269,24 +234,6 @@ public class ClassFigureItemProvider
 				 getString("_UI_AppearancePropertyCategory"),
 				 null);
 		itemPropertyDescriptors.add(bodyBgColor);
-	}
-	protected void addDefaultBodyBackgroundColorPropertyDescriptor(Object object) {
-		// The default body color is mapped to the same attribute
-		// but a different property in a different category is more comprehensive
-		// for the user
-		defaultBodyBgColor = new ItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-						 getResourceLocator(),
-						 getString("_UI_ClassFigure_defaultBodyBackgroundColor_feature"),
-						 getString("_UI_ClassFigure_defaultBodyBackgroundColor_description"),
-						 GraphdescPackage.Literals.CLASS_FIGURE__BODY_BACKGROUND_COLOR,
-						 true,
-						 false,
-						 false,
-						 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-						 getString("_UI_AppearancePropertyCategory"),
-						 null);
-		itemPropertyDescriptors.add(defaultBodyBgColor);
 	}
 
 	/**
@@ -321,111 +268,6 @@ public class ClassFigureItemProvider
 					return result;
 				}
 			});
-	}
-
-	/**
-	 * This adds a property descriptor for the Dynamic Appearance feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDynamicAppearancePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ClassFigure_dynamicAppearance_feature"),
-				 getString("_UI_ClassFigure_dynamicAppearance_description"),
-				 GraphdescPackage.Literals.CLASS_FIGURE__DYNAMIC_APPEARANCE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_AppearancePropertyCategory"),
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Header Background Color Accessor feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	protected void addHeaderBackgroundColorAccessorPropertyDescriptor(Object object) {
-		headerBgColorAccessor = new ItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ClassFigure_headerBackgroundColorAccessor_feature"),
-				 getString("_UI_ClassFigure_headerBackgroundColorAccessor_description"),
-				 GraphdescPackage.Literals.CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_AppearancePropertyCategory"),
-				 null) {
-			protected Collection<?> getComboBoxObjects(Object object) {
-				ClassFigure classFigure = (ClassFigure) object;
-				List<String> result = getAvailableColorAccessors(classFigure);
-				if (!result.contains(classFigure.getHeaderBackgroundColorAccessor())) {
-					result.add(classFigure.getHeaderBackgroundColorAccessor());
-				}
-				return result;
-			};
-		};
-		itemPropertyDescriptors.add(headerBgColorAccessor);
-	}
-
-	/**
-	 * Returns the available color accessors.
-	 * @param classFigure the class figure.
-	 * @return the color accessors.
-	 */
-	private List<String> getAvailableColorAccessors(ClassFigure classFigure) {
-		List<String> colorMethods = new ArrayList<String>();
-		colorMethods.add(null);
-		Class<?> clasz = classFigure.getEClass().getInstanceClass();
-		Method[] methods = clasz.getMethods();
-		for (Method method : methods) {
-			if (method.getReturnType().equals(Color.class)
-					&& Modifier.isPublic(method.getModifiers())
-					&& method.getParameterTypes().length == 0) {
-				colorMethods.add(method.getName());
-			}
-		}
-		return colorMethods;
-	}
-
-	/**
-	 * This adds a property descriptor for the Body Background Color Accessor feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	protected void addBodyBackgroundColorAccessorPropertyDescriptor(Object object) {
-		bodyBgColorAccessor = new ItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ClassFigure_bodyBackgroundColorAccessor_feature"),
-				 getString("_UI_ClassFigure_bodyBackgroundColorAccessor_description"),
-				 GraphdescPackage.Literals.CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_AppearancePropertyCategory"),
-				 null) {
-			protected Collection<?> getComboBoxObjects(Object object) {
-				ClassFigure classFigure = (ClassFigure) object;
-				List<String> result = getAvailableColorAccessors(classFigure);
-				if (!result.contains(classFigure.getBodyBackgroundColorAccessor())) {
-					result.add(classFigure.getBodyBackgroundColorAccessor());
-				}
-				return result;
-			};
-			
-		};
-		itemPropertyDescriptors.add(bodyBgColorAccessor);
 	}
 
 	/**
@@ -530,9 +372,6 @@ public class ClassFigureItemProvider
 		switch (notification.getFeatureID(ClassFigure.class)) {
 			case GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR:
 			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR:
-			case GraphdescPackage.CLASS_FIGURE__DYNAMIC_APPEARANCE:
-			case GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR:
-			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR:
 			case GraphdescPackage.CLASS_FIGURE__CONTAINER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
