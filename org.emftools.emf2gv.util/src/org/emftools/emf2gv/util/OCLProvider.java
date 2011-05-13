@@ -27,6 +27,7 @@
  */
 package org.emftools.emf2gv.util;
 
+import java.awt.Color;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,10 +36,12 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.ocl.EvaluationEnvironment;
 import org.eclipse.ocl.ecore.Constraint;
@@ -78,6 +81,12 @@ public class OCLProvider {
 	/** "toString" custom operation name */
 	protected static final String TO_STRING = "toString";
 
+	/**
+	 * Custom operation allowing to create a new instance of
+	 * <code>java.awt.Color</code>
+	 */
+	protected static final String NEW_COLOR = "newColor";
+
 	/** "toEcoreDiagString" custom operation name */
 	protected static final String TO_ECORE_DIAG_STRING = "toEcoreDiagString";
 
@@ -99,31 +108,54 @@ public class OCLProvider {
 		OCLStandardLibrary<EClassifier> stdlib = ocl.getEnvironment()
 				.getOCLStandardLibrary();
 
-		// Custom operation declaration
-		EClassifier stringCollectionClassifier = TypeUtil
-				.resolveCollectionType(ocl.getEnvironment(),
-						CollectionKind.COLLECTION_LITERAL, stdlib.getString());
+		/**
+		 * Custom operation declaration
+		 */
 		// String context operation
 		defineOperation(ocl, STARTS_WITH, stdlib.getString(),
 				stdlib.getBoolean(),
-				buildSingleStringParameterList(ocl, "string"));
+				buildParameterList(ocl, stdlib.getString(), "string"));
 		defineOperation(ocl, ENDS_WITH, stdlib.getString(),
 				stdlib.getBoolean(),
-				buildSingleStringParameterList(ocl, "string"));
+				buildParameterList(ocl, stdlib.getString(), "string"));
 		defineOperation(ocl, MATCHES, stdlib.getString(), stdlib.getBoolean(),
-				buildSingleStringParameterList(ocl, "regexp"));
+				buildParameterList(ocl, stdlib.getString(), "regexp"));
 		defineOperation(ocl, CONTAINS, stdlib.getString(), stdlib.getBoolean(),
-				buildSingleStringParameterList(ocl, "string"));
+				buildParameterList(ocl, stdlib.getString(), "string"));
+		EClassifier stringCollectionClassifier = TypeUtil
+				.resolveCollectionType(ocl.getEnvironment(),
+						CollectionKind.COLLECTION_LITERAL, stdlib.getString());
 		defineOperation(ocl, SPLIT, stdlib.getString(),
 				stringCollectionClassifier,
-				buildSingleStringParameterList(ocl, "separators"));
+				buildParameterList(ocl, stdlib.getString(), "separators"));
+
+		// OclAny context operations
 		defineOperation(ocl, PLUS, stdlib.getOclAny(), stdlib.getString(),
-				buildSingleParameterList(ocl, stdlib.getOclAny(), "tobeadded"));
+				buildParameterList(ocl, stdlib.getOclAny(), "tobeadded"));
+
+		// Collection context operations
 		defineOperation(ocl, TO_STRING, stdlib.getCollection(),
 				stdlib.getString(), EMPTY_PARAMETERS);
+
+		// EOperation context operations
 		defineOperation(ocl, TO_ECORE_DIAG_STRING,
 				EcorePackage.eINSTANCE.getEOperation(), stdlib.getString(),
 				EMPTY_PARAMETERS);
+
+		/**
+		 * Custom functions to be used in the DynamicPropertyOverrider
+		 */
+		// TODO Check
+		EDataType colorDataType = EcoreFactory.eINSTANCE.createEDataType();
+		colorDataType.setInstanceClass(Color.class);
+		defineOperation(
+				ocl,
+				NEW_COLOR,
+				stdlib.getOclAny(),
+				TypeUtil.resolveType(ocl.getEnvironment(), colorDataType),
+				buildParameterList(ocl, stdlib.getInteger(), "red", "green",
+						"blue"));
+
 		return ocl;
 	}
 
@@ -157,35 +189,22 @@ public class OCLProvider {
 	 * 
 	 * @param ocl
 	 *            the OCL.
-	 * @param variableName
-	 *            the variable name.
-	 * @return the variables list.
-	 */
-	private static List<Variable<EClassifier, EParameter>> buildSingleStringParameterList(
-			OCL ocl, String variableName) {
-		return buildSingleParameterList(ocl, ocl.getEnvironment()
-				.getOCLStandardLibrary().getString(), variableName);
-	}
-
-	/**
-	 * Builds a variable list containing one only string entry.
-	 * 
-	 * @param ocl
-	 *            the OCL.
 	 * @param parameterType
 	 *            the parameter type.
-	 * @param variableName
-	 *            the variable name.
+	 * @param variableNames
+	 *            the variable names.
 	 * @return the variables list.
 	 */
-	private static List<Variable<EClassifier, EParameter>> buildSingleParameterList(
-			OCL ocl, EClassifier parameterType, String variableName) {
+	private static List<Variable<EClassifier, EParameter>> buildParameterList(
+			OCL ocl, EClassifier parameterType, String... variableNames) {
 		List<Variable<EClassifier, EParameter>> vars = new ArrayList<Variable<EClassifier, EParameter>>();
-		Variable<EClassifier, EParameter> variable = ExpressionsFactory.eINSTANCE
-				.createVariable();
-		variable.setName(variableName);
-		variable.setType(parameterType);
-		vars.add(variable);
+		for (String variableName : variableNames) {
+			Variable<EClassifier, EParameter> variable = ExpressionsFactory.eINSTANCE
+					.createVariable();
+			variable.setName(variableName);
+			variable.setType(parameterType);
+			vars.add(variable);
+		}
 		return vars;
 	}
 
