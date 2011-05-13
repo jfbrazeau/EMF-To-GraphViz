@@ -29,12 +29,15 @@
 package org.emftools.emf2gv.graphdesc.provider;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -93,11 +96,11 @@ public class DynamicPropertyOverriderItemProvider
 	 * This adds a property descriptor for the Property To Override feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addPropertyToOverridePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_DynamicPropertyOverrider_propertyToOverride_feature"),
@@ -108,7 +111,25 @@ public class DynamicPropertyOverriderItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+					@Override
+					public Collection<?> getChoiceOfValues(Object object) {
+						Collection<EStructuralFeature> result = new ArrayList<EStructuralFeature>();
+						DynamicPropertyOverrider dpo = (DynamicPropertyOverrider) object;
+						EClass figureEClass = dpo.getFigure() != null ? dpo
+								.getFigure().eClass() : null;
+						if (figureEClass != null) {
+							for (EStructuralFeature feature : figureEClass
+									.getEAllStructuralFeatures()) {
+								if (feature
+										.getEAnnotation("http://org.emftools.emf2gv.graphdesc/OverridableProperty") != null) {
+									result.add(feature);
+								}
+							}
+						}
+						return result;
+					}
+			});
 	}
 
 	/**
