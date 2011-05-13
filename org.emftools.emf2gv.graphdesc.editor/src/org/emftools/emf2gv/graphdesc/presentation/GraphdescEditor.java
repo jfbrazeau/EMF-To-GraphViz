@@ -1384,11 +1384,8 @@ public class GraphdescEditor
 			// Class figure properties order
 			final List<String> classFigureOrderedPropertyIds = new ArrayList<String>();
 			classFigureOrderedPropertyIds.add(pkg.getClassFigure_LabelEAttribute().getName());
-			classFigureOrderedPropertyIds.add(pkg.getClassFigure_DynamicAppearance().getName());
 			classFigureOrderedPropertyIds.add(pkg.getClassFigure_HeaderBackgroundColor().getName());
-			classFigureOrderedPropertyIds.add(pkg.getClassFigure_HeaderBackgroundColorAccessor().getName());
 			classFigureOrderedPropertyIds.add(pkg.getClassFigure_BodyBackgroundColor().getName());
-			classFigureOrderedPropertyIds.add(pkg.getClassFigure_BodyBackgroundColorAccessor().getName());
 
 			// Reference figure properties order
 			final List<String> referenceFigureOrderedPropertyIds = new ArrayList<String>();
