@@ -29,7 +29,6 @@ package org.emftools.emf2gv.graphdesc.impl;
 
 import java.awt.Color;
 import java.io.StringWriter;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -76,9 +75,6 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getHeaderBackgroundColor <em>Header Background Color</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getBodyBackgroundColor <em>Body Background Color</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getNestedFiguresEReferences <em>Nested Figures EReferences</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#isDynamicAppearance <em>Dynamic Appearance</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getHeaderBackgroundColorAccessor <em>Header Background Color Accessor</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getBodyBackgroundColorAccessor <em>Body Background Color Accessor</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#isContainer <em>Container</em>}</li>
  * </ul>
  * </p>
@@ -176,66 +172,6 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * @ordered
 	 */
 	protected EList<EReference> nestedFiguresEReferences;
-
-	/**
-	 * The default value of the '{@link #isDynamicAppearance() <em>Dynamic Appearance</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isDynamicAppearance()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean DYNAMIC_APPEARANCE_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isDynamicAppearance() <em>Dynamic Appearance</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isDynamicAppearance()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean dynamicAppearance = DYNAMIC_APPEARANCE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getHeaderBackgroundColorAccessor() <em>Header Background Color Accessor</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getHeaderBackgroundColorAccessor()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String HEADER_BACKGROUND_COLOR_ACCESSOR_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getHeaderBackgroundColorAccessor() <em>Header Background Color Accessor</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getHeaderBackgroundColorAccessor()
-	 * @generated
-	 * @ordered
-	 */
-	protected String headerBackgroundColorAccessor = HEADER_BACKGROUND_COLOR_ACCESSOR_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getBodyBackgroundColorAccessor() <em>Body Background Color Accessor</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBodyBackgroundColorAccessor()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String BODY_BACKGROUND_COLOR_ACCESSOR_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getBodyBackgroundColorAccessor() <em>Body Background Color Accessor</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBodyBackgroundColorAccessor()
-	 * @generated
-	 * @ordered
-	 */
-	protected String bodyBackgroundColorAccessor = BODY_BACKGROUND_COLOR_ACCESSOR_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isContainer() <em>Container</em>}' attribute.
@@ -499,77 +435,6 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isDynamicAppearance() {
-		return dynamicAppearance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void setDynamicAppearance(boolean newDynamicAppearance) {
-		boolean oldDynamicAppearance = dynamicAppearance;
-		dynamicAppearance = newDynamicAppearance;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.CLASS_FIGURE__DYNAMIC_APPEARANCE, oldDynamicAppearance, dynamicAppearance));
-		if (!newDynamicAppearance) {
-			setBodyBackgroundColorAccessor(null);
-			setHeaderBackgroundColorAccessor(null);
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getHeaderBackgroundColorAccessor() {
-		return headerBackgroundColorAccessor;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void setHeaderBackgroundColorAccessor(String newHeaderBackgroundColorAccessor) {
-		if (isDynamicAppearance()) {
-			String oldHeaderBackgroundColorAccessor = headerBackgroundColorAccessor;
-			headerBackgroundColorAccessor = newHeaderBackgroundColorAccessor;
-			if (eNotificationRequired())
-				eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR, oldHeaderBackgroundColorAccessor, headerBackgroundColorAccessor));
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getBodyBackgroundColorAccessor() {
-		return bodyBackgroundColorAccessor;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void setBodyBackgroundColorAccessor(String newBodyBackgroundColorAccessor) {
-		if (isDynamicAppearance()) {
-			String oldBodyBackgroundColorAccessor = bodyBackgroundColorAccessor;
-			bodyBackgroundColorAccessor = newBodyBackgroundColorAccessor;
-			if (eNotificationRequired())
-				eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR, oldBodyBackgroundColorAccessor, bodyBackgroundColorAccessor));
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public boolean isContainer() {
@@ -679,15 +544,6 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 						valid = false;
 					}
 
-					// If the class figure has color providers, they must belong
-					// to the underlying class
-					valid &= checkColorProvider(diagnostic,
-							constraintsHelper,
-							getHeaderBackgroundColorAccessor());
-					valid &= checkColorProvider(diagnostic,
-							constraintsHelper,
-							getBodyBackgroundColorAccessor());
-					
 					// If the class figure has nested figures EReferences,
 					// theses
 					// references must be containment references
@@ -714,35 +570,6 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 					}
 				}
 
-			}
-		}
-		return valid;
-	}
-
-	private boolean checkColorProvider(DiagnosticChain diagnostic, EMFConstraintsHelper constraintsHelper, String colorProvider) {
-		boolean valid = true;
-		if (colorProvider != null) {
-			Class<?> javaClass = getEClass().getInstanceClass();
-			try {
-				Method method = javaClass.getMethod(
-						colorProvider,
-						new Class[] {});
-				if (!method.getReturnType().getName()
-						.equals("java.awt.Color")) {
-					constraintsHelper
-							.addError(
-									diagnostic,
-									this,
-									0,
-									"The color provider ''{0}'' is invalid (it does not return a java.awt.Color)",
-									colorProvider);
-					valid = false;
-				}
-			} catch (NoSuchMethodException e) {
-				constraintsHelper.addError(diagnostic, this, 0,
-						"The color provider ''{0}'' does not exist",
-						colorProvider);
-				valid = false;
 			}
 		}
 		return valid;
@@ -829,12 +656,6 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				return getBodyBackgroundColor();
 			case GraphdescPackage.CLASS_FIGURE__NESTED_FIGURES_EREFERENCES:
 				return getNestedFiguresEReferences();
-			case GraphdescPackage.CLASS_FIGURE__DYNAMIC_APPEARANCE:
-				return isDynamicAppearance();
-			case GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR:
-				return getHeaderBackgroundColorAccessor();
-			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR:
-				return getBodyBackgroundColorAccessor();
 			case GraphdescPackage.CLASS_FIGURE__CONTAINER:
 				return isContainer();
 		}
@@ -876,15 +697,6 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				getNestedFiguresEReferences().clear();
 				getNestedFiguresEReferences().addAll((Collection<? extends EReference>)newValue);
 				return;
-			case GraphdescPackage.CLASS_FIGURE__DYNAMIC_APPEARANCE:
-				setDynamicAppearance((Boolean)newValue);
-				return;
-			case GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR:
-				setHeaderBackgroundColorAccessor((String)newValue);
-				return;
-			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR:
-				setBodyBackgroundColorAccessor((String)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -920,15 +732,6 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 			case GraphdescPackage.CLASS_FIGURE__NESTED_FIGURES_EREFERENCES:
 				getNestedFiguresEReferences().clear();
 				return;
-			case GraphdescPackage.CLASS_FIGURE__DYNAMIC_APPEARANCE:
-				setDynamicAppearance(DYNAMIC_APPEARANCE_EDEFAULT);
-				return;
-			case GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR:
-				setHeaderBackgroundColorAccessor(HEADER_BACKGROUND_COLOR_ACCESSOR_EDEFAULT);
-				return;
-			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR:
-				setBodyBackgroundColorAccessor(BODY_BACKGROUND_COLOR_ACCESSOR_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -958,12 +761,6 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				return BODY_BACKGROUND_COLOR_EDEFAULT == null ? bodyBackgroundColor != null : !BODY_BACKGROUND_COLOR_EDEFAULT.equals(bodyBackgroundColor);
 			case GraphdescPackage.CLASS_FIGURE__NESTED_FIGURES_EREFERENCES:
 				return nestedFiguresEReferences != null && !nestedFiguresEReferences.isEmpty();
-			case GraphdescPackage.CLASS_FIGURE__DYNAMIC_APPEARANCE:
-				return dynamicAppearance != DYNAMIC_APPEARANCE_EDEFAULT;
-			case GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR:
-				return HEADER_BACKGROUND_COLOR_ACCESSOR_EDEFAULT == null ? headerBackgroundColorAccessor != null : !HEADER_BACKGROUND_COLOR_ACCESSOR_EDEFAULT.equals(headerBackgroundColorAccessor);
-			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR:
-				return BODY_BACKGROUND_COLOR_ACCESSOR_EDEFAULT == null ? bodyBackgroundColorAccessor != null : !BODY_BACKGROUND_COLOR_ACCESSOR_EDEFAULT.equals(bodyBackgroundColorAccessor);
 			case GraphdescPackage.CLASS_FIGURE__CONTAINER:
 				return isContainer() != CONTAINER_EDEFAULT;
 		}
@@ -983,12 +780,6 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 		result.append(headerBackgroundColor);
 		result.append(", bodyBackgroundColor: ");
 		result.append(bodyBackgroundColor);
-		result.append(", dynamicAppearance: ");
-		result.append(dynamicAppearance);
-		result.append(", headerBackgroundColorAccessor: ");
-		result.append(headerBackgroundColorAccessor);
-		result.append(", bodyBackgroundColorAccessor: ");
-		result.append(bodyBackgroundColorAccessor);
 		result.append(')');
 		return result.toString();
 	}

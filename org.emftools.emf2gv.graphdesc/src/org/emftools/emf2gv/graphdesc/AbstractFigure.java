@@ -69,6 +69,7 @@ public interface AbstractFigure extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Dynamic Properties</b></em>' containment reference list.
 	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider}.
+	 * It is bidirectional and its opposite is '{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getFigure <em>Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Dynamic Properties</em>' containment reference list isn't clear,
@@ -77,7 +78,8 @@ public interface AbstractFigure extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Dynamic Properties</em>' containment reference list.
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAbstractFigure_DynamicProperties()
-	 * @model containment="true"
+	 * @see org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getFigure
+	 * @model opposite="figure" containment="true"
 	 * @generated
 	 */
 	EList<DynamicPropertyOverrider> getDynamicProperties();

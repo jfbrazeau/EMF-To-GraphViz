@@ -52,9 +52,6 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getHeaderBackgroundColor <em>Header Background Color</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getBodyBackgroundColor <em>Body Background Color</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getNestedFiguresEReferences <em>Nested Figures EReferences</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#isDynamicAppearance <em>Dynamic Appearance</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getHeaderBackgroundColorAccessor <em>Header Background Color Accessor</em>}</li>
- *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getBodyBackgroundColorAccessor <em>Body Background Color Accessor</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#isContainer <em>Container</em>}</li>
  * </ul>
  * </p>
@@ -264,84 +261,6 @@ public interface ClassFigure extends AbstractFigure {
 	 * @generated
 	 */
 	EList<EReference> getNestedFiguresEReferences();
-
-	/**
-	 * Returns the value of the '<em><b>Dynamic Appearance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Dynamic Appearance</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Dynamic Appearance</em>' attribute.
-	 * @see #setDynamicAppearance(boolean)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getClassFigure_DynamicAppearance()
-	 * @model
-	 * @generated
-	 */
-	boolean isDynamicAppearance();
-
-	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.ClassFigure#isDynamicAppearance <em>Dynamic Appearance</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Dynamic Appearance</em>' attribute.
-	 * @see #isDynamicAppearance()
-	 * @generated
-	 */
-	void setDynamicAppearance(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Header Background Color Accessor</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Header Background Color Accessor</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Header Background Color Accessor</em>' attribute.
-	 * @see #setHeaderBackgroundColorAccessor(String)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getClassFigure_HeaderBackgroundColorAccessor()
-	 * @model
-	 * @generated
-	 */
-	String getHeaderBackgroundColorAccessor();
-
-	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getHeaderBackgroundColorAccessor <em>Header Background Color Accessor</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Header Background Color Accessor</em>' attribute.
-	 * @see #getHeaderBackgroundColorAccessor()
-	 * @generated
-	 */
-	void setHeaderBackgroundColorAccessor(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Body Background Color Accessor</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Body Background Color Accessor</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Body Background Color Accessor</em>' attribute.
-	 * @see #setBodyBackgroundColorAccessor(String)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getClassFigure_BodyBackgroundColorAccessor()
-	 * @model
-	 * @generated
-	 */
-	String getBodyBackgroundColorAccessor();
-
-	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getBodyBackgroundColorAccessor <em>Body Background Color Accessor</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Body Background Color Accessor</em>' attribute.
-	 * @see #getBodyBackgroundColorAccessor()
-	 * @generated
-	 */
-	void setBodyBackgroundColorAccessor(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Container</b></em>' attribute.

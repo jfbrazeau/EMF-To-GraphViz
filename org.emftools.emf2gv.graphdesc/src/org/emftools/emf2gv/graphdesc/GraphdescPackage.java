@@ -303,40 +303,13 @@ public interface GraphdescPackage extends EPackage {
 	int CLASS_FIGURE__NESTED_FIGURES_EREFERENCES = ABSTRACT_FIGURE_FEATURE_COUNT + 8;
 
 	/**
-	 * The feature id for the '<em><b>Dynamic Appearance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_FIGURE__DYNAMIC_APPEARANCE = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Header Background Color Accessor</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR = ABSTRACT_FIGURE_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Body Background Color Accessor</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR = ABSTRACT_FIGURE_FEATURE_COUNT + 11;
-
-	/**
 	 * The feature id for the '<em><b>Container</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE__CONTAINER = ABSTRACT_FIGURE_FEATURE_COUNT + 12;
+	int CLASS_FIGURE__CONTAINER = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Class Figure</em>' class.
@@ -345,7 +318,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 13;
+	int CLASS_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl <em>Rich Reference Figure</em>}' class.
@@ -1011,13 +984,22 @@ public interface GraphdescPackage extends EPackage {
 	int DYNAMIC_PROPERTY_OVERRIDER__OVERRIDING_EXPRESSION = 2;
 
 	/**
+	 * The feature id for the '<em><b>Figure</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DYNAMIC_PROPERTY_OVERRIDER__FIGURE = 3;
+
+	/**
 	 * The number of structural features of the '<em>Dynamic Property Overrider</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DYNAMIC_PROPERTY_OVERRIDER_FEATURE_COUNT = 3;
+	int DYNAMIC_PROPERTY_OVERRIDER_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl <em>Filter</em>}' class.
@@ -1057,13 +1039,22 @@ public interface GraphdescPackage extends EPackage {
 	int FILTER__FILTER_EXPRESSION = 2;
 
 	/**
+	 * The feature id for the '<em><b>Figure Description</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILTER__FIGURE_DESCRIPTION = 3;
+
+	/**
 	 * The number of structural features of the '<em>Filter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILTER_FEATURE_COUNT = 3;
+	int FILTER_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.Orientation <em>Orientation</em>}' enum.
@@ -1217,39 +1208,6 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getClassFigure_NestedFiguresEReferences();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ClassFigure#isDynamicAppearance <em>Dynamic Appearance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Dynamic Appearance</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ClassFigure#isDynamicAppearance()
-	 * @see #getClassFigure()
-	 * @generated
-	 */
-	EAttribute getClassFigure_DynamicAppearance();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getHeaderBackgroundColorAccessor <em>Header Background Color Accessor</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Header Background Color Accessor</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ClassFigure#getHeaderBackgroundColorAccessor()
-	 * @see #getClassFigure()
-	 * @generated
-	 */
-	EAttribute getClassFigure_HeaderBackgroundColorAccessor();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getBodyBackgroundColorAccessor <em>Body Background Color Accessor</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Body Background Color Accessor</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ClassFigure#getBodyBackgroundColorAccessor()
-	 * @see #getClassFigure()
-	 * @generated
-	 */
-	EAttribute getClassFigure_BodyBackgroundColorAccessor();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.ClassFigure#isContainer <em>Container</em>}'.
@@ -1414,6 +1372,17 @@ public interface GraphdescPackage extends EPackage {
 	EAttribute getDynamicPropertyOverrider_OverridingExpression();
 
 	/**
+	 * Returns the meta object for the container reference '{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getFigure <em>Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Figure</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getFigure()
+	 * @see #getDynamicPropertyOverrider()
+	 * @generated
+	 */
+	EReference getDynamicPropertyOverrider_Figure();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.Filter <em>Filter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1455,6 +1424,17 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getFilter_FilterExpression();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.emftools.emf2gv.graphdesc.Filter#getFigureDescription <em>Figure Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Figure Description</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.Filter#getFigureDescription()
+	 * @see #getFilter()
+	 * @generated
+	 */
+	EReference getFilter_FigureDescription();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.AbstractFigure <em>Abstract Figure</em>}'.
@@ -1893,30 +1873,6 @@ public interface GraphdescPackage extends EPackage {
 		EReference CLASS_FIGURE__NESTED_FIGURES_EREFERENCES = eINSTANCE.getClassFigure_NestedFiguresEReferences();
 
 		/**
-		 * The meta object literal for the '<em><b>Dynamic Appearance</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CLASS_FIGURE__DYNAMIC_APPEARANCE = eINSTANCE.getClassFigure_DynamicAppearance();
-
-		/**
-		 * The meta object literal for the '<em><b>Header Background Color Accessor</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CLASS_FIGURE__HEADER_BACKGROUND_COLOR_ACCESSOR = eINSTANCE.getClassFigure_HeaderBackgroundColorAccessor();
-
-		/**
-		 * The meta object literal for the '<em><b>Body Background Color Accessor</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CLASS_FIGURE__BODY_BACKGROUND_COLOR_ACCESSOR = eINSTANCE.getClassFigure_BodyBackgroundColorAccessor();
-
-		/**
 		 * The meta object literal for the '<em><b>Container</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2043,6 +1999,14 @@ public interface GraphdescPackage extends EPackage {
 		EAttribute DYNAMIC_PROPERTY_OVERRIDER__OVERRIDING_EXPRESSION = eINSTANCE.getDynamicPropertyOverrider_OverridingExpression();
 
 		/**
+		 * The meta object literal for the '<em><b>Figure</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DYNAMIC_PROPERTY_OVERRIDER__FIGURE = eINSTANCE.getDynamicPropertyOverrider_Figure();
+
+		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl <em>Filter</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2075,6 +2039,14 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FILTER__FILTER_EXPRESSION = eINSTANCE.getFilter_FilterExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Figure Description</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FILTER__FIGURE_DESCRIPTION = eINSTANCE.getFilter_FigureDescription();
 
 		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl <em>Abstract Figure</em>}' class.

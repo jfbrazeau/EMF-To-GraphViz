@@ -39,7 +39,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -219,7 +218,7 @@ public class GVFigureDescriptionImpl extends EObjectImpl implements GVFigureDesc
 	 */
 	public EList<Filter> getFilters() {
 		if (filters == null) {
-			filters = new EObjectContainmentEList<Filter>(Filter.class, this, GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS);
+			filters = new EObjectContainmentWithInverseEList<Filter>(Filter.class, this, GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS, GraphdescPackage.FILTER__FIGURE_DESCRIPTION);
 		}
 		return filters;
 	}
@@ -277,6 +276,8 @@ public class GVFigureDescriptionImpl extends EObjectImpl implements GVFigureDesc
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getFilters()).basicAdd(otherEnd, msgs);
 			case GraphdescPackage.GV_FIGURE_DESCRIPTION__CLASS_FIGURES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getClassFigures()).basicAdd(otherEnd, msgs);
 		}

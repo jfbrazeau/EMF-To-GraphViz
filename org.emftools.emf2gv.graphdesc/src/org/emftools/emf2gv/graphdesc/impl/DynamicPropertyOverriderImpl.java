@@ -31,16 +31,19 @@ package org.emftools.emf2gv.graphdesc.impl;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
@@ -55,6 +58,7 @@ import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl#getPropertyToOverride <em>Property To Override</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl#getOverridingExpression <em>Overriding Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl#getFigure <em>Figure</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,7 +83,7 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	 * @generated
 	 * @ordered
 	 */
-	protected EAttribute propertyToOverride;
+	protected EStructuralFeature propertyToOverride;
 
 	/**
 	 * The default value of the '{@link #getOverridingExpression() <em>Overriding Expression</em>}' attribute.
@@ -134,10 +138,10 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPropertyToOverride() {
+	public EStructuralFeature getPropertyToOverride() {
 		if (propertyToOverride != null && propertyToOverride.eIsProxy()) {
 			InternalEObject oldPropertyToOverride = (InternalEObject)propertyToOverride;
-			propertyToOverride = (EAttribute)eResolveProxy(oldPropertyToOverride);
+			propertyToOverride = (EStructuralFeature)eResolveProxy(oldPropertyToOverride);
 			if (propertyToOverride != oldPropertyToOverride) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__PROPERTY_TO_OVERRIDE, oldPropertyToOverride, propertyToOverride));
@@ -151,7 +155,7 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute basicGetPropertyToOverride() {
+	public EStructuralFeature basicGetPropertyToOverride() {
 		return propertyToOverride;
 	}
 
@@ -160,9 +164,9 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void setPropertyToOverride(EAttribute newPropertyToOverride) {
+	public void setPropertyToOverride(EStructuralFeature newPropertyToOverride) {
 		String oldName = getName();
-		EAttribute oldPropertyToOverride = propertyToOverride;
+		EStructuralFeature oldPropertyToOverride = propertyToOverride;
 		propertyToOverride = newPropertyToOverride;
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__PROPERTY_TO_OVERRIDE, oldPropertyToOverride, propertyToOverride));
@@ -196,6 +200,47 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AbstractFigure getFigure() {
+		if (eContainerFeatureID() != GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE) return null;
+		return (AbstractFigure)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetFigure(AbstractFigure newFigure, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newFigure, GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFigure(AbstractFigure newFigure) {
+		if (newFigure != eInternalContainer() || (eContainerFeatureID() != GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE && newFigure != null)) {
+			if (EcoreUtil.isAncestor(this, newFigure))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newFigure != null)
+				msgs = ((InternalEObject)newFigure).eInverseAdd(this, GraphdescPackage.ABSTRACT_FIGURE__DYNAMIC_PROPERTIES, AbstractFigure.class, msgs);
+			msgs = basicSetFigure(newFigure, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE, newFigure, newFigure));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context) {
 		// TODO: implement this method
 		// -> specify the condition that violates the invariant
@@ -222,6 +267,50 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetFigure((AbstractFigure)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE:
+				return basicSetFigure(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE:
+				return eInternalContainer().eInverseRemove(this, GraphdescPackage.ABSTRACT_FIGURE__DYNAMIC_PROPERTIES, AbstractFigure.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__NAME:
@@ -231,6 +320,8 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 				return basicGetPropertyToOverride();
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__OVERRIDING_EXPRESSION:
 				return getOverridingExpression();
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE:
+				return getFigure();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -244,10 +335,13 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__PROPERTY_TO_OVERRIDE:
-				setPropertyToOverride((EAttribute)newValue);
+				setPropertyToOverride((EStructuralFeature)newValue);
 				return;
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__OVERRIDING_EXPRESSION:
 				setOverridingExpression((String)newValue);
+				return;
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE:
+				setFigure((AbstractFigure)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -262,10 +356,13 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__PROPERTY_TO_OVERRIDE:
-				setPropertyToOverride((EAttribute)null);
+				setPropertyToOverride((EStructuralFeature)null);
 				return;
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__OVERRIDING_EXPRESSION:
 				setOverridingExpression(OVERRIDING_EXPRESSION_EDEFAULT);
+				return;
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE:
+				setFigure((AbstractFigure)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -285,6 +382,8 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 				return propertyToOverride != null;
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__OVERRIDING_EXPRESSION:
 				return OVERRIDING_EXPRESSION_EDEFAULT == null ? overridingExpression != null : !OVERRIDING_EXPRESSION_EDEFAULT.equals(overridingExpression);
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE:
+				return getFigure() != null;
 		}
 		return super.eIsSet(featureID);
 	}

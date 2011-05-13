@@ -133,6 +133,7 @@ public interface GVFigureDescription extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Filters</b></em>' containment reference list.
 	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.Filter}.
+	 * It is bidirectional and its opposite is '{@link org.emftools.emf2gv.graphdesc.Filter#getFigureDescription <em>Figure Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Filters</em>' containment reference list isn't clear,
@@ -141,7 +142,8 @@ public interface GVFigureDescription extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Filters</em>' containment reference list.
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getGVFigureDescription_Filters()
-	 * @model containment="true"
+	 * @see org.emftools.emf2gv.graphdesc.Filter#getFigureDescription
+	 * @model opposite="figureDescription" containment="true"
 	 * @generated
 	 */
 	EList<Filter> getFilters();

@@ -36,7 +36,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
@@ -110,7 +110,7 @@ public abstract class AbstractFigureImpl extends EObjectImpl implements Abstract
 	 */
 	public EList<DynamicPropertyOverrider> getDynamicProperties() {
 		if (dynamicProperties == null) {
-			dynamicProperties = new EObjectContainmentEList<DynamicPropertyOverrider>(DynamicPropertyOverrider.class, this, GraphdescPackage.ABSTRACT_FIGURE__DYNAMIC_PROPERTIES);
+			dynamicProperties = new EObjectContainmentWithInverseEList<DynamicPropertyOverrider>(DynamicPropertyOverrider.class, this, GraphdescPackage.ABSTRACT_FIGURE__DYNAMIC_PROPERTIES, GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE);
 		}
 		return dynamicProperties;
 	}
@@ -121,6 +121,21 @@ public abstract class AbstractFigureImpl extends EObjectImpl implements Abstract
 	 * @generated NOT
 	 */
 	public abstract boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GraphdescPackage.ABSTRACT_FIGURE__DYNAMIC_PROPERTIES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getDynamicProperties()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -45,6 +45,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.emftools.emf2gv.graphdesc.Filter#getName <em>Name</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.Filter#getFilteredType <em>Filtered Type</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.Filter#getFilterExpression <em>Filter Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.Filter#getFigureDescription <em>Figure Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,7 +64,7 @@ public interface Filter extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getFilter_Name()
-	 * @model changeable="false" volatile="true" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	String getName();
@@ -119,6 +120,34 @@ public interface Filter extends EObject {
 	 * @generated
 	 */
 	void setFilterExpression(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Figure Description</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.emftools.emf2gv.graphdesc.GVFigureDescription#getFilters <em>Filters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Figure Description</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Figure Description</em>' container reference.
+	 * @see #setFigureDescription(GVFigureDescription)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getFilter_FigureDescription()
+	 * @see org.emftools.emf2gv.graphdesc.GVFigureDescription#getFilters
+	 * @model opposite="filters" transient="false"
+	 * @generated
+	 */
+	GVFigureDescription getFigureDescription();
+
+	/**
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.Filter#getFigureDescription <em>Figure Description</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Figure Description</em>' container reference.
+	 * @see #getFigureDescription()
+	 * @generated
+	 */
+	void setFigureDescription(GVFigureDescription value);
 
 	/**
 	 * <!-- begin-user-doc -->

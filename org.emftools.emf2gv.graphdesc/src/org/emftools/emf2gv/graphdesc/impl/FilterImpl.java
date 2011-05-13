@@ -31,6 +31,7 @@ package org.emftools.emf2gv.graphdesc.impl;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
@@ -40,7 +41,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftools.emf2gv.graphdesc.Filter;
+import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
 
@@ -54,6 +57,7 @@ import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl#getFilteredType <em>Filtered Type</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl#getFilterExpression <em>Filter Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl#getFigureDescription <em>Figure Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -195,6 +199,47 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GVFigureDescription getFigureDescription() {
+		if (eContainerFeatureID() != GraphdescPackage.FILTER__FIGURE_DESCRIPTION) return null;
+		return (GVFigureDescription)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetFigureDescription(GVFigureDescription newFigureDescription, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newFigureDescription, GraphdescPackage.FILTER__FIGURE_DESCRIPTION, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFigureDescription(GVFigureDescription newFigureDescription) {
+		if (newFigureDescription != eInternalContainer() || (eContainerFeatureID() != GraphdescPackage.FILTER__FIGURE_DESCRIPTION && newFigureDescription != null)) {
+			if (EcoreUtil.isAncestor(this, newFigureDescription))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newFigureDescription != null)
+				msgs = ((InternalEObject)newFigureDescription).eInverseAdd(this, GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS, GVFigureDescription.class, msgs);
+			msgs = basicSetFigureDescription(newFigureDescription, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.FILTER__FIGURE_DESCRIPTION, newFigureDescription, newFigureDescription));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context) {
 		// TODO: implement this method
 		// -> specify the condition that violates the invariant
@@ -221,6 +266,50 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GraphdescPackage.FILTER__FIGURE_DESCRIPTION:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetFigureDescription((GVFigureDescription)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GraphdescPackage.FILTER__FIGURE_DESCRIPTION:
+				return basicSetFigureDescription(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case GraphdescPackage.FILTER__FIGURE_DESCRIPTION:
+				return eInternalContainer().eInverseRemove(this, GraphdescPackage.GV_FIGURE_DESCRIPTION__FILTERS, GVFigureDescription.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GraphdescPackage.FILTER__NAME:
@@ -230,6 +319,8 @@ public class FilterImpl extends EObjectImpl implements Filter {
 				return basicGetFilteredType();
 			case GraphdescPackage.FILTER__FILTER_EXPRESSION:
 				return getFilterExpression();
+			case GraphdescPackage.FILTER__FIGURE_DESCRIPTION:
+				return getFigureDescription();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -247,6 +338,9 @@ public class FilterImpl extends EObjectImpl implements Filter {
 				return;
 			case GraphdescPackage.FILTER__FILTER_EXPRESSION:
 				setFilterExpression((String)newValue);
+				return;
+			case GraphdescPackage.FILTER__FIGURE_DESCRIPTION:
+				setFigureDescription((GVFigureDescription)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -266,6 +360,9 @@ public class FilterImpl extends EObjectImpl implements Filter {
 			case GraphdescPackage.FILTER__FILTER_EXPRESSION:
 				setFilterExpression(FILTER_EXPRESSION_EDEFAULT);
 				return;
+			case GraphdescPackage.FILTER__FIGURE_DESCRIPTION:
+				setFigureDescription((GVFigureDescription)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -284,6 +381,8 @@ public class FilterImpl extends EObjectImpl implements Filter {
 				return filteredType != null;
 			case GraphdescPackage.FILTER__FILTER_EXPRESSION:
 				return FILTER_EXPRESSION_EDEFAULT == null ? filterExpression != null : !FILTER_EXPRESSION_EDEFAULT.equals(filterExpression);
+			case GraphdescPackage.FILTER__FIGURE_DESCRIPTION:
+				return getFigureDescription() != null;
 		}
 		return super.eIsSet(featureID);
 	}

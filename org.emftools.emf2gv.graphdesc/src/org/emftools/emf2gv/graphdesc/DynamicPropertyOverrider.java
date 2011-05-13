@@ -31,8 +31,8 @@ package org.emftools.emf2gv.graphdesc;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,6 +45,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getName <em>Name</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getPropertyToOverride <em>Property To Override</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getOverridingExpression <em>Overriding Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getFigure <em>Figure</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,7 +64,7 @@ public interface DynamicPropertyOverrider extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getDynamicPropertyOverrider_Name()
-	 * @model changeable="false" volatile="true" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	String getName();
@@ -77,12 +78,12 @@ public interface DynamicPropertyOverrider extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Property To Override</em>' reference.
-	 * @see #setPropertyToOverride(EAttribute)
+	 * @see #setPropertyToOverride(EStructuralFeature)
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getDynamicPropertyOverrider_PropertyToOverride()
 	 * @model
 	 * @generated
 	 */
-	EAttribute getPropertyToOverride();
+	EStructuralFeature getPropertyToOverride();
 
 	/**
 	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getPropertyToOverride <em>Property To Override</em>}' reference.
@@ -92,7 +93,7 @@ public interface DynamicPropertyOverrider extends EObject {
 	 * @see #getPropertyToOverride()
 	 * @generated
 	 */
-	void setPropertyToOverride(EAttribute value);
+	void setPropertyToOverride(EStructuralFeature value);
 
 	/**
 	 * Returns the value of the '<em><b>Overriding Expression</b></em>' attribute.
@@ -119,6 +120,34 @@ public interface DynamicPropertyOverrider extends EObject {
 	 * @generated
 	 */
 	void setOverridingExpression(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Figure</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.emftools.emf2gv.graphdesc.AbstractFigure#getDynamicProperties <em>Dynamic Properties</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Figure</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Figure</em>' container reference.
+	 * @see #setFigure(AbstractFigure)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getDynamicPropertyOverrider_Figure()
+	 * @see org.emftools.emf2gv.graphdesc.AbstractFigure#getDynamicProperties
+	 * @model opposite="dynamicProperties" transient="false"
+	 * @generated
+	 */
+	AbstractFigure getFigure();
+
+	/**
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#getFigure <em>Figure</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Figure</em>' container reference.
+	 * @see #getFigure()
+	 * @generated
+	 */
+	void setFigure(AbstractFigure value);
 
 	/**
 	 * <!-- begin-user-doc -->
