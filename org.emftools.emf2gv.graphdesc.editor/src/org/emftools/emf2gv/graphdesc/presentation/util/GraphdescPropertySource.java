@@ -30,15 +30,20 @@ package org.emftools.emf2gv.graphdesc.presentation.util;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.ui.provider.PropertySource;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
+import org.emftools.emf2gv.graphdesc.AbstractFigure;
+import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
+import org.emftools.emf2gv.graphdesc.AttributeFigure;
+import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
  * The graphical description property source.
@@ -46,6 +51,11 @@ import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
  * @author jbrazeau
  */
 public class GraphdescPropertySource extends PropertySource {
+
+	/** Error message constants */
+	private static final String SELECT_ECLASS_MSG = "Please select an EClass at first in the figure.";
+	private static final String SELECT_EREF_MSG1 = "Please select an EReference at first.";
+	private static final String SELECT_EREF_MSG2 = "Please select an EReference at first in the figure.";
 
 	/** The color icons map */
 	private Map<String, Image> colorIcons;
@@ -91,8 +101,10 @@ public class GraphdescPropertySource extends PropertySource {
 				|| feature == gdPkg
 						.getRichReferenceFigure_SourceLabelExpression()
 				|| feature == gdPkg
-						.getRichReferenceFigure_StandardLabelExpression() || feature == gdPkg
-				.getRichReferenceFigure_TargetLabelExpression());
+						.getRichReferenceFigure_StandardLabelExpression()
+				|| feature == gdPkg
+						.getRichReferenceFigure_TargetLabelExpression() || feature == gdPkg
+				.getDynamicPropertyOverrider_OverridingExpression());
 		if (arrowTypeFeature) {
 			result = new ArrowTypePropertyDescriptor(object,
 					itemPropertyDescriptor);
@@ -100,15 +112,52 @@ public class GraphdescPropertySource extends PropertySource {
 			result = new ColorPropertyDescriptor(object,
 					itemPropertyDescriptor, colorIcons);
 		} else if (oclFeature) {
-			EReference eReference = (EReference) ((EObject) object)
-					.eGet(object instanceof RichAttributeFigure ? gdPkg
-							.getRichAttributeFigure_EReference() : gdPkg
-							.getAbstractReferenceFigure_EReference());
-			EClassifier eType = eReference != null ? eReference.getEType()
-					: null;
+			EClassifier oclContext = null;
+			String missingContextErrorMessage = null;
+			if (object instanceof RichAttributeFigure) {
+				EReference eReference = ((RichAttributeFigure) object)
+						.getEReference();
+				oclContext = eReference != null ? eReference.getEType() : null;
+				missingContextErrorMessage = SELECT_EREF_MSG1;
+			} else if (object instanceof RichReferenceFigure) {
+				EReference eReference = ((RichReferenceFigure) object)
+						.getEReference();
+				oclContext = eReference != null ? eReference.getEType() : null;
+				missingContextErrorMessage = SELECT_EREF_MSG1;
+			} else if (object instanceof DynamicPropertyOverrider) {
+				DynamicPropertyOverrider dpo = (DynamicPropertyOverrider) object;
+				if (dpo != null) {
+					AbstractFigure figure = dpo.getFigure();
+					if (figure != null) {
+						if (figure instanceof ClassFigure) {
+							oclContext = ((ClassFigure) figure).getEClass();
+							missingContextErrorMessage = SELECT_ECLASS_MSG;
+						} else if (figure instanceof AttributeFigure) {
+							ClassFigure classFigure = ((AttributeFigure) figure)
+									.getClassFigure();
+							oclContext = classFigure != null ? classFigure
+									.getEClass() : null;
+							missingContextErrorMessage = SELECT_ECLASS_MSG;
+						} else if (figure instanceof RichAttributeFigure) {
+							EReference eReference = ((RichAttributeFigure) figure)
+									.getEReference();
+							oclContext = eReference != null ? eReference
+									.getEType() : null;
+							missingContextErrorMessage = SELECT_EREF_MSG2;
+						} else if (figure instanceof AbstractReferenceFigure) {
+							EReference eReference = ((AbstractReferenceFigure) figure)
+									.getEReference();
+							oclContext = eReference != null ? eReference
+									.getEType() : null;
+							missingContextErrorMessage = SELECT_EREF_MSG2;
+						}
+					}
+				}
+			}
 			// OCL expression are only used in RichAttributeFigures
+			final String theMissingContextErrorMessage = missingContextErrorMessage;
 			result = new OCLPropertyDescriptor(object, itemPropertyDescriptor,
-					eType) {
+					oclContext) {
 				/*
 				 * (non-Javadoc)
 				 * 
@@ -117,8 +166,8 @@ public class GraphdescPropertySource extends PropertySource {
 				 */
 				protected String getMissingContextMessage() {
 					// This is the message to show if no context is defined
-					// (ie. is no EReference si selected)
-					return "Please select an EReference at first.";
+					// (ie. is no EReference is selected)
+					return theMissingContextErrorMessage;
 				};
 			};
 		} else {
