@@ -29,21 +29,17 @@ package org.emftools.emf2gv.graphdesc.presentation.util;
 
 import java.util.Map;
 
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.ui.provider.PropertySource;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
-import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
-import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
-import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 
 /**
  * The graphical description property source.
@@ -112,43 +108,26 @@ public class GraphdescPropertySource extends PropertySource {
 			result = new ColorPropertyDescriptor(object,
 					itemPropertyDescriptor, colorIcons);
 		} else if (oclFeature) {
-			EClassifier oclContext = null;
+			EClass oclContext = null;
 			String missingContextErrorMessage = null;
-			if (object instanceof RichAttributeFigure) {
-				EReference eReference = ((RichAttributeFigure) object)
-						.getEReference();
-				oclContext = eReference != null ? eReference.getEType() : null;
-				missingContextErrorMessage = SELECT_EREF_MSG1;
-			} else if (object instanceof RichReferenceFigure) {
-				EReference eReference = ((RichReferenceFigure) object)
-						.getEReference();
-				oclContext = eReference != null ? eReference.getEType() : null;
+			if (object instanceof AbstractFigure) {
+				oclContext = ((AbstractFigure) object)
+						.getStandardOCLContext();
 				missingContextErrorMessage = SELECT_EREF_MSG1;
 			} else if (object instanceof DynamicPropertyOverrider) {
 				DynamicPropertyOverrider dpo = (DynamicPropertyOverrider) object;
 				if (dpo != null) {
 					AbstractFigure figure = dpo.getFigure();
 					if (figure != null) {
-						if (figure instanceof ClassFigure) {
-							oclContext = ((ClassFigure) figure).getEClass();
+						oclContext = figure
+								.getStandardOCLContext();
+						if (figure instanceof ClassFigure
+								|| figure instanceof AttributeFigure) {
 							missingContextErrorMessage = SELECT_ECLASS_MSG;
-						} else if (figure instanceof AttributeFigure) {
-							ClassFigure classFigure = ((AttributeFigure) figure)
-									.getClassFigure();
-							oclContext = classFigure != null ? classFigure
-									.getEClass() : null;
-							missingContextErrorMessage = SELECT_ECLASS_MSG;
-						} else if (figure instanceof RichAttributeFigure) {
-							EReference eReference = ((RichAttributeFigure) figure)
-									.getEReference();
-							oclContext = eReference != null ? eReference
-									.getEType() : null;
-							missingContextErrorMessage = SELECT_EREF_MSG2;
-						} else if (figure instanceof AbstractReferenceFigure) {
-							EReference eReference = ((AbstractReferenceFigure) figure)
-									.getEReference();
-							oclContext = eReference != null ? eReference
-									.getEType() : null;
+						}
+						// Other cases (ie. RichAttributeFigure,
+						// AbstractReferenceFigure)
+						else {
 							missingContextErrorMessage = SELECT_EREF_MSG2;
 						}
 					}

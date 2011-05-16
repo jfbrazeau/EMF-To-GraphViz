@@ -346,4 +346,15 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 		return valid;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl#getStandardOCLContext()
+	 */
+	@Override
+	public EClass getStandardOCLContext() {
+		// The context is the underlying EObject of the RichAttributeFigure
+		// (ie. targeted by the EReference)
+		return getEReference() != null ? getEReference().getEReferenceType()
+				: null;
+	}
+
 } //RichAttributeFigureImpl

@@ -61,11 +61,13 @@ import org.eclipse.ocl.ecore.OCL.Helper;
 import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.ocl.helper.OCLHelper;
 import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
+import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
@@ -86,6 +88,11 @@ import org.emftools.emf2gv.util.OCLProvider;
  * 
  */
 final class GVSourceAndDependenciesBuilder {
+
+	/**
+	 * The graphical description EPackage.
+	 */
+	private static final GraphdescPackage gvPkg = GraphdescPackage.eINSTANCE;
 
 	/**
 	 * A boolean indicating if the builder is closed.
@@ -293,7 +300,7 @@ final class GVSourceAndDependenciesBuilder {
 	}
 
 	/**
-	 * @return the adgees count.
+	 * @return the edges count.
 	 */
 	public int getEdgesCount() {
 		return edgesCount;
@@ -427,15 +434,47 @@ final class GVSourceAndDependenciesBuilder {
 
 					// Node description creation and registration
 					NodeDesc nodeDesc = new NodeDesc();
-					nodeDesc.classFigure = classFigure;
-					nodeDesc.eObject = eContentRoot;
+					nodeDesc.eClassName = eContentRoot.eClass().getName();
 					nodeDesc.eObjectId = eContentRootId;
 					nodeDesc.iconPath = findAndSaveEObjectIcon(eContentRoot,
 							monitor);
 					nodeDesc.validationDecoratorIconPath = getValidationDecoratorIconPath(
 							eContentRoot, monitor);
+					nodeDesc.isContainer = classFigure.isContainer();
 					nodes.add(nodeDesc);
+					// Overridable properties retrieval
+					nodeDesc.headerBackgroundColor = (Color) getFigurePropertyValue(
+							classFigure, eContentRoot,
+							gvPkg.getClassFigure_HeaderBackgroundColor());
+					nodeDesc.bodyBackgroundColor = classFigure
+							.getBodyBackgroundColor();
 					nodesMap.put(eContentRoot, nodeDesc);
+
+					// Label building
+					boolean iconAvailable = nodeDesc.iconPath != null;
+					EAttribute labelEAttribute = classFigure
+							.getLabelEAttribute();
+					String rawLabel = null;
+					if (labelEAttribute != null) {
+						Object labelObject = eContentRoot
+								.eGet(labelEAttribute);
+						rawLabel = labelObject != null ? labelObject.toString()
+								: null;
+						if (rawLabel != null) {
+							rawLabel = rawLabel.trim();
+							if ("".equals(rawLabel)) {
+								rawLabel = null;
+							}
+						}
+					}
+					// If there is no icon or if we have no label to show, we
+					// print the EClass name
+					if (iconAvailable) {
+						nodeDesc.label = rawLabel;
+					} else {
+						nodeDesc.label = classFigure.getEClass().getName()
+								+ (rawLabel != null ? " : " + rawLabel : "");
+					}
 
 					// Attributes retrieval
 					nodeDesc.attributes = new ArrayList<AttributeDesc>();
@@ -453,14 +492,14 @@ final class GVSourceAndDependenciesBuilder {
 								attrLabel = eAttribute.getName();
 							}
 							attrDesc.label = attrLabel.trim();
-							attrDesc.value = String.valueOf(nodeDesc.eObject
+							attrDesc.value = String.valueOf(eContentRoot
 									.eGet(eAttribute));
 						}
 						// Rich attribute figures
 						else {
 							RichAttributeFigure attrFigure = (RichAttributeFigure) abstractAttrFigure;
 							List<EObject> richAttrsEObjects = getTargetRefEObjects(
-									nodeDesc.eObject,
+									eContentRoot,
 									attrFigure.getEReference());
 							OCLExpression<EClassifier> expression = parseOCLExpression(
 									attrFigure.getEReference().getEType(),
@@ -561,6 +600,40 @@ final class GVSourceAndDependenciesBuilder {
 	}
 
 	/**
+	 * Returns the figure property value or the evaluated dynamic property
+	 * overrider.
+	 * 
+	 * @param figure
+	 *            the figure.
+	 * @param eObject
+	 *            the EObject.
+	 * @param propertyFeature
+	 *            the property to evaluate.
+	 * @return the property value.
+	 * @throws CoreException
+	 *             thrown if a parser exception occurs.
+	 */
+	private Object getFigurePropertyValue(AbstractFigure figure,
+			EObject eObject, EStructuralFeature propertyFeature)
+			throws CoreException {
+		DynamicPropertyOverrider dynPropOverrider = null;
+		for (DynamicPropertyOverrider dpo : figure.getDynamicProperties()) {
+			if (propertyFeature == dpo.getPropertyToOverride()) {
+				dynPropOverrider = dpo;
+				break;
+			}
+		}
+		Object result = null;
+		if (dynPropOverrider != null) {
+			result = evaluateOCLExpression(eObject,
+					dynPropOverrider.getOverridingExpression());
+		} else {
+			result = figure.eGet(propertyFeature);
+		}
+		return result;
+	}
+
+	/**
 	 * Parses an OCL expression.
 	 * 
 	 * @param context
@@ -605,11 +678,11 @@ final class GVSourceAndDependenciesBuilder {
 			throws CoreException {
 		if (oclExpression == null || "".equals(oclExpression)) {
 			return "";
-		}
-		else {
+		} else {
 			OCLExpression<EClassifier> expression = parseOCLExpression(
 					context.eClass(), oclExpression);
-			return getOCL().evaluate(context, expression);
+			Object result = getOCL().evaluate(context, expression); 
+			return result;
 		}
 	}
 
@@ -675,15 +748,33 @@ final class GVSourceAndDependenciesBuilder {
 			// is not associated to a ClassFigure.
 			if (targetEObjectId != null) {
 				EdgeDesc edgeDesc = new EdgeDesc();
-				edgeDesc.referenceFigure = figure;
 				edgeDesc.srcEObjectId = srcEObjectId;
 				edgeDesc.srcEObject = srcEObject;
+				edgeDesc.srcArrowType = figure.getSourceArrowType();
+				edgeDesc.customSrcArrowType = figure.getCustomSourceArrow();
 				edgeDesc.targetEObjectId = targetEObjectId;
 				edgeDesc.targetEObject = targetEObject;
+				edgeDesc.targetArrowType = figure.getTargetArrowType();
+				edgeDesc.customTargetArrowType = figure.getCustomTargetArrow();
+				edgeDesc.minimumEdgeLength = figure.getMinimumEdgeLength();
+				edgeDesc.color = figure.getColor();
+				edgeDesc.style = figure.getStyle();
 				edgeDesc.srcLabel = srcLabel;
 				edgeDesc.stdLabel = stdLabel;
 				edgeDesc.targetLabel = targetLabel;
 				edgeDesc.validationDecoratorIconPath = validationDecoratorIconPath;
+				if (figure instanceof RichReferenceFigure) {
+					RichReferenceFigure richRefFigure = (RichReferenceFigure) figure;
+					edgeDesc.labelAngle = richRefFigure.getLabelAngle();
+					edgeDesc.labelDistance = richRefFigure.getLabelDistance();
+				}
+				ClassFigure srcClassFigure = figureDesc
+						.getClassFigure(edgeDesc.srcEObject.eClass());
+				edgeDesc.srcFigureIsContainer = srcClassFigure.isContainer();
+				ClassFigure targetClassFigure = figureDesc
+						.getClassFigure(edgeDesc.targetEObject.eClass());
+				edgeDesc.targetFigureIsContainer = targetClassFigure
+						.isContainer();
 				edges.add(edgeDesc);
 			}
 		}
@@ -876,26 +967,17 @@ final class GVSourceAndDependenciesBuilder {
 	 *            the edge description to flush.
 	 */
 	private void flushEdge(EdgeDesc edgeDesc) {
-		AbstractReferenceFigure abstractReferenceFigure = edgeDesc.referenceFigure;
-		ClassFigure srcClassFigure = figureDesc
-				.getClassFigure(edgeDesc.srcEObject.eClass());
-		ClassFigure targetClassFigure = figureDesc
-				.getClassFigure(edgeDesc.targetEObject.eClass());
 		out.print('\t');
 		out.print(edgeDesc.srcEObjectId);
 		out.print("->");
 		out.print(edgeDesc.targetEObjectId);
 		// Arrow style
 		out.print(" [arrowhead = ");
-		out.print(abstractReferenceFigure.getTargetArrowType().equals(
-				ArrowType.CUSTOM) ? abstractReferenceFigure
-				.getCustomTargetArrow() : abstractReferenceFigure
-				.getTargetArrowType().toString());
+		out.print(edgeDesc.targetArrowType.equals(ArrowType.CUSTOM) ? edgeDesc.customTargetArrowType
+				: edgeDesc.targetArrowType.toString());
 		out.print(", arrowtail = ");
-		out.print(abstractReferenceFigure.getSourceArrowType().equals(
-				ArrowType.CUSTOM) ? abstractReferenceFigure
-				.getCustomSourceArrow() : abstractReferenceFigure
-				.getSourceArrowType().toString());
+		out.print(edgeDesc.srcArrowType.equals(ArrowType.CUSTOM) ? edgeDesc.customSrcArrowType
+				: edgeDesc.srcArrowType.toString());
 		if (edgeDesc.srcLabel != null) {
 			out.print(", taillabel=\"");
 			out.print(toHtmlString(edgeDesc.srcLabel));
@@ -924,30 +1006,29 @@ final class GVSourceAndDependenciesBuilder {
 			out.print("\"");
 		}
 		out.print(", minlen=");
-		out.print(abstractReferenceFigure.getMinimumEdgeLength());
-		if (abstractReferenceFigure instanceof RichReferenceFigure) {
-			RichReferenceFigure richReferenceFigure = (RichReferenceFigure) abstractReferenceFigure;
+		out.print(edgeDesc.minimumEdgeLength);
+		if (edgeDesc.labelDistance != null) {
 			out.print(", labeldistance=");
-			out.print(String.valueOf(richReferenceFigure.getLabelDistance())
-					.replace(',', '.'));
+			out.print(String.valueOf(edgeDesc.labelDistance).replace(',', '.'));
+		}
+		if (edgeDesc.labelAngle != null) {
 			out.print(", labelangle=");
-			out.print(String.valueOf(richReferenceFigure.getLabelAngle())
-					.replace(',', '.'));
+			out.print(String.valueOf(edgeDesc.labelAngle).replace(',', '.'));
 		}
 		out.print(", color=\"");
-		out.print(ColorsHelper.toHtmlColor(abstractReferenceFigure.getColor()));
+		out.print(ColorsHelper.toHtmlColor(edgeDesc.color));
 		out.print("\"");
-		if (!ArrowStyle.NORMAL.equals(abstractReferenceFigure.getStyle())) {
+		if (!ArrowStyle.NORMAL.equals(edgeDesc.style)) {
 			out.print(", style=");
-			out.print(abstractReferenceFigure.getStyle().toString());
+			out.print(edgeDesc.style.toString());
 		}
 		// If the source figure is a cluster...
-		if (srcClassFigure.isContainer()) {
+		if (edgeDesc.srcFigureIsContainer) {
 			out.print(", ltail=cluster_");
 			out.print(edgeDesc.srcEObjectId);
 		}
 		// If the target figure is a cluster...
-		if (targetClassFigure.isContainer()) {
+		if (edgeDesc.targetFigureIsContainer) {
 			out.print(", lhead=cluster_");
 			out.print(edgeDesc.targetEObjectId);
 		}
@@ -967,20 +1048,20 @@ final class GVSourceAndDependenciesBuilder {
 	 */
 	private void flushNodes(List<NodeDesc> nodeDescs) throws CoreException {
 		// NodeDescs are sorted by EClass
-		Map<EClass, List<NodeDesc>> nodesListByEclass = new HashMap<EClass, List<NodeDesc>>();
+		Map<String, List<NodeDesc>> nodesListByEclass = new HashMap<String, List<NodeDesc>>();
 		for (NodeDesc nodeDesc : nodeDescs) {
-			EClass eClass = nodeDesc.eObject.eClass();
-			List<NodeDesc> sameEClassNodes = nodesListByEclass.get(eClass);
+			String eClassName = nodeDesc.eClassName;
+			List<NodeDesc> sameEClassNodes = nodesListByEclass.get(eClassName);
 			if (sameEClassNodes == null) {
 				sameEClassNodes = new ArrayList<NodeDesc>();
-				nodesListByEclass.put(eClass, sameEClassNodes);
+				nodesListByEclass.put(eClassName, sameEClassNodes);
 			}
 			sameEClassNodes.add(nodeDesc);
 		}
 		// And then the nodes are flushed
 		for (ClassFigure classFigure : figureDesc.getClassFigures()) {
 			List<NodeDesc> sameEClassNodes = nodesListByEclass.get(classFigure
-					.getEClass());
+					.getEClass().getName());
 			boolean doAlignNodes = figureDesc.isAlignSameEClasses()
 					&& !classFigure.isContainer();
 			if (sameEClassNodes != null) {
@@ -988,7 +1069,7 @@ final class GVSourceAndDependenciesBuilder {
 					out.print("{ rank = same;\n");
 				}
 				for (NodeDesc nodeDesc : sameEClassNodes) {
-					if (nodeDesc.classFigure.isContainer()) {
+					if (nodeDesc.isContainer) {
 						flushClusterNode(nodeDesc);
 					} else {
 						flushStandardNode(nodeDesc);
@@ -1025,13 +1106,13 @@ final class GVSourceAndDependenciesBuilder {
 		// Header
 		if (nodeDesc.attributes.size() > 0) {
 			out.print("\t\t\t<TR><TD ALIGN=\"LEFT\" BGCOLOR=\"");
-			flushBodyBackgroundColor(nodeDesc);
+			out.print(ColorsHelper.toHtmlColor(nodeDesc.bodyBackgroundColor));
 			out.println("\">");
 			flushNodeAttributes(nodeDesc);
 			out.println("\t\t\t</TD></TR>");
 		}
 		out.print("\t\t</TABLE>>; bgcolor=\"");
-		flushHeaderBackgroundColor(nodeDesc);
+		out.print(ColorsHelper.toHtmlColor(nodeDesc.headerBackgroundColor));
 		out.println("\"; labeljust=\"l\";");
 		// Flush nested nodes
 		flushNodes(nodeDesc.nestedNodes);
@@ -1042,45 +1123,6 @@ final class GVSourceAndDependenciesBuilder {
 		out.print(nodeDesc.eObjectId);
 		out.println(" [label=\"\", shape=\"none\", width=0, height=0];");
 		out.println("\t\t}");
-	}
-
-	/**
-	 * Flushes the header background color.
-	 * 
-	 * @param nodeDesc
-	 *            the node description.
-	 */
-	private void flushHeaderBackgroundColor(NodeDesc nodeDesc) {
-		flushColor(nodeDesc,
-				GraphdescPackage.eINSTANCE
-						.getClassFigure_HeaderBackgroundColor());
-	}
-
-	/**
-	 * Flushes the body background color.
-	 * 
-	 * @param nodeDesc
-	 *            the node description.
-	 */
-	private void flushBodyBackgroundColor(NodeDesc nodeDesc) {
-		flushColor(nodeDesc, GraphdescPackage.eINSTANCE
-				.getClassFigure_BodyBackgroundColor());
-	}
-
-	/**
-	 * Flushes a background color.
-	 * 
-	 * @param nodeDesc
-	 *            the node description.
-	 * @param colorEAttribute
-	 *            the color attribute of the classfigure (header /
-	 *            body).
-	 */
-	private void flushColor(NodeDesc nodeDesc,
-			EAttribute colorEAttribute) {
-		ClassFigure classFigure = nodeDesc.classFigure;
-		Color bgColor = (Color) classFigure.eGet(colorEAttribute);
-		out.print(ColorsHelper.toHtmlColor(bgColor));
 	}
 
 	/**
@@ -1100,14 +1142,14 @@ final class GVSourceAndDependenciesBuilder {
 		out.println(" [label=<");
 		out.println("\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"0\">");
 		out.print("\t\t\t<TR><TD BGCOLOR=\"");
-		flushHeaderBackgroundColor(nodeDesc);
+		out.print(ColorsHelper.toHtmlColor(nodeDesc.headerBackgroundColor));
 		out.println("\">");
 		// Flushes the node header
 		flushNodeHeader("\t\t\t\t", 1, nodeDesc);
 
 		out.println("\t\t\t</TD></TR>");
 		out.print("\t\t\t<TR><TD ALIGN=\"LEFT\" BGCOLOR=\"");
-		flushBodyBackgroundColor(nodeDesc);
+		out.print(ColorsHelper.toHtmlColor(nodeDesc.bodyBackgroundColor));
 		out.println("\">");
 
 		if (nodeDesc.attributes.size() == 0) {
@@ -1175,7 +1217,6 @@ final class GVSourceAndDependenciesBuilder {
 	 *            the node description.
 	 */
 	private void flushNodeHeader(String indent, int border, NodeDesc nodeDesc) {
-		ClassFigure classFigure = nodeDesc.classFigure;
 		out.print(indent);
 		out.print("<TABLE BORDER=\"");
 		out.print(border);
@@ -1194,42 +1235,19 @@ final class GVSourceAndDependenciesBuilder {
 			out.println("\"/></TD>");
 		}
 
-		// Label attribute value retrieval
-		EAttribute labelEAttribute = classFigure.getLabelEAttribute();
-		String label = null;
-		if (labelEAttribute != null) {
-			Object labelObject = nodeDesc.eObject.eGet(labelEAttribute);
-			label = labelObject != null ? labelObject.toString() : null;
-			if (label != null) {
-				label = label.trim();
-				if ("".equals(label)) {
-					label = null;
-				}
-			}
-		}
-
 		// TD tag for the label
 		out.print(indent);
 		out.print("\t\t<TD ALIGN=\"");
 		out.print(iconAvailable && !statusIconAvailable ? "LEFT" : "CENTER");
 		out.print("\">");
 
-		// If there is no icon or if we have no label to show, we
-		// print the EClass name
-		if (!iconAvailable || label == null) {
-			out.print(classFigure.getEClass().getName());
-			if (label != null) {
-				out.print(" : ");
-			}
-		}
-
 		// If we have a label to show
-		if (label != null) {
-			// FIX : when
-			if (label.length() < 4) {
-				label += "   ";
+		if (nodeDesc.label != null) {
+			out.print(toHtmlString(nodeDesc.label));
+			if (nodeDesc.label.length() < 4) {
+				out.print("   "); // FIX for too short labels to keep edges
+									// connected to the nodes
 			}
-			out.print(toHtmlString(label));
 		}
 
 		out.println("</TD>");
@@ -1311,11 +1329,8 @@ final class GVSourceAndDependenciesBuilder {
  */
 class NodeDesc {
 
-	/** Class figure associated to the node */
-	ClassFigure classFigure;
-
-	/** EObject represented by the node */
-	EObject eObject;
+	/** EClass name */
+	String eClassName;
 
 	/** EObject identifier */
 	String eObjectId;
@@ -1325,6 +1340,18 @@ class NodeDesc {
 
 	/** Validation decorator icon path */
 	String validationDecoratorIconPath;
+
+	/** Boolean indicating if the node is a container */
+	boolean isContainer;
+
+	/** Node label */
+	String label;
+
+	/** Header background color */
+	Color headerBackgroundColor;
+
+	/** Body background color */
+	Color bodyBackgroundColor;
 
 	/** Nested nodes list */
 	List<NodeDesc> nestedNodes;
@@ -1358,20 +1385,47 @@ class AttributeDesc {
  */
 class EdgeDesc {
 
-	/** Reference figure associated to the edge */
-	AbstractReferenceFigure referenceFigure;
-
 	/** Source EObject identifier */
 	String srcEObjectId;
 
 	/** Source EObject */
 	EObject srcEObject;
 
+	/** Source arrow type */
+	ArrowType srcArrowType;
+
+	/** Source custom arrow type */
+	String customSrcArrowType;
+
+	/** Boolean indicating if the source figure is a container */
+	boolean srcFigureIsContainer;
+
 	/** Target EObject identifier */
 	String targetEObjectId;
 
 	/** Target EObject */
 	EObject targetEObject;
+
+	/** Target arrow type */
+	ArrowType targetArrowType;
+
+	/** Target custom arrow type */
+	String customTargetArrowType;
+
+	/** Boolean indicating if the target figure is a container */
+	boolean targetFigureIsContainer;
+
+	/** Label distance (as a Double as it is optional) */
+	Double labelDistance;
+
+	/** Label angle (as a Double as it is optional) */
+	Double labelAngle;
+
+	/** Edge color */
+	Color color;
+
+	/** Arrow style */
+	ArrowStyle style;
 
 	/** Source label */
 	String srcLabel;
@@ -1381,6 +1435,9 @@ class EdgeDesc {
 
 	/** Target label */
 	String targetLabel;
+
+	/** Minimum edge length */
+	int minimumEdgeLength;
 
 	/** Validation decorator icon path */
 	String validationDecoratorIconPath;

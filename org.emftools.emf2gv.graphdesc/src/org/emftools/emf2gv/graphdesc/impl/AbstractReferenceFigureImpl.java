@@ -908,4 +908,15 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 		return result.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl#getStandardOCLContext()
+	 */
+	@Override
+	public EClass getStandardOCLContext() {
+		// The context is the underlying EObject of the AbstractReferenceFigure
+		// (ie. targeted by the EReference)
+		return getEReference() != null ? getEReference().getEReferenceType()
+				: null;
+	}
+
 } //AbstractReferenceFigureImpl

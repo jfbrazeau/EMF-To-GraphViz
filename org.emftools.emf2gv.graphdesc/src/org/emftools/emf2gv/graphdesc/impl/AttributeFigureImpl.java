@@ -302,4 +302,14 @@ public class AttributeFigureImpl extends AbstractAttributeFigureImpl implements 
 		return result.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl#getStandardOCLContext()
+	 */
+	@Override
+	public EClass getStandardOCLContext() {
+		// The context is the same as the ClassFigure
+		return getClassFigure() != null ? getClassFigure()
+				.getStandardOCLContext() : null;
+	}
+
 } //AttributeFigureImpl

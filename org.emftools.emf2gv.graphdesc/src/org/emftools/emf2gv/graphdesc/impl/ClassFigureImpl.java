@@ -784,4 +784,12 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 		return result.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl#getStandardOCLContext()
+	 */
+	@Override
+	public EClass getStandardOCLContext() {
+		return getEClass();
+	}
+
 } // ClassFigureImpl

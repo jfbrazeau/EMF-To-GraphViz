@@ -32,21 +32,26 @@ import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicDiagnostic;
-import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.expressions.OCLExpression;
+import org.eclipse.ocl.helper.OCLHelper;
+import org.eclipse.ocl.util.TypeUtil;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
+import org.emftools.emf2gv.util.OCLProvider;
+import org.emftools.validation.utils.EMFConstraintsHelper;
 
 /**
  * <!-- begin-user-doc -->
@@ -105,6 +110,11 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	 */
 	protected String overridingExpression = OVERRIDING_EXPRESSION_EDEFAULT;
 
+	/**
+	 * OCL Helper that is used to validate the OCL Expressions.
+	 */
+	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper;
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -239,26 +249,90 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context) {
-		// TODO: implement this method
-		// -> specify the condition that violates the invariant
-		// -> verify the details of the diagnostic, including severity and message
-		// Ensure that you remove @generated or mark it @generated NOT
-		if (false) {
-			if (diagnostic != null) {
-				diagnostic.add
-					(new BasicDiagnostic
-						(Diagnostic.ERROR,
-						 GraphdescValidator.DIAGNOSTIC_SOURCE,
-						 GraphdescValidator.DYNAMIC_PROPERTY_OVERRIDER__VALIDATE,
-						 EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic", new Object[] { "validate", EObjectValidator.getObjectLabel(this, context) }),
-						 new Object [] { this }));
-			}
-			return false;
+		EMFConstraintsHelper constraintsHelper = EMFConstraintsHelper
+				.getInstance(GraphdescValidator.DIAGNOSTIC_SOURCE);
+		boolean valid = true;
+		AbstractFigure figure = getFigure();
+		// The overrider is affected to a figure ?
+		if (figure == null) {
+			constraintsHelper
+					.addError(diagnostic, this, 0,
+							"The dynamic property overrider must be contained in a figure");
+			valid = false;
 		}
-		return true;
+		else {
+			// Does the feature to override belong to the parent figure EClass ?
+			EStructuralFeature featureToOverride = getPropertyToOverride();
+			if (featureToOverride == null) {
+				constraintsHelper.addError(diagnostic, this, 0,
+						"The property to override must be set");
+				valid = false;
+			}
+			else {
+				EClass figureEClass = figure.eClass();
+				if (!figureEClass.getEAllStructuralFeatures().contains(
+						featureToOverride)) {
+					constraintsHelper
+							.addError(
+									diagnostic,
+									this,
+									0,
+									"The dynamic property overrider is associated to a property ({0}) that does not belong to the figure EClass ({1})",
+									featureToOverride.getName(),
+									figureEClass.getName());
+					valid = false;
+				}
+			}
+			// OCL expression check
+			if (valid) {
+				// Lazy instantiation of the OCL Helper
+				if (oclHelper == null) {
+					oclHelper = OCLProvider.newOCL().createOCLHelper();
+				}
+				// OCL expression parsing
+				OCLExpression<EClassifier> oclExpression = null;
+				EClass oclContext = figure
+						.getStandardOCLContext();
+				if (oclContext != null) {
+					oclHelper.setContext(oclContext);
+					
+					try {
+						oclExpression = oclHelper
+								.createQuery(getOverridingExpression());
+					} catch (ParserException ex) {
+						constraintsHelper.addError(diagnostic, this, 0,
+								"The OCL expression is invalid : {0}",
+								ex.getMessage());
+						valid = false;
+					}
+				}
+				
+				// Return type check
+				if (oclExpression != null) {
+					EClassifier oclExpressionEType = oclExpression.getType();
+					EClassifier featureToOverrideEType = featureToOverride.getEType();
+					if (!oclExpressionEType.getInstanceClass().equals(
+							featureToOverrideEType.getInstanceClass())
+							&& !TypeUtil.compatibleTypeMatch(oclHelper.getOCL()
+									.getEnvironment(), oclExpressionEType,
+									featureToOverrideEType)) {
+						constraintsHelper
+								.addError(
+										diagnostic,
+										this,
+										0,
+										"The OCL expression return type does not correspond to the overrided property type (found ''{0}'' instead of ''{1}'')",
+										oclExpressionEType.getName(),
+										featureToOverrideEType.getName());
+						valid = false;
+					}
+				}
+			}
+		}
+		return valid;
 	}
 
 	/**
