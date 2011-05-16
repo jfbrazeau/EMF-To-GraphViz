@@ -28,9 +28,6 @@
 package org.emftools.emf2gv.graphdesc.provider;
 
 
-import java.awt.Color;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -73,12 +70,6 @@ public class ClassFigureItemProvider
 		ITreeItemContentProvider,
 		IItemLabelProvider,
 		IItemPropertySource {
-	private ItemPropertyDescriptor defaultHeaderBgColor;
-	private ItemPropertyDescriptor defaultBodyBgColor;
-	private ItemPropertyDescriptor headerBgColor;
-	private ItemPropertyDescriptor bodyBgColor;
-	private ItemPropertyDescriptor headerBgColorAccessor;
-	private ItemPropertyDescriptor bodyBgColorAccessor;
 
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -198,30 +189,33 @@ public class ClassFigureItemProvider
 	 * This adds a property descriptor for the Header Background Color feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	protected void addHeaderBackgroundColorPropertyDescriptor(Object object) {
-		headerBgColor = new ItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ClassFigure_headerBackgroundColor_feature"),
-				getString("_UI_ClassFigure_headerBackgroundColor_description"),
-				GraphdescPackage.Literals.CLASS_FIGURE__HEADER_BACKGROUND_COLOR,
-				true, false, false,
-				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				getString("_UI_AppearancePropertyCategory"), null);
-		itemPropertyDescriptors.add(headerBgColor);
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ClassFigure_headerBackgroundColor_feature"),
+				 getString("_UI_ClassFigure_headerBackgroundColor_description"),
+				 GraphdescPackage.Literals.CLASS_FIGURE__HEADER_BACKGROUND_COLOR,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null));
 	}
 
 	/**
 	 * This adds a property descriptor for the Body Background Color feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	protected void addBodyBackgroundColorPropertyDescriptor(Object object) {
-		bodyBgColor = new ItemPropertyDescriptor
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_ClassFigure_bodyBackgroundColor_feature"),
@@ -230,10 +224,9 @@ public class ClassFigureItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 getString("_UI_AppearancePropertyCategory"),
-				 null);
-		itemPropertyDescriptors.add(bodyBgColor);
+				 null));
 	}
 
 	/**
