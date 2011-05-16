@@ -246,6 +246,9 @@ class CustomEvaluationEnvironment extends EcoreEvaluationEnvironment {
 				w.append(String.valueOf(object));
 			}
 			return w.toString();
+		} else if (operation.getName().equals(OCLProvider.NEW_COLOR)) {
+			return new Color((Integer) args[0], (Integer) args[1],
+					(Integer) args[2]);
 		} else if (source instanceof String) {
 			return callOperation(operation, opcode, (String) source, args);
 		} else if (source instanceof EOperation
