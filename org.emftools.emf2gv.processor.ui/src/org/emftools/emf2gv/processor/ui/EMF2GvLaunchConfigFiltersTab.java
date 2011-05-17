@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -85,12 +86,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
-import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
-import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
-import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
-import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
+import org.emftools.emf2gv.graphdesc.util.GraphdescHelper;
 import org.emftools.emf2gv.util.EMFHelper;
 import org.emftools.emf2gv.util.OCLProvider;
 import org.emftools.emf2gv.util.ui.OCLInputDialog;
@@ -274,7 +271,7 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		setErrorMessage(null);
 		boolean isValid = true;
 		boolean atLeastOneExpressionIsChecked = eClassesTableViewer
-		.getCheckedElements().length > 0;
+				.getCheckedElements().length > 0;
 		if (atLeastOneExpressionIsChecked) {
 			if (mainTab.isInGraphicalDescriptionGenerationMode()) {
 				isValid = false;
@@ -319,9 +316,10 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 									expression.parsed = parsed;
 								} catch (ParserException e) {
 									isValid = false;
-									setErrorMessage(expression.context.getName()
-											+ " : Invalid value (" + e.getMessage()
-											+ ")");
+									setErrorMessage(expression.context
+											.getName()
+											+ " : Invalid value ("
+											+ e.getMessage() + ")");
 									break;
 								}
 							}
@@ -381,8 +379,9 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 					String oldExpression = expression.value;
 					OCLInputDialog inputDialog = new OCLInputDialog(PlatformUI
 							.getWorkbench().getDisplay().getActiveShell(),
-							"Edit a boolean OCL value editor",
-							expression.context, oldExpression, false);
+							"Edit a boolean OCL value editor", null,
+							expression.context, oldExpression,
+							EcorePackage.eINSTANCE.getEBoolean(), false);
 					if (inputDialog.open() == Window.OK) {
 						String newExpression = inputDialog.getValue();
 						if (!newExpression.equals(oldExpression)) {
@@ -444,8 +443,9 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 						OCLInputDialog inputDialog = new OCLInputDialog(
 								PlatformUI.getWorkbench().getDisplay()
 										.getActiveShell(),
-								"New boolean OCL value editor",
-								expression.context, "true", true);
+								"New boolean OCL value editor", null,
+								expression.context, "true",
+								EcorePackage.eINSTANCE.getEBoolean(), true);
 						if (inputDialog.open() == Window.OK) {
 							expression.value = inputDialog.getValue();
 							expressions.add(expression);
@@ -463,57 +463,13 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 	}
 
 	/**
-	 * Registers the EClass super types in the list.
-	 * 
-	 * @param context
-	 *            the EClass.
-	 * @param eClasses
-	 *            the EClass list.
-	 */
-	private static void registerSuperTypes(EClass eClass, List<EClass> eClasses) {
-		if (!eClasses.contains(eClass)) {
-			eClasses.add(eClass);
-			for (EClass superType : eClass.getESuperTypes()) {
-				registerSuperTypes(superType, eClasses);
-			}
-		}
-	}
-
-	/**
 	 * @return the EClass list that can be used in the expressions.
 	 * @throws CoreException
 	 *             thrown if an unexpected error occurs.
 	 */
 	private List<EClass> getAuthorizedEClasses() throws CoreException {
-		// EClass hierarchy retrieval
-		List<EClass> eClasses = new ArrayList<EClass>();
 		GVFigureDescription figureDescription = loadSelectedGraphDesc();
-		EList<ClassFigure> classFigures = figureDescription.getClassFigures();
-		for (ClassFigure classFigure : classFigures) {
-			registerSuperTypes(classFigure.getEClass(), eClasses);
-			// Retrieve the EClass targeted by the rich references (i.e.
-			// the association EClasses)
-			EList<AbstractReferenceFigure> abstractReferenceFigures = classFigure
-					.getReferenceFigures();
-			for (AbstractReferenceFigure abstractReferenceFigure : abstractReferenceFigures) {
-				if (abstractReferenceFigure instanceof RichReferenceFigure) {
-					RichReferenceFigure richReferenceFigure = (RichReferenceFigure) abstractReferenceFigure;
-					registerSuperTypes(richReferenceFigure.getEReference()
-							.getEReferenceType(), eClasses);
-				}
-			}
-			// Retrieve the EClass targeted by the rich attributes
-			EList<AbstractAttributeFigure> abstractAttributeFigures = classFigure
-					.getAttributeFigures();
-			for (AbstractAttributeFigure abstractAttributeFigure : abstractAttributeFigures) {
-				if (abstractAttributeFigure instanceof RichAttributeFigure) {
-					RichAttributeFigure richAttributeFigure = (RichAttributeFigure) abstractAttributeFigure;
-					registerSuperTypes(richAttributeFigure.getEReference()
-							.getEReferenceType(), eClasses);
-				}
-			}
-		}
-		return eClasses;
+		return GraphdescHelper.getFilterableEClasses(figureDescription);
 	}
 
 	/**

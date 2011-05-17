@@ -35,12 +35,16 @@ import org.eclipse.jface.dialogs.TrayDialog;
 import org.eclipse.jface.text.Document;
 import org.eclipse.ocl.ParserException;
 import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.OCL;
+import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.ocl.helper.OCLHelper;
+import org.eclipse.ocl.util.TypeUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.custom.TextChangeListener;
+import org.eclipse.swt.custom.TextChangedEvent;
+import org.eclipse.swt.custom.TextChangingEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -77,6 +81,9 @@ public class OCLInputDialog extends TrayDialog {
 	/** The status label */
 	private CLabel statusLabel;
 
+	/** The expected return type of the OCL expression */
+	private EClassifier expectedReturnType;
+
 	/**
 	 * Default constructor.
 	 * 
@@ -85,21 +92,28 @@ public class OCLInputDialog extends TrayDialog {
 	 *            shell
 	 * @param title
 	 *            the dialog title
+	 * @param ocl
+	 *            the ocl (optional).
 	 * @param context
 	 *            the context of the OCL value.
 	 * @param initialValue
 	 *            the dialog initial value.
+	 * @param expectedReturnType
+	 *            the expected return type (optional).
 	 * @param selectAll
 	 *            a boolean indicating if the text value must be selected by
 	 *            default
 	 */
-	public OCLInputDialog(Shell shell, String title, EClassifier context,
-			String initialValue, boolean selectAll) {
+	public OCLInputDialog(Shell shell, String title, OCL ocl,
+			EClassifier context, String initialValue,
+			EClassifier expectedReturnType, boolean selectAll) {
 		super(shell);
 		this.title = title;
 		this.value = initialValue;
 		this.selectAll = selectAll;
-		oclHelper = OCLProvider.newOCL().createOCLHelper();
+		this.expectedReturnType = expectedReturnType;
+		oclHelper = (ocl != null ? ocl : OCLProvider.newOCL())
+				.createOCLHelper();
 		oclHelper.setContext(context);
 		errorIcon = Activator.getImageDescriptor("icons/error.gif")
 				.createImage();
@@ -147,12 +161,21 @@ public class OCLInputDialog extends TrayDialog {
 		} else {
 			text.setSelection(text.getText().length());
 		}
-		// Validation listener
-		text.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
+
+		// Validation on changes
+		text.getContent().addTextChangeListener(new TextChangeListener() {
+			public void textSet(TextChangedEvent event) {
+				checkOCLSyntax();
+			}
+
+			public void textChanging(TextChangingEvent event) {
+			}
+
+			public void textChanged(TextChangedEvent event) {
 				checkOCLSyntax();
 			}
 		});
+
 		// Check the actual OCL expression
 		checkOCLSyntax();
 		return composite;
@@ -165,9 +188,25 @@ public class OCLInputDialog extends TrayDialog {
 		try {
 			statusLabel.setText("Validating...");
 			statusLabel.setImage(null);
-			oclHelper.createQuery(input.getTextWidget().getText());
-			statusLabel.setText("The expression is valid.");
-			statusLabel.setImage(validIcon);
+			OCLExpression<EClassifier> oclExpression = oclHelper
+					.createQuery(input.getTextWidget().getText());
+			boolean typeCheckOk = true;
+			if (expectedReturnType != null) {
+				typeCheckOk = oclExpression.getType().getInstanceClass()
+						.equals(expectedReturnType.getInstanceClass())
+						|| TypeUtil.compatibleTypeMatch(oclHelper.getOCL()
+								.getEnvironment(), oclExpression.getType(),
+								expectedReturnType);
+			}
+			if (!typeCheckOk) {
+				statusLabel.setText("Bad return type, expected '"
+						+ expectedReturnType.getName() + "' instead of '"
+						+ oclExpression.getType().getName() + "'");
+				statusLabel.setImage(errorIcon);
+			} else {
+				statusLabel.setText("The expression is valid.");
+				statusLabel.setImage(validIcon);
+			}
 		} catch (ParserException ex) {
 			statusLabel.setText("Syntax error : " + ex.getMessage());
 			statusLabel.setImage(errorIcon);

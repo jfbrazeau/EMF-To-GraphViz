@@ -97,6 +97,7 @@ public interface Filter extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Filter Expression</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Filter Expression</em>' attribute isn't clear,
@@ -106,7 +107,7 @@ public interface Filter extends EObject {
 	 * @return the value of the '<em>Filter Expression</em>' attribute.
 	 * @see #setFilterExpression(String)
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getFilter_FilterExpression()
-	 * @model
+	 * @model default="true"
 	 * @generated
 	 */
 	String getFilterExpression();

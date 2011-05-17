@@ -249,13 +249,22 @@ public interface GraphdescPackage extends EPackage {
 	int CLASS_FIGURE__LABEL_EATTRIBUTE = ABSTRACT_FIGURE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Label Style</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_FIGURE__LABEL_STYLE = ABSTRACT_FIGURE_FEATURE_COUNT + 3;
+
+	/**
 	 * The feature id for the '<em><b>Attribute Figures</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE__ATTRIBUTE_FIGURES = ABSTRACT_FIGURE_FEATURE_COUNT + 3;
+	int CLASS_FIGURE__ATTRIBUTE_FIGURES = ABSTRACT_FIGURE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Reference Figures</b></em>' containment reference list.
@@ -264,7 +273,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE__REFERENCE_FIGURES = ABSTRACT_FIGURE_FEATURE_COUNT + 4;
+	int CLASS_FIGURE__REFERENCE_FIGURES = ABSTRACT_FIGURE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Gv Figure Description</b></em>' container reference.
@@ -273,7 +282,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE__GV_FIGURE_DESCRIPTION = ABSTRACT_FIGURE_FEATURE_COUNT + 5;
+	int CLASS_FIGURE__GV_FIGURE_DESCRIPTION = ABSTRACT_FIGURE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Header Background Color</b></em>' attribute.
@@ -282,7 +291,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE__HEADER_BACKGROUND_COLOR = ABSTRACT_FIGURE_FEATURE_COUNT + 6;
+	int CLASS_FIGURE__HEADER_BACKGROUND_COLOR = ABSTRACT_FIGURE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Body Background Color</b></em>' attribute.
@@ -291,7 +300,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE__BODY_BACKGROUND_COLOR = ABSTRACT_FIGURE_FEATURE_COUNT + 7;
+	int CLASS_FIGURE__BODY_BACKGROUND_COLOR = ABSTRACT_FIGURE_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Nested Figures EReferences</b></em>' reference list.
@@ -300,7 +309,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE__NESTED_FIGURES_EREFERENCES = ABSTRACT_FIGURE_FEATURE_COUNT + 8;
+	int CLASS_FIGURE__NESTED_FIGURES_EREFERENCES = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' attribute.
@@ -309,7 +318,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE__CONTAINER = ABSTRACT_FIGURE_FEATURE_COUNT + 9;
+	int CLASS_FIGURE__CONTAINER = ABSTRACT_FIGURE_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of structural features of the '<em>Class Figure</em>' class.
@@ -318,7 +327,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 10;
+	int CLASS_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 11;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl <em>Rich Reference Figure</em>}' class.
@@ -1090,6 +1099,16 @@ public interface GraphdescPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.FontStyle <em>Font Style</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftools.emf2gv.graphdesc.FontStyle
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getFontStyle()
+	 * @generated
+	 */
+	int FONT_STYLE = 14;
+
+	/**
 	 * The meta object id for the '<em>Color</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1097,7 +1116,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getColor()
 	 * @generated
 	 */
-	int COLOR = 14;
+	int COLOR = 15;
 
 
 	/**
@@ -1131,6 +1150,17 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getClassFigure_LabelEAttribute();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getLabelStyle <em>Label Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Label Style</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.ClassFigure#getLabelStyle()
+	 * @see #getClassFigure()
+	 * @generated
+	 */
+	EAttribute getClassFigure_LabelStyle();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.emftools.emf2gv.graphdesc.ClassFigure#getAttributeFigures <em>Attribute Figures</em>}'.
@@ -1747,6 +1777,16 @@ public interface GraphdescPackage extends EPackage {
 	EEnum getArrowStyle();
 
 	/**
+	 * Returns the meta object for enum '{@link org.emftools.emf2gv.graphdesc.FontStyle <em>Font Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Font Style</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.FontStyle
+	 * @generated
+	 */
+	EEnum getFontStyle();
+
+	/**
 	 * Returns the meta object for data type '{@link java.awt.Color <em>Color</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1815,6 +1855,14 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CLASS_FIGURE__LABEL_EATTRIBUTE = eINSTANCE.getClassFigure_LabelEAttribute();
+
+		/**
+		 * The meta object literal for the '<em><b>Label Style</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CLASS_FIGURE__LABEL_STYLE = eINSTANCE.getClassFigure_LabelStyle();
 
 		/**
 		 * The meta object literal for the '<em><b>Attribute Figures</b></em>' containment reference list feature.
@@ -2297,6 +2345,16 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum ARROW_STYLE = eINSTANCE.getArrowStyle();
+
+		/**
+		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.FontStyle <em>Font Style</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftools.emf2gv.graphdesc.FontStyle
+		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getFontStyle()
+		 * @generated
+		 */
+		EEnum FONT_STYLE = eINSTANCE.getFontStyle();
 
 		/**
 		 * The meta object literal for the '<em>Color</em>' data type.

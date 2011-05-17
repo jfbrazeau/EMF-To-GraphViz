@@ -30,7 +30,7 @@ package org.emftools.emf2gv.graphdesc.presentation.wizard;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
-import org.emftools.emf2gv.graphdesc.util.GraphdescGenerator;
+import org.emftools.emf2gv.graphdesc.util.GraphdescHelper;
 
 /**
  * A wizard allowing to import in the workspace the sample graphical description
@@ -67,7 +67,7 @@ public class SampleEcoreGraphdescModelWizard extends
 	 */
 	@Override
 	protected GVFigureDescription getGraphicalDescriptionToSave() {
-		return GraphdescGenerator.getSampleGraphdescForEcoreModels();
+		return GraphdescHelper.getSampleGraphdescForEcoreModels();
 	}
 
 	/*

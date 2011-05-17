@@ -30,16 +30,23 @@ package org.emftools.emf2gv.graphdesc.presentation.util;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.ui.provider.PropertySource;
+import org.eclipse.ocl.ecore.OCL;
+import org.eclipse.ocl.expressions.CollectionKind;
+import org.eclipse.ocl.util.TypeUtil;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
+import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
+import org.emftools.emf2gv.util.OCLProvider;
 
 /**
  * The graphical description property source.
@@ -52,6 +59,7 @@ public class GraphdescPropertySource extends PropertySource {
 	private static final String SELECT_ECLASS_MSG = "Please select an EClass at first in the figure.";
 	private static final String SELECT_EREF_MSG1 = "Please select an EReference at first.";
 	private static final String SELECT_EREF_MSG2 = "Please select an EReference at first in the figure.";
+	private static final String SELECT_FILTER_TYPE_MSG = "Please select the filter type at first.";
 
 	/** The color icons map */
 	private Map<String, Image> colorIcons;
@@ -99,8 +107,10 @@ public class GraphdescPropertySource extends PropertySource {
 				|| feature == gdPkg
 						.getRichReferenceFigure_StandardLabelExpression()
 				|| feature == gdPkg
-						.getRichReferenceFigure_TargetLabelExpression() || feature == gdPkg
-				.getDynamicPropertyOverrider_OverridingExpression());
+						.getRichReferenceFigure_TargetLabelExpression()
+				|| feature == gdPkg
+						.getDynamicPropertyOverrider_OverridingExpression() || feature == gdPkg
+				.getFilter_FilterExpression());
 		if (arrowTypeFeature) {
 			result = new ArrowTypePropertyDescriptor(object,
 					itemPropertyDescriptor);
@@ -108,19 +118,37 @@ public class GraphdescPropertySource extends PropertySource {
 			result = new ColorPropertyDescriptor(object,
 					itemPropertyDescriptor, colorIcons);
 		} else if (oclFeature) {
+			OCL ocl = null;
 			EClass oclContext = null;
+			EClassifier oclExpectedReturnType = null;
 			String missingContextErrorMessage = null;
 			if (object instanceof AbstractFigure) {
-				oclContext = ((AbstractFigure) object)
-						.getStandardOCLContext();
+				oclContext = ((AbstractFigure) object).getStandardOCLContext();
 				missingContextErrorMessage = SELECT_EREF_MSG1;
-			} else if (object instanceof DynamicPropertyOverrider) {
+			} else if (object instanceof Filter) {
+				Filter filter = (Filter) object;
+				oclContext = filter.getFilteredType();
+				missingContextErrorMessage = SELECT_FILTER_TYPE_MSG;
+			}
+			else if (object instanceof DynamicPropertyOverrider) {
 				DynamicPropertyOverrider dpo = (DynamicPropertyOverrider) object;
 				if (dpo != null) {
+					EStructuralFeature propertyFeature = dpo.getPropertyToOverride();
+					if (propertyFeature != null) {
+						oclExpectedReturnType = propertyFeature.getEType();
+						// If the feature is a list, we must resolve a collection type
+						if (propertyFeature.getUpperBound() != 1) {
+							ocl = OCLProvider.newOCL();
+							oclExpectedReturnType = TypeUtil
+									.resolveCollectionType(
+											ocl.getEnvironment(),
+											CollectionKind.COLLECTION_LITERAL,
+											oclExpectedReturnType);
+						}
+					}
 					AbstractFigure figure = dpo.getFigure();
 					if (figure != null) {
-						oclContext = figure
-								.getStandardOCLContext();
+						oclContext = figure.getStandardOCLContext();
 						if (figure instanceof ClassFigure
 								|| figure instanceof AttributeFigure) {
 							missingContextErrorMessage = SELECT_ECLASS_MSG;
@@ -135,8 +163,7 @@ public class GraphdescPropertySource extends PropertySource {
 			}
 			// OCL expression are only used in RichAttributeFigures
 			final String theMissingContextErrorMessage = missingContextErrorMessage;
-			result = new OCLPropertyDescriptor(object, itemPropertyDescriptor,
-					oclContext) {
+			result = new OCLPropertyDescriptor(object, itemPropertyDescriptor, ocl, oclContext, oclExpectedReturnType) {
 				/*
 				 * (non-Javadoc)
 				 * 

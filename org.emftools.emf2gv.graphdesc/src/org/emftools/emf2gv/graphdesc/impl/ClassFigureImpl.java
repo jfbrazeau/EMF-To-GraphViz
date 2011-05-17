@@ -45,6 +45,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -53,6 +54,7 @@ import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.FontStyle;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
@@ -69,6 +71,7 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getEPackage <em>EPackage</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getEClass <em>EClass</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getLabelEAttribute <em>Label EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getLabelStyle <em>Label Style</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getAttributeFigures <em>Attribute Figures</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getReferenceFigures <em>Reference Figures</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.ClassFigureImpl#getGvFigureDescription <em>Gv Figure Description</em>}</li>
@@ -100,6 +103,16 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 	 * @ordered
 	 */
 	protected EAttribute labelEAttribute;
+
+	/**
+	 * The cached value of the '{@link #getLabelStyle() <em>Label Style</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLabelStyle()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FontStyle> labelStyle;
 
 	/**
 	 * The cached value of the '{@link #getAttributeFigures()
@@ -274,6 +287,18 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 		labelEAttribute = newLabelEAttribute;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.CLASS_FIGURE__LABEL_EATTRIBUTE, oldLabelEAttribute, labelEAttribute));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<FontStyle> getLabelStyle() {
+		if (labelStyle == null) {
+			labelStyle = new EDataTypeUniqueEList<FontStyle>(FontStyle.class, this, GraphdescPackage.CLASS_FIGURE__LABEL_STYLE);
+		}
+		return labelStyle;
 	}
 
 	/**
@@ -644,6 +669,8 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 			case GraphdescPackage.CLASS_FIGURE__LABEL_EATTRIBUTE:
 				if (resolve) return getLabelEAttribute();
 				return basicGetLabelEAttribute();
+			case GraphdescPackage.CLASS_FIGURE__LABEL_STYLE:
+				return getLabelStyle();
 			case GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES:
 				return getAttributeFigures();
 			case GraphdescPackage.CLASS_FIGURE__REFERENCE_FIGURES:
@@ -675,6 +702,10 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				return;
 			case GraphdescPackage.CLASS_FIGURE__LABEL_EATTRIBUTE:
 				setLabelEAttribute((EAttribute)newValue);
+				return;
+			case GraphdescPackage.CLASS_FIGURE__LABEL_STYLE:
+				getLabelStyle().clear();
+				getLabelStyle().addAll((Collection<? extends FontStyle>)newValue);
 				return;
 			case GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES:
 				getAttributeFigures().clear();
@@ -714,6 +745,9 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 			case GraphdescPackage.CLASS_FIGURE__LABEL_EATTRIBUTE:
 				setLabelEAttribute((EAttribute)null);
 				return;
+			case GraphdescPackage.CLASS_FIGURE__LABEL_STYLE:
+				getLabelStyle().clear();
+				return;
 			case GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES:
 				getAttributeFigures().clear();
 				return;
@@ -749,6 +783,8 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 				return eClass != null;
 			case GraphdescPackage.CLASS_FIGURE__LABEL_EATTRIBUTE:
 				return labelEAttribute != null;
+			case GraphdescPackage.CLASS_FIGURE__LABEL_STYLE:
+				return labelStyle != null && !labelStyle.isEmpty();
 			case GraphdescPackage.CLASS_FIGURE__ATTRIBUTE_FIGURES:
 				return attributeFigures != null && !attributeFigures.isEmpty();
 			case GraphdescPackage.CLASS_FIGURE__REFERENCE_FIGURES:
@@ -776,7 +812,9 @@ public class ClassFigureImpl extends AbstractFigureImpl implements ClassFigure {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (headerBackgroundColor: ");
+		result.append(" (labelStyle: ");
+		result.append(labelStyle);
+		result.append(", headerBackgroundColor: ");
 		result.append(headerBackgroundColor);
 		result.append(", bodyBackgroundColor: ");
 		result.append(bodyBackgroundColor);

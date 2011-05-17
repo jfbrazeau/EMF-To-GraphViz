@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getEPackage <em>EPackage</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getEClass <em>EClass</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getLabelEAttribute <em>Label EAttribute</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getLabelStyle <em>Label Style</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getAttributeFigures <em>Attribute Figures</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getReferenceFigures <em>Reference Figures</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.ClassFigure#getGvFigureDescription <em>Gv Figure Description</em>}</li>
@@ -112,6 +113,24 @@ public interface ClassFigure extends AbstractFigure {
 	 * @generated
 	 */
 	void setLabelEAttribute(EAttribute value);
+
+	/**
+	 * Returns the value of the '<em><b>Label Style</b></em>' attribute list.
+	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.FontStyle}.
+	 * The literals are from the enumeration {@link org.emftools.emf2gv.graphdesc.FontStyle}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Label Style</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Label Style</em>' attribute list.
+	 * @see org.emftools.emf2gv.graphdesc.FontStyle
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getClassFigure_LabelStyle()
+	 * @model default=""
+	 * @generated
+	 */
+	EList<FontStyle> getLabelStyle();
 
 	/**
 	 * Returns the value of the '<em><b>Attribute Figures</b></em>' containment reference list.

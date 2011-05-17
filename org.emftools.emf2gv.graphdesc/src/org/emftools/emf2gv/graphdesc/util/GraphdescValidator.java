@@ -46,6 +46,7 @@ import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.Filter;
+import org.emftools.emf2gv.graphdesc.FontStyle;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.Orientation;
@@ -185,6 +186,8 @@ public class GraphdescValidator extends EObjectValidator {
 				return validateArrowType((ArrowType)value, diagnostics, context);
 			case GraphdescPackage.ARROW_STYLE:
 				return validateArrowStyle((ArrowStyle)value, diagnostics, context);
+			case GraphdescPackage.FONT_STYLE:
+				return validateFontStyle((FontStyle)value, diagnostics, context);
 			case GraphdescPackage.COLOR:
 				return validateColor((Color)value, diagnostics, context);
 			default:
@@ -465,6 +468,15 @@ public class GraphdescValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateArrowStyle(ArrowStyle arrowStyle, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateFontStyle(FontStyle fontStyle, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

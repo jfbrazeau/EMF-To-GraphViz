@@ -41,6 +41,7 @@ import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.Filter;
+import org.emftools.emf2gv.graphdesc.FontStyle;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
@@ -121,6 +122,8 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 				return createArrowTypeFromString(eDataType, initialValue);
 			case GraphdescPackage.ARROW_STYLE:
 				return createArrowStyleFromString(eDataType, initialValue);
+			case GraphdescPackage.FONT_STYLE:
+				return createFontStyleFromString(eDataType, initialValue);
 			case GraphdescPackage.COLOR:
 				return createColorFromString(eDataType, initialValue);
 			default:
@@ -142,6 +145,8 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 				return convertArrowTypeToString(eDataType, instanceValue);
 			case GraphdescPackage.ARROW_STYLE:
 				return convertArrowStyleToString(eDataType, instanceValue);
+			case GraphdescPackage.FONT_STYLE:
+				return convertFontStyleToString(eDataType, instanceValue);
 			case GraphdescPackage.COLOR:
 				return convertColorToString(eDataType, instanceValue);
 			default:
@@ -286,6 +291,26 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 	 * @generated
 	 */
 	public String convertArrowStyleToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FontStyle createFontStyleFromString(EDataType eDataType, String initialValue) {
+		FontStyle result = FontStyle.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFontStyleToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

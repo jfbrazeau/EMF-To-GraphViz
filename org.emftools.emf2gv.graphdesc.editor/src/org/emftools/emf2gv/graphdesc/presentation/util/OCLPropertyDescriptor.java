@@ -34,6 +34,7 @@ import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -49,8 +50,14 @@ import org.emftools.emf2gv.util.ui.OCLInputDialog;
  */
 public class OCLPropertyDescriptor extends PropertyDescriptor {
 
+	/** The OCL */
+	private OCL ocl;
+
 	/** The OCL context */
 	private EClassifier context;
+
+	/** The expected return type of the OCL expression */
+	private EClassifier expectedReturnType;
 
 	/**
 	 * Default constructor.
@@ -59,13 +66,20 @@ public class OCLPropertyDescriptor extends PropertyDescriptor {
 	 *            the underlying object.
 	 * @param itemPropertyDescriptor
 	 *            the item property descriptor.
+	 * @param ocl
+	 *            the ocl (optional)
+	 * @param expectedReturnType
+	 *            the expected return type of the OCL expression
 	 * @param the
 	 *            OCL context to use.
 	 */
 	public OCLPropertyDescriptor(Object object,
-			IItemPropertyDescriptor itemPropertyDescriptor, EClassifier context) {
+			IItemPropertyDescriptor itemPropertyDescriptor, OCL ocl,
+			EClassifier context, EClassifier expectedReturnType) {
 		super(object, itemPropertyDescriptor);
+		this.ocl = ocl;
 		this.context = context;
+		this.expectedReturnType = expectedReturnType;
 	}
 
 	/*
@@ -84,7 +98,8 @@ public class OCLPropertyDescriptor extends PropertyDescriptor {
 				@Override
 				protected Object openDialogBox(Control cellEditorWindow) {
 					MessageDialog.openInformation(Display.getCurrent()
-							.getActiveShell(), "Information", getMissingContextMessage());
+							.getActiveShell(), "Information",
+							getMissingContextMessage());
 					return null;
 				}
 			};
@@ -94,8 +109,8 @@ public class OCLPropertyDescriptor extends PropertyDescriptor {
 				protected Object openDialogBox(Control cellEditorWindow) {
 					OCLInputDialog dialog = new OCLInputDialog(Display
 							.getCurrent().getActiveShell(),
-							"Enter the OCL expression", context,
-							(String) getValue(), true);
+							"Enter the OCL expression", ocl, context,
+							(String) getValue(), expectedReturnType, true);
 					if (dialog.open() == Dialog.OK) {
 						return dialog.getValue();
 					}

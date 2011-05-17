@@ -28,24 +28,30 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicDiagnostic;
-import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.helper.OCLHelper;
 import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
+import org.emftools.emf2gv.graphdesc.util.GraphdescHelper;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
+import org.emftools.emf2gv.util.OCLProvider;
+import org.emftools.validation.utils.EMFConstraintsHelper;
 
 /**
  * <!-- begin-user-doc -->
@@ -92,7 +98,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String FILTER_EXPRESSION_EDEFAULT = null;
+	protected static final String FILTER_EXPRESSION_EDEFAULT = "true";
 
 	/**
 	 * The cached value of the '{@link #getFilterExpression() <em>Filter Expression</em>}' attribute.
@@ -104,6 +110,11 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 */
 	protected String filterExpression = FILTER_EXPRESSION_EDEFAULT;
 
+	/**
+	 * OCL Helper that is used to validate the OCL Expressions.
+	 */
+	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper;
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -238,26 +249,57 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context) {
-		// TODO: implement this method
-		// -> specify the condition that violates the invariant
-		// -> verify the details of the diagnostic, including severity and message
-		// Ensure that you remove @generated or mark it @generated NOT
-		if (false) {
-			if (diagnostic != null) {
-				diagnostic.add
-					(new BasicDiagnostic
-						(Diagnostic.ERROR,
-						 GraphdescValidator.DIAGNOSTIC_SOURCE,
-						 GraphdescValidator.FILTER__VALIDATE,
-						 EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic", new Object[] { "validate", EObjectValidator.getObjectLabel(this, context) }),
-						 new Object [] { this }));
+		EMFConstraintsHelper constraintsHelper = EMFConstraintsHelper
+				.getInstance(GraphdescValidator.DIAGNOSTIC_SOURCE);
+		boolean valid = true;
+		GVFigureDescription figureDesc = getFigureDescription();
+		if (figureDesc == null) {
+			constraintsHelper.addError(diagnostic, this, 0,
+					"The filter must be contained in a graphical description");
+			valid = false;
+		} else {
+			if (getFilteredType() == null) {
+				constraintsHelper.addError(diagnostic, this, 0,
+						"The filtered type must be set");
+				valid = false;
+			} else {
+				List<EClass> authorizedEClasses = GraphdescHelper
+						.getFilterableEClasses(figureDesc);
+				if (!authorizedEClasses.contains(getFilteredType())) {
+					constraintsHelper
+							.addError(
+									diagnostic,
+									this,
+									0,
+									"The filtered type ''{0}''has no corresponding ClassFigure",
+									getFilteredType().getName());
+					valid = false;
+				} else if (getFilterExpression() == null
+						|| "".equals(getFilterExpression().trim())) {
+					constraintsHelper.addError(diagnostic, this, 0,
+							"The filter expression must be set",
+							getFilteredType().getName());
+					valid = false;
+				} else {
+					// Lazy instantiation of the OCL Helper
+					if (oclHelper == null) {
+						oclHelper = OCLProvider.newOCL().createOCLHelper();
+					}
+					try {
+						oclHelper.createInvariant(getFilterExpression());
+					} catch (ParserException ex) {
+						constraintsHelper.addError(diagnostic, this, 0,
+								"The OCL expression is invalid : {0}",
+								ex.getMessage());
+						valid = false;
+					}
+				}
 			}
-			return false;
 		}
-		return true;
+		return valid;
 	}
 
 	/**

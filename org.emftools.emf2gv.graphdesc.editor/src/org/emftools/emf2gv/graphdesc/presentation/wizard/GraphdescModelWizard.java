@@ -31,7 +31,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
-import org.emftools.emf2gv.graphdesc.util.GraphdescGenerator;
+import org.emftools.emf2gv.graphdesc.util.GraphdescHelper;
 
 /**
  * The graphical description model creation wizard.
@@ -80,8 +80,8 @@ public class GraphdescModelWizard extends AbstractGraphdescModelWizard {
 	@Override
 	protected GVFigureDescription getGraphicalDescriptionToSave() {
 		// Add Eattributes & colors & arrow styles
-		GraphdescGenerator
-				.addEAttributesAndAppearanceStyleData(gvFigureDescription);
+		GraphdescHelper
+				.populateEAttributesAndAppearanceStyleData(gvFigureDescription);
 		return gvFigureDescription;
 	}
 

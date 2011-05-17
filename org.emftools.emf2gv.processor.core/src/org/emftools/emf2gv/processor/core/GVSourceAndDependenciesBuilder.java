@@ -68,6 +68,7 @@ import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
+import org.emftools.emf2gv.graphdesc.FontStyle;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
@@ -415,6 +416,8 @@ final class GVSourceAndDependenciesBuilder {
 	 * @throws CoreException
 	 *             thrown if an unexpected error occurs.
 	 */
+	
+	@SuppressWarnings("unchecked")
 	private String processEObject(EObject eContentRoot, IProgressMonitor monitor)
 			throws CoreException {
 		String eContentRootId = null;
@@ -446,8 +449,12 @@ final class GVSourceAndDependenciesBuilder {
 					nodeDesc.headerBackgroundColor = (Color) getFigurePropertyValue(
 							classFigure, eContentRoot,
 							gvPkg.getClassFigure_HeaderBackgroundColor());
-					nodeDesc.bodyBackgroundColor = classFigure
-							.getBodyBackgroundColor();
+					nodeDesc.bodyBackgroundColor = (Color) getFigurePropertyValue(
+							classFigure, eContentRoot,
+							gvPkg.getClassFigure_BodyBackgroundColor());
+					nodeDesc.labelStyle = (Collection<FontStyle>) getFigurePropertyValue(
+							classFigure, eContentRoot,
+							gvPkg.getClassFigure_LabelStyle());
 					nodesMap.put(eContentRoot, nodeDesc);
 
 					// Label building
@@ -456,8 +463,7 @@ final class GVSourceAndDependenciesBuilder {
 							.getLabelEAttribute();
 					String rawLabel = null;
 					if (labelEAttribute != null) {
-						Object labelObject = eContentRoot
-								.eGet(labelEAttribute);
+						Object labelObject = eContentRoot.eGet(labelEAttribute);
 						rawLabel = labelObject != null ? labelObject.toString()
 								: null;
 						if (rawLabel != null) {
@@ -499,8 +505,7 @@ final class GVSourceAndDependenciesBuilder {
 						else {
 							RichAttributeFigure attrFigure = (RichAttributeFigure) abstractAttrFigure;
 							List<EObject> richAttrsEObjects = getTargetRefEObjects(
-									eContentRoot,
-									attrFigure.getEReference());
+									eContentRoot, attrFigure.getEReference());
 							OCLExpression<EClassifier> expression = parseOCLExpression(
 									attrFigure.getEReference().getEType(),
 									attrFigure.getLabelExpression());
@@ -542,10 +547,15 @@ final class GVSourceAndDependenciesBuilder {
 							List<EObject> targetEObjects = getTargetRefEObjects(
 									eContentRoot,
 									abstractReferenceFigure.getEReference());
-							processReferenceTargetEObjects(
-									abstractReferenceFigure, eContentRoot,
-									eContentRootId, targetEObjects, null, null,
-									null, null, monitor);
+							for (EObject targetEObject : targetEObjects) {
+								// For RegerenceFigures, the OCL context is the
+								// target EObject
+								processReferenceTargetEObject(
+										abstractReferenceFigure, eContentRoot,
+										eContentRootId, targetEObject,
+										targetEObject, null, null, null, null,
+										monitor);
+							}
 						}
 						// Rich reference case
 						else {
@@ -583,12 +593,21 @@ final class GVSourceAndDependenciesBuilder {
 									String validationDecoratorIconPath = getValidationDecoratorIconPath(
 											richReferenceEClassInstance,
 											monitor);
-									processReferenceTargetEObjects(
-											richReferenceFigure, eContentRoot,
-											eContentRootId, targetEObjects,
-											srcLabel, stdLabel, targetLabel,
-											validationDecoratorIconPath,
-											monitor);
+									for (EObject targetEObject : targetEObjects) {
+										// For RichRegerenceFigures, the OCL
+										// context is the rich reference EClass
+										// instance (in other words, the
+										// association class instance)
+										processReferenceTargetEObject(
+												richReferenceFigure,
+												eContentRoot, eContentRootId,
+												targetEObject,
+												richReferenceEClassInstance,
+												srcLabel, stdLabel,
+												targetLabel,
+												validationDecoratorIconPath,
+												monitor);
+									}
 								}
 							}
 						}
@@ -681,7 +700,7 @@ final class GVSourceAndDependenciesBuilder {
 		} else {
 			OCLExpression<EClassifier> expression = parseOCLExpression(
 					context.eClass(), oclExpression);
-			Object result = getOCL().evaluate(context, expression); 
+			Object result = getOCL().evaluate(context, expression);
 			return result;
 		}
 	}
@@ -724,6 +743,9 @@ final class GVSourceAndDependenciesBuilder {
 	 *            the source eObject identifier.
 	 * @param targetEObjects
 	 *            the target EObjects list.
+	 * @param oclContext
+	 *            the context to use to evaluate OCL expressions (in property
+	 *            overriders).
 	 * @param srcLabel
 	 *            the source label to apply to the edge.
 	 * @param stdLabel
@@ -735,48 +757,58 @@ final class GVSourceAndDependenciesBuilder {
 	 * @throws CoreException
 	 *             thrown if an unexpected error occurs.
 	 */
-	private void processReferenceTargetEObjects(AbstractReferenceFigure figure,
-			EObject srcEObject, String srcEObjectId,
-			List<EObject> targetEObjects, String srcLabel, String stdLabel,
+	private void processReferenceTargetEObject(AbstractReferenceFigure figure,
+			EObject srcEObject, String srcEObjectId, EObject targetEObject,
+			EObject oclContext, String srcLabel, String stdLabel,
 			String targetLabel, String validationDecoratorIconPath,
 			IProgressMonitor monitor) throws CoreException {
-		// Edges figures generation
-		for (EObject targetEObject : targetEObjects) {
-			String targetEObjectId = processEObject(targetEObject, monitor);
-			// the target EObject Id may hav not been built if the
-			// target EObject's Eclass
-			// is not associated to a ClassFigure.
-			if (targetEObjectId != null) {
-				EdgeDesc edgeDesc = new EdgeDesc();
-				edgeDesc.srcEObjectId = srcEObjectId;
-				edgeDesc.srcEObject = srcEObject;
-				edgeDesc.srcArrowType = figure.getSourceArrowType();
-				edgeDesc.customSrcArrowType = figure.getCustomSourceArrow();
-				edgeDesc.targetEObjectId = targetEObjectId;
-				edgeDesc.targetEObject = targetEObject;
-				edgeDesc.targetArrowType = figure.getTargetArrowType();
-				edgeDesc.customTargetArrowType = figure.getCustomTargetArrow();
-				edgeDesc.minimumEdgeLength = figure.getMinimumEdgeLength();
-				edgeDesc.color = figure.getColor();
-				edgeDesc.style = figure.getStyle();
-				edgeDesc.srcLabel = srcLabel;
-				edgeDesc.stdLabel = stdLabel;
-				edgeDesc.targetLabel = targetLabel;
-				edgeDesc.validationDecoratorIconPath = validationDecoratorIconPath;
-				if (figure instanceof RichReferenceFigure) {
-					RichReferenceFigure richRefFigure = (RichReferenceFigure) figure;
-					edgeDesc.labelAngle = richRefFigure.getLabelAngle();
-					edgeDesc.labelDistance = richRefFigure.getLabelDistance();
-				}
-				ClassFigure srcClassFigure = figureDesc
-						.getClassFigure(edgeDesc.srcEObject.eClass());
-				edgeDesc.srcFigureIsContainer = srcClassFigure.isContainer();
-				ClassFigure targetClassFigure = figureDesc
-						.getClassFigure(edgeDesc.targetEObject.eClass());
-				edgeDesc.targetFigureIsContainer = targetClassFigure
-						.isContainer();
-				edges.add(edgeDesc);
+		String targetEObjectId = processEObject(targetEObject, monitor);
+		// the target EObject Id may hav not been built if the
+		// target EObject's Eclass
+		// is not associated to a ClassFigure.
+		if (targetEObjectId != null) {
+			EdgeDesc edgeDesc = new EdgeDesc();
+			edgeDesc.srcEObjectId = srcEObjectId;
+			edgeDesc.srcEObject = srcEObject;
+			edgeDesc.srcArrowType = (ArrowType) getFigurePropertyValue(figure,
+					oclContext,
+					gvPkg.getAbstractReferenceFigure_SourceArrowType());
+			edgeDesc.customSrcArrow = (String) getFigurePropertyValue(figure,
+					oclContext,
+					gvPkg.getAbstractReferenceFigure_CustomSourceArrow());
+			edgeDesc.targetEObjectId = targetEObjectId;
+			edgeDesc.targetEObject = targetEObject;
+			edgeDesc.targetArrowType = (ArrowType) getFigurePropertyValue(
+					figure, oclContext,
+					gvPkg.getAbstractReferenceFigure_TargetArrowType());
+			edgeDesc.customTargetArrow = (String) getFigurePropertyValue(
+					figure, oclContext,
+					gvPkg.getAbstractReferenceFigure_CustomTargetArrow());
+			edgeDesc.minimumEdgeLength = (Integer) getFigurePropertyValue(
+					figure, oclContext,
+					gvPkg.getAbstractReferenceFigure_MinimumEdgeLength());
+			edgeDesc.color = (Color) getFigurePropertyValue(figure, oclContext,
+					gvPkg.getAbstractReferenceFigure_Color());
+			edgeDesc.style = (ArrowStyle) getFigurePropertyValue(figure,
+					oclContext, gvPkg.getAbstractReferenceFigure_Style());
+			edgeDesc.srcLabel = srcLabel;
+			edgeDesc.stdLabel = stdLabel;
+			edgeDesc.targetLabel = targetLabel;
+			edgeDesc.validationDecoratorIconPath = validationDecoratorIconPath;
+			if (figure instanceof RichReferenceFigure) {
+				edgeDesc.labelAngle = (Double) getFigurePropertyValue(figure,
+						oclContext, gvPkg.getRichReferenceFigure_LabelAngle());
+				edgeDesc.labelDistance = (Double) getFigurePropertyValue(
+						figure, oclContext,
+						gvPkg.getRichReferenceFigure_LabelDistance());
 			}
+			ClassFigure srcClassFigure = figureDesc
+					.getClassFigure(edgeDesc.srcEObject.eClass());
+			edgeDesc.srcFigureIsContainer = srcClassFigure.isContainer();
+			ClassFigure targetClassFigure = figureDesc
+					.getClassFigure(edgeDesc.targetEObject.eClass());
+			edgeDesc.targetFigureIsContainer = targetClassFigure.isContainer();
+			edges.add(edgeDesc);
 		}
 	}
 
@@ -973,11 +1005,12 @@ final class GVSourceAndDependenciesBuilder {
 		out.print(edgeDesc.targetEObjectId);
 		// Arrow style
 		out.print(" [arrowhead = ");
-		out.print(edgeDesc.targetArrowType.equals(ArrowType.CUSTOM) ? edgeDesc.customTargetArrowType
+		out.print(edgeDesc.targetArrowType.equals(ArrowType.CUSTOM) ? edgeDesc.customTargetArrow
 				: edgeDesc.targetArrowType.toString());
 		out.print(", arrowtail = ");
-		out.print(edgeDesc.srcArrowType.equals(ArrowType.CUSTOM) ? edgeDesc.customSrcArrowType
+		out.print(edgeDesc.srcArrowType.equals(ArrowType.CUSTOM) ? edgeDesc.customSrcArrow
 				: edgeDesc.srcArrowType.toString());
+		out.print(", dir = both");
 		if (edgeDesc.srcLabel != null) {
 			out.print(", taillabel=\"");
 			out.print(toHtmlString(edgeDesc.srcLabel));
@@ -1243,10 +1276,28 @@ final class GVSourceAndDependenciesBuilder {
 
 		// If we have a label to show
 		if (nodeDesc.label != null) {
+			if (nodeDesc.labelStyle.contains(FontStyle.BOLD)) {
+				out.print("<B>");
+			}
+			if (nodeDesc.labelStyle.contains(FontStyle.ITALIC)) {
+				out.print("<I>");
+			}
+			if (nodeDesc.labelStyle.contains(FontStyle.UNDERLINE)) {
+				out.print("<U>");
+			}
 			out.print(toHtmlString(nodeDesc.label));
 			if (nodeDesc.label.length() < 4) {
 				out.print("   "); // FIX for too short labels to keep edges
 									// connected to the nodes
+			}
+			if (nodeDesc.labelStyle.contains(FontStyle.UNDERLINE)) {
+				out.print("</U>");
+			}
+			if (nodeDesc.labelStyle.contains(FontStyle.ITALIC)) {
+				out.print("</I>");
+			}
+			if (nodeDesc.labelStyle.contains(FontStyle.BOLD)) {
+				out.print("</B>");
 			}
 		}
 
@@ -1346,6 +1397,8 @@ class NodeDesc {
 
 	/** Node label */
 	String label;
+	
+	Collection<FontStyle> labelStyle;
 
 	/** Header background color */
 	Color headerBackgroundColor;
@@ -1395,7 +1448,7 @@ class EdgeDesc {
 	ArrowType srcArrowType;
 
 	/** Source custom arrow type */
-	String customSrcArrowType;
+	String customSrcArrow;
 
 	/** Boolean indicating if the source figure is a container */
 	boolean srcFigureIsContainer;
@@ -1410,7 +1463,7 @@ class EdgeDesc {
 	ArrowType targetArrowType;
 
 	/** Target custom arrow type */
-	String customTargetArrowType;
+	String customTargetArrow;
 
 	/** Boolean indicating if the target figure is a container */
 	boolean targetFigureIsContainer;

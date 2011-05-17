@@ -25,12 +25,18 @@
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowType/custom"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="graphdesc.ecore#//ArrowStyle">
-      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/invis"/>
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/normal"/>
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/dashed"/>
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/dotted"/>
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/bold"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/invis"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="graphdesc.ecore#//FontStyle">
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//FontStyle/bold"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//FontStyle/italic"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//FontStyle/underline"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="graphdesc.ecore#//Color"/>
     <genClasses ecoreClass="graphdesc.ecore#//GVFigureDescription">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphdesc.ecore#//GVFigureDescription/filters"/>
       <genFeatures createChild="false" propertyCategory="Model" propertyDescription="EPackages list authorized in this figure description"
@@ -55,6 +61,7 @@
         <genParameters ecoreParameter="graphdesc.ecore#//AbstractFigure/validate/diagnostic"/>
         <genParameters ecoreParameter="graphdesc.ecore#//AbstractFigure/validate/context"/>
       </genOperations>
+      <genOperations ecoreOperation="graphdesc.ecore#//AbstractFigure/getStandardOCLContext"/>
     </genClasses>
     <genClasses ecoreClass="graphdesc.ecore#//ClassFigure">
       <genFeatures property="Readonly" notify="false" createChild="false" propertyCategory="Model"
@@ -64,6 +71,8 @@
       <genFeatures notify="false" createChild="false" propertyCategory="Appearance"
           propertyDescription="The EClass attribute to use for the figure's label (the label that appears in the figure's header)"
           propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/labelEAttribute"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The style of the class figure's label"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/labelStyle"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/attributeFigures"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/referenceFigures"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/gvFigureDescription"/>
@@ -73,12 +82,6 @@
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/bodyBackgroundColor"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Container"
           propertyDescription="" propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/nestedFiguresEReferences"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Enables dynamic color accessors"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/dynamicAppearance"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Dynamic header's background color accessor"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/headerBackgroundColorAccessor"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Dynamic body's background color accessor"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/bodyBackgroundColorAccessor"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/container"/>
       <genOperations ecoreOperation="graphdesc.ecore#//ClassFigure/getAttributeFigure">
         <genParameters ecoreParameter="graphdesc.ecore#//ClassFigure/getAttributeFigure/eAttribute"/>
@@ -148,6 +151,7 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//DynamicPropertyOverrider/propertyToOverride"/>
       <genFeatures createChild="false" propertyDescription="The OCL expression to be used to retrieve the overriding property value"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//DynamicPropertyOverrider/overridingExpression"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//DynamicPropertyOverrider/figure"/>
       <genOperations ecoreOperation="graphdesc.ecore#//DynamicPropertyOverrider/validate">
         <genParameters ecoreParameter="graphdesc.ecore#//DynamicPropertyOverrider/validate/diagnostic"/>
         <genParameters ecoreParameter="graphdesc.ecore#//DynamicPropertyOverrider/validate/context"/>
@@ -159,6 +163,7 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//Filter/filteredType"/>
       <genFeatures createChild="false" propertyDescription="The OCL expression that is used to evaluate if the EObjects of the specified filter type (EClass) are to be shown in the diagram (the expression must return a boolean value)"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//Filter/filterExpression"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//Filter/figureDescription"/>
       <genOperations ecoreOperation="graphdesc.ecore#//Filter/validate">
         <genParameters ecoreParameter="graphdesc.ecore#//Filter/validate/diagnostic"/>
         <genParameters ecoreParameter="graphdesc.ecore#//Filter/validate/context"/>

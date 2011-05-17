@@ -49,7 +49,7 @@ import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.ocl.helper.OCLHelper;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
-import org.emftools.emf2gv.graphdesc.util.GraphdescGenerator;
+import org.emftools.emf2gv.graphdesc.util.GraphdescHelper;
 import org.emftools.emf2gv.util.EMFHelper;
 import org.emftools.emf2gv.util.IOHelper;
 import org.emftools.emf2gv.util.OCLProvider;
@@ -247,7 +247,7 @@ public class StandaloneProcessor {
 				}
 			}
 			// Graphdesc generation
-			gvFigureDescription = GraphdescGenerator
+			gvFigureDescription = GraphdescHelper
 					.createGVFigureDescription(ePackages);
 		} else {
 			// Graphical description validation

@@ -96,6 +96,7 @@ public class ClassFigureItemProvider
 			addLabelEAttributePropertyDescriptor(object);
 			addHeaderBackgroundColorPropertyDescriptor(object);
 			addBodyBackgroundColorPropertyDescriptor(object);
+			addLabelStylePropertyDescriptor(object);
 
 			// Container properties
 			addNestedFiguresEReferencesPropertyDescriptor(object);
@@ -183,6 +184,28 @@ public class ClassFigureItemProvider
 					return result;
 				}
 			});
+	}
+
+	/**
+	 * This adds a property descriptor for the Label Style feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLabelStylePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ClassFigure_labelStyle_feature"),
+				 getString("_UI_ClassFigure_labelStyle_description"),
+				 GraphdescPackage.Literals.CLASS_FIGURE__LABEL_STYLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null));
 	}
 
 	/**
@@ -363,6 +386,7 @@ public class ClassFigureItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ClassFigure.class)) {
+			case GraphdescPackage.CLASS_FIGURE__LABEL_STYLE:
 			case GraphdescPackage.CLASS_FIGURE__HEADER_BACKGROUND_COLOR:
 			case GraphdescPackage.CLASS_FIGURE__BODY_BACKGROUND_COLOR:
 			case GraphdescPackage.CLASS_FIGURE__CONTAINER:

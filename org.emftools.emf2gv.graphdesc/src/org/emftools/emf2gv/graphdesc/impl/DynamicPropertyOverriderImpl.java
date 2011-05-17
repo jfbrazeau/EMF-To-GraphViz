@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ocl.ParserException;
 import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.expressions.CollectionKind;
 import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.ocl.helper.OCLHelper;
 import org.eclipse.ocl.util.TypeUtil;
@@ -285,6 +286,27 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 									figureEClass.getName());
 					valid = false;
 				}
+				if (valid) {
+					for (DynamicPropertyOverrider dpoCursor : figure
+							.getDynamicProperties()) {
+						// If we meet the current instance we stop (in order not
+						// to get duplicate error messages)
+						if (dpoCursor == this) {
+							break;
+						}
+						else if (featureToOverride == dpoCursor
+										.getPropertyToOverride()) {
+							constraintsHelper
+									.addError(
+											diagnostic,
+											this,
+											0,
+											"The property ''{0}'' is overrided twice or more",
+											featureToOverride.getName());
+							valid = false;
+						}
+					}
+				}
 			}
 			// OCL expression check
 			if (valid) {
@@ -314,6 +336,13 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 				if (oclExpression != null) {
 					EClassifier oclExpressionEType = oclExpression.getType();
 					EClassifier featureToOverrideEType = featureToOverride.getEType();
+					if (featureToOverride.getUpperBound() != 1) {
+						featureToOverrideEType = TypeUtil
+								.resolveCollectionType(
+										oclHelper.getEnvironment(),
+										CollectionKind.COLLECTION_LITERAL,
+										featureToOverrideEType);
+					}
 					if (!oclExpressionEType.getInstanceClass().equals(
 							featureToOverrideEType.getInstanceClass())
 							&& !TypeUtil.compatibleTypeMatch(oclHelper.getOCL()

@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -44,6 +45,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
@@ -51,6 +53,8 @@ import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
+import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
+import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.util.ColorsHelper;
 
 /**
@@ -60,7 +64,7 @@ import org.emftools.emf2gv.util.ColorsHelper;
  * The default generation algorithm does not process the non containment
  * references features.
  */
-public class GraphdescGenerator {
+public class GraphdescHelper {
 
 	/** Predefined colors tu use in the class figures */
 	private static List<Color> predefinedColors = Arrays.asList(new Color[] { // Predefined
@@ -134,7 +138,7 @@ public class GraphdescGenerator {
 				}
 			}
 			// Add Eattributes and appearance data
-			addEAttributesAndAppearanceStyleData(gvFigDesc);
+			populateEAttributesAndAppearanceStyleData(gvFigDesc);
 		}
 
 		return gvFigDesc;
@@ -152,7 +156,7 @@ public class GraphdescGenerator {
 						new XMIResourceFactoryImpl());
 		// Load the graphical description
 		Resource graphDescResource = rs.getResource(URI.createURI(
-				GraphdescGenerator.class.getResource("ecore.graphdesc")
+				GraphdescHelper.class.getResource("ecore.graphdesc")
 						.toString(), true), true);
 		return (GVFigureDescription) graphDescResource.getContents().get(0);
 	}
@@ -164,7 +168,7 @@ public class GraphdescGenerator {
 	 * @param gvFigDesc
 	 *            the graphical description.
 	 */
-	public static void addEAttributesAndAppearanceStyleData(
+	public static void populateEAttributesAndAppearanceStyleData(
 			GVFigureDescription gvFigDesc) {
 		int predefinedColorIdx = 0;
 		for (ClassFigure classFigure : gvFigDesc.getClassFigures()) {
@@ -229,6 +233,59 @@ public class GraphdescGenerator {
 							.setTargetArrowType(eOpposite != null ? ArrowType.NONE
 									: ArrowType.NORMAL);
 				}
+			}
+		}
+	}
+
+	/**
+	 * Return the possible EClasses that can be filtered for the given graphical description.
+	 * @param figureDescription the graphical description.
+	 * @return the EClasses list.
+	 */
+	public static List<EClass> getFilterableEClasses(GVFigureDescription figureDescription) {
+		// EClass hierarchy retrieval
+		List<EClass> eClasses = new ArrayList<EClass>();
+		EList<ClassFigure> classFigures = figureDescription.getClassFigures();
+		for (ClassFigure classFigure : classFigures) {
+			registerSuperTypes(classFigure.getEClass(), eClasses);
+			// Retrieve the EClass targeted by the rich references (i.e.
+			// the association EClasses)
+			EList<AbstractReferenceFigure> abstractReferenceFigures = classFigure
+					.getReferenceFigures();
+			for (AbstractReferenceFigure abstractReferenceFigure : abstractReferenceFigures) {
+				if (abstractReferenceFigure instanceof RichReferenceFigure) {
+					RichReferenceFigure richReferenceFigure = (RichReferenceFigure) abstractReferenceFigure;
+					registerSuperTypes(richReferenceFigure.getEReference()
+							.getEReferenceType(), eClasses);
+				}
+			}
+			// Retrieve the EClass targeted by the rich attributes
+			EList<AbstractAttributeFigure> abstractAttributeFigures = classFigure
+					.getAttributeFigures();
+			for (AbstractAttributeFigure abstractAttributeFigure : abstractAttributeFigures) {
+				if (abstractAttributeFigure instanceof RichAttributeFigure) {
+					RichAttributeFigure richAttributeFigure = (RichAttributeFigure) abstractAttributeFigure;
+					registerSuperTypes(richAttributeFigure.getEReference()
+							.getEReferenceType(), eClasses);
+				}
+			}
+		}
+		return eClasses;
+	}
+
+	/**
+	 * Registers the EClass super types in the list.
+	 * 
+	 * @param context
+	 *            the EClass.
+	 * @param eClasses
+	 *            the EClass list.
+	 */
+	private static void registerSuperTypes(EClass eClass, List<EClass> eClasses) {
+		if (!eClasses.contains(eClass)) {
+			eClasses.add(eClass);
+			for (EClass superType : eClass.getESuperTypes()) {
+				registerSuperTypes(superType, eClasses);
 			}
 		}
 	}

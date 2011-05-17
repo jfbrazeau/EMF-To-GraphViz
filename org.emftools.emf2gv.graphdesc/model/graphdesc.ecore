@@ -54,6 +54,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="eClass" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labelEAttribute" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelStyle" upperBound="-1"
+        eType="#//FontStyle" defaultValueLiteral="">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributeFigures" upperBound="-1"
         eType="#//AbstractAttributeFigure" containment="true" eOpposite="#//AbstractAttributeFigure/classFigure"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referenceFigures" upperBound="-1"
@@ -176,7 +180,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         changeable="false" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="filteredType" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="filterExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="filterExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="figureDescription" eType="#//GVFigureDescription"
         eOpposite="#//GVFigureDescription/filters"/>
   </eClassifiers>
@@ -197,11 +202,16 @@
     <eLiterals name="custom" value="9"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ArrowStyle">
-    <eLiterals name="invis" value="4"/>
     <eLiterals name="normal" value="1"/>
     <eLiterals name="dashed" value="2"/>
     <eLiterals name="dotted" value="3"/>
     <eLiterals name="bold"/>
+    <eLiterals name="invis" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="FontStyle">
+    <eLiterals name="bold"/>
+    <eLiterals name="italic" value="1"/>
+    <eLiterals name="underline" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Color" instanceClassName="java.awt.Color"/>
 </ecore:EPackage>

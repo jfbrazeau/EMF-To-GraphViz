@@ -145,7 +145,6 @@ public class OCLProvider {
 		/**
 		 * Custom functions to be used in the DynamicPropertyOverrider
 		 */
-		// TODO Check
 		EDataType colorDataType = EcoreFactory.eINSTANCE.createEDataType();
 		colorDataType.setInstanceClass(Color.class);
 		defineOperation(

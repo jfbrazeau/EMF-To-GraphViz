@@ -48,6 +48,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 
@@ -116,15 +117,19 @@ public class DynamicPropertyOverriderItemProvider
 					public Collection<?> getChoiceOfValues(Object object) {
 						Collection<EStructuralFeature> result = new ArrayList<EStructuralFeature>();
 						DynamicPropertyOverrider dpo = (DynamicPropertyOverrider) object;
-						EClass figureEClass = dpo.getFigure() != null ? dpo
-								.getFigure().eClass() : null;
-						if (figureEClass != null) {
+						AbstractFigure figure = dpo.getFigure();
+						if (figure != null) {
+							EClass figureEClass = figure.eClass();
 							for (EStructuralFeature feature : figureEClass
 									.getEAllStructuralFeatures()) {
 								if (feature
 										.getEAnnotation("http://org.emftools.emf2gv.graphdesc/OverridableProperty") != null) {
 									result.add(feature);
 								}
+							}
+							// Already overridden properties removal
+							for (DynamicPropertyOverrider dpoCursor : figure.getDynamicProperties()) {
+								result.remove(dpoCursor.getPropertyToOverride());
 							}
 						}
 						return result;

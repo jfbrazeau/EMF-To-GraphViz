@@ -47,6 +47,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
+import org.emftools.emf2gv.graphdesc.util.GraphdescHelper;
 
 /**
  * This is the item provider adapter for a {@link org.emftools.emf2gv.graphdesc.Filter} object.
@@ -93,11 +94,11 @@ public class FilterItemProvider
 	 * This adds a property descriptor for the Filtered Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addFilteredTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+		(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_Filter_filteredType_feature"),
@@ -108,7 +109,18 @@ public class FilterItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+			@Override
+			public Collection<?> getChoiceOfValues(Object object) {
+				Filter filter = (Filter) object;
+				Collection<?> result = null;
+				if (filter.getFigureDescription() != null) {
+					result = GraphdescHelper.getFilterableEClasses(filter
+							.getFigureDescription());
+				}
+				return result;
+			}
+		});
 	}
 
 	/**

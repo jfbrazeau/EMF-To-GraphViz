@@ -36,39 +36,15 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Arrow Style</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Font Style</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getArrowStyle()
+ * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getFontStyle()
  * @model
  * @generated
  */
-public enum ArrowStyle implements Enumerator {
+public enum FontStyle implements Enumerator {
 	/**
-	 * The '<em><b>Normal</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NORMAL_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	NORMAL(1, "normal", "normal"), /**
-	 * The '<em><b>Dashed</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DASHED_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	DASHED(2, "dashed", "dashed"), /**
-	 * The '<em><b>Dotted</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DOTTED_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	DOTTED(3, "dotted", "dotted"), /**
 	 * The '<em><b>Bold</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -76,60 +52,27 @@ public enum ArrowStyle implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BOLD(0, "bold", "bold"), /**
-	 * The '<em><b>Invis</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #INVIS_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	INVIS(4, "invis", "invis");
+	BOLD(0, "bold", "bold"),
 
 	/**
-	 * The '<em><b>Normal</b></em>' literal value.
+	 * The '<em><b>Italic</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Normal</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #NORMAL
-	 * @model name="normal"
+	 * @see #ITALIC_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NORMAL_VALUE = 1;
+	ITALIC(1, "italic", "italic"),
 
 	/**
-	 * The '<em><b>Dashed</b></em>' literal value.
+	 * The '<em><b>Underline</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Dashed</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #DASHED
-	 * @model name="dashed"
+	 * @see #UNDERLINE_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DASHED_VALUE = 2;
-
-	/**
-	 * The '<em><b>Dotted</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Dotted</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #DOTTED
-	 * @model name="dotted"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int DOTTED_VALUE = 3;
+	UNDERLINE(2, "underline", "underline");
 
 	/**
 	 * The '<em><b>Bold</b></em>' literal value.
@@ -147,52 +90,65 @@ public enum ArrowStyle implements Enumerator {
 	public static final int BOLD_VALUE = 0;
 
 	/**
-	 * The '<em><b>Invis</b></em>' literal value.
+	 * The '<em><b>Italic</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Invis</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Italic</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #INVIS
-	 * @model name="invis"
+	 * @see #ITALIC
+	 * @model name="italic"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int INVIS_VALUE = 4;
+	public static final int ITALIC_VALUE = 1;
 
 	/**
-	 * An array of all the '<em><b>Arrow Style</b></em>' enumerators.
+	 * The '<em><b>Underline</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Underline</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #UNDERLINE
+	 * @model name="underline"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UNDERLINE_VALUE = 2;
+
+	/**
+	 * An array of all the '<em><b>Font Style</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final ArrowStyle[] VALUES_ARRAY =
-		new ArrowStyle[] {
-			NORMAL,
-			DASHED,
-			DOTTED,
+	private static final FontStyle[] VALUES_ARRAY =
+		new FontStyle[] {
 			BOLD,
-			INVIS,
+			ITALIC,
+			UNDERLINE,
 		};
 
 	/**
-	 * A public read-only list of all the '<em><b>Arrow Style</b></em>' enumerators.
+	 * A public read-only list of all the '<em><b>Font Style</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<ArrowStyle> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<FontStyle> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Arrow Style</b></em>' literal with the specified literal value.
+	 * Returns the '<em><b>Font Style</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ArrowStyle get(String literal) {
+	public static FontStyle get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			ArrowStyle result = VALUES_ARRAY[i];
+			FontStyle result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -201,14 +157,14 @@ public enum ArrowStyle implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Arrow Style</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Font Style</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ArrowStyle getByName(String name) {
+	public static FontStyle getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			ArrowStyle result = VALUES_ARRAY[i];
+			FontStyle result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -217,18 +173,16 @@ public enum ArrowStyle implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Arrow Style</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Font Style</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ArrowStyle get(int value) {
+	public static FontStyle get(int value) {
 		switch (value) {
-			case NORMAL_VALUE: return NORMAL;
-			case DASHED_VALUE: return DASHED;
-			case DOTTED_VALUE: return DOTTED;
 			case BOLD_VALUE: return BOLD;
-			case INVIS_VALUE: return INVIS;
+			case ITALIC_VALUE: return ITALIC;
+			case UNDERLINE_VALUE: return UNDERLINE;
 		}
 		return null;
 	}
@@ -260,7 +214,7 @@ public enum ArrowStyle implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private ArrowStyle(int value, String name, String literal) {
+	private FontStyle(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
@@ -304,4 +258,4 @@ public enum ArrowStyle implements Enumerator {
 		return literal;
 	}
 	
-} //ArrowStyle
+} //FontStyle
