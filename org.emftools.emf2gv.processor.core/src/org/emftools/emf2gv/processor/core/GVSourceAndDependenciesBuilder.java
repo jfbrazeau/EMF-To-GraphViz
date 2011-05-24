@@ -204,7 +204,7 @@ final class GVSourceAndDependenciesBuilder {
 		this.filters = filters == null ? new ArrayList<OCLFilterConstraint>()
 				: filters;
 		this.logger = logger;
-
+		
 		// Diagnostician initialization
 		diagnostician = !addValidationDecorators ? null : new Diagnostician() {
 			// This method is overrided to prevent from
@@ -416,7 +416,7 @@ final class GVSourceAndDependenciesBuilder {
 	 * @throws CoreException
 	 *             thrown if an unexpected error occurs.
 	 */
-	
+
 	@SuppressWarnings("unchecked")
 	private String processEObject(EObject eContentRoot, IProgressMonitor monitor)
 			throws CoreException {
@@ -492,14 +492,14 @@ final class GVSourceAndDependenciesBuilder {
 							nodeDesc.attributes.add(attrDesc);
 							AttributeFigure attrFigure = (AttributeFigure) abstractAttrFigure;
 							EAttribute eAttribute = attrFigure.getEAttribute();
-							String attrLabel = attrFigure.getLabel();
-							if (attrLabel == null
-									|| "".equals(attrLabel.trim())) {
-								attrLabel = eAttribute.getName();
-							}
-							attrDesc.label = attrLabel.trim();
-							attrDesc.value = String.valueOf(eContentRoot
-									.eGet(eAttribute));
+							attrDesc.label = eAttribute.getName()
+									+ " : "
+									+ String.valueOf(eContentRoot
+											.eGet(eAttribute));
+							attrDesc.labelStyle = (Collection<FontStyle>) getFigurePropertyValue(
+									abstractAttrFigure,
+									eContentRoot,
+									gvPkg.getAbstractAttributeFigure_LabelStyle());
 						}
 						// Rich attribute figures
 						else {
@@ -513,9 +513,13 @@ final class GVSourceAndDependenciesBuilder {
 								if (mustDraw(richAttrEObject)) {
 									AttributeDesc attrDesc = new AttributeDesc();
 									nodeDesc.attributes.add(attrDesc);
-									attrDesc.value = String.valueOf(getOCL()
+									attrDesc.label = String.valueOf(getOCL()
 											.evaluate(richAttrEObject,
 													expression));
+									attrDesc.labelStyle = (Collection<FontStyle>) getFigurePropertyValue(
+											abstractAttrFigure,
+											richAttrEObject,
+											gvPkg.getAbstractAttributeFigure_LabelStyle());
 									attrDesc.iconPath = findAndSaveEObjectIcon(
 											richAttrEObject, monitor);
 									attrDesc.validationDecoratorIconPath = getValidationDecoratorIconPath(
@@ -554,7 +558,7 @@ final class GVSourceAndDependenciesBuilder {
 										abstractReferenceFigure, eContentRoot,
 										eContentRootId, targetEObject,
 										targetEObject, null, null, null, null,
-										monitor);
+										null, null, null, monitor);
 							}
 						}
 						// Rich reference case
@@ -579,16 +583,28 @@ final class GVSourceAndDependenciesBuilder {
 													richReferenceEClassInstance,
 													richReferenceFigure
 															.getSourceLabelExpression()));
+									Collection<FontStyle> srcStyle = (Collection<FontStyle>) getFigurePropertyValue(
+											richReferenceFigure,
+											richReferenceEClassInstance,
+											gvPkg.getRichReferenceFigure_SourceLabelStyle());
 									String stdLabel = String
 											.valueOf(evaluateOCLExpression(
 													richReferenceEClassInstance,
 													richReferenceFigure
 															.getStandardLabelExpression()));
+									Collection<FontStyle> stdStyle = (Collection<FontStyle>) getFigurePropertyValue(
+											richReferenceFigure,
+											richReferenceEClassInstance,
+											gvPkg.getRichReferenceFigure_StandardLabelStyle());
 									String targetLabel = String
 											.valueOf(evaluateOCLExpression(
 													richReferenceEClassInstance,
 													richReferenceFigure
 															.getTargetLabelExpression()));
+									Collection<FontStyle> targetStyle = (Collection<FontStyle>) getFigurePropertyValue(
+											richReferenceFigure,
+											richReferenceEClassInstance,
+											gvPkg.getRichReferenceFigure_TargetLabelStyle());
 									// Rich reference instance validation
 									String validationDecoratorIconPath = getValidationDecoratorIconPath(
 											richReferenceEClassInstance,
@@ -603,8 +619,9 @@ final class GVSourceAndDependenciesBuilder {
 												eContentRoot, eContentRootId,
 												targetEObject,
 												richReferenceEClassInstance,
-												srcLabel, stdLabel,
-												targetLabel,
+												srcLabel, srcStyle, stdLabel,
+												stdStyle, targetLabel,
+												targetStyle,
 												validationDecoratorIconPath,
 												monitor);
 									}
@@ -748,10 +765,16 @@ final class GVSourceAndDependenciesBuilder {
 	 *            overriders).
 	 * @param srcLabel
 	 *            the source label to apply to the edge.
+	 * @param srcLabelStyle
+	 *            the source label style
 	 * @param stdLabel
 	 *            the standard label to apply to the edge.
+	 * @param stdLabelStyle
+	 *            the standard label style
 	 * @param targetLabel
 	 *            the target label to apply to the edge.
+	 * @param targetLabelStyle
+	 *            the target label style
 	 * @param monitor
 	 *            the progress monitor.
 	 * @throws CoreException
@@ -759,9 +782,12 @@ final class GVSourceAndDependenciesBuilder {
 	 */
 	private void processReferenceTargetEObject(AbstractReferenceFigure figure,
 			EObject srcEObject, String srcEObjectId, EObject targetEObject,
-			EObject oclContext, String srcLabel, String stdLabel,
-			String targetLabel, String validationDecoratorIconPath,
-			IProgressMonitor monitor) throws CoreException {
+			EObject oclContext, String srcLabel,
+			Collection<FontStyle> srcLabelStyle, String stdLabel,
+			Collection<FontStyle> stdLabelStyle, String targetLabel,
+			Collection<FontStyle> targetLabelStyle,
+			String validationDecoratorIconPath, IProgressMonitor monitor)
+			throws CoreException {
 		String targetEObjectId = processEObject(targetEObject, monitor);
 		// the target EObject Id may hav not been built if the
 		// target EObject's Eclass
@@ -792,8 +818,11 @@ final class GVSourceAndDependenciesBuilder {
 			edgeDesc.style = (ArrowStyle) getFigurePropertyValue(figure,
 					oclContext, gvPkg.getAbstractReferenceFigure_Style());
 			edgeDesc.srcLabel = srcLabel;
+			edgeDesc.srcLabelStyle = srcLabelStyle;
 			edgeDesc.stdLabel = stdLabel;
+			edgeDesc.stdLabelStyle = stdLabelStyle;
 			edgeDesc.targetLabel = targetLabel;
+			edgeDesc.targetLabelStyle = targetLabelStyle;
 			edgeDesc.validationDecoratorIconPath = validationDecoratorIconPath;
 			if (figure instanceof RichReferenceFigure) {
 				edgeDesc.labelAngle = (Double) getFigurePropertyValue(figure,
@@ -1012,9 +1041,10 @@ final class GVSourceAndDependenciesBuilder {
 				: edgeDesc.srcArrowType.toString());
 		out.print(", dir = both");
 		if (edgeDesc.srcLabel != null) {
-			out.print(", taillabel=\"");
-			out.print(toHtmlString(edgeDesc.srcLabel));
-			out.print("\"");
+			out.print(", taillabel=<");
+			out.println("\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"0\"><TR><TD>");
+			flushStyledText(edgeDesc.srcLabelStyle, edgeDesc.srcLabel);
+			out.print("</TD></TR></TABLE>>");
 		}
 		// Start of the centered label
 		if (edgeDesc.stdLabel != null
@@ -1023,7 +1053,7 @@ final class GVSourceAndDependenciesBuilder {
 			out.println("\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"0\"><TR>");
 			if (edgeDesc.stdLabel != null) {
 				out.print("<TD>");
-				out.print(toHtmlString(edgeDesc.stdLabel));
+				flushStyledText(edgeDesc.stdLabelStyle, edgeDesc.stdLabel);
 				out.print("</TD>");
 			}
 			if (edgeDesc.validationDecoratorIconPath != null) {
@@ -1034,9 +1064,10 @@ final class GVSourceAndDependenciesBuilder {
 			out.print("</TR></TABLE>>");
 		}
 		if (edgeDesc.targetLabel != null) {
-			out.print(", headlabel=\"");
-			out.print(toHtmlString(edgeDesc.targetLabel));
-			out.print("\"");
+			out.print(", headlabel=<");
+			out.println("\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"0\"><TR><TD>");
+			flushStyledText(edgeDesc.targetLabelStyle, edgeDesc.targetLabel);
+			out.print("</TD></TR></TABLE>>");
 		}
 		out.print(", minlen=");
 		out.print(edgeDesc.minimumEdgeLength);
@@ -1205,7 +1236,7 @@ final class GVSourceAndDependenciesBuilder {
 		out.println("\t\t\t\t<TABLE BORDER=\"1\" CELLBORDER=\"0\" CELLSPACING=\"0\">");
 		// If the node has no attributes, a blank line is inserted
 		if (nodeDesc.attributes.size() == 0) {
-			out.print("\t\t\t\t\t<TR><TD ALIGN=\"LEFT\" COLSPAN=\"2\"> </TD></TR>");
+			out.print("\t\t\t\t\t<TR><TD> </TD></TR>");
 		} else {
 			for (AttributeDesc attrDesc : nodeDesc.attributes) {
 				out.print("\t\t\t\t\t<TR><TD>");
@@ -1217,14 +1248,8 @@ final class GVSourceAndDependenciesBuilder {
 					out.print(" ");
 				}
 				out.print("</TD>");
-				if (attrDesc.label != null) {
-					out.print("<TD ALIGN=\"LEFT\">");
-					out.print(toHtmlString(attrDesc.label));
-					out.print(" :</TD><TD ALIGN=\"LEFT\">");
-				} else {
-					out.print("<TD ALIGN=\"LEFT\" COLSPAN=\"2\">");
-				}
-				out.print(toHtmlString(attrDesc.value));
+				out.print("<TD ALIGN=\"LEFT\">");
+				flushStyledText(attrDesc.labelStyle, attrDesc.label);
 				out.print("</TD><TD>");
 				if (attrDesc.validationDecoratorIconPath != null) {
 					out.print("<IMG SCALE=\"FALSE\" SRC=\"");
@@ -1276,31 +1301,10 @@ final class GVSourceAndDependenciesBuilder {
 
 		// If we have a label to show
 		if (nodeDesc.label != null) {
-			if (nodeDesc.labelStyle.contains(FontStyle.BOLD)) {
-				out.print("<B>");
-			}
-			if (nodeDesc.labelStyle.contains(FontStyle.ITALIC)) {
-				out.print("<I>");
-			}
-			if (nodeDesc.labelStyle.contains(FontStyle.UNDERLINE)) {
-				out.print("<U>");
-			}
-			out.print(toHtmlString(nodeDesc.label));
-			if (nodeDesc.label.length() < 4) {
-				out.print("   "); // FIX for too short labels to keep edges
-									// connected to the nodes
-			}
-			if (nodeDesc.labelStyle.contains(FontStyle.UNDERLINE)) {
-				out.print("</U>");
-			}
-			if (nodeDesc.labelStyle.contains(FontStyle.ITALIC)) {
-				out.print("</I>");
-			}
-			if (nodeDesc.labelStyle.contains(FontStyle.BOLD)) {
-				out.print("</B>");
-			}
+			flushStyledText(nodeDesc.labelStyle, nodeDesc.label
+			// FIX for too short labels to keep edges connected to the nodes
+					+ (nodeDesc.label.length() < 4 ? "   " : ""));
 		}
-
 		out.println("</TD>");
 
 		// Status icon
@@ -1314,6 +1318,36 @@ final class GVSourceAndDependenciesBuilder {
 		out.println("\t</TR>");
 		out.print(indent);
 		out.println("</TABLE>");
+	}
+
+	/**
+	 * Flushes a styled text.
+	 * 
+	 * @param fontStyle
+	 *            the style to apply to the text.
+	 * @param text
+	 *            the text to flush.
+	 */
+	private void flushStyledText(Collection<FontStyle> fontStyle, String text) {
+		if (fontStyle.contains(FontStyle.BOLD)) {
+			out.print("<B>");
+		}
+		if (fontStyle.contains(FontStyle.ITALIC)) {
+			out.print("<I>");
+		}
+		if (fontStyle.contains(FontStyle.UNDERLINE)) {
+			out.print("<U>");
+		}
+		out.print(toHtmlString(text));
+		if (fontStyle.contains(FontStyle.UNDERLINE)) {
+			out.print("</U>");
+		}
+		if (fontStyle.contains(FontStyle.ITALIC)) {
+			out.print("</I>");
+		}
+		if (fontStyle.contains(FontStyle.BOLD)) {
+			out.print("</B>");
+		}
 	}
 
 	/**
@@ -1397,7 +1431,8 @@ class NodeDesc {
 
 	/** Node label */
 	String label;
-	
+
+	/** The label style */
 	Collection<FontStyle> labelStyle;
 
 	/** Header background color */
@@ -1422,11 +1457,11 @@ class AttributeDesc {
 	/** Icon path */
 	String iconPath;
 
-	/** Text */
+	/** The label that is shown */
 	String label;
 
-	/** Text */
-	String value;
+	/** The label style */
+	Collection<FontStyle> labelStyle;
 
 	/** Validation decorator icon path */
 	String validationDecoratorIconPath;
@@ -1483,11 +1518,20 @@ class EdgeDesc {
 	/** Source label */
 	String srcLabel;
 
+	/** The source label style */
+	Collection<FontStyle> srcLabelStyle;
+
 	/** Standard label */
 	String stdLabel;
 
+	/** The standard label style */
+	Collection<FontStyle> stdLabelStyle;
+
 	/** Target label */
 	String targetLabel;
+
+	/** The target label style */
+	Collection<FontStyle> targetLabelStyle;
 
 	/** Minimum edge length */
 	int minimumEdgeLength;

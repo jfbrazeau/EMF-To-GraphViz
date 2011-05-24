@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<graphdesc:GVFigureDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:graphdesc="http://org.emftools.emf2gv.graphdesc/1.0.5" orientation="TopDown">
+<graphdesc:GVFigureDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:graphdesc="http://org.emftools.emf2gv.graphdesc/1.0.5" orientation="TopDown">
   <ePackages href="http://www.eclipse.org/emf/2002/Ecore#/"/>
   <classFigures headerBackgroundColor="#FCEFBC" bodyBackgroundColor="#FEF8DE">
+    <dynamicProperties overridingExpression="if self.abstract then Set{graphdesc::FontStyle::italic} else Set{} endif">
+      <propertyToOverride xsi:type="ecore:EAttribute" href="http://org.emftools.emf2gv.graphdesc/1.0.5#//ClassFigure/labelStyle"/>
+    </dynamicProperties>
     <eClass href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     <labelEAttribute href="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement/name"/>
     <attributeFigures xsi:type="graphdesc:RichAttributeFigure" labelExpression="name.concat(' : ').concat(eAttributeType.name)">
@@ -14,6 +17,9 @@
       <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eSuperTypes"/>
     </referenceFigures>
     <referenceFigures xsi:type="graphdesc:RichReferenceFigure" style="normal" sourceLabelExpression="" standardLabelExpression="name" targetLabelExpression="if (lowerBound = upperBound) &#xD;&#xA;then &#xD;&#xA;  lowerBound &#xD;&#xA;else &#xD;&#xA;  ''  + lowerBound + '...' + (if (upperBound &lt;> -1) then upperBound else '*' endif) &#xD;&#xA;endif" labelDistance="3.0">
+      <dynamicProperties overridingExpression="if self.containment then graphdesc::ArrowType::diamond else graphdesc::ArrowType::none endif">
+        <propertyToOverride xsi:type="ecore:EAttribute" href="http://org.emftools.emf2gv.graphdesc/1.0.5#//AbstractReferenceFigure/sourceArrowType"/>
+      </dynamicProperties>
       <eReference href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eReferences"/>
       <targetEReference href="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement/eType"/>
     </referenceFigures>

@@ -88,8 +88,11 @@ public class RichReferenceFigureItemProvider
 
 			// Appearance properties
 			addSourceLabelExpressionPropertyDescriptor(object);
+			addSourceLabelStylePropertyDescriptor(object);
 			addStandardLabelExpressionPropertyDescriptor(object);
+			addStandardLabelStylePropertyDescriptor(object);
 			addTargetLabelExpressionPropertyDescriptor(object);
+			addTargetLabelStylePropertyDescriptor(object);
 			addLabelDistancePropertyDescriptor(object);
 			addLabelAnglePropertyDescriptor(object);
 
@@ -161,6 +164,28 @@ public class RichReferenceFigureItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Source Label Style feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSourceLabelStylePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RichReferenceFigure_sourceLabelStyle_feature"),
+				 getString("_UI_RichReferenceFigure_sourceLabelStyle_description"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__SOURCE_LABEL_STYLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Standard Label Expression feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -183,6 +208,28 @@ public class RichReferenceFigureItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Standard Label Style feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStandardLabelStylePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RichReferenceFigure_standardLabelStyle_feature"),
+				 getString("_UI_RichReferenceFigure_standardLabelStyle_description"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__STANDARD_LABEL_STYLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Target Label Expression feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -196,6 +243,28 @@ public class RichReferenceFigureItemProvider
 				 getString("_UI_RichReferenceFigure_targetLabelExpression_feature"),
 				 getString("_UI_RichReferenceFigure_targetLabelExpression_description"),
 				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Target Label Style feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTargetLabelStylePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RichReferenceFigure_targetLabelStyle_feature"),
+				 getString("_UI_RichReferenceFigure_targetLabelStyle_description"),
+				 GraphdescPackage.Literals.RICH_REFERENCE_FIGURE__TARGET_LABEL_STYLE,
 				 true,
 				 false,
 				 false,
@@ -296,8 +365,11 @@ public class RichReferenceFigureItemProvider
 
 		switch (notification.getFeatureID(RichReferenceFigure.class)) {
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_STYLE:
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_STYLE:
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION:
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_STYLE:
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

@@ -28,6 +28,8 @@
  */
 package org.emftools.emf2gv.graphdesc;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -38,6 +40,7 @@ package org.emftools.emf2gv.graphdesc;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.emftools.emf2gv.graphdesc.AbstractAttributeFigure#getClassFigure <em>Class Figure</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.AbstractAttributeFigure#getLabelStyle <em>Label Style</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,5 +76,23 @@ public interface AbstractAttributeFigure extends AbstractFigure {
 	 * @generated
 	 */
 	void setClassFigure(ClassFigure value);
+
+	/**
+	 * Returns the value of the '<em><b>Label Style</b></em>' attribute list.
+	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.FontStyle}.
+	 * The literals are from the enumeration {@link org.emftools.emf2gv.graphdesc.FontStyle}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Label Style</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Label Style</em>' attribute list.
+	 * @see org.emftools.emf2gv.graphdesc.FontStyle
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAbstractAttributeFigure_LabelStyle()
+	 * @model default=""
+	 * @generated
+	 */
+	EList<FontStyle> getLabelStyle();
 
 } // AbstractAttributeFigure

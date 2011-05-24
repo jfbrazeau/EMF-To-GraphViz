@@ -48,7 +48,6 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AttributeFigureImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AttributeFigureImpl#getEAttribute <em>EAttribute</em>}</li>
  * </ul>
  * </p>
@@ -56,26 +55,6 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  * @generated
  */
 public class AttributeFigureImpl extends AbstractAttributeFigureImpl implements AttributeFigure {
-	/**
-	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLabel()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String LABEL_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLabel()
-	 * @generated
-	 * @ordered
-	 */
-	protected String label = LABEL_EDEFAULT;
-
 	/**
 	 * The cached value of the '{@link #getEAttribute() <em>EAttribute</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -116,27 +95,6 @@ public class AttributeFigureImpl extends AbstractAttributeFigureImpl implements 
 			result = getEAttribute().getName();
 		}
 		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getLabel() {
-		return label;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLabel(String newLabel) {
-		String oldLabel = label;
-		label = newLabel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.ATTRIBUTE_FIGURE__LABEL, oldLabel, label));
 	}
 
 	/**
@@ -225,8 +183,6 @@ public class AttributeFigureImpl extends AbstractAttributeFigureImpl implements 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GraphdescPackage.ATTRIBUTE_FIGURE__LABEL:
-				return getLabel();
 			case GraphdescPackage.ATTRIBUTE_FIGURE__EATTRIBUTE:
 				if (resolve) return getEAttribute();
 				return basicGetEAttribute();
@@ -242,9 +198,6 @@ public class AttributeFigureImpl extends AbstractAttributeFigureImpl implements 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GraphdescPackage.ATTRIBUTE_FIGURE__LABEL:
-				setLabel((String)newValue);
-				return;
 			case GraphdescPackage.ATTRIBUTE_FIGURE__EATTRIBUTE:
 				setEAttribute((EAttribute)newValue);
 				return;
@@ -260,9 +213,6 @@ public class AttributeFigureImpl extends AbstractAttributeFigureImpl implements 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GraphdescPackage.ATTRIBUTE_FIGURE__LABEL:
-				setLabel(LABEL_EDEFAULT);
-				return;
 			case GraphdescPackage.ATTRIBUTE_FIGURE__EATTRIBUTE:
 				setEAttribute((EAttribute)null);
 				return;
@@ -278,28 +228,10 @@ public class AttributeFigureImpl extends AbstractAttributeFigureImpl implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GraphdescPackage.ATTRIBUTE_FIGURE__LABEL:
-				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
 			case GraphdescPackage.ATTRIBUTE_FIGURE__EATTRIBUTE:
 				return eAttribute != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (label: ");
-		result.append(label);
-		result.append(')');
-		return result.toString();
 	}
 
 	/* (non-Javadoc)

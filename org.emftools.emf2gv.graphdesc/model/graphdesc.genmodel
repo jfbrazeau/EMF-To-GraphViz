@@ -92,10 +92,10 @@
     </genClasses>
     <genClasses image="false" ecoreClass="graphdesc.ecore#//AbstractAttributeFigure">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//AbstractAttributeFigure/classFigure"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The style of the attribute figure's label"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractAttributeFigure/labelStyle"/>
     </genClasses>
     <genClasses ecoreClass="graphdesc.ecore#//AttributeFigure">
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The label to use (to be used when one wants to override the default EAttribute name)"
-          ecoreFeature="ecore:EAttribute graphdesc.ecore#//AttributeFigure/label"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Model" propertyDescription="The EAttribute that this figure will represent on the graph"
           propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//AttributeFigure/eAttribute"/>
     </genClasses>
@@ -136,10 +136,16 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//RichReferenceFigure/targetEReference"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The OCL expression to use to build the source label of the edge"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/sourceLabelExpression"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The style of the source label"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/sourceLabelStyle"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The OCL expression to use to build the standard (centered) label of the edge"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/standardLabelExpression"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The style of the standard (centered) label"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/standardLabelStyle"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The OCL expression to use to build the target label of the edge"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/targetLabelExpression"/>
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The style of the target label"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/targetLabelStyle"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Multiplicative scaling factor adjusting the distance that the headlabel(taillabel) is from the head(tail) node (same as Graphviz labeldistance property)"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//RichReferenceFigure/labelDistance"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="This, along with labeldistance, determine where the headlabel (taillabel) are placed with respect to the head (tail) in polar coordinates. The origin in the coordinate system is the point where the edge touches the node. The ray of 0 degrees goes from the origin back along the edge, parallel to the edge at the origin. (same as Graphviz labelangle property)"

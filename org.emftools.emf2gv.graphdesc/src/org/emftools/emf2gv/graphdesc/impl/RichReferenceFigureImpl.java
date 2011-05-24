@@ -30,11 +30,13 @@ package org.emftools.emf2gv.graphdesc.impl;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
@@ -42,11 +44,13 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.ocl.ParserException;
 import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.helper.OCLHelper;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.FontStyle;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
@@ -63,8 +67,11 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  * <ul>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getTargetEReference <em>Target EReference</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getSourceLabelExpression <em>Source Label Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getSourceLabelStyle <em>Source Label Style</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getStandardLabelExpression <em>Standard Label Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getStandardLabelStyle <em>Standard Label Style</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getTargetLabelExpression <em>Target Label Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getTargetLabelStyle <em>Target Label Style</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getLabelDistance <em>Label Distance</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.RichReferenceFigureImpl#getLabelAngle <em>Label Angle</em>}</li>
  * </ul>
@@ -110,6 +117,16 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	protected String sourceLabelExpression = SOURCE_LABEL_EXPRESSION_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getSourceLabelStyle() <em>Source Label Style</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSourceLabelStyle()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FontStyle> sourceLabelStyle;
+
+	/**
 	 * The default value of the '{@link #getStandardLabelExpression() <em>Standard Label Expression</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -130,6 +147,16 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	protected String standardLabelExpression = STANDARD_LABEL_EXPRESSION_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getStandardLabelStyle() <em>Standard Label Style</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStandardLabelStyle()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FontStyle> standardLabelStyle;
+
+	/**
 	 * The default value of the '{@link #getTargetLabelExpression() <em>Target Label Expression</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -148,6 +175,16 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	 * @ordered
 	 */
 	protected String targetLabelExpression = TARGET_LABEL_EXPRESSION_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getTargetLabelStyle() <em>Target Label Style</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetLabelStyle()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FontStyle> targetLabelStyle;
 
 	/**
 	 * The default value of the '{@link #getLabelDistance() <em>Label Distance</em>}' attribute.
@@ -275,6 +312,18 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<FontStyle> getSourceLabelStyle() {
+		if (sourceLabelStyle == null) {
+			sourceLabelStyle = new EDataTypeUniqueEList<FontStyle>(FontStyle.class, this, GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_STYLE);
+		}
+		return sourceLabelStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getStandardLabelExpression() {
 		return standardLabelExpression;
 	}
@@ -296,6 +345,18 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<FontStyle> getStandardLabelStyle() {
+		if (standardLabelStyle == null) {
+			standardLabelStyle = new EDataTypeUniqueEList<FontStyle>(FontStyle.class, this, GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_STYLE);
+		}
+		return standardLabelStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getTargetLabelExpression() {
 		return targetLabelExpression;
 	}
@@ -310,6 +371,18 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 		targetLabelExpression = newTargetLabelExpression;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION, oldTargetLabelExpression, targetLabelExpression));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<FontStyle> getTargetLabelStyle() {
+		if (targetLabelStyle == null) {
+			targetLabelStyle = new EDataTypeUniqueEList<FontStyle>(FontStyle.class, this, GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_STYLE);
+		}
+		return targetLabelStyle;
 	}
 
 	/**
@@ -367,10 +440,16 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 				return basicGetTargetEReference();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION:
 				return getSourceLabelExpression();
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_STYLE:
+				return getSourceLabelStyle();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION:
 				return getStandardLabelExpression();
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_STYLE:
+				return getStandardLabelStyle();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION:
 				return getTargetLabelExpression();
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_STYLE:
+				return getTargetLabelStyle();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				return getLabelDistance();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE:
@@ -384,6 +463,7 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -393,11 +473,23 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION:
 				setSourceLabelExpression((String)newValue);
 				return;
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_STYLE:
+				getSourceLabelStyle().clear();
+				getSourceLabelStyle().addAll((Collection<? extends FontStyle>)newValue);
+				return;
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION:
 				setStandardLabelExpression((String)newValue);
 				return;
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_STYLE:
+				getStandardLabelStyle().clear();
+				getStandardLabelStyle().addAll((Collection<? extends FontStyle>)newValue);
+				return;
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION:
 				setTargetLabelExpression((String)newValue);
+				return;
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_STYLE:
+				getTargetLabelStyle().clear();
+				getTargetLabelStyle().addAll((Collection<? extends FontStyle>)newValue);
 				return;
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				setLabelDistance((Double)newValue);
@@ -423,11 +515,20 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION:
 				setSourceLabelExpression(SOURCE_LABEL_EXPRESSION_EDEFAULT);
 				return;
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_STYLE:
+				getSourceLabelStyle().clear();
+				return;
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION:
 				setStandardLabelExpression(STANDARD_LABEL_EXPRESSION_EDEFAULT);
 				return;
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_STYLE:
+				getStandardLabelStyle().clear();
+				return;
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION:
 				setTargetLabelExpression(TARGET_LABEL_EXPRESSION_EDEFAULT);
+				return;
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_STYLE:
+				getTargetLabelStyle().clear();
 				return;
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				setLabelDistance(LABEL_DISTANCE_EDEFAULT);
@@ -451,10 +552,16 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 				return targetEReference != null;
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION:
 				return SOURCE_LABEL_EXPRESSION_EDEFAULT == null ? sourceLabelExpression != null : !SOURCE_LABEL_EXPRESSION_EDEFAULT.equals(sourceLabelExpression);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__SOURCE_LABEL_STYLE:
+				return sourceLabelStyle != null && !sourceLabelStyle.isEmpty();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION:
 				return STANDARD_LABEL_EXPRESSION_EDEFAULT == null ? standardLabelExpression != null : !STANDARD_LABEL_EXPRESSION_EDEFAULT.equals(standardLabelExpression);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__STANDARD_LABEL_STYLE:
+				return standardLabelStyle != null && !standardLabelStyle.isEmpty();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION:
 				return TARGET_LABEL_EXPRESSION_EDEFAULT == null ? targetLabelExpression != null : !TARGET_LABEL_EXPRESSION_EDEFAULT.equals(targetLabelExpression);
+			case GraphdescPackage.RICH_REFERENCE_FIGURE__TARGET_LABEL_STYLE:
+				return targetLabelStyle != null && !targetLabelStyle.isEmpty();
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_DISTANCE:
 				return labelDistance != LABEL_DISTANCE_EDEFAULT;
 			case GraphdescPackage.RICH_REFERENCE_FIGURE__LABEL_ANGLE:
@@ -475,10 +582,16 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (sourceLabelExpression: ");
 		result.append(sourceLabelExpression);
+		result.append(", sourceLabelStyle: ");
+		result.append(sourceLabelStyle);
 		result.append(", standardLabelExpression: ");
 		result.append(standardLabelExpression);
+		result.append(", standardLabelStyle: ");
+		result.append(standardLabelStyle);
 		result.append(", targetLabelExpression: ");
 		result.append(targetLabelExpression);
+		result.append(", targetLabelStyle: ");
+		result.append(targetLabelStyle);
 		result.append(", labelDistance: ");
 		result.append(labelDistance);
 		result.append(", labelAngle: ");

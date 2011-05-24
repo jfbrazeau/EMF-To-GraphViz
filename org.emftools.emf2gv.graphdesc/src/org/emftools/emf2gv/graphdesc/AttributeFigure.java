@@ -37,7 +37,6 @@ import org.eclipse.emf.ecore.EAttribute;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getLabel <em>Label</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getEAttribute <em>EAttribute</em>}</li>
  * </ul>
  * </p>
@@ -47,32 +46,6 @@ import org.eclipse.emf.ecore.EAttribute;
  * @generated
  */
 public interface AttributeFigure extends AbstractAttributeFigure {
-	/**
-	 * Returns the value of the '<em><b>Label</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Label</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Label</em>' attribute.
-	 * @see #setLabel(String)
-	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAttributeFigure_Label()
-	 * @model
-	 * @generated
-	 */
-	String getLabel();
-
-	/**
-	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getLabel <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Label</em>' attribute.
-	 * @see #getLabel()
-	 * @generated
-	 */
-	void setLabel(String value);
-
 	/**
 	 * Returns the value of the '<em><b>EAttribute</b></em>' reference.
 	 * <!-- begin-user-doc -->

@@ -397,13 +397,22 @@ public interface GraphdescPackage extends EPackage {
 	int ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE = ABSTRACT_FIGURE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Label Style</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_ATTRIBUTE_FIGURE__LABEL_STYLE = ABSTRACT_FIGURE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Abstract Attribute Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 1;
+	int ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -433,13 +442,13 @@ public interface GraphdescPackage extends EPackage {
 	int ATTRIBUTE_FIGURE__CLASS_FIGURE = ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE;
 
 	/**
-	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * The feature id for the '<em><b>Label Style</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_FIGURE__LABEL = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 0;
+	int ATTRIBUTE_FIGURE__LABEL_STYLE = ABSTRACT_ATTRIBUTE_FIGURE__LABEL_STYLE;
 
 	/**
 	 * The feature id for the '<em><b>EAttribute</b></em>' reference.
@@ -448,7 +457,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_FIGURE__EATTRIBUTE = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 1;
+	int ATTRIBUTE_FIGURE__EATTRIBUTE = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Attribute Figure</em>' class.
@@ -457,7 +466,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 2;
+	int ATTRIBUTE_FIGURE_FEATURE_COUNT = ABSTRACT_ATTRIBUTE_FIGURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl <em>Rich Attribute Figure</em>}' class.
@@ -495,6 +504,15 @@ public interface GraphdescPackage extends EPackage {
 	 * @ordered
 	 */
 	int RICH_ATTRIBUTE_FIGURE__CLASS_FIGURE = ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE;
+
+	/**
+	 * The feature id for the '<em><b>Label Style</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_ATTRIBUTE_FIGURE__LABEL_STYLE = ABSTRACT_ATTRIBUTE_FIGURE__LABEL_STYLE;
 
 	/**
 	 * The feature id for the '<em><b>EReference</b></em>' reference.
@@ -911,13 +929,31 @@ public interface GraphdescPackage extends EPackage {
 	int RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Source Label Style</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__SOURCE_LABEL_STYLE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>Standard Label Expression</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 2;
+	int RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Standard Label Style</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__STANDARD_LABEL_STYLE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Target Label Expression</b></em>' attribute.
@@ -926,7 +962,16 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 3;
+	int RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Target Label Style</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RICH_REFERENCE_FIGURE__TARGET_LABEL_STYLE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Label Distance</b></em>' attribute.
@@ -935,7 +980,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__LABEL_DISTANCE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 4;
+	int RICH_REFERENCE_FIGURE__LABEL_DISTANCE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Label Angle</b></em>' attribute.
@@ -944,7 +989,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE__LABEL_ANGLE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 5;
+	int RICH_REFERENCE_FIGURE__LABEL_ANGLE = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of structural features of the '<em>Rich Reference Figure</em>' class.
@@ -953,7 +998,7 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RICH_REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 6;
+	int RICH_REFERENCE_FIGURE_FEATURE_COUNT = ABSTRACT_REFERENCE_FIGURE_FEATURE_COUNT + 9;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl <em>Dynamic Property Overrider</em>}' class.
@@ -1261,17 +1306,6 @@ public interface GraphdescPackage extends EPackage {
 	EClass getAttributeFigure();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getLabel <em>Label</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Label</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.AttributeFigure#getLabel()
-	 * @see #getAttributeFigure()
-	 * @generated
-	 */
-	EAttribute getAttributeFigure_Label();
-
-	/**
 	 * Returns the meta object for the reference '{@link org.emftools.emf2gv.graphdesc.AttributeFigure#getEAttribute <em>EAttribute</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1315,6 +1349,17 @@ public interface GraphdescPackage extends EPackage {
 	EAttribute getRichReferenceFigure_SourceLabelExpression();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelStyle <em>Source Label Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Source Label Style</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelStyle()
+	 * @see #getRichReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getRichReferenceFigure_SourceLabelStyle();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelExpression <em>Standard Label Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1326,6 +1371,17 @@ public interface GraphdescPackage extends EPackage {
 	EAttribute getRichReferenceFigure_StandardLabelExpression();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelStyle <em>Standard Label Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Standard Label Style</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelStyle()
+	 * @see #getRichReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getRichReferenceFigure_StandardLabelStyle();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelExpression <em>Target Label Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1335,6 +1391,17 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getRichReferenceFigure_TargetLabelExpression();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelStyle <em>Target Label Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Target Label Style</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelStyle()
+	 * @see #getRichReferenceFigure()
+	 * @generated
+	 */
+	EAttribute getRichReferenceFigure_TargetLabelStyle();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getLabelDistance <em>Label Distance</em>}'.
@@ -1661,6 +1728,17 @@ public interface GraphdescPackage extends EPackage {
 	EReference getAbstractAttributeFigure_ClassFigure();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link org.emftools.emf2gv.graphdesc.AbstractAttributeFigure#getLabelStyle <em>Label Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Label Style</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.AbstractAttributeFigure#getLabelStyle()
+	 * @see #getAbstractAttributeFigure()
+	 * @generated
+	 */
+	EAttribute getAbstractAttributeFigure_LabelStyle();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.RichAttributeFigure <em>Rich Attribute Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1939,14 +2017,6 @@ public interface GraphdescPackage extends EPackage {
 		EClass ATTRIBUTE_FIGURE = eINSTANCE.getAttributeFigure();
 
 		/**
-		 * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ATTRIBUTE_FIGURE__LABEL = eINSTANCE.getAttributeFigure_Label();
-
-		/**
 		 * The meta object literal for the '<em><b>EAttribute</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1981,6 +2051,14 @@ public interface GraphdescPackage extends EPackage {
 		EAttribute RICH_REFERENCE_FIGURE__SOURCE_LABEL_EXPRESSION = eINSTANCE.getRichReferenceFigure_SourceLabelExpression();
 
 		/**
+		 * The meta object literal for the '<em><b>Source Label Style</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RICH_REFERENCE_FIGURE__SOURCE_LABEL_STYLE = eINSTANCE.getRichReferenceFigure_SourceLabelStyle();
+
+		/**
 		 * The meta object literal for the '<em><b>Standard Label Expression</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1989,12 +2067,28 @@ public interface GraphdescPackage extends EPackage {
 		EAttribute RICH_REFERENCE_FIGURE__STANDARD_LABEL_EXPRESSION = eINSTANCE.getRichReferenceFigure_StandardLabelExpression();
 
 		/**
+		 * The meta object literal for the '<em><b>Standard Label Style</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RICH_REFERENCE_FIGURE__STANDARD_LABEL_STYLE = eINSTANCE.getRichReferenceFigure_StandardLabelStyle();
+
+		/**
 		 * The meta object literal for the '<em><b>Target Label Expression</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute RICH_REFERENCE_FIGURE__TARGET_LABEL_EXPRESSION = eINSTANCE.getRichReferenceFigure_TargetLabelExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Target Label Style</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RICH_REFERENCE_FIGURE__TARGET_LABEL_STYLE = eINSTANCE.getRichReferenceFigure_TargetLabelStyle();
 
 		/**
 		 * The meta object literal for the '<em><b>Label Distance</b></em>' attribute feature.
@@ -2247,6 +2341,14 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE = eINSTANCE.getAbstractAttributeFigure_ClassFigure();
+
+		/**
+		 * The meta object literal for the '<em><b>Label Style</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_ATTRIBUTE_FIGURE__LABEL_STYLE = eINSTANCE.getAbstractAttributeFigure_LabelStyle();
 
 		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.RichAttributeFigureImpl <em>Rich Attribute Figure</em>}' class.

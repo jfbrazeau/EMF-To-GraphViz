@@ -34,13 +34,17 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
+import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 
 /**
  * This is the item provider adapter for a {@link org.emftools.emf2gv.graphdesc.AbstractAttributeFigure} object.
@@ -77,8 +81,31 @@ public class AbstractAttributeFigureItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addLabelStylePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Label Style feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLabelStylePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_AbstractAttributeFigure_labelStyle_feature"),
+				 getString("_UI_AbstractAttributeFigure_labelStyle_description"),
+				 GraphdescPackage.Literals.ABSTRACT_ATTRIBUTE_FIGURE__LABEL_STYLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_AppearancePropertyCategory"),
+				 null));
 	}
 
 	/**
@@ -115,6 +142,12 @@ public class AbstractAttributeFigureItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(AbstractAttributeFigure.class)) {
+			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE__LABEL_STYLE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

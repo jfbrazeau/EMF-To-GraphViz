@@ -81,9 +81,12 @@
       eSuperTypes="#//AbstractFigure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="classFigure" lowerBound="1"
         eType="#//ClassFigure" eOpposite="#//ClassFigure/attributeFigures"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelStyle" upperBound="-1"
+        eType="#//FontStyle" defaultValueLiteral="">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AttributeFigure" eSuperTypes="#//AbstractAttributeFigure">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="eAttribute" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
   </eClassifiers>
@@ -137,10 +140,22 @@
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceLabelExpression"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceLabelStyle" upperBound="-1"
+        eType="#//FontStyle" defaultValueLiteral="">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="standardLabelExpression"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="standardLabelStyle" upperBound="-1"
+        eType="#//FontStyle" defaultValueLiteral="">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetLabelExpression"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetLabelStyle" upperBound="-1"
+        eType="#//FontStyle" defaultValueLiteral="">
+      <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelDistance" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
         defaultValueLiteral="5.0">
       <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>

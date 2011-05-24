@@ -28,6 +28,7 @@
  */
 package org.emftools.emf2gv.graphdesc;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EReference;
 
 /**
@@ -40,8 +41,11 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetEReference <em>Target EReference</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelExpression <em>Source Label Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getSourceLabelStyle <em>Source Label Style</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelExpression <em>Standard Label Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getStandardLabelStyle <em>Standard Label Style</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelExpression <em>Target Label Expression</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getTargetLabelStyle <em>Target Label Style</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getLabelDistance <em>Label Distance</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.RichReferenceFigure#getLabelAngle <em>Label Angle</em>}</li>
  * </ul>
@@ -105,6 +109,24 @@ public interface RichReferenceFigure extends AbstractReferenceFigure {
 	void setSourceLabelExpression(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Source Label Style</b></em>' attribute list.
+	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.FontStyle}.
+	 * The literals are from the enumeration {@link org.emftools.emf2gv.graphdesc.FontStyle}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Source Label Style</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Source Label Style</em>' attribute list.
+	 * @see org.emftools.emf2gv.graphdesc.FontStyle
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_SourceLabelStyle()
+	 * @model default=""
+	 * @generated
+	 */
+	EList<FontStyle> getSourceLabelStyle();
+
+	/**
 	 * Returns the value of the '<em><b>Standard Label Expression</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -131,6 +153,24 @@ public interface RichReferenceFigure extends AbstractReferenceFigure {
 	void setStandardLabelExpression(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Standard Label Style</b></em>' attribute list.
+	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.FontStyle}.
+	 * The literals are from the enumeration {@link org.emftools.emf2gv.graphdesc.FontStyle}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Standard Label Style</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Standard Label Style</em>' attribute list.
+	 * @see org.emftools.emf2gv.graphdesc.FontStyle
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_StandardLabelStyle()
+	 * @model default=""
+	 * @generated
+	 */
+	EList<FontStyle> getStandardLabelStyle();
+
+	/**
 	 * Returns the value of the '<em><b>Target Label Expression</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -155,6 +195,24 @@ public interface RichReferenceFigure extends AbstractReferenceFigure {
 	 * @generated
 	 */
 	void setTargetLabelExpression(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Target Label Style</b></em>' attribute list.
+	 * The list contents are of type {@link org.emftools.emf2gv.graphdesc.FontStyle}.
+	 * The literals are from the enumeration {@link org.emftools.emf2gv.graphdesc.FontStyle}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Target Label Style</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Target Label Style</em>' attribute list.
+	 * @see org.emftools.emf2gv.graphdesc.FontStyle
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getRichReferenceFigure_TargetLabelStyle()
+	 * @model default=""
+	 * @generated
+	 */
+	EList<FontStyle> getTargetLabelStyle();
 
 	/**
 	 * Returns the value of the '<em><b>Label Distance</b></em>' attribute.

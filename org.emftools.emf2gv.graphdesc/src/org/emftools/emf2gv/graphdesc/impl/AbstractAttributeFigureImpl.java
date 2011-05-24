@@ -28,17 +28,21 @@
  */
 package org.emftools.emf2gv.graphdesc.impl;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.FontStyle;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
 import org.emftools.validation.utils.EMFConstraintsHelper;
@@ -51,12 +55,23 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AbstractAttributeFigureImpl#getClassFigure <em>Class Figure</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.AbstractAttributeFigureImpl#getLabelStyle <em>Label Style</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public abstract class AbstractAttributeFigureImpl extends AbstractFigureImpl implements AbstractAttributeFigure {
+	/**
+	 * The cached value of the '{@link #getLabelStyle() <em>Label Style</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLabelStyle()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FontStyle> labelStyle;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -122,6 +137,18 @@ public abstract class AbstractAttributeFigureImpl extends AbstractFigureImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<FontStyle> getLabelStyle() {
+		if (labelStyle == null) {
+			labelStyle = new EDataTypeUniqueEList<FontStyle>(FontStyle.class, this, GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE__LABEL_STYLE);
+		}
+		return labelStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -171,6 +198,8 @@ public abstract class AbstractAttributeFigureImpl extends AbstractFigureImpl imp
 		switch (featureID) {
 			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE:
 				return getClassFigure();
+			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE__LABEL_STYLE:
+				return getLabelStyle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -180,11 +209,16 @@ public abstract class AbstractAttributeFigureImpl extends AbstractFigureImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE:
 				setClassFigure((ClassFigure)newValue);
+				return;
+			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE__LABEL_STYLE:
+				getLabelStyle().clear();
+				getLabelStyle().addAll((Collection<? extends FontStyle>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -201,6 +235,9 @@ public abstract class AbstractAttributeFigureImpl extends AbstractFigureImpl imp
 			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE:
 				setClassFigure((ClassFigure)null);
 				return;
+			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE__LABEL_STYLE:
+				getLabelStyle().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -215,8 +252,26 @@ public abstract class AbstractAttributeFigureImpl extends AbstractFigureImpl imp
 		switch (featureID) {
 			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE__CLASS_FIGURE:
 				return getClassFigure() != null;
+			case GraphdescPackage.ABSTRACT_ATTRIBUTE_FIGURE__LABEL_STYLE:
+				return labelStyle != null && !labelStyle.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (labelStyle: ");
+		result.append(labelStyle);
+		result.append(')');
+		return result.toString();
 	}
 
 	/**
