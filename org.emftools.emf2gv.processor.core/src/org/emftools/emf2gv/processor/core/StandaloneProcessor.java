@@ -39,20 +39,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.ocl.ParserException;
-import org.eclipse.ocl.ecore.Constraint;
-import org.eclipse.ocl.ecore.OCL;
-import org.eclipse.ocl.helper.OCLHelper;
+import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.util.GraphdescHelper;
 import org.emftools.emf2gv.util.EMFHelper;
 import org.emftools.emf2gv.util.IOHelper;
-import org.emftools.emf2gv.util.OCLProvider;
 
 /**
  * EMF To Graphviz processor intended to be used form any Java environment.
@@ -70,9 +63,6 @@ public class StandaloneProcessor {
 	 */
 	protected static final String PLUGIN_ID = "org.emftools.emf2gv.processor.core"; //$NON-NLS-1$
 
-	/** Empty filter list constant */
-	private static final List<OCLFilterExpression> EMPTY_FILTER_EXPR_LIST = new ArrayList<OCLFilterExpression>();
-
 	/** Default EObject icon provider (classpath implementation) */
 	private static final IEObjectIconProvider DEFAULT_EOBJECT_ICON_PROVIDER = new ClasspathEObjectIconProvider();
 
@@ -81,7 +71,7 @@ public class StandaloneProcessor {
 
 	/**
 	 * Converts a given model into a diagram file.
-	 *
+	 * 
 	 * 
 	 * <p>
 	 * The entry point in the model is given by the <code>modelRoot</code>
@@ -116,10 +106,11 @@ public class StandaloneProcessor {
 	 *            to be kept.
 	 * @param gvSourceEnconding
 	 *            the encoding to use for the generated graphviz source file.
-	 * @param filters
-	 *            the boolean OCL expressions allowing to filter the nodes.
 	 * @param logger
 	 *            the logger.
+	 * @param additionalFilters
+	 *            additional filters (boolean OCL expressions allowing to filter
+	 *            the nodes).
 	 * @param monitor
 	 *            a progress monitor.
 	 * @throws CoreException
@@ -130,13 +121,13 @@ public class StandaloneProcessor {
 			String targetImagePath, IProcessorCallback processorCallback,
 			IEObjectIconProvider eObjectIconProvider, String dotCommand,
 			boolean addValidationDecorators, boolean keepGeneratedGvFile,
-			String gvSourceEnconding, List<OCLFilterExpression> filters,
+			String gvSourceEnconding, List<Filter> additionalFilters,
 			ILogger logger, IProgressMonitor monitor) throws CoreException {
 		process(Arrays.asList(new EObject[] { modelRoot }),
 				gvFigureDescription, workDir, targetImagePath,
 				processorCallback, eObjectIconProvider, dotCommand,
 				addValidationDecorators, keepGeneratedGvFile,
-				gvSourceEnconding, filters, logger, monitor);
+				gvSourceEnconding, additionalFilters, logger, monitor);
 	}
 
 	/**
@@ -175,8 +166,9 @@ public class StandaloneProcessor {
 	 *            to be kept.
 	 * @param gvSourceEnconding
 	 *            the encoding to use for the generated graphviz source file.
-	 * @param filters
-	 *            the boolean OCL expressions allowing to filter the nodes.
+	 * @param additionalFilters
+	 *            additional filters (boolean OCL expressions allowing to filter
+	 *            the nodes).
 	 * @param logger
 	 *            the logger.
 	 * @param monitor
@@ -189,7 +181,7 @@ public class StandaloneProcessor {
 			String targetImagePath, IProcessorCallback processorCallback,
 			IEObjectIconProvider eObjectIconProvider, String dotCommand,
 			boolean addValidationDecorators, boolean keepGeneratedGvFile,
-			String gvSourceEnconding, List<OCLFilterExpression> filters,
+			String gvSourceEnconding, List<Filter> additionalFilters,
 			ILogger logger, IProgressMonitor monitor) throws CoreException {
 
 		/*
@@ -197,9 +189,6 @@ public class StandaloneProcessor {
 		 */
 		if (gvSourceEnconding == null) {
 			gvSourceEnconding = "UTF-8";
-		}
-		if (filters == null) {
-			filters = EMPTY_FILTER_EXPR_LIST;
 		}
 		if (monitor == null) {
 			monitor = new NullProgressMonitor();
@@ -219,16 +208,15 @@ public class StandaloneProcessor {
 		boolean workDirHasBeenCreated = false;
 		if (workDir.exists()) {
 			if (!workDir.isDirectory()) {
-				throw new CoreException(new Status(IStatus.ERROR,
-						PLUGIN_ID, -1,
+				throw new CoreException(new Status(IStatus.ERROR, PLUGIN_ID,
+						-1,
 						"The working directory is not valid (not a directory : '"
 								+ workDir.getAbsolutePath() + "')", null));
 			}
 		} else {
 			if (!workDir.mkdirs()) {
-				throw new CoreException(new Status(IStatus.ERROR,
-						PLUGIN_ID, -1,
-						"The working directory could not be created ("
+				throw new CoreException(new Status(IStatus.ERROR, PLUGIN_ID,
+						-1, "The working directory could not be created ("
 								+ workDir.getAbsolutePath() + ")", null));
 			}
 			workDirHasBeenCreated = true;
@@ -259,30 +247,10 @@ public class StandaloneProcessor {
 		}
 
 		/*
-		 * OCL expression parsing
+		 * Additional filter registering
 		 */
-		List<OCLFilterConstraint> constraints = new ArrayList<OCLFilterConstraint>();
-		if (filters.size() > 0) {
-			OCL ocl = OCLProvider.newOCL();
-			OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper = ocl
-					.createOCLHelper();
-			for (OCLFilterExpression filter : filters) {
-				try {
-					// Parsing...
-					oclHelper.setContext(filter.getEClass());
-					Constraint parsed = oclHelper.createInvariant(filter
-							.getExpression());
-					OCLFilterConstraint constraint = new OCLFilterConstraint();
-					constraint.setEClass(filter.getEClass());
-					constraint.setConstraint(parsed);
-					constraints.add(constraint);
-				} catch (ParserException e) {
-					throw new CoreException(new Status(IStatus.ERROR,
-							PLUGIN_ID,
-							"OCL Expression parsing error : '"
-									+ filter.getExpression() + "'", e));
-				}
-			}
+		if (additionalFilters != null) {
+			gvFigureDescription.getFilters().addAll(additionalFilters);
 		}
 
 		/*
@@ -290,7 +258,7 @@ public class StandaloneProcessor {
 		 */
 		GVSourceAndDependenciesBuilder gvSourceBuilder = new GVSourceAndDependenciesBuilder(
 				gvFigureDescription, eObjectIconProvider, workDir,
-				addValidationDecorators, constraints, logger);
+				addValidationDecorators, logger);
 		gvSourceBuilder.process(modelRoots, monitor);
 
 		// Is there at least one node ?
@@ -312,8 +280,7 @@ public class StandaloneProcessor {
 		if (processorCallback != null
 				&& !processorCallback.confirmImageGeneration(nodesCount,
 						edgesCount)) {
-			throw new CoreException(new Status(IStatus.ERROR,
-					PLUGIN_ID,
+			throw new CoreException(new Status(IStatus.ERROR, PLUGIN_ID,
 					"EMF To GraphViz transformation interrupted"));
 		}
 
@@ -327,8 +294,7 @@ public class StandaloneProcessor {
 					gvSourceEnconding);
 			IOHelper.save(gvSourcePath, content, monitor);
 		} catch (IOException e) {
-			throw new CoreException(new Status(IStatus.ERROR,
-					PLUGIN_ID, -1,
+			throw new CoreException(new Status(IStatus.ERROR, PLUGIN_ID, -1,
 					"Unexpected error while saving Graphviz source file", e));
 		}
 
@@ -374,10 +340,9 @@ public class StandaloneProcessor {
 		try {
 			monitor.beginTask("Running GraphViz dot utility", 1);
 			final Process gvProcess = Runtime.getRuntime().exec(
-					new String[] { dotCommand, "-Tjpg",
-							gvSourcePath,
-							"-o" + targetImagePath});
-			
+					new String[] { dotCommand, "-Tjpg", gvSourcePath,
+							"-o" + targetImagePath });
+
 			// Stdout and stderr capture
 			StreamHandler stderrHandler = new StreamHandler(
 					gvProcess.getErrorStream());
@@ -429,16 +394,14 @@ public class StandaloneProcessor {
 			// Process has normally exited ?
 			int exitValue = gvProcess.exitValue();
 			if (exitValue != 0) {
-				throw new CoreException(new Status(IStatus.ERROR,
-						PLUGIN_ID,
+				throw new CoreException(new Status(IStatus.ERROR, PLUGIN_ID,
 						"Graphviz 'dot' utility returned a non nul code : "
 								+ exitValue
 								+ ";\nSee error log fore more details."));
 			}
 
 		} catch (IOException e) {
-			throw new CoreException(new Status(IStatus.ERROR,
-					PLUGIN_ID, -1,
+			throw new CoreException(new Status(IStatus.ERROR, PLUGIN_ID, -1,
 					"Unexpected error while running Graphviz 'dot' utility", e));
 		}
 	}

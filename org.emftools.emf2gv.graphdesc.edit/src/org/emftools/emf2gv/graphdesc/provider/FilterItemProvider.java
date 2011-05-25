@@ -86,6 +86,7 @@ public class FilterItemProvider
 
 			addFilteredTypePropertyDescriptor(object);
 			addFilterExpressionPropertyDescriptor(object);
+			addEnabledPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -146,6 +147,28 @@ public class FilterItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Enabled feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEnabledPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Filter_enabled_feature"),
+				 getString("_UI_Filter_enabled_description"),
+				 GraphdescPackage.Literals.FILTER__ENABLED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Filter.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -194,6 +217,7 @@ public class FilterItemProvider
 		switch (notification.getFeatureID(Filter.class)) {
 			case GraphdescPackage.FILTER__NAME:
 			case GraphdescPackage.FILTER__FILTER_EXPRESSION:
+			case GraphdescPackage.FILTER__ENABLED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

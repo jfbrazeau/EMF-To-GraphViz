@@ -68,6 +68,7 @@ import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
+import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.FontStyle;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
@@ -159,9 +160,6 @@ final class GVSourceAndDependenciesBuilder {
 	/** The diagnostician used to validate the EObjects. */
 	private Diagnostician diagnostician;
 
-	/** Boolean OCL expressions allowing to filter the nodes. */
-	private List<OCLFilterConstraint> filters;
-
 	/** The OCL (lazy instantiation) */
 	private OCL ocl;
 
@@ -196,15 +194,12 @@ final class GVSourceAndDependenciesBuilder {
 	 */
 	public GVSourceAndDependenciesBuilder(GVFigureDescription figureDesc,
 			IEObjectIconProvider eObjectIconProvider, File iconsDir,
-			boolean addValidationDecorators, List<OCLFilterConstraint> filters,
-			ILogger logger) {
+			boolean addValidationDecorators, ILogger logger) {
 		this.figureDesc = figureDesc;
 		this.eObjectIconProvider = eObjectIconProvider;
 		this.workDir = iconsDir;
-		this.filters = filters == null ? new ArrayList<OCLFilterConstraint>()
-				: filters;
 		this.logger = logger;
-		
+
 		// Diagnostician initialization
 		diagnostician = !addValidationDecorators ? null : new Diagnostician() {
 			// This method is overrided to prevent from
@@ -373,13 +368,17 @@ final class GVSourceAndDependenciesBuilder {
 	 * @param eObject
 	 *            the processed eObject.
 	 * @return a boolean indicating if the node must be drawn.
+	 * @throws CoreException
+	 *             thrown if a parser exception occurs.
 	 */
-	private boolean mustDraw(EObject eObject) {
+	private boolean mustDraw(EObject eObject) throws CoreException {
 		boolean mustDraw = true;
 		EClass eClass = eObject.eClass();
-		for (OCLFilterConstraint filter : filters) {
-			if (filter.getEClass().isSuperTypeOf(eClass)) {
-				mustDraw &= getOCL().check(eObject, filter.getConstraint());
+		for (Filter filter : figureDesc.getFilters()) {
+			if (filter.isEnabled()
+					&& filter.getFilteredType().isSuperTypeOf(eClass)) {
+				mustDraw &= (Boolean) evaluateOCLExpression(
+						eObject, filter.getFilterExpression());
 			}
 		}
 		return mustDraw;
@@ -660,7 +659,7 @@ final class GVSourceAndDependenciesBuilder {
 			}
 		}
 		Object result = null;
-		if (dynPropOverrider != null) {
+		if (dynPropOverrider != null && dynPropOverrider.isEnabled()) {
 			result = evaluateOCLExpression(eObject,
 					dynPropOverrider.getOverridingExpression());
 		} else {
@@ -683,12 +682,13 @@ final class GVSourceAndDependenciesBuilder {
 	private OCLExpression<EClassifier> parseOCLExpression(EClassifier context,
 			String oclExpression) throws CoreException {
 		try {
+			String key = context.getInstanceClassName() + "$" + oclExpression;
 			OCLExpression<EClassifier> result = parsedOCLExpressionCache
-					.get(oclExpression);
+					.get(key);
 			if (result == null) {
 				getOclHelper().setContext(context);
 				result = getOclHelper().createQuery(oclExpression);
-				parsedOCLExpressionCache.put(oclExpression, result);
+				parsedOCLExpressionCache.put(key, result);
 			}
 			return result;
 		} catch (ParserException e) {

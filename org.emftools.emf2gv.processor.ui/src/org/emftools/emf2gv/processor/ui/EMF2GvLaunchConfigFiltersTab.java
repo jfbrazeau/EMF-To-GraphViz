@@ -111,7 +111,7 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 	private CheckboxTableViewer eClassesTableViewer;
 
 	/** Table content */
-	private List<Expression> expressions = new ArrayList<Expression>();
+	private List<OCLConstraint> oCLConstraints = new ArrayList<OCLConstraint>();
 
 	/** Button allowing to add a new value */
 	private Button newButton;
@@ -192,9 +192,9 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		});
 		eClassesTableViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
-				Expression expression = (Expression) event.getElement();
-				if (expression.enabled != event.getChecked()) {
-					expression.enabled = event.getChecked();
+				OCLConstraint oCLConstraint = (OCLConstraint) event.getElement();
+				if (oCLConstraint.enabled != event.getChecked()) {
+					oCLConstraint.enabled = event.getChecked();
 					updateLaunchConfigurationDialog();
 				}
 			}
@@ -246,7 +246,7 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		updateButtonsEnablement();
 
 		// Table viewer model initialization
-		eClassesTableViewer.setInput(expressions);
+		eClassesTableViewer.setInput(oCLConstraints);
 	}
 
 	/**
@@ -275,7 +275,7 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		if (atLeastOneExpressionIsChecked) {
 			if (mainTab.isInGraphicalDescriptionGenerationMode()) {
 				isValid = false;
-				setErrorMessage("OCL Filters are not allowed if no graphical description is selected in the main tab. You must select a graphical description or uncheck your filter expressions");
+				setErrorMessage("OCL Filters are not allowed if no graphical description is selected in the main tab. You must select a graphical description or uncheck your filter oCLConstraints");
 			}
 			// If the main tab is configured with a graphical description
 			if (!mainTab.isInGraphicalDescriptionGenerationMode()) {
@@ -291,9 +291,9 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 				}
 				// Check the EClass list
 				if (isValid) {
-					for (Expression expression : expressions) {
-						if (eClassesTableViewer.getChecked(expression)) {
-							EClass eClass = expression.context;
+					for (OCLConstraint oCLConstraint : oCLConstraints) {
+						if (eClassesTableViewer.getChecked(oCLConstraint)) {
+							EClass eClass = oCLConstraint.context;
 							if (!authorizedEClasses.contains(eClass)) {
 								isValid = false;
 								setErrorMessage("The EClass '"
@@ -304,19 +304,19 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 						}
 					}
 				}
-				// Check the expressions
+				// Check the oCLConstraints
 				if (isValid) {
-					for (Expression expression : expressions) {
-						if (eClassesTableViewer.getChecked(expression)) {
-							if (expression.parsed == null) {
-								getOCLHelper().setContext(expression.context);
+					for (OCLConstraint oCLConstraint : oCLConstraints) {
+						if (eClassesTableViewer.getChecked(oCLConstraint)) {
+							if (oCLConstraint.parsed == null) {
+								getOCLHelper().setContext(oCLConstraint.context);
 								try {
 									Constraint parsed = getOCLHelper()
-											.createInvariant(expression.value);
-									expression.parsed = parsed;
+											.createInvariant(oCLConstraint.value);
+									oCLConstraint.parsed = parsed;
 								} catch (ParserException e) {
 									isValid = false;
-									setErrorMessage(expression.context
+									setErrorMessage(oCLConstraint.context
 											.getName()
 											+ " : Invalid value ("
 											+ e.getMessage() + ")");
@@ -351,12 +351,12 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 				IStructuredSelection selection = (IStructuredSelection) eClassesTableViewer
 						.getSelection();
 				if (!selection.isEmpty()) {
-					Expression expression = (Expression) selection
+					OCLConstraint oCLConstraint = (OCLConstraint) selection
 							.getFirstElement();
 					if (MessageDialog.openConfirm(PlatformUI.getWorkbench()
 							.getDisplay().getActiveShell(), "Confirmation",
 							"Are you sure you want to remove this value ?")) {
-						expressions.remove(expression);
+						oCLConstraints.remove(oCLConstraint);
 						eClassesTableViewer.refresh();
 						updateLaunchConfigurationDialog();
 					}
@@ -374,23 +374,23 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 				IStructuredSelection selection = (IStructuredSelection) eClassesTableViewer
 						.getSelection();
 				if (!selection.isEmpty()) {
-					Expression expression = (Expression) selection
+					OCLConstraint oCLConstraint = (OCLConstraint) selection
 							.getFirstElement();
-					String oldExpression = expression.value;
+					String oldExpression = oCLConstraint.value;
 					OCLInputDialog inputDialog = new OCLInputDialog(PlatformUI
 							.getWorkbench().getDisplay().getActiveShell(),
 							"Edit a boolean OCL value editor", null,
-							expression.context, oldExpression,
+							oCLConstraint.context, oldExpression,
 							EcorePackage.eINSTANCE.getEBoolean(), false);
 					if (inputDialog.open() == Window.OK) {
 						String newExpression = inputDialog.getValue();
 						if (!newExpression.equals(oldExpression)) {
-							expression.parsed = null;
-							expression.value = newExpression;
+							oCLConstraint.parsed = null;
+							oCLConstraint.value = newExpression;
 							eClassesTableViewer.refresh();
 							eClassesTableViewer
 									.setSelection(new StructuredSelection(
-											expression));
+											oCLConstraint));
 							updateLaunchConfigurationDialog();
 						}
 					}
@@ -438,22 +438,22 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 					int result = dialog.open();
 					labelProvider.dispose();
 					if (result == Window.OK) {
-						Expression expression = new Expression();
-						expression.context = (EClass) dialog.getFirstResult();
+						OCLConstraint oCLConstraint = new OCLConstraint();
+						oCLConstraint.context = (EClass) dialog.getFirstResult();
 						OCLInputDialog inputDialog = new OCLInputDialog(
 								PlatformUI.getWorkbench().getDisplay()
 										.getActiveShell(),
 								"New boolean OCL value editor", null,
-								expression.context, "true",
+								oCLConstraint.context, "true",
 								EcorePackage.eINSTANCE.getEBoolean(), true);
 						if (inputDialog.open() == Window.OK) {
-							expression.value = inputDialog.getValue();
-							expressions.add(expression);
+							oCLConstraint.value = inputDialog.getValue();
+							oCLConstraints.add(oCLConstraint);
 							eClassesTableViewer.refresh();
 							eClassesTableViewer
 									.setSelection(new StructuredSelection(
-											expression));
-							eClassesTableViewer.setChecked(expression, true);
+											oCLConstraint));
+							eClassesTableViewer.setChecked(oCLConstraint, true);
 							updateLaunchConfigurationDialog();
 						}
 					}
@@ -463,7 +463,7 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 	}
 
 	/**
-	 * @return the EClass list that can be used in the expressions.
+	 * @return the EClass list that can be used in the oCLConstraints.
 	 * @throws CoreException
 	 *             thrown if an unexpected error occurs.
 	 */
@@ -530,7 +530,7 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 		try {
 			String[][] cfgExpressions = EMF2GvLaunchConfigHelper
 					.getFilterExpressions(configuration);
-			expressions.clear();
+			oCLConstraints.clear();
 			for (int i = 0; i < cfgExpressions.length; i++) {
 				String[] cfgExpression = cfgExpressions[i];
 				String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX];
@@ -541,15 +541,15 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 				EPackage ePackage = EPackage.Registry.INSTANCE
 						.getEPackage(ePackakeNsUri);
 				EClass eClass = (EClass) ePackage.getEClassifier(eClassName);
-				Expression expression = new Expression();
-				expression.context = eClass;
-				expression.value = expressionValue;
-				expression.enabled = enabled;
-				expressions.add(expression);
+				OCLConstraint oCLConstraint = new OCLConstraint();
+				oCLConstraint.context = eClass;
+				oCLConstraint.value = expressionValue;
+				oCLConstraint.enabled = enabled;
+				oCLConstraints.add(oCLConstraint);
 			}
 			eClassesTableViewer.refresh();
-			for (Expression expression : expressions) {
-				eClassesTableViewer.setChecked(expression, expression.enabled);
+			for (OCLConstraint oCLConstraint : oCLConstraints) {
+				eClassesTableViewer.setChecked(oCLConstraint, oCLConstraint.enabled);
 			}
 		} catch (CoreException e) {
 			Activator.getDefault().logError(
@@ -565,18 +565,18 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 	 * .debug.core.ILaunchConfigurationWorkingCopy)
 	 */
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		String[][] cfgExpressions = new String[expressions.size()][4];
+		String[][] cfgExpressions = new String[oCLConstraints.size()][4];
 		for (int i = 0; i < cfgExpressions.length; i++) {
-			Expression expression = (Expression) eClassesTableViewer
+			OCLConstraint oCLConstraint = (OCLConstraint) eClassesTableViewer
 					.getElementAt(i);
 			String[] cfgExpression = cfgExpressions[i];
-			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX] = expression.context
+			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX] = oCLConstraint.context
 					.getEPackage().getNsURI();
-			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX] = expression.context
+			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX] = oCLConstraint.context
 					.getName();
-			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX] = expression.value;
+			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX] = oCLConstraint.value;
 			cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ENABLED_IDX] = String
-					.valueOf(expression.enabled);
+					.valueOf(oCLConstraint.enabled);
 		}
 		EMF2GvLaunchConfigHelper.setFilterExpressions(configuration,
 				cfgExpressions);
@@ -635,11 +635,11 @@ class TableContentProvider implements IStructuredContentProvider {
 	 */
 	public Object[] getElements(Object inputElement) {
 		@SuppressWarnings("unchecked")
-		List<Expression> expressions = (List<Expression>) inputElement;
-		Expression[] expressionArray = expressions
-				.toArray(new Expression[expressions.size()]);
-		Arrays.sort(expressionArray, new Comparator<Expression>() {
-			public int compare(Expression e1, Expression e2) {
+		List<OCLConstraint> oCLConstraints = (List<OCLConstraint>) inputElement;
+		OCLConstraint[] expressionArray = oCLConstraints
+				.toArray(new OCLConstraint[oCLConstraints.size()]);
+		Arrays.sort(expressionArray, new Comparator<OCLConstraint>() {
+			public int compare(OCLConstraint e1, OCLConstraint e2) {
 				return e1.context.getName().compareTo(e2.context.getName());
 			}
 		});
@@ -675,8 +675,8 @@ class TableLabelProvider extends LabelProvider implements ITableLabelProvider {
 	 * .Object, int)
 	 */
 	public Image getColumnImage(Object element, int columnIndex) {
-		Expression expression = (Expression) element;
-		EClass eClass = expression.context;
+		OCLConstraint oCLConstraint = (OCLConstraint) element;
+		EClass eClass = oCLConstraint.context;
 		return columnIndex == 0 ? adapterFactoryLabelProvider.getImage(eClass)
 				: null;
 	}
@@ -689,13 +689,13 @@ class TableLabelProvider extends LabelProvider implements ITableLabelProvider {
 	 * .Object, int)
 	 */
 	public String getColumnText(Object element, int columnIndex) {
-		Expression expression = (Expression) element;
-		EClass eClass = expression.context;
+		OCLConstraint oCLConstraint = (OCLConstraint) element;
+		EClass eClass = oCLConstraint.context;
 		switch (columnIndex) {
 		case 0:
 			return adapterFactoryLabelProvider.getText(eClass);
 		case 1:
-			return expression.value;
+			return oCLConstraint.value;
 		default:
 			return "Unknown column index : " + columnIndex;
 		}
@@ -705,7 +705,7 @@ class TableLabelProvider extends LabelProvider implements ITableLabelProvider {
 /**
  * POJO used for the table elements.
  */
-class Expression {
+class OCLConstraint {
 	EClass context;
 	String value;
 	Constraint parsed;

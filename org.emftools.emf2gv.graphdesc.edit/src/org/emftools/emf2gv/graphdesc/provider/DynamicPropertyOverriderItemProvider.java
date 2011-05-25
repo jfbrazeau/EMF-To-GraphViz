@@ -89,6 +89,7 @@ public class DynamicPropertyOverriderItemProvider
 
 			addPropertyToOverridePropertyDescriptor(object);
 			addOverridingExpressionPropertyDescriptor(object);
+			addEnabledPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -160,6 +161,28 @@ public class DynamicPropertyOverriderItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Enabled feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEnabledPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_DynamicPropertyOverrider_enabled_feature"),
+				 getString("_UI_DynamicPropertyOverrider_enabled_description"),
+				 GraphdescPackage.Literals.DYNAMIC_PROPERTY_OVERRIDER__ENABLED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns DynamicPropertyOverrider.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -208,6 +231,7 @@ public class DynamicPropertyOverriderItemProvider
 		switch (notification.getFeatureID(DynamicPropertyOverrider.class)) {
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__NAME:
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__OVERRIDING_EXPRESSION:
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__ENABLED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

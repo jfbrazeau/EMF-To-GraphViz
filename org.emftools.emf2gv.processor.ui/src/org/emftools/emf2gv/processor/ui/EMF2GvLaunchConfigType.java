@@ -45,9 +45,10 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.emftools.emf2gv.graphdesc.Filter;
+import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.processor.core.EclipseProcessor;
 import org.emftools.emf2gv.processor.core.IProcessorCallback;
-import org.emftools.emf2gv.processor.core.OCLFilterExpression;
 import org.emftools.emf2gv.processor.ui.preferences.EMF2GvPreferenceConstants;
 
 /**
@@ -94,25 +95,23 @@ public class EMF2GvLaunchConfigType implements ILaunchConfigurationDelegate {
 		/* OCL expressions parsing */
 		String[][] cfgExpressions = EMF2GvLaunchConfigHelper
 				.getFilterExpressions(cfg);
-		List<OCLFilterExpression> filters = new ArrayList<OCLFilterExpression>();
+		List<Filter> filters = new ArrayList<Filter>();
 		for (int i = 0; i < cfgExpressions.length; i++) {
 			String[] cfgExpression = cfgExpressions[i];
 			boolean enabled = "true"
 					.equals(cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ENABLED_IDX]);
-			if (enabled) {
-				String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX];
-				String eClassName = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX];
-				String expression = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX];
-				EPackage ePackage = EPackage.Registry.INSTANCE
-						.getEPackage(ePackakeNsUri);
-				EClass eClass = (EClass) ePackage
-						.getEClassifier(eClassName);
-				// Parsing...
-				OCLFilterExpression filter = new OCLFilterExpression();
-				filter.setEClass(eClass);
-				filter.setExpression(expression);
-				filters.add(filter);
-			}
+			String ePackakeNsUri = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_EPACKAGE_IDX];
+			String eClassName = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_ECLASS_IDX];
+			String expression = cfgExpression[EMF2GvLaunchConfigHelper.FILTER_EXPRESSION_VALUE_IDX];
+			EPackage ePackage = EPackage.Registry.INSTANCE
+					.getEPackage(ePackakeNsUri);
+			EClass eClass = (EClass) ePackage.getEClassifier(eClassName);
+			// Parsing...
+			Filter filter = GraphdescFactory.eINSTANCE.createFilter();
+			filter.setFilteredType(eClass);
+			filter.setFilterExpression(expression);
+			filter.setEnabled(enabled);
+			filters.add(filter);
 		}
 
 		// IProcessorCallback

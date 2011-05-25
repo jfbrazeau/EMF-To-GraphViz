@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.provider.ComposedImage;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.util.EMFHelper;
 
@@ -119,8 +120,9 @@ public class EclipseProcessor {
 	 *            to be kept.
 	 * @param gvSourceEnconding
 	 *            the encoding to use for the generated graphviz source file.
-	 * @param filters
-	 *            the boolean OCL expressions allowing to filter the nodes.
+	 * @param additionalFilters
+	 *            additional filters (boolean OCL expressions allowing to filter
+	 *            the nodes).
 	 * @param monitor
 	 *            a progress monitor.
 	 * 
@@ -131,7 +133,8 @@ public class EclipseProcessor {
 			IPath graphDescPath, IPath targetImagePath,
 			IProcessorCallback processorCallback, String dotCommand,
 			boolean addValidationDecorators, boolean keepGeneratedGvFile,
-			String gvSourceEnconding, List<OCLFilterExpression> filters,
+			String gvSourceEnconding,
+			List<Filter> additionalFilters,
 			IProgressMonitor monitor) throws CoreException {
 
 		/*
@@ -201,7 +204,8 @@ public class EclipseProcessor {
 					Object image = labelProvider.getImage(eObject);
 					// If we meet a composed image, we get the first image
 					if (image instanceof ComposedImage) {
-						List<Object> images = ((ComposedImage) image).getImages();
+						List<Object> images = ((ComposedImage) image)
+								.getImages();
 						if (images != null && images.size() > 0) {
 							image = images.get(0);
 						}
@@ -221,7 +225,7 @@ public class EclipseProcessor {
 				.getRawLocation().toFile(), diagramFile.getRawLocation()
 				.toOSString(), processorCallback, eObjectIconProvider,
 				dotCommand, addValidationDecorators, keepGeneratedGvFile,
-				gvSourceEnconding, filters, DEFAULT_LOGGER, monitor);
+				gvSourceEnconding, additionalFilters, DEFAULT_LOGGER, monitor);
 
 		// Working directory deletion
 		if (!keepGeneratedGvFile) {
