@@ -65,6 +65,7 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl#getPropertyToOverride <em>Property To Override</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl#getOverridingExpression <em>Overriding Expression</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl#getFigure <em>Figure</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.DynamicPropertyOverriderImpl#isEnabled <em>Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -110,6 +111,26 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	 * @ordered
 	 */
 	protected String overridingExpression = OVERRIDING_EXPRESSION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLED_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enabled = ENABLED_EDEFAULT;
 
 	/**
 	 * OCL Helper that is used to validate the OCL Expressions.
@@ -245,6 +266,27 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE, newFigure, newFigure));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnabled(boolean newEnabled) {
+		boolean oldEnabled = enabled;
+		enabled = newEnabled;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__ENABLED, oldEnabled, enabled));
 	}
 
 	/**
@@ -425,6 +467,8 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 				return getOverridingExpression();
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE:
 				return getFigure();
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__ENABLED:
+				return isEnabled();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -445,6 +489,9 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 				return;
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE:
 				setFigure((AbstractFigure)newValue);
+				return;
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__ENABLED:
+				setEnabled((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -467,6 +514,9 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE:
 				setFigure((AbstractFigure)null);
 				return;
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__ENABLED:
+				setEnabled(ENABLED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -487,6 +537,8 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 				return OVERRIDING_EXPRESSION_EDEFAULT == null ? overridingExpression != null : !OVERRIDING_EXPRESSION_EDEFAULT.equals(overridingExpression);
 			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__FIGURE:
 				return getFigure() != null;
+			case GraphdescPackage.DYNAMIC_PROPERTY_OVERRIDER__ENABLED:
+				return enabled != ENABLED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -503,6 +555,8 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (overridingExpression: ");
 		result.append(overridingExpression);
+		result.append(", enabled: ");
+		result.append(enabled);
 		result.append(')');
 		return result.toString();
 	}

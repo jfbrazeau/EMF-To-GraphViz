@@ -1047,13 +1047,22 @@ public interface GraphdescPackage extends EPackage {
 	int DYNAMIC_PROPERTY_OVERRIDER__FIGURE = 3;
 
 	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DYNAMIC_PROPERTY_OVERRIDER__ENABLED = 4;
+
+	/**
 	 * The number of structural features of the '<em>Dynamic Property Overrider</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DYNAMIC_PROPERTY_OVERRIDER_FEATURE_COUNT = 4;
+	int DYNAMIC_PROPERTY_OVERRIDER_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl <em>Filter</em>}' class.
@@ -1102,13 +1111,22 @@ public interface GraphdescPackage extends EPackage {
 	int FILTER__FIGURE_DESCRIPTION = 3;
 
 	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILTER__ENABLED = 4;
+
+	/**
 	 * The number of structural features of the '<em>Filter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILTER_FEATURE_COUNT = 4;
+	int FILTER_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.Orientation <em>Orientation</em>}' enum.
@@ -1480,6 +1498,17 @@ public interface GraphdescPackage extends EPackage {
 	EReference getDynamicPropertyOverrider_Figure();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#isEnabled <em>Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider#isEnabled()
+	 * @see #getDynamicPropertyOverrider()
+	 * @generated
+	 */
+	EAttribute getDynamicPropertyOverrider_Enabled();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.Filter <em>Filter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1532,6 +1561,17 @@ public interface GraphdescPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFilter_FigureDescription();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftools.emf2gv.graphdesc.Filter#isEnabled <em>Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.Filter#isEnabled()
+	 * @see #getFilter()
+	 * @generated
+	 */
+	EAttribute getFilter_Enabled();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftools.emf2gv.graphdesc.AbstractFigure <em>Abstract Figure</em>}'.
@@ -2149,6 +2189,14 @@ public interface GraphdescPackage extends EPackage {
 		EReference DYNAMIC_PROPERTY_OVERRIDER__FIGURE = eINSTANCE.getDynamicPropertyOverrider_Figure();
 
 		/**
+		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DYNAMIC_PROPERTY_OVERRIDER__ENABLED = eINSTANCE.getDynamicPropertyOverrider_Enabled();
+
+		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl <em>Filter</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2189,6 +2237,14 @@ public interface GraphdescPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FILTER__FIGURE_DESCRIPTION = eINSTANCE.getFilter_FigureDescription();
+
+		/**
+		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILTER__ENABLED = eINSTANCE.getFilter_Enabled();
 
 		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.impl.AbstractFigureImpl <em>Abstract Figure</em>}' class.

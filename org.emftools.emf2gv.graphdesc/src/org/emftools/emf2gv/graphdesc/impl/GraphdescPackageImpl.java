@@ -572,6 +572,15 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getDynamicPropertyOverrider_Enabled() {
+		return (EAttribute)dynamicPropertyOverriderEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFilter() {
 		return filterEClass;
 	}
@@ -610,6 +619,15 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 */
 	public EReference getFilter_FigureDescription() {
 		return (EReference)filterEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFilter_Enabled() {
+		return (EAttribute)filterEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -949,12 +967,14 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		createEReference(dynamicPropertyOverriderEClass, DYNAMIC_PROPERTY_OVERRIDER__PROPERTY_TO_OVERRIDE);
 		createEAttribute(dynamicPropertyOverriderEClass, DYNAMIC_PROPERTY_OVERRIDER__OVERRIDING_EXPRESSION);
 		createEReference(dynamicPropertyOverriderEClass, DYNAMIC_PROPERTY_OVERRIDER__FIGURE);
+		createEAttribute(dynamicPropertyOverriderEClass, DYNAMIC_PROPERTY_OVERRIDER__ENABLED);
 
 		filterEClass = createEClass(FILTER);
 		createEAttribute(filterEClass, FILTER__NAME);
 		createEReference(filterEClass, FILTER__FILTERED_TYPE);
 		createEAttribute(filterEClass, FILTER__FILTER_EXPRESSION);
 		createEReference(filterEClass, FILTER__FIGURE_DESCRIPTION);
+		createEAttribute(filterEClass, FILTER__ENABLED);
 
 		// Create enums
 		orientationEEnum = createEEnum(ORIENTATION);
@@ -1103,6 +1123,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEReference(getDynamicPropertyOverrider_PropertyToOverride(), theEcorePackage.getEStructuralFeature(), null, "propertyToOverride", null, 0, 1, DynamicPropertyOverrider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDynamicPropertyOverrider_OverridingExpression(), ecorePackage.getEString(), "overridingExpression", null, 0, 1, DynamicPropertyOverrider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDynamicPropertyOverrider_Figure(), this.getAbstractFigure(), this.getAbstractFigure_DynamicProperties(), "figure", null, 0, 1, DynamicPropertyOverrider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDynamicPropertyOverrider_Enabled(), theEcorePackage.getEBoolean(), "enabled", "true", 0, 1, DynamicPropertyOverrider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(dynamicPropertyOverriderEClass, ecorePackage.getEBoolean(), "validate", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostic", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1118,6 +1139,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEReference(getFilter_FilteredType(), theEcorePackage.getEClass(), null, "filteredType", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFilter_FilterExpression(), ecorePackage.getEString(), "filterExpression", "true", 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFilter_FigureDescription(), this.getGVFigureDescription(), this.getGVFigureDescription_Filters(), "figureDescription", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFilter_Enabled(), theEcorePackage.getEBoolean(), "enabled", "true", 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(filterEClass, ecorePackage.getEBoolean(), "validate", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostic", 0, 1, IS_UNIQUE, IS_ORDERED);

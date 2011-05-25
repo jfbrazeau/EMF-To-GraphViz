@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.emftools.emf2gv.graphdesc.Filter#getFilteredType <em>Filtered Type</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.Filter#getFilterExpression <em>Filter Expression</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.Filter#getFigureDescription <em>Figure Description</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.Filter#isEnabled <em>Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -149,6 +150,33 @@ public interface Filter extends EObject {
 	 * @generated
 	 */
 	void setFigureDescription(GVFigureDescription value);
+
+	/**
+	 * Returns the value of the '<em><b>Enabled</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Enabled</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Enabled</em>' attribute.
+	 * @see #setEnabled(boolean)
+	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getFilter_Enabled()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isEnabled();
+
+	/**
+	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.Filter#isEnabled <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Enabled</em>' attribute.
+	 * @see #isEnabled()
+	 * @generated
+	 */
+	void setEnabled(boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->

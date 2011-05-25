@@ -64,6 +64,7 @@ import org.emftools.validation.utils.EMFConstraintsHelper;
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl#getFilteredType <em>Filtered Type</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl#getFilterExpression <em>Filter Expression</em>}</li>
  *   <li>{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl#getFigureDescription <em>Figure Description</em>}</li>
+ *   <li>{@link org.emftools.emf2gv.graphdesc.impl.FilterImpl#isEnabled <em>Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,6 +110,26 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * @ordered
 	 */
 	protected String filterExpression = FILTER_EXPRESSION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLED_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enabled = ENABLED_EDEFAULT;
 
 	/**
 	 * OCL Helper that is used to validate the OCL Expressions.
@@ -249,6 +270,27 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnabled(boolean newEnabled) {
+		boolean oldEnabled = enabled;
+		enabled = newEnabled;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.FILTER__ENABLED, oldEnabled, enabled));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context) {
@@ -270,13 +312,14 @@ public class FilterImpl extends EObjectImpl implements Filter {
 						.getFilterableEClasses(figureDesc);
 				if (!authorizedEClasses.contains(getFilteredType())) {
 					constraintsHelper
-							.addError(
+							.addWarning(
 									diagnostic,
 									this,
 									0,
 									"The filtered type ''{0}''has no corresponding ClassFigure",
 									getFilteredType().getName());
-					valid = false;
+					// We only return warnings at this point, the instance keeps valid 
+					//valid = false;
 				} else if (getFilterExpression() == null
 						|| "".equals(getFilterExpression().trim())) {
 					constraintsHelper.addError(diagnostic, this, 0,
@@ -289,6 +332,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 						oclHelper = OCLProvider.newOCL().createOCLHelper();
 					}
 					try {
+						oclHelper.setContext(getFilteredType());
 						oclHelper.createInvariant(getFilterExpression());
 					} catch (ParserException ex) {
 						constraintsHelper.addError(diagnostic, this, 0,
@@ -363,6 +407,8 @@ public class FilterImpl extends EObjectImpl implements Filter {
 				return getFilterExpression();
 			case GraphdescPackage.FILTER__FIGURE_DESCRIPTION:
 				return getFigureDescription();
+			case GraphdescPackage.FILTER__ENABLED:
+				return isEnabled();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -383,6 +429,9 @@ public class FilterImpl extends EObjectImpl implements Filter {
 				return;
 			case GraphdescPackage.FILTER__FIGURE_DESCRIPTION:
 				setFigureDescription((GVFigureDescription)newValue);
+				return;
+			case GraphdescPackage.FILTER__ENABLED:
+				setEnabled((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -405,6 +454,9 @@ public class FilterImpl extends EObjectImpl implements Filter {
 			case GraphdescPackage.FILTER__FIGURE_DESCRIPTION:
 				setFigureDescription((GVFigureDescription)null);
 				return;
+			case GraphdescPackage.FILTER__ENABLED:
+				setEnabled(ENABLED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -425,6 +477,8 @@ public class FilterImpl extends EObjectImpl implements Filter {
 				return FILTER_EXPRESSION_EDEFAULT == null ? filterExpression != null : !FILTER_EXPRESSION_EDEFAULT.equals(filterExpression);
 			case GraphdescPackage.FILTER__FIGURE_DESCRIPTION:
 				return getFigureDescription() != null;
+			case GraphdescPackage.FILTER__ENABLED:
+				return enabled != ENABLED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -441,6 +495,8 @@ public class FilterImpl extends EObjectImpl implements Filter {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (filterExpression: ");
 		result.append(filterExpression);
+		result.append(", enabled: ");
+		result.append(enabled);
 		result.append(')');
 		return result.toString();
 	}
