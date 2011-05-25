@@ -158,6 +158,8 @@
       <genFeatures createChild="false" propertyDescription="The OCL expression to be used to retrieve the overriding property value"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//DynamicPropertyOverrider/overridingExpression"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//DynamicPropertyOverrider/figure"/>
+      <genFeatures createChild="false" propertyDescription="A boolean indicating if the dynamic property overrider is enabled or not"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//DynamicPropertyOverrider/enabled"/>
       <genOperations ecoreOperation="graphdesc.ecore#//DynamicPropertyOverrider/validate">
         <genParameters ecoreParameter="graphdesc.ecore#//DynamicPropertyOverrider/validate/diagnostic"/>
         <genParameters ecoreParameter="graphdesc.ecore#//DynamicPropertyOverrider/validate/context"/>
@@ -170,6 +172,8 @@
       <genFeatures createChild="false" propertyDescription="The OCL expression that is used to evaluate if the EObjects of the specified filter type (EClass) are to be shown in the diagram (the expression must return a boolean value)"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//Filter/filterExpression"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphdesc.ecore#//Filter/figureDescription"/>
+      <genFeatures createChild="false" propertyCategory="" propertyDescription="A boolean indicating if the filter is enabled or not"
+          ecoreFeature="ecore:EAttribute graphdesc.ecore#//Filter/enabled"/>
       <genOperations ecoreOperation="graphdesc.ecore#//Filter/validate">
         <genParameters ecoreParameter="graphdesc.ecore#//Filter/validate/diagnostic"/>
         <genParameters ecoreParameter="graphdesc.ecore#//Filter/validate/context"/>
