@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <graphdesc:GVFigureDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:graphdesc="http://org.emftools.emf2gv.graphdesc/1.0.5" orientation="TopDown">
-  <filters filterExpression="not (derived)">
+  <filters filterExpression="-- Derived EReferences are not drawn&#xD;&#xA;not (derived) &#xD;&#xA;-- only the current EPackage is drawn&#xD;&#xA;and self.eContainingClass.ePackage = self.eType.ePackage">
     <filteredType href="http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
   </filters>
   <ePackages href="http://www.eclipse.org/emf/2002/Ecore#/"/>
