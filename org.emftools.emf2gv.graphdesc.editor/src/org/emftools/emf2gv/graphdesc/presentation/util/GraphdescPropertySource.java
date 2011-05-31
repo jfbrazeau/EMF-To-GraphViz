@@ -36,8 +36,6 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.ui.provider.PropertySource;
 import org.eclipse.ocl.ecore.OCL;
-import org.eclipse.ocl.expressions.CollectionKind;
-import org.eclipse.ocl.util.TypeUtil;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
@@ -46,6 +44,8 @@ import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
+import org.emftools.emf2gv.graphdesc.util.GraphdescHelper;
+import org.emftools.emf2gv.util.OCLHelper;
 import org.emftools.emf2gv.util.OCLProvider;
 
 /**
@@ -118,7 +118,7 @@ public class GraphdescPropertySource extends PropertySource {
 			result = new ColorPropertyDescriptor(object,
 					itemPropertyDescriptor, colorIcons);
 		} else if (oclFeature) {
-			OCL ocl = null;
+			OCL ocl = OCLProvider.newOCL();
 			EClass oclContext = null;
 			EClassifier oclExpectedReturnType = null;
 			String missingContextErrorMessage = null;
@@ -129,23 +129,21 @@ public class GraphdescPropertySource extends PropertySource {
 				Filter filter = (Filter) object;
 				oclContext = filter.getFilteredType();
 				missingContextErrorMessage = SELECT_FILTER_TYPE_MSG;
-			}
-			else if (object instanceof DynamicPropertyOverrider) {
+			} else if (object instanceof DynamicPropertyOverrider) {
 				DynamicPropertyOverrider dpo = (DynamicPropertyOverrider) object;
 				if (dpo != null) {
-					EStructuralFeature propertyFeature = dpo.getPropertyToOverride();
-					if (propertyFeature != null) {
-						oclExpectedReturnType = propertyFeature.getEType();
-						// If the feature is a list, we must resolve a collection type
-						if (propertyFeature.getUpperBound() != 1) {
-							ocl = OCLProvider.newOCL();
-							oclExpectedReturnType = TypeUtil
-									.resolveCollectionType(
-											ocl.getEnvironment(),
-											CollectionKind.COLLECTION_LITERAL,
-											oclExpectedReturnType);
-						}
+					// OCL expected return type retrieval + collection type
+					// handling
+					EStructuralFeature propertyFeature = dpo
+							.getPropertyToOverride();
+					oclExpectedReturnType = OCLHelper.toOCLFeatureType(ocl.getEnvironment(), propertyFeature);
+					if (oclExpectedReturnType != null) {
+						// "Default property value" variable registration
+						GraphdescHelper
+								.registerDefaultPropertyValueOCLVariable(
+										ocl.getEnvironment(), dpo);
 					}
+					// Error message building
 					AbstractFigure figure = dpo.getFigure();
 					if (figure != null) {
 						oclContext = figure.getStandardOCLContext();
@@ -159,11 +157,12 @@ public class GraphdescPropertySource extends PropertySource {
 							missingContextErrorMessage = SELECT_EREF_MSG2;
 						}
 					}
+
 				}
 			}
-			// OCL expression are only used in RichAttributeFigures
 			final String theMissingContextErrorMessage = missingContextErrorMessage;
-			result = new OCLPropertyDescriptor(object, itemPropertyDescriptor, ocl, oclContext, oclExpectedReturnType) {
+			result = new OCLPropertyDescriptor(object, itemPropertyDescriptor,
+					ocl, oclContext, oclExpectedReturnType) {
 				/*
 				 * (non-Javadoc)
 				 * 

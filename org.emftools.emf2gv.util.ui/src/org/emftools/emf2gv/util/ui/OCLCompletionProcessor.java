@@ -46,7 +46,6 @@ import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.ocl.helper.Choice;
 import org.eclipse.ocl.helper.OCLHelper;
-import org.emftools.emf2gv.util.OCLProvider;
 
 /**
  * OCL completion processor.
@@ -78,6 +77,7 @@ class OCLCompletionProcessor implements IContentAssistProcessor {
 			}
 			return result;
 		}
+
 		private int rank(Choice choice) {
 			switch (choice.getKind()) {
 			case VARIABLE:
@@ -107,17 +107,21 @@ class OCLCompletionProcessor implements IContentAssistProcessor {
 	/**
 	 * Default constructor.
 	 * 
+	 * @param ocl
+	 *            the OCL to use.
 	 * @param context
 	 *            the OCL context classifier.
 	 */
-	public OCLCompletionProcessor(EClassifier context) {
-		OCL ocl = OCLProvider.newOCL();
+	public OCLCompletionProcessor(OCL ocl, EClassifier context) {
 		oclHelper = ocl.createOCLHelper();
 		oclHelper.setContext(context);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeCompletionProposals(org.eclipse.jface.text.ITextViewer, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#
+	 * computeCompletionProposals(org.eclipse.jface.text.ITextViewer, int)
 	 */
 	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
 			int offset) {
@@ -166,6 +170,7 @@ class OCLCompletionProcessor implements IContentAssistProcessor {
 
 	/**
 	 * Builds a list containing the OCL choices.
+	 * 
 	 * @param document
 	 * @param offset
 	 * @return
@@ -184,37 +189,53 @@ class OCLCompletionProcessor implements IContentAssistProcessor {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getCompletionProposalAutoActivationCharacters()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#
+	 * getCompletionProposalAutoActivationCharacters()
 	 */
 	public char[] getCompletionProposalAutoActivationCharacters() {
 		return ACTIVATION;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeContextInformation(org.eclipse.jface.text.ITextViewer, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#
+	 * computeContextInformation(org.eclipse.jface.text.ITextViewer, int)
 	 */
 	public IContextInformation[] computeContextInformation(ITextViewer viewer,
 			int offset) {
 		return NO_CONTEXTS;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getContextInformationAutoActivationCharacters()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#
+	 * getContextInformationAutoActivationCharacters()
 	 */
 	public char[] getContextInformationAutoActivationCharacters() {
 		return NO_CHARS;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getContextInformationValidator()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#
+	 * getContextInformationValidator()
 	 */
 	public IContextInformationValidator getContextInformationValidator() {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getErrorMessage()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.text.contentassist.IContentAssistProcessor#getErrorMessage
+	 * ()
 	 */
 	public String getErrorMessage() {
 		return null;
@@ -222,9 +243,13 @@ class OCLCompletionProcessor implements IContentAssistProcessor {
 
 	/**
 	 * Creates the completion proposals.
-	 * @param choices the completion choices.
-	 * @param replacementOffset the replacement offset in the original text.
-	 * @param replacementLength the replacement length.
+	 * 
+	 * @param choices
+	 *            the completion choices.
+	 * @param replacementOffset
+	 *            the replacement offset in the original text.
+	 * @param replacementLength
+	 *            the replacement length.
 	 * @return the completion proposals.
 	 */
 	private ICompletionProposal[] createCompletions(List<Choice> choices,
@@ -266,7 +291,9 @@ class OCLCompletionProcessor implements IContentAssistProcessor {
 
 	/**
 	 * Sorts the choices.
-	 * @param choices the choices to solrt.
+	 * 
+	 * @param choices
+	 *            the choices to solrt.
 	 */
 	private void sortChoices(List<Choice> choices) {
 		Collections.sort(choices, CHOICES_COMPARATOR);

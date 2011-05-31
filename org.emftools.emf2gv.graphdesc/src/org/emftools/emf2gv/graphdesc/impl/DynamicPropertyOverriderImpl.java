@@ -43,13 +43,13 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ocl.ParserException;
 import org.eclipse.ocl.ecore.Constraint;
-import org.eclipse.ocl.expressions.CollectionKind;
+import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.ocl.helper.OCLHelper;
-import org.eclipse.ocl.util.TypeUtil;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
+import org.emftools.emf2gv.graphdesc.util.GraphdescHelper;
 import org.emftools.emf2gv.graphdesc.util.GraphdescValidator;
 import org.emftools.emf2gv.util.OCLProvider;
 import org.emftools.validation.utils.EMFConstraintsHelper;
@@ -136,6 +136,9 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 	 * OCL Helper that is used to validate the OCL Expressions.
 	 */
 	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper;
+
+	/** The OCL */
+	private OCL ocl;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -353,16 +356,19 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 			// OCL expression check
 			if (valid) {
 				// Lazy instantiation of the OCL Helper
-				if (oclHelper == null) {
-					oclHelper = OCLProvider.newOCL().createOCLHelper();
+				if (ocl == null) {
+					ocl = OCLProvider.newOCL();
+					oclHelper = ocl.createOCLHelper();
 				}
+				// Default variable registration
+				GraphdescHelper.registerDefaultPropertyValueOCLVariable(
+						ocl.getEnvironment(), this);
 				// OCL expression parsing
 				OCLExpression<EClassifier> oclExpression = null;
 				EClass oclContext = figure
 						.getStandardOCLContext();
 				if (oclContext != null) {
 					oclHelper.setContext(oclContext);
-					
 					try {
 						oclExpression = oclHelper
 								.createQuery(getOverridingExpression());
@@ -377,19 +383,12 @@ public class DynamicPropertyOverriderImpl extends EObjectImpl implements Dynamic
 				// Return type check
 				if (oclExpression != null) {
 					EClassifier oclExpressionEType = oclExpression.getType();
-					EClassifier featureToOverrideEType = featureToOverride.getEType();
-					if (featureToOverride.getUpperBound() != 1) {
-						featureToOverrideEType = TypeUtil
-								.resolveCollectionType(
-										oclHelper.getEnvironment(),
-										CollectionKind.COLLECTION_LITERAL,
-										featureToOverrideEType);
-					}
-					if (!oclExpressionEType.getInstanceClass().equals(
-							featureToOverrideEType.getInstanceClass())
-							&& !TypeUtil.compatibleTypeMatch(oclHelper.getOCL()
-									.getEnvironment(), oclExpressionEType,
-									featureToOverrideEType)) {
+					EClassifier featureToOverrideEType = org.emftools.emf2gv.util.OCLHelper
+							.toOCLFeatureType(oclHelper.getEnvironment(),
+									featureToOverride);
+					if (!org.emftools.emf2gv.util.OCLHelper.compatibleTypeMatch(
+							oclHelper.getEnvironment(), oclExpressionEType,
+							featureToOverrideEType)) {
 						constraintsHelper
 								.addError(
 										diagnostic,

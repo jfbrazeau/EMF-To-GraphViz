@@ -50,7 +50,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.emftools.emf2gv.util.OCLProvider;
 
 /**
  * An OCL input dialog.
@@ -68,6 +67,9 @@ public class OCLInputDialog extends TrayDialog {
 
 	/** OCL Input */
 	private OCLSourceViewer input;
+
+	/** The OCL to use */
+	private OCL ocl;
 
 	/** The OCL Helper */
 	private OCLHelper<EClassifier, EOperation, EStructuralFeature, Constraint> oclHelper;
@@ -93,7 +95,7 @@ public class OCLInputDialog extends TrayDialog {
 	 * @param title
 	 *            the dialog title
 	 * @param ocl
-	 *            the ocl (optional).
+	 *            the ocl.
 	 * @param context
 	 *            the context of the OCL value.
 	 * @param initialValue
@@ -112,8 +114,8 @@ public class OCLInputDialog extends TrayDialog {
 		this.value = initialValue;
 		this.selectAll = selectAll;
 		this.expectedReturnType = expectedReturnType;
-		oclHelper = (ocl != null ? ocl : OCLProvider.newOCL())
-				.createOCLHelper();
+		this.ocl = ocl;
+		oclHelper = ocl.createOCLHelper();
 		oclHelper.setContext(context);
 		errorIcon = Activator.getImageDescriptor("icons/error.gif")
 				.createImage();
@@ -146,7 +148,7 @@ public class OCLInputDialog extends TrayDialog {
 		final Composite composite = (Composite) super.createDialogArea(parent);
 		statusLabel = new CLabel(composite, SWT.NONE);
 		statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		input = new OCLSourceViewer(composite, SWT.BORDER | SWT.MULTI,
+		input = new OCLSourceViewer(composite, SWT.BORDER | SWT.MULTI, ocl,
 				oclHelper.getContextClassifier());
 		input.setDocument(new Document(getValue()));
 		StyledText text = input.getTextWidget();
@@ -186,14 +188,16 @@ public class OCLInputDialog extends TrayDialog {
 	 */
 	private synchronized void checkOCLSyntax() {
 		try {
+
 			statusLabel.setText("Validating...");
 			statusLabel.setImage(null);
 			OCLExpression<EClassifier> oclExpression = oclHelper
 					.createQuery(input.getTextWidget().getText());
 			boolean typeCheckOk = true;
 			if (expectedReturnType != null) {
-				typeCheckOk = oclExpression.getType().getInstanceClass()
-						.equals(expectedReturnType.getInstanceClass())
+				typeCheckOk = (oclExpression.getType().getInstanceClass() != null && oclExpression
+						.getType().getInstanceClass()
+						.equals(expectedReturnType.getInstanceClass()))
 						|| TypeUtil.compatibleTypeMatch(oclHelper.getOCL()
 								.getEnvironment(), oclExpression.getType(),
 								expectedReturnType);

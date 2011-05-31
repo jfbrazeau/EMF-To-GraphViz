@@ -75,6 +75,7 @@ import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
+import org.emftools.emf2gv.graphdesc.util.GraphdescHelper;
 import org.emftools.emf2gv.util.ColorsHelper;
 import org.emftools.emf2gv.util.IOHelper;
 import org.emftools.emf2gv.util.OCLProvider;
@@ -377,8 +378,8 @@ final class GVSourceAndDependenciesBuilder {
 		for (Filter filter : figureDesc.getFilters()) {
 			if (filter.isEnabled()
 					&& filter.getFilteredType().isSuperTypeOf(eClass)) {
-				mustDraw &= (Boolean) evaluateOCLExpression(
-						eObject, filter.getFilterExpression());
+				mustDraw &= (Boolean) evaluateOCLExpression(eObject,
+						filter.getFilterExpression());
 			}
 		}
 		return mustDraw;
@@ -658,12 +659,23 @@ final class GVSourceAndDependenciesBuilder {
 				break;
 			}
 		}
+		Object defaultPropertyValue = figure.eGet(propertyFeature);
 		Object result = null;
 		if (dynPropOverrider != null && dynPropOverrider.isEnabled()) {
-			result = evaluateOCLExpression(eObject,
-					dynPropOverrider.getOverridingExpression());
+			try {
+				// Registers the "default property value" variable
+				GraphdescHelper.registerDefaultPropertyValueOCLVariable(
+						getOCL().getEnvironment(), dynPropOverrider);
+				GraphdescHelper.assignDefaultPropertyValueOCLVariable(getOCL()
+						.getEvaluationEnvironment(), defaultPropertyValue);
+				result = evaluateOCLExpression(eObject,
+						dynPropOverrider.getOverridingExpression());
+			} finally {
+				// Deletes the "default property value" variable
+				org.emftools.emf2gv.util.OCLHelper.clearVariables(getOCL());
+			}
 		} else {
-			result = figure.eGet(propertyFeature);
+			result = defaultPropertyValue;
 		}
 		return result;
 	}

@@ -38,24 +38,38 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.ocl.Environment;
+import org.eclipse.ocl.EvaluationEnvironment;
+import org.eclipse.ocl.ecore.CallOperationAction;
+import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.EcoreFactory;
+import org.eclipse.ocl.ecore.SendSignalAction;
+import org.eclipse.ocl.ecore.Variable;
 import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.graphdesc.RichAttributeFigure;
 import org.emftools.emf2gv.graphdesc.RichReferenceFigure;
 import org.emftools.emf2gv.util.ColorsHelper;
+import org.emftools.emf2gv.util.OCLHelper;
 
 /**
  * Utility class allowing to generate a default graphical description from an
@@ -79,6 +93,11 @@ public class GraphdescHelper {
 					new Color(0xFFC8C8) // Red
 
 			});
+
+	/**
+	 * The "default property value" variable name.
+	 */
+	private static final String DEFAULT_PROPERTY_VALUE_VARIABLE_NAME = "defaultPropertyValue";
 
 	/**
 	 * Generates a graphical description from an EPackage list.
@@ -155,8 +174,8 @@ public class GraphdescHelper {
 				.put(Resource.Factory.Registry.DEFAULT_EXTENSION,
 						new XMIResourceFactoryImpl());
 		// Load the graphical description
-		Resource graphDescResource = rs.getResource(URI.createURI(
-				GraphdescHelper.class.getResource("ecore.graphdesc")
+		Resource graphDescResource = rs.getResource(URI
+				.createURI(GraphdescHelper.class.getResource("ecore.graphdesc")
 						.toString(), true), true);
 		return (GVFigureDescription) graphDescResource.getContents().get(0);
 	}
@@ -184,7 +203,8 @@ public class GraphdescHelper {
 			// ClassFigure colors setting
 			;
 			classFigure.setHeaderBackgroundColor(baseColor);
-			classFigure.setBodyBackgroundColor(ColorsHelper.makeColorBrighter(baseColor));
+			classFigure.setBodyBackgroundColor(ColorsHelper
+					.makeColorBrighter(baseColor));
 			/*
 			 * Label attribute selection
 			 */
@@ -238,11 +258,15 @@ public class GraphdescHelper {
 	}
 
 	/**
-	 * Return the possible EClasses that can be filtered for the given graphical description.
-	 * @param figureDescription the graphical description.
+	 * Return the possible EClasses that can be filtered for the given graphical
+	 * description.
+	 * 
+	 * @param figureDescription
+	 *            the graphical description.
 	 * @return the EClasses list.
 	 */
-	public static List<EClass> getFilterableEClasses(GVFigureDescription figureDescription) {
+	public static List<EClass> getFilterableEClasses(
+			GVFigureDescription figureDescription) {
 		// EClass hierarchy retrieval
 		List<EClass> eClasses = new ArrayList<EClass>();
 		EList<ClassFigure> classFigures = figureDescription.getClassFigures();
@@ -288,6 +312,51 @@ public class GraphdescHelper {
 				registerSuperTypes(superType, eClasses);
 			}
 		}
+	}
+
+	/**
+	 * Registers the variable that is used to retrieve the default property
+	 * value in an property overrider OCL expression.
+	 * 
+	 * @param environment
+	 *            the OCL environment.
+	 * @param dpo
+	 *            the dynamic property overrider.
+	 * @see GraphdescHelper#assignDefaultPropertyValueOCLVariable(EvaluationEnvironment,
+	 *      Object)
+	 */
+	public static void registerDefaultPropertyValueOCLVariable(
+			Environment<EPackage, EClassifier, EOperation, EStructuralFeature, EEnumLiteral, EParameter, EObject, CallOperationAction, SendSignalAction, Constraint, EClass, EObject> environment,
+			DynamicPropertyOverrider dpo) {
+		EClassifier defaultPropertyValueVariableType = OCLHelper
+				.toOCLFeatureType(environment, dpo.getPropertyToOverride());
+		// "Default value" variable registering (this variable
+		// is used to give access to the default value of the
+		// property that is overrided).
+		Variable variable = EcoreFactory.eINSTANCE.createVariable();
+		variable.setEType(defaultPropertyValueVariableType);
+		variable.setType(defaultPropertyValueVariableType);
+		variable.setName(DEFAULT_PROPERTY_VALUE_VARIABLE_NAME);
+		// Deregister the variable
+		environment.deleteElement(variable.getName());
+		// Register the new variable
+		environment.addElement(variable.getName(), variable, true);
+	}
+
+	/**
+	 * Assigns the value to the "default property value" variable.
+	 * 
+	 * @param evaluationEvnironment
+	 *            the evaluation environment.
+	 * @param value
+	 *            the variable's value.
+	 * @see GraphdescHelper#registerDefaultPropertyValueOCLVariable(Environment,
+	 *      DynamicPropertyOverrider)
+	 */
+	public static void assignDefaultPropertyValueOCLVariable(
+			EvaluationEnvironment<EClassifier, EOperation, EStructuralFeature, EClass, EObject> evaluationEvnironment,
+			Object value) {
+		evaluationEvnironment.add(DEFAULT_PROPERTY_VALUE_VARIABLE_NAME, value);
 	}
 
 }
