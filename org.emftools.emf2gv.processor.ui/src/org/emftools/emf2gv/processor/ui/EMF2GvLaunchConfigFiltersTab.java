@@ -598,7 +598,7 @@ public class EMF2GvLaunchConfigFiltersTab extends AbstractEMF2GvLaunchConfigTab 
 	 */
 	@Override
 	public Image getImage() {
-		return Activator.getDefault().getImage("icons/HiddenNode.gif");
+		return Activator.getDefault().getImage("icons/Filter.gif");
 	}
 
 }
