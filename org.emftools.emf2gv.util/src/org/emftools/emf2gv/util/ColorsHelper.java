@@ -48,7 +48,6 @@ public class ColorsHelper {
 	 * @return the converted string.
 	 */
 	public static String toHtmlColor(Color color) {
-		// TODO remove the following code
 		String result = null;
 		if (color != null) {
 			char[] cars = new char[7];
@@ -74,19 +73,11 @@ public class ColorsHelper {
 	public static Color parseHtmlColor(String htmlColor) {
 		Color result = null;
 		if (htmlColor != null) {
-			if (htmlColor.length() == 7 && htmlColor.startsWith("#")) {
-				htmlColor = htmlColor.substring(1);
-				int r = Integer.parseInt(htmlColor.substring(0, 2), 16);
-				int g = Integer.parseInt(htmlColor.substring(2, 4), 16);
-				int b = Integer.parseInt(htmlColor.substring(4, 6), 16);
-				result = new Color(r, g, b);
-			} else {
-				// TODO remove the following code
-				int intColor = Integer.parseInt(htmlColor);
-				result = new Color((intColor >> 16) & 255,
-						(intColor >> 8) & 255, (intColor) & 255);
-
-			}
+			htmlColor = htmlColor.substring(1);
+			int r = Integer.parseInt(htmlColor.substring(0, 2), 16);
+			int g = Integer.parseInt(htmlColor.substring(2, 4), 16);
+			int b = Integer.parseInt(htmlColor.substring(4, 6), 16);
+			result = new Color(r, g, b);
 		}
 		return result;
 	}
