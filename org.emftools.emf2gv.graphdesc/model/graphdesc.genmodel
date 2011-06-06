@@ -81,7 +81,8 @@
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="Figure's body background color"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/bodyBackgroundColor"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Container"
-          propertyDescription="" propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/nestedFiguresEReferences"/>
+          propertyDescription="The EReference to use to retrieve the EObjects to draw as nested figures"
+          propertySortChoices="true" ecoreFeature="ecore:EReference graphdesc.ecore#//ClassFigure/nestedFiguresEReferences"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute graphdesc.ecore#//ClassFigure/container"/>
       <genOperations ecoreOperation="graphdesc.ecore#//ClassFigure/getAttributeFigure">
         <genParameters ecoreParameter="graphdesc.ecore#//ClassFigure/getAttributeFigure/eAttribute"/>
@@ -115,9 +116,9 @@
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractReferenceFigure/sourceArrowType"/>
       <genFeatures property="None" createChild="false" propertyCategory="Model" propertyDescription="Shows if the EReference is a containment reference"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractReferenceFigure/containment"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The custom target arrow"
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The custom target arrow (graphviz compliant arrow style, ignored if targetArrowType is not set to 'custom')"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractReferenceFigure/customTargetArrow"/>
-      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The custom source arrow"
+      <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The custom source arrow (graphviz compliant arrow style, ignored if sourceArrowType is not set to 'custom')"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractReferenceFigure/customSourceArrow"/>
       <genFeatures createChild="false" propertyCategory="Appearance" propertyDescription="The edge color"
           ecoreFeature="ecore:EAttribute graphdesc.ecore#//AbstractReferenceFigure/color"/>
