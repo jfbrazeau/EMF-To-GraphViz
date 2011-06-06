@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="Concepts" link_to="toc.xml#concepts">
+      <topic label="Basic">
+         <topic label="Graphical description" href="html/concepts/basic.html#graphdesc"/>
+         <topic label="Class figure" href="html/concepts/basic.html#classfigure"/>
+         <topic label="Attribute figure" href="html/concepts/basic.html#attributefigure"/>
+         <topic label="Reference figure" href="html/concepts/basic.html#referencefigure"/>
+      </topic>
+      <topic label="Advanced">
+         <topic label="Rich attribute figure" href="html/concepts/advanced.html#richattributefigure"/>
+         <topic label="Rich reference figure" href="html/concepts/advanced.html#richreferencefigure"/>
+         <topic label="Filter" href="html/concepts/advanced.html#filter"/>
+         <topic label="Dynamic property overrider" href="html/concepts/advanced.html#dynamicpropertyoverrider"/>
+      </topic>
+</toc>

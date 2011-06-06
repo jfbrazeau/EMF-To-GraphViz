@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>Basic concepts</title>
+	<link rel="stylesheet" href="book.css" charset="ISO-8859-1" type="text/css">
+</head>
+
+<body>
+<h1>Basic concepts</h1>
+
+<a name="GVFigureDescription"><h2>Graphical description</h2></a>
+
+<p>The graphical description is the configuration resource that contains all the directives that emf2gv uses in the diagram generation process.</p>
+
+<p>Emf2gv provides an eclipse based tree editor that helps to create graphical descriptions.</p>
+
+<p>A graphical description basically contains <a href="#ClassFigures">ClassFigures</a>, <a href="#AttributeFigures">AttributeFigures</a> and <a href="#ReferenceFigures">ReferenceFigures</a>.</p>
+
+<p>Note : it can also contain advanced items like <a href="advanced.html#RichAttributeFigures">RichAttributeFigures</a>, <a href="advanced.html#RichReferenceFigure">RichReferenceFigures</a>, <a href="advanced.html#Filter">Filters</a> and <a href="advanced.html#DynamicPropertyOverrider">DynamicPropertyOverriders</a>.</p>
+
+<p>The root node of a graphical description is called <em>GVFigureDescription</em> and accepts the following properties :</p>
+
+<p>The graphical description accepts the following properties : </p>
+
+<table cellspacing="0" border="1">
+<tr><th>Category</th><th>Name</th><th>Description</th></tr>
+<tr><td valign="top" aligne="left" rowspan="2">Appearance</td>
+<td valign="top" aligne="left">alignSameEClasses</td><td valign="top" aligne="left">If true, organizes the objects by type by applying a vertical or horizontal alignment (according to the chosen orientation)</td></tr>
+<tr><td valign="top" aligne="left">orientation</td><td valign="top" aligne="left">Graph orientation (top down or left to right)</td></tr>
+<tr><td valign="top" aligne="left" rowspan="1">Model</td>
+<td valign="top" aligne="left">ePackages</td><td valign="top" aligne="left">EPackages list authorized in this figure description</td></tr>
+</table>
+
+<a name="ClassFigure"><h2>Class figure</h2></a>
+
+<p>The <em>ClassFigure</em> contains the directives that will be used to render the diagram <em>nodes</em>.</p>
+
+<p>It accepts the following properties : </p>
+
+<table cellspacing="0" border="1">
+<tr><th>Category</th><th>Name</th><th>Description</th></tr>
+<tr><td valign="top" aligne="left" rowspan="4">Appearance</td>
+<td valign="top" aligne="left">bodyBackgroundColor</td><td valign="top" aligne="left">Figure's body background color</td></tr>
+<tr><td valign="top" aligne="left">headerBackgroundColor</td><td valign="top" aligne="left">Figure's header background color</td></tr>
+<tr><td valign="top" aligne="left">labelEAttribute</td><td valign="top" aligne="left">The EClass attribute to use for the figure's label (the label that appears in the figure's header)</td></tr>
+<tr><td valign="top" aligne="left">labelStyle</td><td valign="top" aligne="left">The style of the class figure's label</td></tr>
+<tr><td valign="top" aligne="left" rowspan="1">Container</td>
+<td valign="top" aligne="left">nestedFiguresEReferences</td><td valign="top" aligne="left">The EReference to use to retrieve the EObjects to draw as nested figures</td></tr>
+<tr><td valign="top" aligne="left" rowspan="1">Model</td>
+<td valign="top" aligne="left">eClass</td><td valign="top" aligne="left">The EClass that  that this figure will represent on the graph</td></tr>
+</table>
+
+<a name="AttributeFigure"><h2>Attribute figure</h2></a>
+
+<p>The <em>AttributeFigure</em> contains the directives that will be used to render the <em>EObject</em>'s attribute values.</p>
+
+<p>That figure looks like an UML attribute in a UML Class diagram, which means taht it appears inside the <em>EObject</em> nodes, one above the other.</p>
+
+<p>It accepts the following properties : </p>
+
+<table cellspacing="0" border="1">
+<tr><th>Category</th><th>Name</th><th>Description</th></tr>
+<tr><td valign="top" aligne="left" rowspan="1">Appearance</td>
+<td valign="top" aligne="left">labelStyle</td><td valign="top" aligne="left">The style of the attribute figure's label</td></tr>
+<tr><td valign="top" aligne="left" rowspan="1">Model</td>
+<td valign="top" aligne="left">eAttribute</td><td valign="top" aligne="left">The EAttribute that this figure will represent on the graph</td></tr>
+</table>
+
+<a name="ReferenceFigure"><h2>Reference figure</h2></a>
+
+<p>The <em>ReferenceFigure</em> contains the directives that will be used to render the <em>EObject</em>'s references.</p>
+
+<p>It accepts the following properties : </p>
+
+<table cellspacing="0" border="1">
+<tr><th>Category</th><th>Name</th><th>Description</th></tr>
+<tr><td valign="top" aligne="left" rowspan="7">Appearance</td>
+<td valign="top" aligne="left">color</td><td valign="top" aligne="left">The edge color</td></tr>
+<tr><td valign="top" aligne="left">customSourceArrow</td><td valign="top" aligne="left">The custom source arrow (graphviz compliant arrow style, ignored if sourceArrowType is not set to 'custom')</td></tr>
+<tr><td valign="top" aligne="left">customTargetArrow</td><td valign="top" aligne="left">The custom target arrow (graphviz compliant arrow style, ignored if targetArrowType is not set to 'custom')</td></tr>
+<tr><td valign="top" aligne="left">minimumEdgeLength</td><td valign="top" aligne="left">Minimum edge length (same as Graphviz minlen property)</td></tr>
+<tr><td valign="top" aligne="left">sourceArrowType</td><td valign="top" aligne="left">The source arrow type</td></tr>
+<tr><td valign="top" aligne="left">style</td><td valign="top" aligne="left">The edge style</td></tr>
+<tr><td valign="top" aligne="left">targetArrowType</td><td valign="top" aligne="left">The target arrow type</td></tr>
+<tr><td valign="top" aligne="left" rowspan="1">Model</td>
+<td valign="top" aligne="left">eReference</td><td valign="top" aligne="left">The EReference that this figure will represent on the graph</td></tr>
+</table>
+
+</body>
+</html>
