@@ -2,10 +2,9 @@
 <?NLS TYPE="org.eclipse.help.toc"?>
 
 <toc label="Getting Started" link_to="toc.xml#gettingstarted"> 
-	<topic label="Main Topic"> 
-		<topic label="Sub Topic" href="html/gettingstarted/subtopic.html" /> 
-	</topic>
-	<topic label="Main Topic 2">
-		<topic label="Sub Topic 2" href="html/gettingstarted/subtopic2.html" />
-	</topic> 
+	<topic label="Installation" href="html/gettingstarted/installation.html" /> 
+	<topic label="Tutorial #1 - Automatic Diagram Generation" href="html/gettingstarted/tutorial1.html" /> 
+	<topic label="Tutorial #2 - Diagram Customization" href="html/gettingstarted/tutorial2.html" /> 
+	<topic label="Tutorial #3 - Standalone mode" href="html/gettingstarted/tutorial3.html" /> 
+	<topic label="What's next" href="html/gettingstarted/whatsNext.html" /> 
 </toc>

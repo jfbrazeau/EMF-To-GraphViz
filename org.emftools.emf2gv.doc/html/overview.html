@@ -32,6 +32,19 @@
 
 <a name="diagramgeneration"><h2>Diagram generation</h2></a>
 
+<p>EMF2GV allows to build a graphical representation of any EMF model.</p>
+
+<p>To do that, EMF2GV takes as input the following data :
+<ul>
+	<li>A model file</li>
+    <li>A graphical description corresponding to the EPackages used in the model file (optional, see below)</li>
+</ul>
+</p>
+
+<p>The graphical description indicates which <em>EClasses</em>, <em>EAttributes</em> and <em>EReferences</em> have to be drawn, and allows to adjust several appearance details (colors, arrow style, and so on). Please refer to the next paragraph for more details.</p>
+
+<p>Emf2gv is also able to build a diagram for a given model file without graphical description. That is why the graphical description is optional. In fact, in such case, emf2fv generates a default graphical description that only resides in memory.</p>
+
 <p>Emf2gv automatically retrieves and draws the EMF Edit plugin icons. Miscellaneous appearance details such as node color, edge style, or font style can be adjusted before rendering the graph through a configuration resource (the graphical description, *.graphdesc). Emf2gv also validates every <em>EObject</em> and shows an error or warning icon when needed.</p>
 
 <p>Here you can see the default result that emf2gv produces with the previous model example (notice the error icon on the "Empty Classroom" node and the warning icon on the "Tony Parker" node) : </p>
@@ -54,10 +67,10 @@
 
 <p>Emf2gv has several advanced options that increases the number of ways to render a model diagram, and which make it possible to :
 <ol>
-	<li>render an <em>EObject</em> the same way as a simple attribute value with the <a href="concepts/advanced.html#RichAttributeFigure">RichAttributeFigures</a></li>
-	<li>render an <em>EObject</em> the same way as an edge with the <a href="concepts/advanced.html#RichReferenceFigure">RichReferenceFigures</a></li>
-	<li>filter the <em>EObjects</em> to be drawn by using <a href="concepts/advanced.html#Filter">Filters</a></li>
-	<li>compute dynamically several figure's appearance properties like the node's background and header colors, the labels styles, and so on, with <a href="concepts/advanced.html#DynamicPropertyOverrider">Dynamic Property Overriders</a></li>
+	<li>render an <em>EObject</em> the same way as a simple attribute value with the <a href="concepts/advanced/RichAttributeFigures.html">RichAttributeFigures</a></li>
+	<li>render an <em>EObject</em> the same way as an edge with the <a href="concepts/advanced/RichReferenceFigures.html">RichReferenceFigures</a></li>
+	<li>filter the <em>EObjects</em> to be drawn by using <a href="concepts/advanced/Filters.html">Filters</a></li>
+	<li>compute dynamically several figure's appearance properties like the node's background and header colors, the labels styles, and so on, with <a href="concepts/advanced/DynamicPropertyOverriders.html">Dynamic Property Overriders</a></li>
 </ol>
 </p>
 

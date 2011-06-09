@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>Filters</title>
+	<link rel="stylesheet" href="../../book.css" charset="ISO-8859-1" type="text/css">
+</head>
+
+<body>
+<h1>Filters</h1>
+
+<h2>Description</h2>
+
+<p>The <em>Filter</em> allows to filter the nodes that will be represented on the diagram. A filter is built over an OCL constraint that tells to emf2gv if an <em>EOjbtec</em> must be drawn or not.</p>
+
+<p>The filters must meet the following rules :
+<ul>
+	<li>A <em>Filter</em> is associated to one <em>EClass</em> (see the properties below)</li>
+	<li>If a <em>Filter</em> is associated to an <em>EClass</em>, it is applicable for all the <em>EClass</em> instances, including the ones that inheritates from it</li>
+	<li>If one or more filters applies to a given <em>EClass</em>, all the correponding expressions are evaluated and a logical <em>AND</em> is applied on them</li>
+</ul>
+</p>
+
+<h2>Properties</h2>
+
+<p>The <em>Filter</em> accepts the following properties : </p>
+
+<!-- Start of zone FilterProperties -->
+<table cellspacing="0" border="1">
+<tr><th>Category</th><th>Name</th><th>Description</th><th>Default literal</th></tr>
+<tr><td valign="top" aligne="left" rowspan="3">-</td>
+<td valign="top" aligne="left">enabled</td><td valign="top" aligne="left">A boolean indicating if the filter is enabled or not</td><td valign="top" aligne="left">true</td></tr>
+<tr><td valign="top" aligne="left">filterExpression</td><td valign="top" aligne="left">The OCL expression that is used to evaluate if the EObjects of the specified filter type (EClass) are to be shown in the diagram (the expression must return a boolean value)</td><td valign="top" aligne="left">true</td></tr>
+<tr><td valign="top" aligne="left">filteredType</td><td valign="top" aligne="left">The type (EClass) to which this filter will be applied</td><td valign="top" aligne="left">&nbsp;</td></tr>
+</table>
+<!-- End of zone FilterProperties -->
+
+</body>
+</html>
