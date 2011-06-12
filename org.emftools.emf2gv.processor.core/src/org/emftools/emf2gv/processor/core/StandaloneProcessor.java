@@ -111,6 +111,8 @@ public class StandaloneProcessor {
 	 * @param additionalFilters
 	 *            additional filters (boolean OCL expressions allowing to filter
 	 *            the EObjects).
+	 * @param logger
+	 *            the logger.
 	 * @param monitor
 	 *            a progress monitor.
 	 * @throws CoreException
