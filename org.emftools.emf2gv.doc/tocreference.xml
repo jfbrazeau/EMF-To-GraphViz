@@ -17,13 +17,14 @@
 		<topic label="Demonstration" href="html/reference/standalonemode/demonstration.html" />
 	</topic>
 	<topic label="Advanced Rendering Features">
-		<topic label="Containers (Graphviz clusters)" href="html/reference/rendering/clusters.html" />
+		<topic label="Containers (Graphviz clusters)" href="html/reference/rendering/containers.html" />
 		<topic label="Custom Arrow Types" href="html/reference/rendering/customArrowTypes.html" />
 		<topic label="Rich Attribute Figures" href="html/reference/rendering/richAttributeFigures.html" />
 		<topic label="Rich References Figures" href="html/reference/rendering/richReferenceFigures.html" />
-		<topic label="Dynamix Property Overriders" href="html/reference/rendering/dynamicPropertyOverriders.html" />
 		<topic label="Filters" href="html/reference/rendering/filters.html" />
+		<topic label="Dynamic Property Overriders" href="html/reference/rendering/dynamicPropertyOverriders.html" />
 		<topic label="Validation Support" href="html/reference/rendering/validationSupport.html" />
+		<topic label="Ecore Diagrams" href="html/reference/rendering/ecoreDiagrams.html" />
 	</topic>
 	<topic label="OCL Support">
 		<topic label="Overview" href="html/reference/ocl/overview.html" />
