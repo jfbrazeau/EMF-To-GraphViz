@@ -83,9 +83,15 @@ public class OCLProvider {
 
 	/**
 	 * Custom operation allowing to create a new instance of
-	 * <code>java.awt.Color</code>
+	 * <code>java.awt.Color</code> with its red/green/blue values
 	 */
 	protected static final String NEW_COLOR = "newColor";
+
+	/**
+	 * Custom operation allowing to create a new instance of
+	 * <code>java.awt.Color</code> with an HTML color (hex)
+	 */
+	protected static final String HEX_TO_COLOR = "hexToColor";
 
 	/** "toEcoreDiagString" custom operation name */
 	protected static final String TO_ECORE_DIAG_STRING = "toEcoreDiagString";
@@ -147,13 +153,17 @@ public class OCLProvider {
 		 */
 		EDataType colorDataType = EcoreFactory.eINSTANCE.createEDataType();
 		colorDataType.setInstanceClass(Color.class);
+		EClassifier colorClassifier = TypeUtil.resolveType(
+				ocl.getEnvironment(), colorDataType);
 		defineOperation(
 				ocl,
 				NEW_COLOR,
 				stdlib.getOclAny(),
-				TypeUtil.resolveType(ocl.getEnvironment(), colorDataType),
+				colorClassifier,
 				buildParameterList(ocl, stdlib.getInteger(), "red", "green",
 						"blue"));
+		defineOperation(ocl, HEX_TO_COLOR, stdlib.getOclAny(), colorClassifier,
+				buildParameterList(ocl, stdlib.getString(), "hexColor"));
 
 		return ocl;
 	}
@@ -247,7 +257,15 @@ class CustomEvaluationEnvironment extends EcoreEvaluationEnvironment {
 			return w.toString();
 		} else if (operation.getName().equals(OCLProvider.NEW_COLOR)) {
 			return new Color((Integer) args[0], (Integer) args[1],
-					(Integer) args[2]);
+						(Integer) args[2]);
+		} else if (operation.getName().equals(OCLProvider.HEX_TO_COLOR)) {
+			try {
+				return ColorsHelper.parseHtmlColor((String) args[0]);
+			} catch (NumberFormatException e) {
+				// Ignored, if the html color is not valid, the result is a
+				// black color
+				return Color.black;
+			}
 		} else if (source instanceof String) {
 			return callOperation(operation, opcode, (String) source, args);
 		} else if (source instanceof EOperation
