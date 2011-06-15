@@ -1151,15 +1151,14 @@ public interface GraphdescPackage extends EPackage {
 
 
 	/**
-	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.ArrowStyle <em>Arrow Style</em>}' enum.
+	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.EdgeStyle <em>Edge Style</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.emftools.emf2gv.graphdesc.ArrowStyle
-	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowStyle()
+	 * @see org.emftools.emf2gv.graphdesc.EdgeStyle
+	 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getEdgeStyle()
 	 * @generated
 	 */
-	int ARROW_STYLE = 13;
-
+	int EDGE_STYLE = 13;
 
 	/**
 	 * The meta object id for the '{@link org.emftools.emf2gv.graphdesc.FontStyle <em>Font Style</em>}' enum.
@@ -1885,14 +1884,14 @@ public interface GraphdescPackage extends EPackage {
 	EEnum getArrowType();
 
 	/**
-	 * Returns the meta object for enum '{@link org.emftools.emf2gv.graphdesc.ArrowStyle <em>Arrow Style</em>}'.
+	 * Returns the meta object for enum '{@link org.emftools.emf2gv.graphdesc.EdgeStyle <em>Edge Style</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Arrow Style</em>'.
-	 * @see org.emftools.emf2gv.graphdesc.ArrowStyle
+	 * @return the meta object for enum '<em>Edge Style</em>'.
+	 * @see org.emftools.emf2gv.graphdesc.EdgeStyle
 	 * @generated
 	 */
-	EEnum getArrowStyle();
+	EEnum getEdgeStyle();
 
 	/**
 	 * Returns the meta object for enum '{@link org.emftools.emf2gv.graphdesc.FontStyle <em>Font Style</em>}'.
@@ -2495,14 +2494,14 @@ public interface GraphdescPackage extends EPackage {
 		EEnum ARROW_TYPE = eINSTANCE.getArrowType();
 
 		/**
-		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.ArrowStyle <em>Arrow Style</em>}' enum.
+		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.EdgeStyle <em>Edge Style</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.emftools.emf2gv.graphdesc.ArrowStyle
-		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getArrowStyle()
+		 * @see org.emftools.emf2gv.graphdesc.EdgeStyle
+		 * @see org.emftools.emf2gv.graphdesc.impl.GraphdescPackageImpl#getEdgeStyle()
 		 * @generated
 		 */
-		EEnum ARROW_STYLE = eINSTANCE.getArrowStyle();
+		EEnum EDGE_STYLE = eINSTANCE.getEdgeStyle();
 
 		/**
 		 * The meta object literal for the '{@link org.emftools.emf2gv.graphdesc.FontStyle <em>Font Style</em>}' enum.

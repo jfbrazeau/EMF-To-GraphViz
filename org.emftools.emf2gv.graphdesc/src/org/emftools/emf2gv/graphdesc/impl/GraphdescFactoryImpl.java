@@ -35,11 +35,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
+import org.emftools.emf2gv.graphdesc.EdgeStyle;
 import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.FontStyle;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
@@ -120,8 +120,8 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 				return createOrientationFromString(eDataType, initialValue);
 			case GraphdescPackage.ARROW_TYPE:
 				return createArrowTypeFromString(eDataType, initialValue);
-			case GraphdescPackage.ARROW_STYLE:
-				return createArrowStyleFromString(eDataType, initialValue);
+			case GraphdescPackage.EDGE_STYLE:
+				return createEdgeStyleFromString(eDataType, initialValue);
 			case GraphdescPackage.FONT_STYLE:
 				return createFontStyleFromString(eDataType, initialValue);
 			case GraphdescPackage.COLOR:
@@ -143,8 +143,8 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 				return convertOrientationToString(eDataType, instanceValue);
 			case GraphdescPackage.ARROW_TYPE:
 				return convertArrowTypeToString(eDataType, instanceValue);
-			case GraphdescPackage.ARROW_STYLE:
-				return convertArrowStyleToString(eDataType, instanceValue);
+			case GraphdescPackage.EDGE_STYLE:
+				return convertEdgeStyleToString(eDataType, instanceValue);
 			case GraphdescPackage.FONT_STYLE:
 				return convertFontStyleToString(eDataType, instanceValue);
 			case GraphdescPackage.COLOR:
@@ -279,8 +279,8 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ArrowStyle createArrowStyleFromString(EDataType eDataType, String initialValue) {
-		ArrowStyle result = ArrowStyle.get(initialValue);
+	public EdgeStyle createEdgeStyleFromString(EDataType eDataType, String initialValue) {
+		EdgeStyle result = EdgeStyle.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
@@ -290,7 +290,7 @@ public class GraphdescFactoryImpl extends EFactoryImpl implements GraphdescFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertArrowStyleToString(EDataType eDataType, Object instanceValue) {
+	public String convertEdgeStyleToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

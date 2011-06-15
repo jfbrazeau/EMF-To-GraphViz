@@ -40,11 +40,11 @@ import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
-import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
+import org.emftools.emf2gv.graphdesc.EdgeStyle;
 import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.FontStyle;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
@@ -184,8 +184,8 @@ public class GraphdescValidator extends EObjectValidator {
 				return validateOrientation((Orientation)value, diagnostics, context);
 			case GraphdescPackage.ARROW_TYPE:
 				return validateArrowType((ArrowType)value, diagnostics, context);
-			case GraphdescPackage.ARROW_STYLE:
-				return validateArrowStyle((ArrowStyle)value, diagnostics, context);
+			case GraphdescPackage.EDGE_STYLE:
+				return validateEdgeStyle((EdgeStyle)value, diagnostics, context);
 			case GraphdescPackage.FONT_STYLE:
 				return validateFontStyle((FontStyle)value, diagnostics, context);
 			case GraphdescPackage.COLOR:
@@ -467,7 +467,7 @@ public class GraphdescValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateArrowStyle(ArrowStyle arrowStyle, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEdgeStyle(EdgeStyle edgeStyle, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

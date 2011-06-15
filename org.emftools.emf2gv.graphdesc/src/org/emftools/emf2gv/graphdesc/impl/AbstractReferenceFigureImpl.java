@@ -41,9 +41,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
-import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.EdgeStyle;
 import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
@@ -210,8 +210,8 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 	 * @generated NOT
 	 * @ordered
 	 */
-	protected final ArrowStyle STYLE_EDEFAULT = this instanceof ReferenceFigure ? ArrowStyle.NORMAL
-			: ArrowStyle.DASHED;
+	protected final EdgeStyle STYLE_EDEFAULT = this instanceof ReferenceFigure ? EdgeStyle.NORMAL
+			: EdgeStyle.DASHED;
 
 	/**
 	 * The cached value of the '{@link #getStyle() <em>Style</em>}' attribute.
@@ -221,7 +221,7 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 	 * @generated
 	 * @ordered
 	 */
-	protected ArrowStyle style = STYLE_EDEFAULT;
+	protected EdgeStyle style = STYLE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getMinimumEdgeLength() <em>Minimum Edge Length</em>}' attribute.
@@ -510,7 +510,7 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ArrowStyle getStyle() {
+	public EdgeStyle getStyle() {
 		return style;
 	}
 
@@ -519,8 +519,8 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStyle(ArrowStyle newStyle) {
-		ArrowStyle oldStyle = style;
+	public void setStyle(EdgeStyle newStyle) {
+		EdgeStyle oldStyle = style;
 		style = newStyle == null ? STYLE_EDEFAULT : newStyle;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GraphdescPackage.ABSTRACT_REFERENCE_FIGURE__STYLE, oldStyle, style));
@@ -798,7 +798,7 @@ public abstract class AbstractReferenceFigureImpl extends AbstractFigureImpl imp
 				setColor((Color)newValue);
 				return;
 			case GraphdescPackage.ABSTRACT_REFERENCE_FIGURE__STYLE:
-				setStyle((ArrowStyle)newValue);
+				setStyle((EdgeStyle)newValue);
 				return;
 			case GraphdescPackage.ABSTRACT_REFERENCE_FIGURE__MINIMUM_EDGE_LENGTH:
 				setMinimumEdgeLength((Integer)newValue);

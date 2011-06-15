@@ -63,7 +63,7 @@ import org.eclipse.ocl.helper.OCLHelper;
 import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
-import org.emftools.emf2gv.graphdesc.ArrowStyle;
+import org.emftools.emf2gv.graphdesc.EdgeStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
@@ -827,7 +827,7 @@ final class GVSourceAndDependenciesBuilder {
 					gvPkg.getAbstractReferenceFigure_MinimumEdgeLength());
 			edgeDesc.color = (Color) getFigurePropertyValue(figure, oclContext,
 					gvPkg.getAbstractReferenceFigure_Color());
-			edgeDesc.style = (ArrowStyle) getFigurePropertyValue(figure,
+			edgeDesc.style = (EdgeStyle) getFigurePropertyValue(figure,
 					oclContext, gvPkg.getAbstractReferenceFigure_Style());
 			edgeDesc.srcLabel = srcLabel;
 			edgeDesc.srcLabelStyle = srcLabelStyle;
@@ -1044,7 +1044,7 @@ final class GVSourceAndDependenciesBuilder {
 		out.print(edgeDesc.srcEObjectId);
 		out.print("->");
 		out.print(edgeDesc.targetEObjectId);
-		// Arrow style
+		// Edge style
 		out.print(" [arrowhead = ");
 		out.print(edgeDesc.targetArrowType.equals(ArrowType.CUSTOM) ? edgeDesc.customTargetArrow
 				: edgeDesc.targetArrowType.toString());
@@ -1094,7 +1094,7 @@ final class GVSourceAndDependenciesBuilder {
 		out.print(", color=\"");
 		out.print(ColorsHelper.toHtmlColor(edgeDesc.color));
 		out.print("\"");
-		if (!ArrowStyle.NORMAL.equals(edgeDesc.style)) {
+		if (!EdgeStyle.NORMAL.equals(edgeDesc.style)) {
 			out.print(", style=");
 			out.print(edgeDesc.style.toString());
 		}
@@ -1524,8 +1524,8 @@ class EdgeDesc {
 	/** Edge color */
 	Color color;
 
-	/** Arrow style */
-	ArrowStyle style;
+	/** Edge style */
+	EdgeStyle style;
 
 	/** Source label */
 	String srcLabel;

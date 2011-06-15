@@ -36,14 +36,14 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Arrow Style</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Edge Style</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getArrowStyle()
+ * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getEdgeStyle()
  * @model
  * @generated
  */
-public enum ArrowStyle implements Enumerator {
+public enum EdgeStyle implements Enumerator {
 	/**
 	 * The '<em><b>Normal</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -162,13 +162,13 @@ public enum ArrowStyle implements Enumerator {
 	public static final int INVIS_VALUE = 4;
 
 	/**
-	 * An array of all the '<em><b>Arrow Style</b></em>' enumerators.
+	 * An array of all the '<em><b>Edge Style</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final ArrowStyle[] VALUES_ARRAY =
-		new ArrowStyle[] {
+	private static final EdgeStyle[] VALUES_ARRAY =
+		new EdgeStyle[] {
 			NORMAL,
 			DASHED,
 			DOTTED,
@@ -177,22 +177,22 @@ public enum ArrowStyle implements Enumerator {
 		};
 
 	/**
-	 * A public read-only list of all the '<em><b>Arrow Style</b></em>' enumerators.
+	 * A public read-only list of all the '<em><b>Edge Style</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<ArrowStyle> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<EdgeStyle> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Arrow Style</b></em>' literal with the specified literal value.
+	 * Returns the '<em><b>Edge Style</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ArrowStyle get(String literal) {
+	public static EdgeStyle get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			ArrowStyle result = VALUES_ARRAY[i];
+			EdgeStyle result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -201,14 +201,14 @@ public enum ArrowStyle implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Arrow Style</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Edge Style</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ArrowStyle getByName(String name) {
+	public static EdgeStyle getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			ArrowStyle result = VALUES_ARRAY[i];
+			EdgeStyle result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -217,12 +217,12 @@ public enum ArrowStyle implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Arrow Style</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Edge Style</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static ArrowStyle get(int value) {
+	public static EdgeStyle get(int value) {
 		switch (value) {
 			case NORMAL_VALUE: return NORMAL;
 			case DASHED_VALUE: return DASHED;
@@ -260,7 +260,7 @@ public enum ArrowStyle implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private ArrowStyle(int value, String name, String literal) {
+	private EdgeStyle(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
@@ -304,4 +304,4 @@ public enum ArrowStyle implements Enumerator {
 		return literal;
 	}
 	
-} //ArrowStyle
+} //EdgeStyle

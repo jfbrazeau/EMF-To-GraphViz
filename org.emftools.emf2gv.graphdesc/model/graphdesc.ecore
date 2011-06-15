@@ -121,7 +121,7 @@
         defaultValueLiteral="#000000">
       <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//ArrowStyle"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//EdgeStyle"
         defaultValueLiteral="normal">
       <eAnnotations source="http://org.emftools.emf2gv.graphdesc/OverridableProperty"/>
     </eStructuralFeatures>
@@ -220,7 +220,7 @@
     <eLiterals name="vee" value="8"/>
     <eLiterals name="custom" value="9"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="ArrowStyle">
+  <eClassifiers xsi:type="ecore:EEnum" name="EdgeStyle">
     <eLiterals name="normal" value="1"/>
     <eLiterals name="dashed" value="2"/>
     <eLiterals name="dotted" value="3"/>

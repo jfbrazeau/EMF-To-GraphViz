@@ -44,11 +44,11 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.emftools.emf2gv.graphdesc.AbstractAttributeFigure;
 import org.emftools.emf2gv.graphdesc.AbstractFigure;
 import org.emftools.emf2gv.graphdesc.AbstractReferenceFigure;
-import org.emftools.emf2gv.graphdesc.ArrowStyle;
 import org.emftools.emf2gv.graphdesc.ArrowType;
 import org.emftools.emf2gv.graphdesc.AttributeFigure;
 import org.emftools.emf2gv.graphdesc.ClassFigure;
 import org.emftools.emf2gv.graphdesc.DynamicPropertyOverrider;
+import org.emftools.emf2gv.graphdesc.EdgeStyle;
 import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.FontStyle;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
@@ -163,7 +163,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum arrowStyleEEnum = null;
+	private EEnum edgeStyleEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -851,8 +851,8 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getArrowStyle() {
-		return arrowStyleEEnum;
+	public EEnum getEdgeStyle() {
+		return edgeStyleEEnum;
 	}
 
 	/**
@@ -979,7 +979,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		// Create enums
 		orientationEEnum = createEEnum(ORIENTATION);
 		arrowTypeEEnum = createEEnum(ARROW_TYPE);
-		arrowStyleEEnum = createEEnum(ARROW_STYLE);
+		edgeStyleEEnum = createEEnum(EDGE_STYLE);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
 
 		// Create data types
@@ -1099,7 +1099,7 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		initEAttribute(getAbstractReferenceFigure_CustomTargetArrow(), theEcorePackage.getEString(), "customTargetArrow", null, 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAbstractReferenceFigure_CustomSourceArrow(), theEcorePackage.getEString(), "customSourceArrow", null, 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAbstractReferenceFigure_Color(), this.getColor(), "color", "#000000", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAbstractReferenceFigure_Style(), this.getArrowStyle(), "style", "normal", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractReferenceFigure_Style(), this.getEdgeStyle(), "style", "normal", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbstractReferenceFigure_TargetEType(), theEcorePackage.getEClass(), null, "targetEType", null, 0, 1, AbstractReferenceFigure.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAbstractReferenceFigure_MinimumEdgeLength(), theEcorePackage.getEInt(), "minimumEdgeLength", "1", 0, 1, AbstractReferenceFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1167,12 +1167,12 @@ public class GraphdescPackageImpl extends EPackageImpl implements GraphdescPacka
 		addEEnumLiteral(arrowTypeEEnum, ArrowType.VEE);
 		addEEnumLiteral(arrowTypeEEnum, ArrowType.CUSTOM);
 
-		initEEnum(arrowStyleEEnum, ArrowStyle.class, "ArrowStyle");
-		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.NORMAL);
-		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.DASHED);
-		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.DOTTED);
-		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.BOLD);
-		addEEnumLiteral(arrowStyleEEnum, ArrowStyle.INVIS);
+		initEEnum(edgeStyleEEnum, EdgeStyle.class, "EdgeStyle");
+		addEEnumLiteral(edgeStyleEEnum, EdgeStyle.NORMAL);
+		addEEnumLiteral(edgeStyleEEnum, EdgeStyle.DASHED);
+		addEEnumLiteral(edgeStyleEEnum, EdgeStyle.DOTTED);
+		addEEnumLiteral(edgeStyleEEnum, EdgeStyle.BOLD);
+		addEEnumLiteral(edgeStyleEEnum, EdgeStyle.INVIS);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);

@@ -166,23 +166,23 @@
     <children xmi:type="notation:Node" xmi:id="_Lx8wj0aGEeC7fKjJBufivA" type="4010"/>
     <children xmi:type="notation:Node" xmi:id="_Lx8wkEaGEeC7fKjJBufivA" type="5008">
       <children xmi:type="notation:Node" xmi:id="_Lx8wnEaGEeC7fKjJBufivA" type="2006">
-        <element xmi:type="ecore:EEnumLiteral" href="graphdesc.ecore#//ArrowStyle/invis"/>
+        <element xmi:type="ecore:EEnumLiteral" href="graphdesc.ecore#//EdgeStyle/invis"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Lx8wnUaGEeC7fKjJBufivA"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_Lx8wlEaGEeC7fKjJBufivA" type="2006">
-        <element xmi:type="ecore:EEnumLiteral" href="graphdesc.ecore#//ArrowStyle/normal"/>
+        <element xmi:type="ecore:EEnumLiteral" href="graphdesc.ecore#//EdgeStyle/normal"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Lx8wlUaGEeC7fKjJBufivA"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_Lx8wlkaGEeC7fKjJBufivA" type="2006">
-        <element xmi:type="ecore:EEnumLiteral" href="graphdesc.ecore#//ArrowStyle/dashed"/>
+        <element xmi:type="ecore:EEnumLiteral" href="graphdesc.ecore#//EdgeStyle/dashed"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Lx8wl0aGEeC7fKjJBufivA"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_Lx8wmEaGEeC7fKjJBufivA" type="2006">
-        <element xmi:type="ecore:EEnumLiteral" href="graphdesc.ecore#//ArrowStyle/dotted"/>
+        <element xmi:type="ecore:EEnumLiteral" href="graphdesc.ecore#//EdgeStyle/dotted"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Lx8wmUaGEeC7fKjJBufivA"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_Lx8wmkaGEeC7fKjJBufivA" type="2006">
-        <element xmi:type="ecore:EEnumLiteral" href="graphdesc.ecore#//ArrowStyle/bold"/>
+        <element xmi:type="ecore:EEnumLiteral" href="graphdesc.ecore#//EdgeStyle/bold"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Lx8wm0aGEeC7fKjJBufivA"/>
       </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_Lx8wkUaGEeC7fKjJBufivA"/>
@@ -190,7 +190,7 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_Lx8wk0aGEeC7fKjJBufivA"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_Lx8wjUaGEeC7fKjJBufivA" fontColor="4210752" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
-    <element xmi:type="ecore:EEnum" href="graphdesc.ecore#//ArrowStyle"/>
+    <element xmi:type="ecore:EEnum" href="graphdesc.ecore#//EdgeStyle"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Lx8wjkaGEeC7fKjJBufivA" x="150" y="65"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_3OHvcHwFEeC39KI5f1ZxrQ" type="1001">

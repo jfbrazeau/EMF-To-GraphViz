@@ -271,7 +271,7 @@ public interface AbstractReferenceFigure extends AbstractFigure {
 	/**
 	 * Returns the value of the '<em><b>Style</b></em>' attribute.
 	 * The default value is <code>"normal"</code>.
-	 * The literals are from the enumeration {@link org.emftools.emf2gv.graphdesc.ArrowStyle}.
+	 * The literals are from the enumeration {@link org.emftools.emf2gv.graphdesc.EdgeStyle}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Style</em>' attribute isn't clear,
@@ -279,24 +279,24 @@ public interface AbstractReferenceFigure extends AbstractFigure {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Style</em>' attribute.
-	 * @see org.emftools.emf2gv.graphdesc.ArrowStyle
-	 * @see #setStyle(ArrowStyle)
+	 * @see org.emftools.emf2gv.graphdesc.EdgeStyle
+	 * @see #setStyle(EdgeStyle)
 	 * @see org.emftools.emf2gv.graphdesc.GraphdescPackage#getAbstractReferenceFigure_Style()
 	 * @model default="normal"
 	 * @generated
 	 */
-	ArrowStyle getStyle();
+	EdgeStyle getStyle();
 
 	/**
 	 * Sets the value of the '{@link org.emftools.emf2gv.graphdesc.AbstractReferenceFigure#getStyle <em>Style</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Style</em>' attribute.
-	 * @see org.emftools.emf2gv.graphdesc.ArrowStyle
+	 * @see org.emftools.emf2gv.graphdesc.EdgeStyle
 	 * @see #getStyle()
 	 * @generated
 	 */
-	void setStyle(ArrowStyle value);
+	void setStyle(EdgeStyle value);
 
 	/**
 	 * Returns the value of the '<em><b>Target EType</b></em>' reference.

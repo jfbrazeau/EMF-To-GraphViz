@@ -24,12 +24,12 @@
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowType/vee"/>
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowType/custom"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="graphdesc.ecore#//ArrowStyle">
-      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/normal"/>
-      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/dashed"/>
-      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/dotted"/>
-      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/bold"/>
-      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//ArrowStyle/invis"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="graphdesc.ecore#//EdgeStyle">
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//EdgeStyle/normal"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//EdgeStyle/dashed"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//EdgeStyle/dotted"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//EdgeStyle/bold"/>
+      <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//EdgeStyle/invis"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="graphdesc.ecore#//FontStyle">
       <genEnumLiterals ecoreEnumLiteral="graphdesc.ecore#//FontStyle/bold"/>
