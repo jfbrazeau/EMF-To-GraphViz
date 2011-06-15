@@ -73,10 +73,14 @@ public class ColorsHelper {
 	public static Color parseHtmlColor(String htmlColor) {
 		Color result = null;
 		if (htmlColor != null) {
-			htmlColor = htmlColor.substring(1);
-			int r = Integer.parseInt(htmlColor.substring(0, 2), 16);
-			int g = Integer.parseInt(htmlColor.substring(2, 4), 16);
-			int b = Integer.parseInt(htmlColor.substring(4, 6), 16);
+			htmlColor = htmlColor.trim();
+			if (htmlColor.startsWith("#")) {
+				htmlColor = htmlColor.substring(1);
+			}
+			long color = Long.parseLong(htmlColor, 16);
+			int r = (int) ((color >> 16) & 0xFF);
+			int g = (int) ((color >> 8) & 0xFF);
+			int b = (int) ( color & 0xFF);
 			result = new Color(r, g, b);
 		}
 		return result;
