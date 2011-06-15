@@ -30,9 +30,10 @@
 		<topic label="Overview" href="html/reference/ocl/overview.html" />
 		<topic label="OCL Input Dialog" href="html/reference/ocl/oclInputDialog.html" />
 		<topic label="Custom OCL Functions" href="html/reference/ocl/customOclFunctions.html" />
-		<topic label="Using Dynamic Property Overriders With...">
+		<topic label="Using Dynamic Property Overriders With..." >
 			<topic label="Colors" href="html/reference/ocl/dpoWithColors.html" />
-			<topic label="Arrow Styles" href="html/reference/ocl/dpoWithArrowStyles.html" />
+			<topic label="Edge Styles" href="html/reference/ocl/dpoWithEdgeStyles.html" />
+			<topic label="Arrow Types" href="html/reference/ocl/dpoWithArrowTypes.html" />
 			<topic label="Font Styles" href="html/reference/ocl/dpoWithFontStyles.html" />
 			<topic label="Others..." href="html/reference/ocl/dpoWithOthers.html" />
 		</topic>

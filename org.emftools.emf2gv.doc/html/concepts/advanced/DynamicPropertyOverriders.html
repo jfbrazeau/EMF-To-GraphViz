@@ -14,9 +14,9 @@
 
 <p>The pre-defined figure types (<a href="../basic/ClassFigures.html">ClassFigures</a>, <a href="../basic/AttributeFigures.html">AttributeFigures</a>, <a href="../basic/ReferenceFigures.html">ReferenceFigures</a>, <a href="RichAttributeFigures.html">RichAttributeFigures</a> and <a href="RichReferenceFigures.html">RichReferenceFigures</a>) allows to statically adjust several appearance properties like colors, font style, and so on.</p>
 
-<p>Once these properties have been defined, it is applied on every figure instance. For example, on the school sample, if the background color of the student's ClassFigure has been defined, all the students have the same color on the diagram. In some cases, on may need several apperance properties to become dynamic.</p>
+<p>Once these properties have been defined, it is applied on every figure instance. For example, on the school sample, if the background color of the student's ClassFigure has been set to green, all the students appear as green nodes on the diagram. In some cases, one may need several apperance properties to become dynamic.</p>
 
-<p>For example, in the school sample, we may want to build dynamically the body background color of the students with their age. Let's imagine we want to use gray colors indexed on the age of the student. We will have to :
+<p>For example, in the school sample, we may want to build dynamically the body background color of the students with their age. Let's imagine we want to use gray colors indexed on the age of the student. this can be done by doing the following actions :
 <ol>
 	<li>Add a <em>Dynamic Property Overrider</em> to the student's <em>ClassFigure</em></li>
 	<li>Select the <em>bodyBackgroundColor</em> in the <em>Property To Override</em> entry</li>
@@ -32,7 +32,7 @@ You should get the following result (standard diagram on the left, diagram with 
 </table>
 </p>
 
-<p>Most of the figure's appearance properties are overridable. Here is a complete list of the overridable properties :</p>
+<p>Most of the figure's appearance properties are overridable. Here is a complete list of them :</p>
 
 <table cellspacing="0" border="1">
 <tr><th>Figure type</th><th>Overridable properties</th></tr>
