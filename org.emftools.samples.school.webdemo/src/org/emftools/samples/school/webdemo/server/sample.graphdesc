@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<graphdesc:GVFigureDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:graphdesc="http://org.emftools.emf2gv.graphdesc/1.0.5" alignSameEClasses="true">
+<graphdesc:GVFigureDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:graphdesc="http://org.emftools.emf2gv.graphdesc/1.0.5">
   <ePackages href="http://org.emftools.samples.school/1.0#/"/>
-  <classFigures headerBackgroundColor="13679870" bodyBackgroundColor="15722750">
+  <classFigures headerBackgroundColor="#D0BCFE" bodyBackgroundColor="#EFE8FE">
     <eClass href="http://org.emftools.samples.school/1.0#//Classroom"/>
     <labelEAttribute href="http://org.emftools.samples.school/1.0#//Classroom/name"/>
     <attributeFigures xsi:type="graphdesc:AttributeFigure">
@@ -17,7 +17,7 @@
       <eReference href="http://org.emftools.samples.school/1.0#//Classroom/students"/>
     </referenceFigures>
   </classFigures>
-  <classFigures headerBackgroundColor="10025880" bodyBackgroundColor="14482908">
+  <classFigures bodyBackgroundColor="#DEE9FD">
     <eClass href="http://org.emftools.samples.school/1.0#//School"/>
     <labelEAttribute href="http://org.emftools.samples.school/1.0#//School/name"/>
     <attributeFigures xsi:type="graphdesc:AttributeFigure">
@@ -33,7 +33,7 @@
       <eReference href="http://org.emftools.samples.school/1.0#//School/classrooms"/>
     </referenceFigures>
   </classFigures>
-  <classFigures headerBackgroundColor="16774517" bodyBackgroundColor="16776145">
+  <classFigures headerBackgroundColor="#98FB98" bodyBackgroundColor="#DCFDDC">
     <eClass href="http://org.emftools.samples.school/1.0#//Student"/>
     <labelEAttribute href="http://org.emftools.samples.school/1.0#//Student/name"/>
     <attributeFigures xsi:type="graphdesc:AttributeFigure">

@@ -45,10 +45,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.emftools.emf2gv.graphdesc.Filter;
 import org.emftools.emf2gv.graphdesc.GVFigureDescription;
+import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.Orientation;
-import org.emftools.emf2gv.processor.core.OCLFilterExpression;
 import org.emftools.emf2gv.processor.core.StandaloneProcessor;
 import org.emftools.samples.school.SchoolPackage;
 
@@ -94,12 +95,12 @@ public class Emf2gvServlet extends HttpServlet {
 					.put(Resource.Factory.Registry.DEFAULT_EXTENSION,
 							new XMIResourceFactoryImpl());
 			Resource modelResource = rs.getResource(URI.createURI(
-					Emf2gvServlet.class.getResource("example.school")
+					Emf2gvServlet.class.getResource("sample.school")
 							.toString(), true), true);
 
 			// Load the graphical description
 			Resource graphDescResource = rs.getResource(URI.createURI(
-					Emf2gvServlet.class.getResource("example.graphdesc")
+					Emf2gvServlet.class.getResource("sample.graphdesc")
 							.toString(), true), true);
 
 			// Change the orientation and the alignment with the request
@@ -114,18 +115,18 @@ public class Emf2gvServlet extends HttpServlet {
 
 			// OCL expressions parsing (allowing to select which students and
 			// classrooms have to de drawn on the diagram)
-			OCLFilterExpression classroomExpression = new OCLFilterExpression();
-			classroomExpression.setEClass(SchoolPackage.eINSTANCE
+			Filter classroomFilter = GraphdescFactory.eINSTANCE.createFilter();
+			classroomFilter.setFilteredType(SchoolPackage.eINSTANCE
 					.getClassroom());
-			classroomExpression.setExpression(req
+			classroomFilter.setFilterExpression(req
 					.getParameter("classroomOclExpression"));
-			OCLFilterExpression studentExpression = new OCLFilterExpression();
-			studentExpression.setEClass(SchoolPackage.eINSTANCE.getStudent());
-			studentExpression.setExpression(req
+			Filter studentFilter = GraphdescFactory.eINSTANCE.createFilter();;
+			studentFilter.setFilteredType(SchoolPackage.eINSTANCE.getStudent());
+			studentFilter.setFilterExpression(req
 					.getParameter("studentOclExpression"));
-			List<OCLFilterExpression> expressions = Arrays
-					.asList(new OCLFilterExpression[] { classroomExpression,
-							studentExpression });
+			List<Filter> filters = Arrays
+					.asList(new Filter[] { classroomFilter,
+							studentFilter });
 
 			// Work dir and diagram file name build
 			File workDir = new File(System.getProperty("java.io.tmpdir")
@@ -136,15 +137,15 @@ public class Emf2gvServlet extends HttpServlet {
 					figureDescription, // Figure description
 					workDir, // Work directory
 					diagramFile.getAbsolutePath(), // diagram file
-					null, // Callback
-					null, // Icon provider
-					null, // dot command
-					true, // Add validation decorators ?
-					false, // Keep generated Graphviz source file ?
+					null, // Callback : callbak is not necessary in this context 
+					null, // Icon provider : we use the default behavior
+					null, // dot command : dot is in the system PATH
+					true, // Add validation decorators : yes
+					false, // Keep generated Graphviz source file : no
 					"UTF-8", // Graphviz source encoding
-					expressions, // Filters
-					null, // ILogger
-					null); // Progress monitor
+					filters, // Additional filters
+					null, // ILogger : no logger
+					null); // Progress monitor : no progress monitor
 
 			// Send the response
 			resp.setContentType("image/jpg");
