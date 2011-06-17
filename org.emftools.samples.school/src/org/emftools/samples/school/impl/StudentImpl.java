@@ -27,7 +27,6 @@
  */
 package org.emftools.samples.school.impl;
 
-import java.awt.Color;
 import java.util.Collection;
 import java.util.Map;
 
@@ -353,22 +352,6 @@ public class StudentImpl extends EObjectImpl implements Student {
 		result.append(age);
 		result.append(')');
 		return result.toString();
-	}
-
-	public Color getEmf2gvNodeHeaderColor() {
-		Color result = Color.gray;
-		if (getName() != null && getName().length() % 2 == 0) {
-			result = Color.red;
-		}
-		return result;
-	}
-
-	public Color getEmf2gvNodeBodyColor() {
-		Color result = Color.lightGray;
-		if (getName() != null && getName().length() % 2 == 0) {
-			result = Color.pink;
-		}
-		return result;
 	}
 
 } //StudentImpl
