@@ -1054,7 +1054,7 @@ final class GVSourceAndDependenciesBuilder {
 		out.print(", dir = both");
 		if (edgeDesc.srcLabel != null) {
 			out.print(", taillabel=<");
-			out.println("\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"0\"><TR><TD>");
+			out.print("\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"0\"><TR><TD>");
 			flushStyledText(edgeDesc.srcLabelStyle, edgeDesc.srcLabel);
 			out.print("</TD></TR></TABLE>>");
 		}
@@ -1077,7 +1077,7 @@ final class GVSourceAndDependenciesBuilder {
 		}
 		if (edgeDesc.targetLabel != null) {
 			out.print(", headlabel=<");
-			out.println("\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"0\"><TR><TD>");
+			out.print("\t\t<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"0\"><TR><TD>");
 			flushStyledText(edgeDesc.targetLabelStyle, edgeDesc.targetLabel);
 			out.print("</TD></TR></TABLE>>");
 		}
@@ -1373,6 +1373,7 @@ final class GVSourceAndDependenciesBuilder {
 		str = str.replaceAll("&", "&amp;");
 		str = str.replaceAll("<", "&lt;");
 		str = str.replaceAll(">", "&gt;");
+		str = str.replaceAll(" ", "&nbsp;");
 		return str;
 	}
 
