@@ -111,7 +111,11 @@ public class RichAttributeFigureItemProvider extends
 				if (classFigure != null) {
 					EClass eClass = classFigure.getEClass();
 					if (eClass != null) {
-						result.addAll(eClass.getEAllReferences());
+						for (EReference eReference : eClass.getEAllReferences()) {
+							if (eReference.isContainment()) {
+								result.add(eReference);
+							}
+						}
 					}
 				}
 				Collections.sort(result, ENAMED_ELEMENT_COMPARATOR);

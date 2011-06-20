@@ -34,6 +34,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -135,6 +137,14 @@ public class ReferenceFigureItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.emftools.emf2gv.graphdesc.provider.AbstractReferenceFigureItemProvider#getAvailableEReferences(org.eclipse.emf.ecore.EClass)
+	 */
+	@Override
+	protected List<EReference> getAvailableEReferences(EClass eClass) {
+		return eClass.getEAllReferences();
 	}
 
 }

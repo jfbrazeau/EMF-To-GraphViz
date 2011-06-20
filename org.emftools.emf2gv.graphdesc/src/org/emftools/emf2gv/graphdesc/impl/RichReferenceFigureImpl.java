@@ -662,9 +662,20 @@ public class RichReferenceFigureImpl extends AbstractReferenceFigureImpl impleme
 				}
 			}
 
-			// Target EReference Check
 			EReference targetEReference = getTargetEReference();
-			if (targetEReference == null) {
+			// EReference Check
+			if (!getEReference().isContainment()) {
+				constraintsHelper
+						.addError(
+								diagnostic,
+								this,
+								0,
+								"The rich reference figure is associated to an EReference ({0}) that is not a containment reference",
+								getEReference().getName());
+				valid = false;
+			}
+			// Target EReference Check
+			else if (targetEReference == null) {
 				constraintsHelper
 						.addError(diagnostic, this, 0,
 								"The rich reference figure must be associated to a target EReference");

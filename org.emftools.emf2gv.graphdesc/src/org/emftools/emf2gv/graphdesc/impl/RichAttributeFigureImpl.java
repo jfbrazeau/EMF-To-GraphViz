@@ -297,6 +297,16 @@ public class RichAttributeFigureImpl extends AbstractAttributeFigureImpl impleme
 								"The rich attribute figure must be associated to an EReference");
 				valid = false;
 			}
+			else if (!eReference.isContainment()) {
+				constraintsHelper
+						.addError(
+								diagnostic,
+								this,
+								0,
+								"The rich attribute figure is associated to an EReference ({0}) that is not a containment reference",
+								eReference.getName());
+				valid = false;
+			}
 			else {
 				EClass eClass = classFigure.getEClass();
 				if (eClass != null) {

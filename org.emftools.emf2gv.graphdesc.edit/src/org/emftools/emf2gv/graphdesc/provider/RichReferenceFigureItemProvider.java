@@ -390,4 +390,18 @@ public class RichReferenceFigureItemProvider
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.emftools.emf2gv.graphdesc.provider.AbstractReferenceFigureItemProvider#getAvailableEReferences(org.eclipse.emf.ecore.EClass)
+	 */
+	@Override
+	protected List<EReference> getAvailableEReferences(EClass eClass) {
+		// Only containment references are allowed
+		List<EReference> result = new ArrayList<EReference>();
+		for (EReference eReference : eClass.getEAllReferences()) {
+			if (eReference.isContainment()) {
+				result.add(eReference);
+			}
+		}
+		return result;
+	}
 }

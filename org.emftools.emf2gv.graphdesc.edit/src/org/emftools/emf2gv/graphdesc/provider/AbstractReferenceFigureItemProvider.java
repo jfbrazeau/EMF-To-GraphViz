@@ -61,7 +61,7 @@ import org.osgi.framework.Bundle;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AbstractReferenceFigureItemProvider
+public abstract class AbstractReferenceFigureItemProvider
 	extends AbstractFigureItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -152,7 +152,7 @@ public class AbstractReferenceFigureItemProvider
 					if (classFigure != null) {
 						EClass eClass = classFigure.getEClass();
 						if (eClass != null) {
-							result.addAll(eClass.getEAllReferences());
+							result.addAll(getAvailableEReferences(eClass));
 						}
 					}
 					Collections.sort(result, ENAMED_ELEMENT_COMPARATOR);
@@ -161,6 +161,12 @@ public class AbstractReferenceFigureItemProvider
 			});
 	}
 
+	/**
+	 * Returns the available EReferences.
+	 * @param eClass the EClass.
+	 */
+	protected abstract List<EReference> getAvailableEReferences(EClass eClass);
+	
 	/**
 	 * This adds a property descriptor for the Target Arrow Type feature.
 	 * <!-- begin-user-doc -->
