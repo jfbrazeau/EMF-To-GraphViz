@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Emf2gv UI utilities
 Bundle-SymbolicName: org.emftools.emf2gv.util.ui
-Bundle-Version: 1.0.5.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: Jean-François Brazeau
 Require-Bundle: org.eclipse.core.runtime,
  org.emftools.emf2gv.util,
