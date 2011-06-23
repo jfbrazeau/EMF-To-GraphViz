@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Emf2gv UI utilities
 Bundle-SymbolicName: org.emftools.emf2gv.util.ui
 Bundle-Version: 1.1.0.qualifier
-Bundle-Vendor: Jean-François Brazeau
+Bundle-Vendor: Jean-Francois Brazeau
 Require-Bundle: org.eclipse.core.runtime,
  org.emftools.emf2gv.util,
  org.eclipse.ocl.ecore,
